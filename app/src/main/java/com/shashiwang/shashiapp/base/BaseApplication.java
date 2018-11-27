@@ -15,5 +15,6 @@ public class BaseApplication extends Application {
                 .withApiHost("http://toppest.ink:8086/")
                 .configure();
 
+
     }
 }

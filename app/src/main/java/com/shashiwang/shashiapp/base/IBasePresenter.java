@@ -1,7 +1,13 @@
 package com.shashiwang.shashiapp.base;
 
-public interface IBasePresenter {
+import android.content.Context;
 
-    void destroy();
+public abstract class IBasePresenter {
+
+    protected IBaseView mView;
+    protected Context mContext;
+
+    public abstract void destroy();
+
 
 }

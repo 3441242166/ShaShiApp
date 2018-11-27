@@ -2,13 +2,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/main_menu_home"
-        android:icon="@drawable/gv_animation"
+        android:icon="@mipmap/ic_bottom_home"
         android:title="首页" />
     <item
         android:id="@+id/main_menu_temp"
         android:title="发布" />
     <item
         android:id="@+id/main_menu_my"
-        android:icon="@drawable/gv_databinding"
+        android:icon="@mipmap/ic_bottom_my"
         android:title="我的" />
 </menu>

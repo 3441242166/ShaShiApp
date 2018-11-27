@@ -1,5 +1,6 @@
 package com.shashiwang.shashiapp.activity;
 
+import android.graphics.Color;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -20,6 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import qiu.niorgai.StatusBarCompat;
 
 public class MainActivity extends BaseMvpActivity {
 
@@ -45,9 +47,9 @@ public class MainActivity extends BaseMvpActivity {
 
     @Override
     protected void init() {
+
         initView();
         initData();
-
     }
 
     private void initView() {
