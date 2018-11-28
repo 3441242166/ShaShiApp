@@ -2,12 +2,16 @@ package com.shashiwang.shashiapp.base;
 
 import android.content.Context;
 
-public abstract class IBasePresenter {
+public abstract class IBasePresenter<T extends IBaseView> {
 
-    protected IBaseView mView;
+    protected T mView;
     protected Context mContext;
 
-    public abstract void destroy();
+    public void destroy(){
+        if(mView != null){
+            mView = null;
+        }
+    }
 
 
 }

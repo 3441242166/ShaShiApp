@@ -35,6 +35,7 @@ public abstract class BaseMvpActivity<T extends IBasePresenter> extends AppCompa
         ActivityCollector.removeActivity(this);
         if(presenter!=null){
             presenter.destroy();
+            presenter = null;
         }
 
     }

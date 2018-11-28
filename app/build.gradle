@@ -44,7 +44,10 @@ dependencies {
     implementation ('com.github.niorgai:StatusBarCompat:2.1.4', {
         exclude group: 'com.android.support'
     })
-
+    // PopupWindow 工具类
+    implementation 'com.example.zhouwei.library:library:1.0.0'
+    // BaseAdapter
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 
     /* 视图类 */
 

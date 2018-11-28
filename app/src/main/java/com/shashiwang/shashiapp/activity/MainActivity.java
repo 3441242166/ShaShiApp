@@ -1,21 +1,28 @@
 package com.shashiwang.shashiapp.activity;
 
 import android.graphics.Color;
+import android.media.Image;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.zhouwei.library.CustomPopWindow;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BaseMvpActivity;
 import com.shashiwang.shashiapp.base.IBasePresenter;
 import com.shashiwang.shashiapp.fragment.MainFragment;
 import com.shashiwang.shashiapp.fragment.MyFragment;
+import com.shashiwang.shashiapp.presenter.MainActivityPresenter;
+import com.shashiwang.shashiapp.view.IMainActivityView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,12 +30,17 @@ import java.util.List;
 import butterknife.BindView;
 import qiu.niorgai.StatusBarCompat;
 
-public class MainActivity extends BaseMvpActivity {
+import static android.widget.RelativeLayout.ALIGN_LEFT;
+
+public class MainActivity extends BaseMvpActivity<MainActivityPresenter> implements IMainActivityView{
+    private static final String TAG = "MainActivity";
 
     @BindView(R.id.ac_main_bottom)
     BottomNavigationView navigation;
     @BindView(R.id.ac_main_viewpager)
     ViewPager viewPager;
+    @BindView(R.id.ac_main_add)
+    ImageView imageView;
 
     private MainFragment mainFragment;
     private MyFragment myFragment;
@@ -36,8 +48,8 @@ public class MainActivity extends BaseMvpActivity {
     private List<Fragment> fragmentList;
 
     @Override
-    protected IBasePresenter setPresenter() {
-        return null;
+    protected MainActivityPresenter setPresenter() {
+        return new MainActivityPresenter(this,this);
     }
 
     @Override
@@ -47,9 +59,9 @@ public class MainActivity extends BaseMvpActivity {
 
     @Override
     protected void init() {
-
         initView();
         initData();
+        initEvent();
     }
 
     private void initView() {
@@ -91,6 +103,10 @@ public class MainActivity extends BaseMvpActivity {
         viewPager.setOffscreenPageLimit(3);
     }
 
+    private void initEvent(){
+        imageView.setOnClickListener(view -> presenter.openMorePopupWindow());
+    }
+
     private long exitTime = 0;
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -107,4 +123,30 @@ public class MainActivity extends BaseMvpActivity {
         return super.onKeyDown(keyCode, event);
     }
 
+    @Override
+    public void openPopupWindow(CustomPopWindow customPopWindow) {
+        Log.i(TAG, "openPopupWindowShow" + customPopWindow.getHeight());
+        customPopWindow.showAsDropDown(imageView,0,-imageView.getHeight() - customPopWindow.getHeight());
+        //customPopWindow.showAsDropDown(imageView,0,-100);
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void dismissProgress() {
+
+    }
+
+    @Override
+    public void loadDataSuccess(Object data) {
+
+    }
+
+    @Override
+    public void errorMessage(String throwable) {
+
+    }
 }

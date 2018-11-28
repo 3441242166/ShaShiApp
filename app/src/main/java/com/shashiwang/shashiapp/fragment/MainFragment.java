@@ -2,6 +2,7 @@ package com.shashiwang.shashiapp.fragment;
 
 import android.graphics.Color;
 
+import com.example.zhouwei.library.CustomPopWindow;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.IBasePresenter;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
