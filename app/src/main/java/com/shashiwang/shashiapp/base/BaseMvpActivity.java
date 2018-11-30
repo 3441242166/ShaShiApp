@@ -17,8 +17,6 @@ public abstract class BaseMvpActivity<T extends IBasePresenter> extends AppCompa
 
     protected abstract @LayoutRes int getContentView();
 
-    protected abstract void init();
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,7 +24,7 @@ public abstract class BaseMvpActivity<T extends IBasePresenter> extends AppCompa
         ButterKnife.bind(this);
         ActivityCollector.addActivity(this);
         presenter = setPresenter();
-        init();
+
     }
 
     @Override

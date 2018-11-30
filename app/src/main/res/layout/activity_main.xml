@@ -9,9 +9,9 @@
 
 
     <android.support.design.widget.BottomNavigationView
-        android:id="@+id/ac_main_bottom"
+        android:id="@+id/bottom_main"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="@dimen/bottom_height"
         app:itemBackground="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -21,10 +21,10 @@
     </android.support.design.widget.BottomNavigationView>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/ac_main_viewpager"
+        android:id="@+id/vp_main"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/ac_main_bottom"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_main"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -32,13 +32,13 @@
     </android.support.v4.view.ViewPager>
 
     <ImageView
-        android:id="@+id/ac_main_add"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        app:layout_constraintBottom_toBottomOf="@+id/ac_main_viewpager"
+        android:id="@+id/iv_bottom_more"
+        android:layout_width="@dimen/ic_more_radius"
+        android:layout_height="@dimen/ic_more_radius"
+        app:layout_constraintBottom_toBottomOf="@+id/vp_main"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/ac_main_bottom"
-        app:layout_constraintTop_toBottomOf="@+id/ac_main_viewpager"
+        app:layout_constraintStart_toStartOf="@+id/bottom_main"
+        app:layout_constraintTop_toBottomOf="@+id/vp_main"
         app:srcCompat="@mipmap/ic_add" />
 
 

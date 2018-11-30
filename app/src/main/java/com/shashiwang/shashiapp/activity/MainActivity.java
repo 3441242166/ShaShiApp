@@ -1,24 +1,19 @@
 package com.shashiwang.shashiapp.activity;
 
-import android.graphics.Color;
-import android.media.Image;
+import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.PopupWindow;
 import android.widget.Toast;
 
-import com.example.zhouwei.library.CustomPopWindow;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BaseMvpActivity;
-import com.shashiwang.shashiapp.base.IBasePresenter;
 import com.shashiwang.shashiapp.fragment.MainFragment;
 import com.shashiwang.shashiapp.fragment.MyFragment;
 import com.shashiwang.shashiapp.presenter.MainActivityPresenter;
@@ -28,18 +23,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import qiu.niorgai.StatusBarCompat;
-
-import static android.widget.RelativeLayout.ALIGN_LEFT;
 
 public class MainActivity extends BaseMvpActivity<MainActivityPresenter> implements IMainActivityView{
     private static final String TAG = "MainActivity";
 
-    @BindView(R.id.ac_main_bottom)
+    @BindView(R.id.bottom_main)
     BottomNavigationView navigation;
-    @BindView(R.id.ac_main_viewpager)
+    @BindView(R.id.vp_main)
     ViewPager viewPager;
-    @BindView(R.id.ac_main_add)
+    @BindView(R.id.iv_bottom_more)
     ImageView imageView;
 
     private MainFragment mainFragment;
@@ -58,7 +50,12 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
     }
 
     @Override
-    protected void init() {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        init(savedInstanceState);
+    }
+
+    protected void init(Bundle savedInstanceState) {
         initView();
         initData();
         initEvent();
@@ -66,19 +63,6 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
 
     private void initView() {
         viewPager.setOverScrollMode(View.OVER_SCROLL_NEVER);
-
-        navigation.setOnNavigationItemSelectedListener(item -> {
-            invalidateOptionsMenu();
-            switch (item.getItemId()) {
-                case R.id.main_menu_home:
-                    viewPager.setCurrentItem(0);
-                    return true;
-                case R.id.main_menu_my:
-                    viewPager.setCurrentItem(1);
-                    return true;
-            }
-            return false;
-        });
     }
 
     private void initData() {
@@ -105,6 +89,19 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
 
     private void initEvent(){
         imageView.setOnClickListener(view -> presenter.openMorePopupWindow());
+
+        navigation.setOnNavigationItemSelectedListener(item -> {
+            invalidateOptionsMenu();
+            switch (item.getItemId()) {
+                case R.id.main_menu_home:
+                    viewPager.setCurrentItem(0);
+                    return true;
+                case R.id.main_menu_my:
+                    viewPager.setCurrentItem(1);
+                    return true;
+            }
+            return false;
+        });
     }
 
     private long exitTime = 0;
@@ -124,10 +121,9 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
     }
 
     @Override
-    public void openPopupWindow(CustomPopWindow customPopWindow) {
-        Log.i(TAG, "openPopupWindowShow" + customPopWindow.getHeight());
-        customPopWindow.showAsDropDown(imageView,0,-imageView.getHeight() - customPopWindow.getHeight());
-        //customPopWindow.showAsDropDown(imageView,0,-100);
+    public void openPopupWindow(PopupWindow popupWindow) {
+        popupWindow.showAtLocation(navigation, Gravity.BOTTOM, 0, 0);
+        //popupWindow.setOutsideTouchable(false);
     }
 
     @Override
@@ -148,5 +144,24 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
     @Override
     public void errorMessage(String throwable) {
 
+    }
+
+    private void showPopup(PopupWindow popupWindow) {
+        popupWindow.showAtLocation(navigation, Gravity.BOTTOM, 0, 0);
+        popupWindow.setOutsideTouchable(false);
+        //Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.turn_around_45);
+        //animation.setFillAfter(true);
+        //iv_close.startAnimation(animation);
+    }
+
+
+    private void dismissPopup(PopupWindow popupWindow) {
+        if (popupWindow.isShowing()) {
+            //Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.turn_around_45_un);
+            //animation.setFillAfter(true);
+            //iv_close.startAnimation(animation);
+            //ivMore.setVisibility(View.VISIBLE);
+            //popupWindow.dismiss();
+        }
     }
 }

@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">ShaShiAPP</string>
+    <string name="title_activity_issue">IssueActivity</string>
+    <string name="title_home">Home</string>
+    <string name="title_dashboard">Dashboard</string>
+    <string name="title_notifications">Notifications</string>
+
+    <string name="post_name">名称:</string>
+    <string name="post_price">品类价格:</string>
+    <string name="post_location">所在位置:</string>
+    <string name="post_connect">联系人:</string>
+    <string name="post_phone">联系电话:</string>
+    <string name="post_message">备注信息:</string>
+    <string name="post_choose">点击选择:</string>
+    <string name="post_send">发布</string>
+    <string name="post_hint_factory">请输入石料厂名称</string>
+
 </resources>

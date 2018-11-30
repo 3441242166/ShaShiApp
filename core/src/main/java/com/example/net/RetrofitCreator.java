@@ -28,11 +28,15 @@ public class RetrofitCreator {
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         ArrayList<Interceptor> configInterceptor = Config.getConfigurations(ConfigType.INTERCEPTOR);
 
-        for( Interceptor interceptor : interceptors){
-            builder.addInterceptor(interceptor);
+        if(interceptors != null) {
+            for (Interceptor interceptor : interceptors) {
+                builder.addInterceptor(interceptor);
+            }
         }
-        for( Interceptor interceptor : configInterceptor){
-            builder.addInterceptor(interceptor);
+        if(configInterceptor != null) {
+            for (Interceptor interceptor : configInterceptor) {
+                builder.addInterceptor(interceptor);
+            }
         }
 
         return builder.connectTimeout(TIME_OUT, TimeUnit.SECONDS)

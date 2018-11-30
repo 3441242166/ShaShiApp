@@ -15,6 +15,7 @@ import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import qiu.niorgai.StatusBarCompat;
@@ -38,7 +39,7 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
 
     @Override
     protected void init() {
-        StatusBarCompat.setStatusBarColor(getActivity(), Color.parseColor("#FFD100"));
+        StatusBarCompat.setStatusBarColor(Objects.requireNonNull(getActivity()), Color.parseColor("#FFD100"));
 
         banner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE);
         banner.setImageLoader(new ImageLoader());

@@ -8,7 +8,83 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-
     </style>
+
+    <!-- TextView  -->
+
+    <style name="style_post_pop_text">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:layout_marginTop">6dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="style_textView_normal">
+        <item name="android:layout_margin">@dimen/dp_4</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="post_title_text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/postText</item>
+    </style>
+
+    <!-- EditText  -->
+
+    <style name="editText_normal">
+        <item name="android:background">@null</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/postText</item>
+        <item name="android:gravity">top|left</item>
+    </style>
+
+    <!-- Button  -->
+
+    <style name="button_blue">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@drawable/shape_yellow_button</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <!-- ImageView  -->
+
+    <style name="style_post_pop_img">
+        <item name="android:layout_width">60dp</item>
+        <item name="android:layout_height">60dp</item>
+        <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <!-- View -->
+
+    <style name="view_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/line_height</item>
+        <item name="android:background">@color/viewLine</item>
+    </style>
+
+    <!-- Dialog -->
+
+    <style name="style_select_dialog" parent="@android:style/Theme.Holo.Dialog">
+        <!-- 是否有边框 -->
+        <item name="android:windowFrame">@null</item>
+        <!--是否在悬浮Activity之上  -->
+        <item name="android:windowIsFloating">true</item>
+        <!-- 标题 -->
+        <item name="android:windowNoTitle">true</item>
+        <!--阴影  -->
+        <item name="android:windowIsTranslucent">true</item><!--半透明-->
+        <!--背景透明-->
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <!-- 还可以加入一些弹出和退出的动画 (lan)-->
+    </style>
+
 
 </resources>

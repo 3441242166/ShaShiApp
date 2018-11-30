@@ -125,6 +125,9 @@ public class RetrofitClientBuilder {
         if(mParams == null){
             mParams = new HashMap<>();
         }
+        if(interceptors == null){
+            interceptors = new ArrayList<>();
+        }
     }
 
     public final RetrofitClient build(){

@@ -81,7 +81,7 @@ public class DownloadHandler {
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         Log.i(TAG, "onFailure: "+t);
                         if(FAILURE!=null){
-                            FAILURE.onFailure();
+                            FAILURE.onFailure(t);
                         }
                     }
                 });

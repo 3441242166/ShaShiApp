@@ -1,20 +1,38 @@
 package com.shashiwang.shashiapp.presenter;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.zhouwei.library.CustomPopWindow;
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.activity.IssueActivity;
 import com.shashiwang.shashiapp.activity.MainActivity;
+import com.shashiwang.shashiapp.activity.PostStoneFactoryActivity;
 import com.shashiwang.shashiapp.adapter.GridAdapter;
+import com.shashiwang.shashiapp.adapter.TextAdapter;
 import com.shashiwang.shashiapp.base.IBasePresenter;
+import com.shashiwang.shashiapp.contant.IssueType;
+import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
 import com.shashiwang.shashiapp.view.IMainActivityView;
 import com.shashiwang.shashiapp.view.IMainFragmentView;
 
@@ -27,6 +45,7 @@ public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
     public MainActivityPresenter(Context context, IMainActivityView view){
         this.mContext = context;
         this.mView = view;
+        initPopupWindow();
     }
 
     private static final String[] DIALOG_TITLE =
@@ -41,31 +60,62 @@ public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
 
     public void openMorePopupWindow(){
         Log.i(TAG, "openMorePopupWindow");
-        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_main, null);
-
-        RecyclerView recyclerView = view.findViewById(R.id.dialog_main_recycler);
-        recyclerView.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-
-        List<GridAdapter.GridBean> list = new ArrayList<>(DIALOG_TITLE.length);
-        for( int x=0;x<DIALOG_TITLE.length;x++){
-            list.add(new GridAdapter.GridBean(DIALOG_IMG[x],DIALOG_TITLE[x]));
-        }
-        GridAdapter adapter = new GridAdapter(list,mContext);
-        recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener((adapter1, view1, position) -> {
-            mContext.startActivity(new Intent(mContext,CLASSES[position]));
-        });
-
-
-
-        CustomPopWindow popupWindow = new CustomPopWindow.PopupWindowBuilder(mContext)
-                .setView(view)
-                .size(WindowManager.LayoutParams.MATCH_PARENT,220)
-                .setClippingEnable(true)
-                .setFocusable(true)
-                .create();
-
         mView.openPopupWindow(popupWindow);
     }
 
+
+
+    private PopupWindow popupWindow;
+
+    private void initPopupWindow() {
+        View popView = LayoutInflater.from(mContext).inflate(R.layout.pop_main_post, null);
+        popupWindow = new PopupWindow(popView, RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT, true);
+        ColorDrawable dw = new ColorDrawable(90000000);
+        popupWindow.setBackgroundDrawable(dw);
+        RelativeLayout stoneFactory =  popView.findViewById(R.id.rl_pop_stone_factory);
+        RelativeLayout mixStation = popView.findViewById(R.id.rl_pop_mix_station);
+
+        RelativeLayout sale = popView.findViewById(R.id.rl_pop_sale);
+        RelativeLayout dirver = popView.findViewById(R.id.rl_pop_dirver);
+        RelativeLayout freight = popView.findViewById(R.id.rl_pop_freight);
+
+        sale.setOnClickListener(v -> {
+            //openActivity(IssueActivity.class,IssueType.A);
+            View dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_bottom_choose, null);
+
+            TextView txTitle = dialogView.findViewById(R.id.tx_dialog_title);
+            RecyclerView rvView = dialogView.findViewById(R.id.rv_dialog_post);
+            List<TextAdapter.TextBean> textBeanList = new ArrayList<>();
+            for(int x=0;x<20;x++){
+                textBeanList.add(new TextAdapter.TextBean(0,"aaaaaa"));
+            }
+            txTitle.setText("LaLaLa");
+            rvView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL,false));
+            TextAdapter textAdapter = new TextAdapter(textBeanList,mContext);
+            rvView.setAdapter(textAdapter);
+
+            ChooseBottomDialog dialog = new ChooseBottomDialog(mContext);
+            dialog.show();
+        });
+        stoneFactory.setOnClickListener(v -> {
+            openActivity(PostStoneFactoryActivity.class,IssueType.A);
+        });
+
+        dirver.setOnClickListener(v -> {
+            openActivity(IssueActivity.class,IssueType.A);
+        });
+        freight.setOnClickListener(v -> {
+            openActivity(IssueActivity.class,IssueType.A);
+        });
+        mixStation.setOnClickListener(v -> {
+            openActivity(IssueActivity.class,IssueType.A);
+        });
+    }
+
+    private void openActivity(Class<?> pClass, IssueType type) {
+        Intent intent = new Intent(mContext, pClass);
+        intent.putExtra("",type);
+        mContext.startActivity(intent);
+        popupWindow.dismiss();
+    }
 }

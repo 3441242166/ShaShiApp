@@ -38,7 +38,6 @@ public abstract class TopBarBaseActivity<T extends IBasePresenter> extends BaseM
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_base_topbar);
-
         viewContent = findViewById(R.id.ac_base_content);
         tvTitle = findViewById(R.id.ac_base_title);
         btLeft = findViewById(R.id.ac_base_left);

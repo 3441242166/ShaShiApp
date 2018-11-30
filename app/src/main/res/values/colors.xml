@@ -3,5 +3,15 @@
     <color name="colorPrimary">#FFD100</color>
     <color name="colorPrimaryDark">#ba9900</color>
     <color name="colorAccent">#D81B60</color>
+
     <color name="colorWhite">#ffffff</color>
+    <color name="colorBlack">#000000</color>
+
+    <color name="dialogToolbar">#407add</color>
+
+    <color name="viewLine">#e1e1e1</color>
+
+    <color name="blur">#fff</color>
+
+    <color name="postText">#333333</color>
 </resources>

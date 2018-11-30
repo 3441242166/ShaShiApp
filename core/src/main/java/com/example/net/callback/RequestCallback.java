@@ -52,7 +52,7 @@ public class RequestCallback implements Callback<String>{
     public void onFailure(Call<String> call, Throwable t) {
         Log.i(TAG, "onFailure: " + t);
         if(IFAILURE != null){
-            IFAILURE.onFailure();
+            IFAILURE.onFailure(t);
         }
         if(IREQUEST != null){
             IREQUEST.onRequestFinish();
