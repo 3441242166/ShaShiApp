@@ -2,6 +2,7 @@ package com.shashiwang.shashiapp.activity;
 
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -55,7 +56,17 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         init(savedInstanceState);
     }
 
+    public static String[] data = new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.READ_PHONE_STATE,
+            android.Manifest.permission.ACCESS_WIFI_STATE,
+            android.Manifest.permission.ACCESS_NETWORK_STATE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.INTERNET,
+            android.Manifest.permission.CHANGE_WIFI_STATE,};
+
     protected void init(Bundle savedInstanceState) {
+        ActivityCompat.requestPermissions(this,data, 1);
         initView();
         initData();
         initEvent();

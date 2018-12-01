@@ -29,11 +29,19 @@ public class TextAdapter extends BaseQuickAdapter<TextAdapter.TextBean,BaseViewH
 
     public static class TextBean {
         int imgID;
-        String name;
+        public String name;
+        boolean isRightShow;
 
-        public TextBean(int imgID,String name){
+        public TextBean(String name){
+            this.imgID = 0;
+            this.name = name;
+            this.isRightShow = false;
+        }
+
+        public TextBean(int imgID,String name,boolean isRightShow){
             this.imgID = imgID;
             this.name = name;
+            this.isRightShow = isRightShow;
         }
 
     }

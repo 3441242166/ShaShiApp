@@ -4,34 +4,38 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.LoctionActivity">
+    tools:context=".activity.LocationActivity">
 
     <TextView
-        android:id="@+id/textView9"
+        android:gravity="center"
+        android:id="@+id/tv_location_search"
         android:layout_width="0dp"
-        android:layout_height="38dp"
+        android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".07"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button6"
+    <com.baidu.mapapi.map.MapView
+        app:layout_constraintHeight_percent=".43"
+        android:id="@+id/mp_location"
         android:layout_width="0dp"
-        android:layout_height="225dp"
-        android:text="Button"
+        android:layout_height="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_location_search" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_location"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".50"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button6" />
+        app:layout_constraintTop_toBottomOf="@+id/mp_location" />
 </android.support.constraint.ConstraintLayout>

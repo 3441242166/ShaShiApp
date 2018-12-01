@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="work_year">
+        <item>不限</item>
+        <item>一年</item>
+        <item>俩年</item>
+        <item>三年</item>
+        <item>五年及以上</item>
+    </string-array>
+
+    <string-array name="create_year">
+        <item>2018年</item>
+        <item>2017年</item>
+        <item>2016年</item>
+        <item>2015年</item>
+        <item>2014年</item>
+    </string-array>
+
+    <string-array name="car_type">
+        <item>无特殊要求</item>
+        <item>半挂</item>
+        <item>前四后八</item>
+        <item>单桥</item>
+    </string-array>
+</resources>

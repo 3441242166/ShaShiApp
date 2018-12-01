@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/post_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/post_title"
+        style="@style/post_title_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/post_content"
+        style="@style/post_content_text"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/post_next"
+        app:layout_constraintStart_toEndOf="@+id/post_title"
+        app:layout_constraintTop_toTopOf="@+id/post_title" />
+
+    <ImageView
+        android:id="@+id/post_next"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="@+id/post_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/post_content"
+        app:srcCompat="@drawable/icon_next" />
+</android.support.constraint.ConstraintLayout>

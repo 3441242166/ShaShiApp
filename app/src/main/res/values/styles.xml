@@ -32,18 +32,49 @@
 
     <style name="post_title_text">
         <item name="android:textSize">14sp</item>
-        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/postText</item>
+        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+    </style>
+
+    <style name="post_content_text">
+        <item name="android:textSize">14sp</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/postText</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginEnd">16dp</item>
     </style>
 
     <!-- EditText  -->
 
-    <style name="editText_normal">
+    <style name="post_edit_plus">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">80dp</item>
         <item name="android:background">@null</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/postText</item>
         <item name="android:gravity">top|left</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:inputType">text</item>
+    </style>
+
+    <style name="post_edit_normal">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/postText</item>
+        <item name="android:gravity">top|left</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:inputType">text</item>
     </style>
 
     <!-- Button  -->
@@ -60,6 +91,19 @@
         <item name="android:layout_width">60dp</item>
         <item name="android:layout_height">60dp</item>
         <item name="android:layout_centerHorizontal">true</item>
+    </style>
+
+    <style name="post_next_img">
+        <item name="android:layout_width">22dp</item>
+        <item name="android:layout_height">26dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+    </style>
+
+    <style name="post_location_img">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_width">16dp</item>
+        <item name="android:layout_height">16dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
     </style>
 
     <!-- View -->

@@ -22,8 +22,8 @@ public class GridAdapter extends BaseQuickAdapter<GridAdapter.GridBean,BaseViewH
 
     @Override
     protected void convert(BaseViewHolder helper, GridBean item) {
-        helper.setText(R.id.item_grid_text,item.name);
-        Glide.with(context).load(item.imgID).into((ImageView) helper.getView(R.id.item_grid_image));
+        helper.setText(R.id.tv_item_title,item.name);
+        Glide.with(context).load(item.imgID).into((ImageView) helper.getView(R.id.iv_item_grid));
     }
 
 

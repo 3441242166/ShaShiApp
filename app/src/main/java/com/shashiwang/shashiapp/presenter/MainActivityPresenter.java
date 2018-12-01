@@ -1,40 +1,27 @@
 package com.shashiwang.shashiapp.presenter;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.zhouwei.library.CustomPopWindow;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.IssueActivity;
+import com.shashiwang.shashiapp.activity.LocationActivity;
 import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.activity.PostStoneFactoryActivity;
-import com.shashiwang.shashiapp.adapter.GridAdapter;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
 import com.shashiwang.shashiapp.base.IBasePresenter;
 import com.shashiwang.shashiapp.contant.IssueType;
 import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
 import com.shashiwang.shashiapp.view.IMainActivityView;
-import com.shashiwang.shashiapp.view.IMainFragmentView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,10 +29,20 @@ import java.util.List;
 public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
     private static final String TAG = "MainActivityPresenter";
 
+    public static String[] data = new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.READ_PHONE_STATE,
+            android.Manifest.permission.ACCESS_WIFI_STATE,
+            android.Manifest.permission.ACCESS_NETWORK_STATE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            android.Manifest.permission.INTERNET,
+            android.Manifest.permission.CHANGE_WIFI_STATE,};
+
     public MainActivityPresenter(Context context, IMainActivityView view){
         this.mContext = context;
         this.mView = view;
         initPopupWindow();
+
     }
 
     private static final String[] DIALOG_TITLE =
@@ -87,14 +84,14 @@ public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
             RecyclerView rvView = dialogView.findViewById(R.id.rv_dialog_post);
             List<TextAdapter.TextBean> textBeanList = new ArrayList<>();
             for(int x=0;x<20;x++){
-                textBeanList.add(new TextAdapter.TextBean(0,"aaaaaa"));
+                textBeanList.add(new TextAdapter.TextBean("aaaaaa"));
             }
             txTitle.setText("LaLaLa");
             rvView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL,false));
             TextAdapter textAdapter = new TextAdapter(textBeanList,mContext);
             rvView.setAdapter(textAdapter);
 
-            ChooseBottomDialog dialog = new ChooseBottomDialog(mContext);
+            ChooseBottomDialog dialog = new ChooseBottomDialog(mContext,"title");
             dialog.show();
         });
         stoneFactory.setOnClickListener(v -> {
@@ -108,7 +105,7 @@ public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
             openActivity(IssueActivity.class,IssueType.A);
         });
         mixStation.setOnClickListener(v -> {
-            openActivity(IssueActivity.class,IssueType.A);
+            openActivity(LocationActivity.class,IssueType.A);
         });
     }
 
