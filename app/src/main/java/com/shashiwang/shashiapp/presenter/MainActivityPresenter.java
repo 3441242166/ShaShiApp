@@ -16,7 +16,11 @@ import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.IssueActivity;
 import com.shashiwang.shashiapp.activity.LocationActivity;
 import com.shashiwang.shashiapp.activity.MainActivity;
-import com.shashiwang.shashiapp.activity.PostStoneFactoryActivity;
+import com.shashiwang.shashiapp.activity.postactivity.PostCarMessageActivity;
+import com.shashiwang.shashiapp.activity.postactivity.PostCostActivity;
+import com.shashiwang.shashiapp.activity.postactivity.PostDriverActivity;
+import com.shashiwang.shashiapp.activity.postactivity.PostMaxFactoryActivity;
+import com.shashiwang.shashiapp.activity.postactivity.PostStoneFactoryActivity;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
 import com.shashiwang.shashiapp.base.IBasePresenter;
 import com.shashiwang.shashiapp.contant.IssueType;
@@ -77,35 +81,20 @@ public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
         RelativeLayout freight = popView.findViewById(R.id.rl_pop_freight);
 
         sale.setOnClickListener(v -> {
-            //openActivity(IssueActivity.class,IssueType.A);
-            View dialogView = LayoutInflater.from(mContext).inflate(R.layout.dialog_bottom_choose, null);
-
-            TextView txTitle = dialogView.findViewById(R.id.tx_dialog_title);
-            RecyclerView rvView = dialogView.findViewById(R.id.rv_dialog_post);
-            List<TextAdapter.TextBean> textBeanList = new ArrayList<>();
-            for(int x=0;x<20;x++){
-                textBeanList.add(new TextAdapter.TextBean("aaaaaa"));
-            }
-            txTitle.setText("LaLaLa");
-            rvView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL,false));
-            TextAdapter textAdapter = new TextAdapter(textBeanList,mContext);
-            rvView.setAdapter(textAdapter);
-
-            ChooseBottomDialog dialog = new ChooseBottomDialog(mContext,"title");
-            dialog.show();
+            openActivity(PostCarMessageActivity.class,IssueType.A);
         });
         stoneFactory.setOnClickListener(v -> {
             openActivity(PostStoneFactoryActivity.class,IssueType.A);
         });
 
         dirver.setOnClickListener(v -> {
-            openActivity(IssueActivity.class,IssueType.A);
+            openActivity(PostDriverActivity.class,IssueType.A);
         });
         freight.setOnClickListener(v -> {
-            openActivity(IssueActivity.class,IssueType.A);
+            openActivity(PostCostActivity.class,IssueType.A);
         });
         mixStation.setOnClickListener(v -> {
-            openActivity(LocationActivity.class,IssueType.A);
+            openActivity(PostMaxFactoryActivity.class,IssueType.A);
         });
     }
 

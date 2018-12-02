@@ -30,6 +30,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_location_search" />
 
     <android.support.v7.widget.RecyclerView
+        android:background="#ff9999"
         android:id="@+id/rv_location"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -11,24 +11,32 @@
         android:orientation="vertical">
 
         <com.shashiwang.shashiapp.myview.PostEditLayout
-            app:title="名称"
-            app:hint_content="请输入石料厂名称"
+            app:title="月薪"
+            app:hint_content="请输入月薪"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.myview.PostEditPlusLayout
-            app:title="品类价格"
-            app:hint_content="如:XXXXXXX"
+            app:title="工作描述"
+            app:hint_content="请输入工作描述"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
         <View style="@style/view_line" />
 
-        <com.shashiwang.shashiapp.myview.PostLocationLayout
-            app:title="所在位置"
-            app:hint_content="点击选择"
+        <com.shashiwang.shashiapp.myview.PostChooseLayout
+            app:title="工作年限"
+            app:hint_content="请选择"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View style="@style/view_line" />
+
+        <com.shashiwang.shashiapp.myview.PostEditLayout
+            app:title="工作地点"
+            app:hint_content="请输入工作地点"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
@@ -50,11 +58,6 @@
 
         <View style="@style/view_line" />
 
-        <com.shashiwang.shashiapp.myview.PostEditPlusLayout
-            app:title="备注信息"
-            app:hint_content="添加备注信息"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/button6"

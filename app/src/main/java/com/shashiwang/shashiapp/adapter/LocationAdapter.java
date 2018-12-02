@@ -23,7 +23,8 @@ public class LocationAdapter extends BaseQuickAdapter<LocationAdapter.PoiBean,Ba
 
     @Override
     protected void convert(BaseViewHolder helper, PoiBean item) {
-
+        helper.setText(R.id.tx_loction_title,item.info.name);
+        helper.setText(R.id.tx_loction_explain,item.info.address);
     }
 
 
@@ -35,7 +36,6 @@ public class LocationAdapter extends BaseQuickAdapter<LocationAdapter.PoiBean,Ba
             this.isSelect = false;
             this.info = info;
         }
-
     }
 
 }

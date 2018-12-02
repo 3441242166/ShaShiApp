@@ -3,6 +3,7 @@ package com.shashiwang.shashiapp.activity;
 import android.support.v7.app.AppCompatActivity;
 
 import com.baidu.location.BDLocation;
+import com.baidu.mapapi.cloud.CloudRgcResult;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -15,19 +16,25 @@ import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.adapter.LocationAdapter;
 import com.shashiwang.shashiapp.base.IBasePresenter;
 import com.shashiwang.shashiapp.base.TopBarBaseActivity;
 import com.shashiwang.shashiapp.presenter.LocationPresenter;
 import com.shashiwang.shashiapp.view.ILocationView;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.widget.TextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.security.auth.login.LoginException;
 
@@ -43,9 +50,9 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
     @BindView(R.id.rv_location)
     RecyclerView recyclerView;
 
-
     private BaiduMap map;
-    private PoiNearbySearchOption option = new PoiNearbySearchOption();
+
+    private LocationAdapter adapter;
 
     @Override
     protected LocationPresenter setPresenter() {
@@ -59,23 +66,25 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        initView();
         initConfig();
+        initEvent();
+    }
 
+    private void initView() {
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new LocationAdapter(null,this);
+        recyclerView.setAdapter(adapter);
     }
 
     private void initConfig() {
         map = mapView.getMap();
         map.setMyLocationEnabled(true);
         map.setMapType(BaiduMap.MAP_TYPE_NORMAL);
-
-        BitmapDescriptor bdA = BitmapDescriptorFactory.fromResource(R.drawable.icon_locate);
-        MyLocationConfiguration myLocationConfiguration = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.FOLLOWING, false, bdA);
-        map.setMyLocationConfiguration(myLocationConfiguration);
-
-
     }
 
     private void initEvent(){
+        //map.seton
         map.setOnMapTouchListener(motionEvent -> {
             switch (motionEvent.getAction()) {
                 case MotionEvent.ACTION_UP:
@@ -106,8 +115,16 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
     }
 
     @Override
-    public void loadDataSuccess(Object data) {
+    public void loadDataSuccess(List<PoiInfo> data) {
+        Log.i(TAG, "loadDataSuccess: ");
+        List<LocationAdapter.PoiBean> list = new ArrayList<>(10);
 
+//        for( PoiInfo info:data){
+//            list.add(new LocationAdapter.PoiBean(info));
+//        }
+
+        adapter.setNewData(list);
+        //adapter.notifyDataSetChanged();
     }
 
     @Override
@@ -120,21 +137,45 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
         Log.i(TAG, "setMapLocation: ");
         // 构造定位数据
         BitmapDescriptor icon = BitmapDescriptorFactory .fromResource(R.drawable.icon_locate);
+        LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+
+        //创建marker
+        MarkerOptions ooA = new MarkerOptions().position(latLng).icon(icon);
+
+        map.addOverlay(ooA);
 
         MyLocationData locData = new MyLocationData.Builder()
-                .accuracy(location.getRadius())
-                .direction(100).latitude(location.getLatitude())
-                .longitude(location.getLongitude()).build();
+                .accuracy(1000)
+                .direction(100)
+                .latitude(location.getLatitude())
+                .longitude(location.getLongitude())
+                .build();
 
         // 设置定位数据
         map.setMyLocationData(locData);
 
-        MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, icon);
-        map.setMyLocationConfiguration(config);
-        LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-        MapStatus.Builder builder = new MapStatus.Builder().target(latLng).zoom(18.0f);
-        
-        map.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
+//        MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, icon);
+//        map.setMyLocationConfiguration(config);
+//        MapStatus.Builder builder = new MapStatus.Builder().target(latLng).zoom(18.0f);
+//
+//        map.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
 
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
+
 }

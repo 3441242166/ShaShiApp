@@ -1,4 +1,4 @@
-package com.shashiwang.shashiapp.activity;
+package com.shashiwang.shashiapp.activity.postactivity;
 
 import android.os.Bundle;
 
@@ -23,7 +23,6 @@ public class PostStoneFactoryActivity extends TopBarBaseActivity<IssueActivityPr
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        setTopLeftButton(this::finish);
         setTitle("石料厂");
     }
 

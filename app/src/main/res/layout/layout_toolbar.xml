@@ -13,7 +13,6 @@
         android:layout_gravity="left"
         android:layout_marginStart="10dp"
         android:background="@drawable/icon_back_black"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/ac_base_title"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/ac_base_title" />

@@ -48,7 +48,7 @@ public class LocationPresenter extends IBasePresenter<ILocationView>{
 
         mLocationClient = new LocationClient(mContext);
         initLocation();
-        //initPoi();
+        initPoi();
         mLocationClient.start();
         mLocationClient.requestLocation();
     }
@@ -75,14 +75,17 @@ public class LocationPresenter extends IBasePresenter<ILocationView>{
             @Override
             public void onGetPoiResult(PoiResult poiResult) {
                 Log.i(TAG, "onGetPoiResult");
-                List<PoiAddrInfo> data = poiResult.getAllAddr();
-
+                List<PoiInfo> data = poiResult.getAllPoi();
+                //Log.i(TAG, "onGetPoiResult: data.length = "+data.size());
                 if(data != null) {
-                    for (PoiAddrInfo info : data) {
+                    for (PoiInfo info : data) {
                         Log.i(TAG, "onGetPoiResult: poi.address = " + info.address);
                         Log.i(TAG, "onGetPoiResult: poi.name = " + info.name);
                         Log.i(TAG, "onGetPoiResult: poi.location = " + info.location);
                     }
+                    mView.loadDataSuccess(data);
+                }else {
+                    Log.i(TAG, "onGetPoiResult: data  is null" );
                 }
 
             }
@@ -105,11 +108,8 @@ public class LocationPresenter extends IBasePresenter<ILocationView>{
 
     }
 
-    public void searchNear(){
-        mPoiSearch.searchInCity((new PoiCitySearchOption())
-                .city("西安")
-                .keyword("美食")
-                .pageNum(10));
+    public void searchNear(PoiNearbySearchOption option){
+        mPoiSearch.searchNearby(option);
     }
 
 
@@ -154,9 +154,20 @@ public class LocationPresenter extends IBasePresenter<ILocationView>{
             curPoint = new LatLng(curLocation.getLatitude(),location.getLongitude());
 
             mView.setMapLocation(location);
+
+            PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption()
+                    .keyword("餐厅")//检索关键字
+                    .location(curPoint)//检索位置
+                    .pageNum(0)//分页编号，默认是0页
+                    .pageCapacity(20)//设置每页容量，默认10条
+                    .radius(5000);//附近检索半径
+
+            searchNear(nearbySearchOption);
         }
 
     }
+
+
 
     @Override
     public void destroy() {

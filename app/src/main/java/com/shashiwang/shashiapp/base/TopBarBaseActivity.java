@@ -45,7 +45,7 @@ public abstract class TopBarBaseActivity<T extends IBasePresenter> extends BaseM
         //将继承 TopBarBaseActivity 的布局解析到 FrameLayout 里面
         LayoutInflater.from(TopBarBaseActivity.this).inflate(getContentView(), viewContent);
         ButterKnife.bind(viewContent);
-
+        btLeft.setOnClickListener(view -> finish());
         init(savedInstanceState);
     }
 
