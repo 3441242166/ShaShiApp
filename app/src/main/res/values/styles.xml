@@ -115,7 +115,7 @@
 
     <!-- Dialog -->
 
-    <style name="style_select_dialog" parent="@android:style/Theme.Holo.Dialog">
+    <style name="style_screen_dialog" parent="@android:style/Theme.Holo.Dialog">
         <!-- 是否有边框 -->
         <item name="android:windowFrame">@null</item>
         <!--是否在悬浮Activity之上  -->

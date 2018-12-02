@@ -1,10 +1,12 @@
 package com.shashiwang.shashiapp.activity.postactivity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.IBasePresenter;
 import com.shashiwang.shashiapp.base.TopBarBaseActivity;
+import com.shashiwang.shashiapp.constant.Constant;
 
 public class PostCarMessageActivity extends TopBarBaseActivity {
 
@@ -23,4 +25,11 @@ public class PostCarMessageActivity extends TopBarBaseActivity {
         setTitle("石料厂");
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (Constant.RESULT_SUCCESS == resultCode){
+
+        }
+    }
 }

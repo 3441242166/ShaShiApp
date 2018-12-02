@@ -1,5 +1,6 @@
 package com.shashiwang.shashiapp.activity;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 
 import com.baidu.location.BDLocation;
@@ -38,6 +39,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,9 @@ import javax.microedition.khronos.opengles.GL10;
 import javax.security.auth.login.LoginException;
 
 import butterknife.BindView;
+
+import static com.shashiwang.shashiapp.constant.Constant.RESULT_DATA;
+import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
 
 public class LocationActivity extends TopBarBaseActivity<LocationPresenter> implements ILocationView{
     private static final String TAG = "LocationActivity";
@@ -60,7 +65,9 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
     private BaiduMap map;
 
     private LocationAdapter adapter;
-    private List<PoiInfo> data;
+    private List<LocationAdapter.PoiBean> data;
+
+    private int lastSelect = -1;
 
     @Override
     protected LocationPresenter setPresenter() {
@@ -100,7 +107,14 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
 
     private void initEvent(){
         setTopRightButton(R.drawable.icon_certain, () -> {
-
+            if(lastSelect != -1){
+                Intent intent = new Intent();
+                intent.putExtra(RESULT_DATA, data.get(lastSelect).info.address);
+                setResult(RESULT_SUCCESS, intent);
+                finish();
+            }else {
+                Toast.makeText(LocationActivity.this,"请选择一个地点",Toast.LENGTH_SHORT).show();
+            }
         });
 
         map.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
@@ -152,10 +166,18 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
         });
 
         adapter.setOnItemClickListener((adapter, view, position) -> {
-            final LatLng latLng = data.get(position).location;
+            final LatLng latLng = data.get(position).info.location;
             targetPoint(latLng);
             moveTo(latLng);
+            if(lastSelect != -1){
+                data.get(lastSelect).isSelect = false;
+                data.get(position).isSelect = true;
+
+                adapter.notifyDataSetChanged();
+            }
+            lastSelect = position;
         });
+
     }
 
     private void targetPoint( LatLng latLng){
@@ -193,7 +215,7 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
             Log.i(TAG, "loadDataSuccess: info "+ info.name);
             list.add(new LocationAdapter.PoiBean(info));
         }
-        this.data = data;
+        this.data = list;
         adapter.setNewData(list);
         //adapter.notifyDataSetChanged();
     }

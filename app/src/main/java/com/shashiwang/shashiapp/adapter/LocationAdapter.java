@@ -1,8 +1,10 @@
 package com.shashiwang.shashiapp.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.bumptech.glide.Glide;
@@ -23,14 +25,20 @@ public class LocationAdapter extends BaseQuickAdapter<LocationAdapter.PoiBean,Ba
 
     @Override
     protected void convert(BaseViewHolder helper, PoiBean item) {
-        helper.setText(R.id.tx_loction_title,item.info.name);
+        TextView textView = helper.getView(R.id.tx_loction_title);
+        textView.setText(item.info.name);
         helper.setText(R.id.tx_loction_explain,item.info.address);
+
+        if(item.isSelect){
+            textView.setTextColor(Color.parseColor("#FFC100"));
+        }
+
     }
 
 
     public static class PoiBean {
-        boolean isSelect;
-        PoiInfo info;
+        public boolean isSelect;
+        public PoiInfo info;
 
         public PoiBean(PoiInfo info){
             this.isSelect = false;

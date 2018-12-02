@@ -26,7 +26,9 @@ public abstract class BaseMvpActivity<T extends IBasePresenter> extends AppCompa
         ActivityCollector.addActivity(this);
         presenter = setPresenter();
         init(savedInstanceState);
-        presenter.init();
+        if(presenter!=null){
+            presenter.init();
+        }
     }
 
     @Override

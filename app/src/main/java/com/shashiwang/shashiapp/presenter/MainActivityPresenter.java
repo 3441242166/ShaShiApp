@@ -16,6 +16,7 @@ import com.shashiwang.shashiapp.activity.postactivity.PostCarMessageActivity;
 import com.shashiwang.shashiapp.activity.postactivity.PostCostActivity;
 import com.shashiwang.shashiapp.activity.postactivity.PostDriverActivity;
 import com.shashiwang.shashiapp.activity.postactivity.PostMaxFactoryActivity;
+import com.shashiwang.shashiapp.activity.postactivity.PostStoneFactoryActivity;
 import com.shashiwang.shashiapp.base.IBasePresenter;
 import com.shashiwang.shashiapp.contant.IssueType;
 import com.shashiwang.shashiapp.view.IMainActivityView;
@@ -76,9 +77,8 @@ public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
             openActivity(PostCarMessageActivity.class,IssueType.A);
         });
         stoneFactory.setOnClickListener(v -> {
-            //openActivity(PostStoneFactoryActivity.class,IssueType.A);
-            openActivity(LocationActivity.class,IssueType.A);
-
+            openActivity(PostStoneFactoryActivity.class,IssueType.A);
+            //openActivity(LocationActivity.class,IssueType.A);
         });
 
         dirver.setOnClickListener(v -> {

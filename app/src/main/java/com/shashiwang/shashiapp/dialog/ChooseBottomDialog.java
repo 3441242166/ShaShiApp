@@ -1,36 +1,30 @@
 package com.shashiwang.shashiapp.dialog;
 
-import android.app.Dialog;
+
 import android.content.Context;
-import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.media.Image;
-import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Gravity;
-import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Adapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
+import com.shashiwang.shashiapp.base.BaseScreenDialog;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class ChooseBottomDialog extends Dialog {
+
+public class ChooseBottomDialog extends BaseScreenDialog {
+    private static final String TAG = "ChooseBottomDialog";
 
     @BindView(R.id.im_dialog_back)
     ImageView ivBack;
@@ -39,7 +33,6 @@ public class ChooseBottomDialog extends Dialog {
     @BindView(R.id.rv_dialog_post)
     RecyclerView rvView;
 
-    private Context context;
     private TextAdapter adapter;
     private String title;
     private List<TextAdapter.TextBean> list;
@@ -47,32 +40,33 @@ public class ChooseBottomDialog extends Dialog {
     private OnChooseListener onChooseListener;
 
     public ChooseBottomDialog(Context context,String title) {
-        super(context, R.style.style_select_dialog);
-        this.context = context;
+        super(context);
         this.title = title;
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.dialog_bottom_choose);//这行一定要写在前面
+    protected void init() {
         ButterKnife.bind(this);
-
         initView();
         initData();
         initEvent();
     }
 
+    @Override
+    protected int getContentView() {
+        return R.layout.dialog_bottom_choose;
+    }
+
     private void initData() {
-        String[] data = context.getResources().getStringArray(R.array.work_year);
+        String[] data = getContext().getResources().getStringArray(R.array.work_year);
+        Log.i(TAG, "initData: data.size = "+data.length);
         list = new ArrayList<>();
 
-        for(String val:data){
+        for(String val : data){
             list.add(new TextAdapter.TextBean(val));
         }
 
         adapter.setNewData(list);
-
     }
 
     private void initEvent() {
@@ -97,11 +91,9 @@ public class ChooseBottomDialog extends Dialog {
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
 
-        rvView.setLayoutManager(new LinearLayoutManager(context));
-
-        adapter = new TextAdapter(null,context);
+        rvView.setLayoutManager(new LinearLayoutManager(getContext()));
+        adapter = new TextAdapter(null,getContext());
         rvView.setAdapter(adapter);
-
     }
 
     public void setOnChooseListener(OnChooseListener onChooseListener){
