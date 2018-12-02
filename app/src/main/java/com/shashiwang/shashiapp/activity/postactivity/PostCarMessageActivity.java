@@ -14,12 +14,12 @@ public class PostCarMessageActivity extends TopBarBaseActivity {
     }
 
     @Override
-    protected int getContentView() {
+    protected int getFrameContentView() {
         return R.layout.activity_post_car_message;
     }
 
     @Override
-    protected void init(Bundle savedInstanceState) {
+    protected void initFrame(Bundle savedInstanceState) {
         setTitle("石料厂");
     }
 

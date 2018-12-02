@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends BaseMvpActivity<MainActivityPresenter> implements IMainActivityView{
     private static final String TAG = "MainActivity";
@@ -50,12 +51,6 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         return R.layout.activity_main;
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        init(savedInstanceState);
-    }
-
     public static String[] data = new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION,
             android.Manifest.permission.ACCESS_COARSE_LOCATION,
             android.Manifest.permission.READ_PHONE_STATE,
@@ -66,6 +61,7 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
             android.Manifest.permission.CHANGE_WIFI_STATE,};
 
     protected void init(Bundle savedInstanceState) {
+        ButterKnife.bind(this);
         ActivityCompat.requestPermissions(this,data, 1);
         initView();
         initData();

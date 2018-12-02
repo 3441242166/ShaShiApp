@@ -25,28 +25,28 @@ public abstract class TopBarBaseActivity<T extends IBasePresenter> extends BaseM
     private Button btLeft;
     private Button btRight;
 
-    protected abstract int getContentView();
+    protected abstract int getFrameContentView();
 
-    protected abstract void init(Bundle savedInstanceState);
-
-    public interface OnClickListener{
-        void onClick();
-    }
+    protected abstract void initFrame(Bundle savedInstanceState);
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        setContentView(R.layout.activity_base_topbar);
+    protected void init(Bundle savedInstanceState) {
         viewContent = findViewById(R.id.ac_base_content);
         tvTitle = findViewById(R.id.ac_base_title);
         btLeft = findViewById(R.id.ac_base_left);
         btRight = findViewById(R.id.ac_base_right);
         //将继承 TopBarBaseActivity 的布局解析到 FrameLayout 里面
-        LayoutInflater.from(TopBarBaseActivity.this).inflate(getContentView(), viewContent);
-        ButterKnife.bind(viewContent);
+        LayoutInflater.from(TopBarBaseActivity.this).inflate(getFrameContentView(), viewContent);
+        ButterKnife.bind(this);
+
+        initFrame(savedInstanceState);
+
         btLeft.setOnClickListener(view -> finish());
-        init(savedInstanceState);
+    }
+
+    @Override
+    protected int getContentView() {
+        return R.layout.activity_base_topbar;
     }
 
     protected void setTitle(String title){
@@ -76,4 +76,7 @@ public abstract class TopBarBaseActivity<T extends IBasePresenter> extends BaseM
         super.onDestroy();
     }
 
+    public interface OnClickListener{
+        void onClick();
+    }
 }

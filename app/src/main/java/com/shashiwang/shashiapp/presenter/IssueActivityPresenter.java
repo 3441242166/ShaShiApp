@@ -7,13 +7,19 @@ import com.shashiwang.shashiapp.view.IIssueActivityView;
 
 public class IssueActivityPresenter extends IBasePresenter<IIssueActivityView> {
 
-    public IssueActivityPresenter(Context context,IIssueActivityView view) {
-        mContext = context;
-        mView = view;
+
+    public IssueActivityPresenter(IIssueActivityView view, Context context) {
+        super(view, context);
+    }
+
+    @Override
+    protected void init() {
+
     }
 
     public void postData(){
 
     }
+
 
 }

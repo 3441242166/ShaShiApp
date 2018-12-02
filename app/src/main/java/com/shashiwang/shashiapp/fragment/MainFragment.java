@@ -29,7 +29,7 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
 
     @Override
     protected MainFragmentPresenter setPresenter() {
-        return new MainFragmentPresenter(getContext(),this);
+        return new MainFragmentPresenter(this,getContext());
     }
 
     @Override

@@ -14,13 +14,13 @@ public class PostMaxFactoryActivity extends TopBarBaseActivity {
     }
 
     @Override
-    protected int getContentView() {
+    protected int getFrameContentView() {
         return R.layout.activity_post_max_factory;
     }
 
     @Override
-    protected void init(Bundle savedInstanceState) {
+    protected void initFrame(Bundle savedInstanceState) {
 
     }
-    
+
 }

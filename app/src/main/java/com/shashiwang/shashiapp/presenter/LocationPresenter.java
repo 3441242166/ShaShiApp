@@ -39,18 +39,11 @@ public class LocationPresenter extends IBasePresenter<ILocationView>{
     private PoiSearch mPoiSearch;
     private PoiNearbySearchOption option = new PoiNearbySearchOption();
     private BDLocation curLocation;
-    private LatLng curPoint;
     private MyLocationData locData;
+    private LatLng latLng;
 
-    public LocationPresenter(Context context, ILocationView view) {
-        mContext = context;
-        mView  = view;
-
-        mLocationClient = new LocationClient(mContext);
-        initLocation();
-        initPoi();
-        mLocationClient.start();
-        mLocationClient.requestLocation();
+    public LocationPresenter(ILocationView view, Context context) {
+        super(view, context);
     }
 
     private void initLocation(){
@@ -70,13 +63,13 @@ public class LocationPresenter extends IBasePresenter<ILocationView>{
 
     private void initPoi(){
         mPoiSearch = PoiSearch.newInstance();
-        mPoiSearch.setOnGetPoiSearchResultListener(new OnGetPoiSearchResultListener() {
 
+        mPoiSearch.setOnGetPoiSearchResultListener(new OnGetPoiSearchResultListener() {
             @Override
             public void onGetPoiResult(PoiResult poiResult) {
                 Log.i(TAG, "onGetPoiResult");
+
                 List<PoiInfo> data = poiResult.getAllPoi();
-                //Log.i(TAG, "onGetPoiResult: data.length = "+data.size());
                 if(data != null) {
                     for (PoiInfo info : data) {
                         Log.i(TAG, "onGetPoiResult: poi.address = " + info.address);
@@ -109,7 +102,14 @@ public class LocationPresenter extends IBasePresenter<ILocationView>{
     }
 
     public void searchNear(PoiNearbySearchOption option){
+        Log.i(TAG, "searchNear: ");
+        option.location(latLng);
         mPoiSearch.searchNearby(option);
+    }
+
+    public void setLatLng(LatLng latLng) {
+        Log.i(TAG, "setLatLng: ");
+        this.latLng = latLng;
     }
 
 
@@ -118,62 +118,26 @@ public class LocationPresenter extends IBasePresenter<ILocationView>{
         @Override
         public void onReceiveLocation(BDLocation location){
             Log.i(TAG, "onReceiveLocation");
-
-            String addr = location.getAddrStr();    //获取详细地址信息
-            String country = location.getCountry();    //获取国家
-            String province = location.getProvince();    //获取省份
-            String city = location.getCity();    //获取城市
-            String district = location.getDistrict();    //获取区县
-            String street = location.getStreet();    //获取街道信息
-            int errorCode = location.getLocType();
-
-            double latitude = location.getLatitude();    //获取纬度信息
-            double longitude = location.getLongitude();    //获取经度信息
-
-            List<Poi> poiList = location.getPoiList();
-
-            if(!poiList.isEmpty()){
-                for(Poi poi:poiList){
-                    Log.i(TAG, "onReceiveLocation: poi = "+poi.getName());
-                }
-            }
-
-            Log.i(TAG, "onReceiveLocation: addr = "+addr);
-            Log.i(TAG, "onReceiveLocation: country = "+country);
-            Log.i(TAG, "onReceiveLocation: province = "+province);
-            Log.i(TAG, "onReceiveLocation: city = "+city);
-            Log.i(TAG, "onReceiveLocation: district = "+district);
-            Log.i(TAG, "onReceiveLocation: street = "+street);
-
-            Log.i(TAG, "onReceiveLocation: latitude = "+latitude);
-            Log.i(TAG, "onReceiveLocation: longitude = "+longitude);
-
-            Log.i(TAG, "onReceiveLocation: errorCode = "+errorCode);
-
-            curLocation = location;
-            curPoint = new LatLng(curLocation.getLatitude(),location.getLongitude());
-
+            latLng = new LatLng(location.getLatitude(),location.getLongitude());
             mView.setMapLocation(location);
-
-            PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption()
-                    .keyword("餐厅")//检索关键字
-                    .location(curPoint)//检索位置
-                    .pageNum(0)//分页编号，默认是0页
-                    .pageCapacity(20)//设置每页容量，默认10条
-                    .radius(5000);//附近检索半径
-
-            searchNear(nearbySearchOption);
         }
 
     }
 
 
+    @Override
+    public void init() {
+        mLocationClient = new LocationClient(mContext);
+        initLocation();
+        initPoi();
+        mLocationClient.start();
+        mLocationClient.requestLocation();
+    }
 
     @Override
     public void destroy() {
         mPoiSearch.destroy();
         mLocationClient.stop();
-
         super.destroy();
     }
 }

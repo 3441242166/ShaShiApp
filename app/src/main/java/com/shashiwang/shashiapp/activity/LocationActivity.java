@@ -7,6 +7,7 @@ import com.baidu.mapapi.cloud.CloudRgcResult;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
+import com.baidu.mapapi.map.MapPoi;
 import com.baidu.mapapi.map.MapStatus;
 import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
@@ -18,6 +19,7 @@ import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.adapter.LocationAdapter;
 import com.shashiwang.shashiapp.base.IBasePresenter;
@@ -28,14 +30,19 @@ import com.shashiwang.shashiapp.view.ILocationView;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.microedition.khronos.opengles.GL10;
 import javax.security.auth.login.LoginException;
 
 import butterknife.BindView;
@@ -45,14 +52,15 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
 
     @BindView(R.id.mp_location)
     MapView mapView;
-    @BindView(R.id.tv_location_search)
-    TextView tvSearch;
+    @BindView(R.id.tv_location_edit)
+    EditText tvSearch;
     @BindView(R.id.rv_location)
     RecyclerView recyclerView;
 
     private BaiduMap map;
 
     private LocationAdapter adapter;
+    private List<PoiInfo> data;
 
     @Override
     protected LocationPresenter setPresenter() {
@@ -60,18 +68,19 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
     }
 
     @Override
-    protected int getContentView() {
+    protected int getFrameContentView() {
         return R.layout.activity_loction;
     }
 
     @Override
-    protected void init(Bundle savedInstanceState) {
-        initView();
+    protected void initFrame(Bundle savedInstanceState) {
         initConfig();
+        initView();
         initEvent();
     }
 
     private void initView() {
+        setTitle("选择地点");
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new LocationAdapter(null,this);
         recyclerView.setAdapter(adapter);
@@ -79,29 +88,90 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
 
     private void initConfig() {
         map = mapView.getMap();
-        map.setMyLocationEnabled(true);
         map.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+        map.setMyLocationEnabled(true);
+
+        mapView.showZoomControls(false);// 不显示默认的缩放控件
+        mapView.showScaleControl(false);// 不显示默认比例尺控件
+
+        Log.i(TAG, "initConfig: getMapStatus  "+map.getMapStatus());
+        Log.i(TAG, "initConfig: getMapType  "+map.getMapType());
     }
 
     private void initEvent(){
-        //map.seton
-        map.setOnMapTouchListener(motionEvent -> {
-            switch (motionEvent.getAction()) {
-                case MotionEvent.ACTION_UP:
-//                    option.location(currentPt);
-//                    if (!TextUtils.isEmpty(currentSearch)) {
-//                        option.keyword(currentSearch);
-//                    } else {
-//                        option.keyword(initSearch);
-//                    }
-//                    option.pageNum(currentIndex);
-//                    option.radius(5000);
-//                    option.pageCapacity(20);
-//                    mPoiSearch.searchNearby(option);
-//                    isChange = true;
-//                    break;
+        setTopRightButton(R.drawable.icon_certain, () -> {
+
+        });
+
+        map.setOnMapClickListener(new BaiduMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+                Log.i(TAG, "onMapClick");
+                Log.i(TAG, "onMapClick latitude" + latLng.latitude);
+                Log.i(TAG, "onMapClick longitude" + latLng.longitude);
+                presenter.setLatLng(latLng);
+            }
+
+            @Override
+            public boolean onMapPoiClick(MapPoi mapPoi) {
+                Log.i(TAG, "onMapPoiClick");
+                Log.i(TAG, "onMapClick getName" + mapPoi.getName());
+                Log.i(TAG, "onMapClick getPosition" + mapPoi.getPosition());
+                return false;
             }
         });
+
+        tvSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.i(TAG, "beforeTextChanged: "+charSequence);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.i(TAG, "onTextChanged: "+charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.i(TAG, "afterTextChanged: "+editable);
+                String str = editable.toString();
+
+                if(TextUtils.isEmpty(str)){
+                    return;
+                }
+
+                PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption()
+                        .keyword(str)//检索关键字
+                        .pageNum(0)//分页编号，默认是0页
+                        .pageCapacity(20)//设置每页容量，默认10条
+                        .radius(50000);//附近检索半径
+
+                presenter.searchNear(nearbySearchOption);
+            }
+        });
+
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            final LatLng latLng = data.get(position).location;
+            targetPoint(latLng);
+            moveTo(latLng);
+        });
+    }
+
+    private void targetPoint( LatLng latLng){
+        map.clear();
+        BitmapDescriptor icon = BitmapDescriptorFactory .fromResource(R.drawable.icon_locate_tiny);
+        MarkerOptions ooA = new MarkerOptions().position(latLng).icon(icon);
+        map.addOverlay(ooA);
+    }
+
+    private void moveTo(LatLng latLng){
+        MapStatus sta = new MapStatus.Builder()
+                .target(latLng)
+                .zoom(15)
+                .build();
+        MapStatusUpdate u = MapStatusUpdateFactory.newMapStatus(sta);
+        map .animateMapStatus(u);
     }
 
     @Override
@@ -119,10 +189,11 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
         Log.i(TAG, "loadDataSuccess: ");
         List<LocationAdapter.PoiBean> list = new ArrayList<>(10);
 
-//        for( PoiInfo info:data){
-//            list.add(new LocationAdapter.PoiBean(info));
-//        }
-
+        for( PoiInfo info:data){
+            Log.i(TAG, "loadDataSuccess: info "+ info.name);
+            list.add(new LocationAdapter.PoiBean(info));
+        }
+        this.data = data;
         adapter.setNewData(list);
         //adapter.notifyDataSetChanged();
     }
@@ -136,13 +207,8 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
     public void setMapLocation(BDLocation location) {
         Log.i(TAG, "setMapLocation: ");
         // 构造定位数据
-        BitmapDescriptor icon = BitmapDescriptorFactory .fromResource(R.drawable.icon_locate);
         LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
-
-        //创建marker
-        MarkerOptions ooA = new MarkerOptions().position(latLng).icon(icon);
-
-        map.addOverlay(ooA);
+        moveTo(latLng);
 
         MyLocationData locData = new MyLocationData.Builder()
                 .accuracy(1000)
@@ -150,15 +216,7 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
                 .latitude(location.getLatitude())
                 .longitude(location.getLongitude())
                 .build();
-
-        // 设置定位数据
         map.setMyLocationData(locData);
-
-//        MyLocationConfiguration config = new MyLocationConfiguration(MyLocationConfiguration.LocationMode.NORMAL, true, icon);
-//        map.setMyLocationConfiguration(config);
-//        MapStatus.Builder builder = new MapStatus.Builder().target(latLng).zoom(18.0f);
-//
-//        map.animateMapStatus(MapStatusUpdateFactory.newMapStatus(builder.build()));
 
     }
 

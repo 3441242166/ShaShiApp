@@ -6,31 +6,57 @@
     android:layout_height="match_parent"
     tools:context=".activity.LocationActivity">
 
-    <TextView
-        android:gravity="center"
+    <LinearLayout
         android:id="@+id/tv_location_search"
+        android:background="@drawable/shape_search"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="TextView"
+        android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".07"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <Spinner
+            android:id="@+id/spinner"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:spinnerMode="dialog" />
+
+        <ImageView
+
+            android:id="@+id/ivSearch"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dip"
+            android:src="@drawable/icon_search" />
+
+        <EditText
+            android:id="@+id/tv_location_edit"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/dp_4"
+            android:layout_weight="3"
+            android:background="@null" />
+    </LinearLayout>
+
 
     <com.baidu.mapapi.map.MapView
-        app:layout_constraintHeight_percent=".43"
         android:id="@+id/mp_location"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHeight_percent=".40"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_location_search" />
 
     <android.support.v7.widget.RecyclerView
-        android:background="#ff9999"
         android:id="@+id/rv_location"
         android:layout_width="0dp"
         android:layout_height="0dp"

@@ -13,14 +13,16 @@ public class PostCostActivity extends TopBarBaseActivity {
         return null;
     }
 
+
     @Override
-    protected int getContentView() {
+    protected int getFrameContentView() {
         return R.layout.activity_post_cost;
     }
 
     @Override
-    protected void init(Bundle savedInstanceState) {
+    protected void initFrame(Bundle savedInstanceState) {
 
     }
+
 
 }

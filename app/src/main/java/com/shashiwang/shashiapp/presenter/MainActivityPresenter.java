@@ -3,32 +3,22 @@ package com.shashiwang.shashiapp.presenter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.activity.IssueActivity;
 import com.shashiwang.shashiapp.activity.LocationActivity;
 import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.activity.postactivity.PostCarMessageActivity;
 import com.shashiwang.shashiapp.activity.postactivity.PostCostActivity;
 import com.shashiwang.shashiapp.activity.postactivity.PostDriverActivity;
 import com.shashiwang.shashiapp.activity.postactivity.PostMaxFactoryActivity;
-import com.shashiwang.shashiapp.activity.postactivity.PostStoneFactoryActivity;
-import com.shashiwang.shashiapp.adapter.TextAdapter;
 import com.shashiwang.shashiapp.base.IBasePresenter;
 import com.shashiwang.shashiapp.contant.IssueType;
-import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
 import com.shashiwang.shashiapp.view.IMainActivityView;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
     private static final String TAG = "MainActivityPresenter";
@@ -43,10 +33,12 @@ public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
             android.Manifest.permission.CHANGE_WIFI_STATE,};
 
     public MainActivityPresenter(Context context, IMainActivityView view){
-        this.mContext = context;
-        this.mView = view;
-        initPopupWindow();
+        super(view,context);
+    }
 
+    @Override
+    protected void init() {
+        initPopupWindow();
     }
 
     private static final String[] DIALOG_TITLE =
@@ -84,7 +76,9 @@ public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
             openActivity(PostCarMessageActivity.class,IssueType.A);
         });
         stoneFactory.setOnClickListener(v -> {
-            openActivity(PostStoneFactoryActivity.class,IssueType.A);
+            //openActivity(PostStoneFactoryActivity.class,IssueType.A);
+            openActivity(LocationActivity.class,IssueType.A);
+
         });
 
         dirver.setOnClickListener(v -> {
@@ -104,4 +98,5 @@ public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
         mContext.startActivity(intent);
         popupWindow.dismiss();
     }
+
 }

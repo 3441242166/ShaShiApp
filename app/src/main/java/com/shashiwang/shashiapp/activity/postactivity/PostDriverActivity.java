@@ -15,13 +15,14 @@ public class PostDriverActivity extends TopBarBaseActivity {
     }
 
     @Override
-    protected int getContentView() {
+    protected int getFrameContentView() {
         return R.layout.activity_post_driver;
     }
 
     @Override
-    protected void init(Bundle savedInstanceState) {
+    protected void initFrame(Bundle savedInstanceState) {
 
     }
+
 
 }

@@ -25,9 +25,13 @@ import java.util.List;
 public class MainFragmentPresenter extends IBasePresenter<IMainFragmentView>{
 
 
-    public MainFragmentPresenter(Context context, IMainFragmentView view){
-        this.mContext = context;
-        this.mView = view;
+    public MainFragmentPresenter(IMainFragmentView view, Context context) {
+        super(view, context);
+    }
+
+    @Override
+    protected void init() {
+
     }
 
     public void getBannerData(){

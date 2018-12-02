@@ -17,12 +17,12 @@ public class PostStoneFactoryActivity extends TopBarBaseActivity<IssueActivityPr
     }
 
     @Override
-    protected int getContentView() {
+    protected int getFrameContentView() {
         return R.layout.activity_post_stone_factory;
     }
 
     @Override
-    protected void init(Bundle savedInstanceState) {
+    protected void initFrame(Bundle savedInstanceState) {
         setTitle("石料厂");
     }
 
