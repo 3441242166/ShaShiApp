@@ -1,4 +1,4 @@
-package com.shashiwang.shashiapp.myview;
+package com.shashiwang.shashiapp.customizeview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -12,7 +12,7 @@ import com.shashiwang.shashiapp.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class PostLocationLayout extends ConstraintLayout {
+public class PostChooseLayout extends ConstraintLayout {
 
     @BindView(R.id.post_title)
     TextView txTitle;
@@ -23,13 +23,13 @@ public class PostLocationLayout extends ConstraintLayout {
     String hintContent;
     String content;
 
-    public PostLocationLayout(Context context, AttributeSet attrs) {
+    public PostChooseLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        TypedArray array=context.obtainStyledAttributes(attrs, R.styleable.PostLocationLayout);
-        title = array.getString(R.styleable.PostLocationLayout_title);
-        content = array.getString(R.styleable.PostLocationLayout_item_content);
-        hintContent = array.getString(R.styleable.PostLocationLayout_hint_content);
+        TypedArray array=context.obtainStyledAttributes(attrs, R.styleable.PostChooseLayout);
+        title = array.getString(R.styleable.PostChooseLayout_title);
+        content = array.getString(R.styleable.PostChooseLayout_item_content);
+        hintContent = array.getString(R.styleable.PostChooseLayout_hint_content);
         array.recycle();
 
         initView();
@@ -37,7 +37,7 @@ public class PostLocationLayout extends ConstraintLayout {
 
     private void initView() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        inflater.inflate(R.layout.item_post_loction,this);
+        inflater.inflate(R.layout.view_post_choose,this);
         ButterKnife.bind(this);
 
         txTitle.setText(title);

@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <com.shashiwang.shashiapp.myview.PostLocationLayout
+        <com.shashiwang.shashiapp.customizeview.PostLocationLayout
             app:title="起始位置"
             app:hint_content="点击选择"
             android:layout_width="match_parent"
@@ -18,7 +18,7 @@
 
         <View style="@style/view_line" />
 
-        <com.shashiwang.shashiapp.myview.PostLocationLayout
+        <com.shashiwang.shashiapp.customizeview.PostLocationLayout
             app:title="终点位置"
             app:hint_content="点击选择"
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
 
         <View style="@style/view_line" />
 
-        <com.shashiwang.shashiapp.myview.PostEditLayout
+        <com.shashiwang.shashiapp.customizeview.PostEditLayout
             app:title="总公里"
             app:hint_content="请输入路程里程数"
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
 
         <View style="@style/view_line" />
 
-        <com.shashiwang.shashiapp.myview.PostEditLayout
+        <com.shashiwang.shashiapp.customizeview.PostEditLayout
             app:title="货物名称"
             app:hint_content="请输入货物名称"
             android:layout_width="match_parent"
@@ -42,7 +42,7 @@
 
         <View style="@style/view_line" />
 
-        <com.shashiwang.shashiapp.myview.PostEditLayout
+        <com.shashiwang.shashiapp.customizeview.PostEditLayout
             app:title="运费价格"
             app:hint_content="请输入运费价格"
             android:layout_width="match_parent"
@@ -50,7 +50,7 @@
 
         <View style="@style/view_line" />
 
-        <com.shashiwang.shashiapp.myview.PostChooseLayout
+        <com.shashiwang.shashiapp.customizeview.PostChooseLayout
             app:title="需求车辆"
             app:hint_content="请选择"
             android:layout_width="match_parent"
@@ -58,7 +58,7 @@
 
         <View style="@style/view_line" />
 
-        <com.shashiwang.shashiapp.myview.PostEditPlusLayout
+        <com.shashiwang.shashiapp.customizeview.PostEditPlusLayout
             app:title="备注信息"
             app:hint_content="添加备注信息"
             android:layout_width="match_parent"

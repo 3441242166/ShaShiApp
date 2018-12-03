@@ -31,6 +31,8 @@ public class LocationAdapter extends BaseQuickAdapter<LocationAdapter.PoiBean,Ba
 
         if(item.isSelect){
             textView.setTextColor(Color.parseColor("#FFC100"));
+        }else {
+            textView.setTextColor(Color.parseColor("#000000"));
         }
 
     }

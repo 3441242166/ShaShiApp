@@ -92,7 +92,7 @@ public class ChooseBottomDialog extends BaseScreenDialog {
         window.setAttributes(params);
 
         rvView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new TextAdapter(null,getContext());
+        adapter = new TextAdapter(null);
         rvView.setAdapter(adapter);
     }
 

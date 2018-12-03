@@ -2,6 +2,7 @@ package com.shashiwang.shashiapp.adapter;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -13,17 +14,26 @@ import java.util.List;
 
 public class TextAdapter extends BaseQuickAdapter<TextAdapter.TextBean,BaseViewHolder> {
 
-    private Context context;
 
-    public TextAdapter(@Nullable List<TextBean> data, Context context) {
+    public TextAdapter(@Nullable List<TextBean> data) {
         super(R.layout.item_text, data);
-        this.context = context;
+
     }
 
     @Override
     protected void convert(BaseViewHolder helper, TextBean item) {
         helper.setText(R.id.tx_item_contant,item.name);
-        //Glide.with(context).load(item.imgID).into((ImageView) helper.getView(R.id.item_grid_image));
+
+        if(item.imgID != -1){
+            final ImageView imageView = helper.getView(R.id.im_left);
+            imageView.setVisibility(View.VISIBLE);
+            Glide.with(mContext).load(item.imgID).into(imageView);
+        }
+
+        if(item.isRightShow){
+            final ImageView imageView = helper.getView(R.id.im_right);
+            imageView.setVisibility(View.VISIBLE);
+        }
     }
 
 
@@ -33,7 +43,7 @@ public class TextAdapter extends BaseQuickAdapter<TextAdapter.TextBean,BaseViewH
         boolean isRightShow;
 
         public TextBean(String name){
-            this.imgID = 0;
+            this.imgID = -1;
             this.name = name;
             this.isRightShow = false;
         }

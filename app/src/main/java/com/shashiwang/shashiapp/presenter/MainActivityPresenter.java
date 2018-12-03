@@ -42,16 +42,6 @@ public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
         initPopupWindow();
     }
 
-    private static final String[] DIALOG_TITLE =
-            {"留言版", "课后作业", "课堂文件",
-                    "公告", "课程信息"};
-    private static final int[] DIALOG_IMG =
-            {R.mipmap.gv_animation, R.mipmap.gv_multipleltem, R.mipmap.gv_header_and_footer,
-                    R.mipmap.gv_pulltorefresh, R.mipmap.gv_section};
-    private static final Class[] CLASSES =
-            {MainActivity.class,MainActivity.class,MainActivity.class,
-                    MainActivity.class, MainActivity.class};
-
     public void openMorePopupWindow(){
         Log.i(TAG, "openMorePopupWindow");
         mView.openPopupWindow(popupWindow);

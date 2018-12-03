@@ -1,4 +1,4 @@
-package com.shashiwang.shashiapp.myview;
+package com.shashiwang.shashiapp.customizeview;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -38,7 +38,7 @@ public class PostEditPlusLayout extends ConstraintLayout {
 
     private void initView() {
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        inflater.inflate(R.layout.item_post_editplus,this);
+        inflater.inflate(R.layout.view_post_editplus,this);
         ButterKnife.bind(this);
 
         txTitle.setText(title);

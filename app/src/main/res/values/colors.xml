@@ -14,4 +14,7 @@
     <color name="blur">#fff</color>
 
     <color name="postText">#333333</color>
+
+    <color name="greyColor">#e8e8e8</color>
+
 </resources>

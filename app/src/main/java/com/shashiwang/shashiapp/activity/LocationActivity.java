@@ -169,13 +169,13 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
             final LatLng latLng = data.get(position).info.location;
             targetPoint(latLng);
             moveTo(latLng);
+
             if(lastSelect != -1){
                 data.get(lastSelect).isSelect = false;
-                data.get(position).isSelect = true;
-
-                adapter.notifyDataSetChanged();
             }
+            data.get(position).isSelect = true;
             lastSelect = position;
+            adapter.notifyDataSetChanged();
         });
 
     }
