@@ -3,6 +3,9 @@
     <attr name="title" format="string" />
     <attr name="hint_content" format="string" />
     <attr name="item_content" format="string" />
+    <attr name="icon" format="integer" />
+    <attr name="icon_show" format="boolean" />
+    <attr name="second_title_show" format="boolean" />
 
     <declare-styleable name="PostChooseLayout">
         <attr name="title"/>
@@ -26,6 +29,18 @@
         <attr name="title"/>
         <attr name="hint_content"/>
         <attr name="item_content" />
+    </declare-styleable>
+
+    <declare-styleable name="SettingNormalLayout">
+        <attr name="title"/>
+        <attr name="second_title"/>
+        <attr name="icon" />
+        <attr name="icon_show"/>
+        <attr name="second_title_show" />
+    </declare-styleable>
+
+    <declare-styleable name="SettingSwitchLayout">
+        <attr name="title"/>
     </declare-styleable>
 
 </resources>

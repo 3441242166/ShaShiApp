@@ -1,28 +1,25 @@
-package com.shashiwang.shashiapp.activity.postactivity;
+package com.shashiwang.shashiapp.activity.post;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.IBasePresenter;
-import com.shashiwang.shashiapp.base.TopBarBaseActivity;
+import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 
-public class PostCostActivity extends TopBarBaseActivity {
+public class PostMaxFactoryTopBarActivity extends BaseTopBarActivity {
 
     @Override
     protected IBasePresenter setPresenter() {
         return null;
     }
 
-
     @Override
     protected int getFrameContentView() {
-        return R.layout.activity_post_cost;
+        return R.layout.activity_post_max_factory;
     }
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
 
     }
-
 
 }

@@ -2,6 +2,7 @@ package com.shashiwang.shashiapp.dialog;
 
 
 import android.content.Context;
+import android.support.annotation.CheckResult;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -35,13 +36,15 @@ public class ChooseBottomDialog extends BaseScreenDialog {
 
     private TextAdapter adapter;
     private String title;
+    private int dataID;
     private List<TextAdapter.TextBean> list;
 
     private OnChooseListener onChooseListener;
 
-    public ChooseBottomDialog(Context context,String title) {
+    public ChooseBottomDialog(Context context,String title,int dataID) {
         super(context);
         this.title = title;
+        this.dataID  =dataID;
     }
 
     @Override
@@ -58,7 +61,7 @@ public class ChooseBottomDialog extends BaseScreenDialog {
     }
 
     private void initData() {
-        String[] data = getContext().getResources().getStringArray(R.array.work_year);
+        String[] data = getContext().getResources().getStringArray(dataID);
         Log.i(TAG, "initData: data.size = "+data.length);
         list = new ArrayList<>();
 

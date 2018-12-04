@@ -22,7 +22,7 @@ public class WaveView extends View {
 
     private float φ;
 
-//    private OnWaveAnimationListener mWaveAnimationListener;
+    private OnWaveAnimationListener mWaveAnimationListener;
 
     public WaveView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -72,8 +72,10 @@ public class WaveView extends View {
             y2 = (float) (30 * Math.sin(ω * x + φ)+30);
             mAbovePath.lineTo(x, y);
             mBelowWavePath.lineTo(x, y2);
-            //回调 把y坐标的值传出去(在activity里面接收让小机器人随波浪一起摇摆)
-//            mWaveAnimationListener.OnWaveAnimation(y);
+
+            if(mWaveAnimationListener != null){
+                mWaveAnimationListener.OnWaveAnimation(y);
+            }
         }
         mAbovePath.lineTo(getRight(), getBottom());
         mBelowWavePath.lineTo(getRight(), getBottom());
@@ -85,9 +87,9 @@ public class WaveView extends View {
 
     }
 
-//    public void setOnWaveAnimationListener(OnWaveAnimationListener l){
-//        this.mWaveAnimationListener = l;
-//    }
+    public void setOnWaveAnimationListener(OnWaveAnimationListener l){
+        this.mWaveAnimationListener = l;
+    }
 
     public interface OnWaveAnimationListener {
         void OnWaveAnimation(float y);

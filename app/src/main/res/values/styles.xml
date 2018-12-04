@@ -113,6 +113,12 @@
         <item name="android:background">@color/viewLine</item>
     </style>
 
+    <style name="big_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">@dimen/line_big_height</item>
+        <item name="android:background">@color/viewLine</item>
+    </style>
+
     <!-- Dialog -->
 
     <style name="style_screen_dialog" parent="@android:style/Theme.Holo.Dialog">

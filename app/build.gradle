@@ -68,4 +68,6 @@ dependencies {
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
     // 波浪效果
     implementation 'com.gelitenight.waveview:waveview:1.0.0'
+    // EditText
+    implementation 'com.rengwuxian.materialedittext:library:2.1.4'
 }

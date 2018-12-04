@@ -2,7 +2,6 @@ package com.shashiwang.shashiapp.base;
 
 
 import android.os.Bundle;
-import android.support.constraint.ConstraintLayout;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,7 +17,7 @@ import butterknife.ButterKnife;
  * Created by wanhao on 2017/10/3.
  */
 
-public abstract class TopBarBaseActivity<T extends IBasePresenter> extends BaseMvpActivity<T> {
+public abstract class BaseTopBarActivity<T extends IBasePresenter> extends BaseMvpActivity<T> {
 
     private FrameLayout viewContent;
     private TextView tvTitle;
@@ -35,8 +34,8 @@ public abstract class TopBarBaseActivity<T extends IBasePresenter> extends BaseM
         tvTitle = findViewById(R.id.ac_base_title);
         btLeft = findViewById(R.id.ac_base_left);
         btRight = findViewById(R.id.ac_base_right);
-        //将继承 TopBarBaseActivity 的布局解析到 FrameLayout 里面
-        LayoutInflater.from(TopBarBaseActivity.this).inflate(getFrameContentView(), viewContent);
+        //将继承 BaseTopBarActivity 的布局解析到 FrameLayout 里面
+        LayoutInflater.from(BaseTopBarActivity.this).inflate(getFrameContentView(), viewContent);
         ButterKnife.bind(this);
 
         initFrame(savedInstanceState);

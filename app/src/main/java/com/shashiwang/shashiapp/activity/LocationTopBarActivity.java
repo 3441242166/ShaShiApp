@@ -1,10 +1,8 @@
 package com.shashiwang.shashiapp.activity;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 
 import com.baidu.location.BDLocation;
-import com.baidu.mapapi.cloud.CloudRgcResult;
 import com.baidu.mapapi.map.BaiduMap;
 import com.baidu.mapapi.map.BitmapDescriptor;
 import com.baidu.mapapi.map.BitmapDescriptorFactory;
@@ -14,17 +12,13 @@ import com.baidu.mapapi.map.MapStatusUpdate;
 import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
-import com.baidu.mapapi.map.MyLocationConfiguration;
 import com.baidu.mapapi.map.MyLocationData;
-import com.baidu.mapapi.map.OverlayOptions;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.adapter.LocationAdapter;
-import com.shashiwang.shashiapp.base.IBasePresenter;
-import com.shashiwang.shashiapp.base.TopBarBaseActivity;
+import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.presenter.LocationPresenter;
 import com.shashiwang.shashiapp.view.ILocationView;
 
@@ -35,25 +29,19 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.microedition.khronos.opengles.GL10;
-import javax.security.auth.login.LoginException;
 
 import butterknife.BindView;
 
 import static com.shashiwang.shashiapp.constant.Constant.RESULT_DATA;
 import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
 
-public class LocationActivity extends TopBarBaseActivity<LocationPresenter> implements ILocationView{
-    private static final String TAG = "LocationActivity";
+public class LocationTopBarActivity extends BaseTopBarActivity<LocationPresenter> implements ILocationView{
+    private static final String TAG = "LocationTopBarActivity";
 
     @BindView(R.id.mp_location)
     MapView mapView;
@@ -113,7 +101,7 @@ public class LocationActivity extends TopBarBaseActivity<LocationPresenter> impl
                 setResult(RESULT_SUCCESS, intent);
                 finish();
             }else {
-                Toast.makeText(LocationActivity.this,"请选择一个地点",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocationTopBarActivity.this,"请选择一个地点",Toast.LENGTH_SHORT).show();
             }
         });
 

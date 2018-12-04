@@ -1,13 +1,12 @@
-package com.shashiwang.shashiapp.activity.postactivity;
+package com.shashiwang.shashiapp.activity.post;
 
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.IBasePresenter;
-import com.shashiwang.shashiapp.base.TopBarBaseActivity;
+import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class PostDriverActivity extends TopBarBaseActivity {
+public class PostDriverTopBarActivity extends BaseTopBarActivity {
 
     @Override
     protected IBasePresenter setPresenter() {
