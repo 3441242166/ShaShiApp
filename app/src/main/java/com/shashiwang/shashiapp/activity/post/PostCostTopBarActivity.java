@@ -2,13 +2,13 @@ package com.shashiwang.shashiapp.activity.post;
 
 import android.os.Bundle;
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.base.IBasePresenter;
+import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 
 public class PostCostTopBarActivity extends BaseTopBarActivity {
 
     @Override
-    protected IBasePresenter setPresenter() {
+    protected BasePresenter setPresenter() {
         return null;
     }
 

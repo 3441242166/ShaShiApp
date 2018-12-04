@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,10 +36,10 @@ public class SettingNormalLayout extends ConstraintLayout {
         TypedArray array=context.obtainStyledAttributes(attrs, R.styleable.SettingNormalLayout);
         title = array.getString(R.styleable.SettingNormalLayout_title);
         secondTitle = array.getString(R.styleable.SettingNormalLayout_second_title);
-        icon = array.getInt(R.styleable.SettingNormalLayout_icon,-1);
+        icon = array.getInt(R.styleable.SettingNormalLayout_left_icon,-1);
 
-        isSecondTitleShow = array.getBoolean(R.styleable.SettingNormalLayout_second_title_show,false);
-        isIconShow = array.getBoolean(R.styleable.SettingNormalLayout_icon_show,false);
+        isSecondTitleShow = array.getBoolean(R.styleable.SettingNormalLayout_second_title_show,true);
+        isIconShow = array.getBoolean(R.styleable.SettingNormalLayout_icon_show,true);
 
         array.recycle();
 
@@ -53,12 +54,14 @@ public class SettingNormalLayout extends ConstraintLayout {
         txTitle.setText(title);
 
         if(isSecondTitleShow){
+            tvSecond.setVisibility(View.VISIBLE);
             tvSecond.setText(secondTitle);
         }else {
             tvSecond.setVisibility(View.GONE);
         }
 
         if(isIconShow) {
+            tvSecond.setVisibility(View.VISIBLE);
             if (icon != -1) {
                 ivIcon.setImageDrawable(getContext().getResources().getDrawable(icon, null));
             }

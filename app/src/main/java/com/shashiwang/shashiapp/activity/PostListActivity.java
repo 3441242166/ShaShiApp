@@ -1,12 +1,11 @@
 package com.shashiwang.shashiapp.activity;
 
+import android.os.Bundle;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.base.BasePresenter;
 
-import android.os.Bundle;
-
-public class SettingActivity extends BaseTopBarActivity {
+public class PostListActivity extends BaseTopBarActivity {
 
     @Override
     protected BasePresenter setPresenter() {
@@ -15,7 +14,7 @@ public class SettingActivity extends BaseTopBarActivity {
 
     @Override
     protected int getFrameContentView() {
-        return R.layout.activity_setting;
+        return R.layout.activity_post_list;
     }
 
     @Override

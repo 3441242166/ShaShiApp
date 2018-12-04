@@ -17,7 +17,7 @@ import butterknife.ButterKnife;
  * Created by wanhao on 2017/10/3.
  */
 
-public abstract class BaseTopBarActivity<T extends IBasePresenter> extends BaseMvpActivity<T> {
+public abstract class BaseTopBarActivity<T extends BasePresenter> extends BaseMvpActivity<T> {
 
     private FrameLayout viewContent;
     private TextView tvTitle;

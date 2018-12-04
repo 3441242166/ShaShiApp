@@ -1,37 +1,28 @@
 package com.shashiwang.shashiapp.presenter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.View;
 
 import com.baidu.location.BDAbstractLocationListener;
 import com.baidu.location.BDLocation;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
-import com.baidu.location.Poi;
-import com.baidu.mapapi.map.MapStatusUpdate;
-import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
-import com.baidu.mapapi.search.poi.PoiAddrInfo;
-import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiDetailSearchResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
-import com.example.ui.dialog.Loader;
-import com.shashiwang.shashiapp.base.IBasePresenter;
+import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.view.ILocationView;
 
 import java.util.List;
 
-public class LocationPresenter extends IBasePresenter<ILocationView>{
+public class LocationPresenter extends BasePresenter<ILocationView> {
     private static final String TAG = "LocationPresenter";
 
     private LocationClient mLocationClient;

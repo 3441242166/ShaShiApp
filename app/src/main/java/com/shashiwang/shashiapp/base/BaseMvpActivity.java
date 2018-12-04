@@ -3,13 +3,13 @@ package com.shashiwang.shashiapp.base;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.shashiwang.shashiapp.util.ActivityCollector;
 
-import butterknife.ButterKnife;
 
-
-public abstract class BaseMvpActivity<T extends IBasePresenter> extends AppCompatActivity {
+public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompatActivity {
+    private static final String TAG = "BaseMvpActivity";
 
     public T presenter;
 
@@ -26,7 +26,9 @@ public abstract class BaseMvpActivity<T extends IBasePresenter> extends AppCompa
         ActivityCollector.addActivity(this);
         presenter = setPresenter();
         init(savedInstanceState);
-        if(presenter!=null){
+
+        if(presenter != null){
+            Log.i(TAG, "presenter.init");
             presenter.init();
         }
     }

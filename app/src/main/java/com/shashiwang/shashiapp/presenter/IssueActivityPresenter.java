@@ -2,10 +2,10 @@ package com.shashiwang.shashiapp.presenter;
 
 import android.content.Context;
 
-import com.shashiwang.shashiapp.base.IBasePresenter;
+import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.view.IIssueActivityView;
 
-public class IssueActivityPresenter extends IBasePresenter<IIssueActivityView> {
+public class IssueActivityPresenter extends BasePresenter<IIssueActivityView> {
 
 
     public IssueActivityPresenter(IIssueActivityView view, Context context) {

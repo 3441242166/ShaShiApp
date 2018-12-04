@@ -1,28 +1,15 @@
 package com.shashiwang.shashiapp.presenter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.PopupWindow;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.zhouwei.library.CustomPopWindow;
-import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.activity.MainActivity;
-import com.shashiwang.shashiapp.adapter.GridAdapter;
-import com.shashiwang.shashiapp.base.IBasePresenter;
+import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.bean.BannerBean;
-import com.shashiwang.shashiapp.fragment.MainFragment;
 import com.shashiwang.shashiapp.view.IMainFragmentView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainFragmentPresenter extends IBasePresenter<IMainFragmentView>{
+public class MainFragmentPresenter extends BasePresenter<IMainFragmentView> {
 
 
     public MainFragmentPresenter(IMainFragmentView view, Context context) {

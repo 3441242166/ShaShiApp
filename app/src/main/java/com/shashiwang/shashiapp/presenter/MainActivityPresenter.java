@@ -15,11 +15,11 @@ import com.shashiwang.shashiapp.activity.post.PostCostTopBarActivity;
 import com.shashiwang.shashiapp.activity.post.PostDriverTopBarActivity;
 import com.shashiwang.shashiapp.activity.post.PostMaxFactoryTopBarActivity;
 import com.shashiwang.shashiapp.activity.post.PostStoneFactoryTopBarActivity;
-import com.shashiwang.shashiapp.base.IBasePresenter;
+import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.contant.IssueType;
 import com.shashiwang.shashiapp.view.IMainActivityView;
 
-public class MainActivityPresenter extends IBasePresenter<IMainActivityView>{
+public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
     private static final String TAG = "MainActivityPresenter";
 
     public static String[] data = new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION,

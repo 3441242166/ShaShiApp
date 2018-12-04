@@ -3,14 +3,14 @@ package com.shashiwang.shashiapp.activity.post;
 import android.content.Intent;
 import android.os.Bundle;
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.base.IBasePresenter;
+import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.constant.Constant;
 
 public class PostCarMessageTopBarActivity extends BaseTopBarActivity {
 
     @Override
-    protected IBasePresenter setPresenter() {
+    protected BasePresenter setPresenter() {
         return null;
     }
 

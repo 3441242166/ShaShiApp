@@ -70,4 +70,6 @@ dependencies {
     implementation 'com.gelitenight.waveview:waveview:1.0.0'
     // EditText
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    // 圆形imageview
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }

@@ -9,7 +9,7 @@ import com.shashiwang.shashiapp.R;
 
 import butterknife.ButterKnife;
 
-public abstract class BaseLoginActivity<T extends IBasePresenter> extends BaseMvpActivity<T> {
+public abstract class BaseLoginActivity<T extends BasePresenter> extends BaseMvpActivity<T> {
 
     private FrameLayout viewContent;
     private ImageView ivBack;

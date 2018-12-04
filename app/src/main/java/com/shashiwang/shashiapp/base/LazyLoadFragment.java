@@ -3,7 +3,6 @@ package com.shashiwang.shashiapp.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +13,9 @@ import butterknife.Unbinder;
 /**
  * 懒加载的Fragment
  */
-public abstract class LazyLoadFragment<T extends IBasePresenter> extends Fragment {
-    /**
-     * 视图是否已经初初始化
-     */
-    protected boolean isInit = false;
-    protected boolean isLoad = false;
+public abstract class LazyLoadFragment<T extends BasePresenter> extends Fragment {
     protected final String TAG = "LazyLoadFragment";
+
     private View view;
     private Unbinder mUnbinder;
 
@@ -37,19 +32,17 @@ public abstract class LazyLoadFragment<T extends IBasePresenter> extends Fragmen
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(setContentView(), container, false);
         mUnbinder = ButterKnife.bind(this, view);
-        presenter = setPresenter();
-        isInit = true;
-        /**初始化的时候去加载数据**/
         init();
+        if(presenter!= null){
+            presenter.init();
+        }
         return view;
     }
 
-    protected View getContentView() {
-        return view;
-    }
-
-    protected <T extends View>  T findViewById(int id) {
-        return getContentView().findViewById(id);
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        presenter = setPresenter();
     }
 
     @Override
@@ -58,6 +51,7 @@ public abstract class LazyLoadFragment<T extends IBasePresenter> extends Fragmen
         mUnbinder.unbind();
         if(presenter!=null){
             presenter.destroy();
+            presenter = null;
         }
     }
 

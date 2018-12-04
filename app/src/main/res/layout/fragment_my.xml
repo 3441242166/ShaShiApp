@@ -6,7 +6,6 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:background="@color/greyColor"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
@@ -24,7 +23,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
             
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/iv_head"
                 android:layout_width="80dp"
                 android:layout_height="80dp"
@@ -36,7 +35,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@mipmap/ic_launcher_round" />
+                android:src="@mipmap/ic_launcher_round" />
 
             <TextView
                 android:id="@+id/tv_name"
@@ -55,11 +54,12 @@
             <Button
                 android:id="@+id/bt_login"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="25dp"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="8dp"
-                android:background="@drawable/shape_yellow_button"
-                android:visibility="gone"
+                android:background="@drawable/shape_login_button"
+                android:text="立即登陆"
+                android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/iv_head"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -79,11 +79,13 @@
 
         </android.support.constraint.ConstraintLayout>
 
+        <View
+            style="@style/big_line"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_list"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp" />
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>
