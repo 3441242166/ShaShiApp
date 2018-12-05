@@ -56,9 +56,7 @@
         <activity android:name=".activity.login.LoginActivity" />
         <activity android:name=".activity.login.RegisterActivity" />
         <activity android:name=".activity.FeedbackActivity" />
-        <activity android:name=".activity.ContactActivity" />
         <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.SettingBroadcastActivity" />
         <activity android:name=".activity.PostListActivity"></activity>
     </application>
 

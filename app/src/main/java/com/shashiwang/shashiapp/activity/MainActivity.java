@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BaseMvpActivity;
+import com.shashiwang.shashiapp.customizeview.NoScrollViewPager;
 import com.shashiwang.shashiapp.fragment.MainFragment;
 import com.shashiwang.shashiapp.fragment.MyFragment;
 import com.shashiwang.shashiapp.presenter.MainActivityPresenter;
@@ -32,7 +33,7 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
     @BindView(R.id.bottom_main)
     BottomNavigationView navigation;
     @BindView(R.id.vp_main)
-    ViewPager viewPager;
+    NoScrollViewPager viewPager;
     @BindView(R.id.iv_bottom_more)
     ImageView imageView;
 
@@ -92,6 +93,7 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         };
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
+        viewPager.setNoScroll(true);
     }
 
     private void initEvent(){

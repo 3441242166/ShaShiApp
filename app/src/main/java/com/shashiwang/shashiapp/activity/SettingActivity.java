@@ -6,6 +6,8 @@ import com.shashiwang.shashiapp.base.BasePresenter;
 
 import android.os.Bundle;
 
+import static androidx.navigation.Navigation.findNavController;
+
 public class SettingActivity extends BaseTopBarActivity {
 
     @Override
@@ -21,5 +23,10 @@ public class SettingActivity extends BaseTopBarActivity {
     @Override
     protected void initFrame(Bundle savedInstanceState) {
 
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        return findNavController(this, R.id.setting_fragment).navigateUp();
     }
 }
