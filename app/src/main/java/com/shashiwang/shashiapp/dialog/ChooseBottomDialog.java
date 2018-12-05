@@ -7,9 +7,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.shashiwang.shashiapp.R;
@@ -32,12 +36,10 @@ public class ChooseBottomDialog extends BaseScreenDialog {
     @BindView(R.id.tx_dialog_title)
     TextView tvTitle;
     @BindView(R.id.rv_dialog_post)
-    RecyclerView rvView;
+    ListView rvView;
 
-    private TextAdapter adapter;
     private String title;
     private int dataID;
-    private List<TextAdapter.TextBean> list;
 
     private OnChooseListener onChooseListener;
 
@@ -51,7 +53,6 @@ public class ChooseBottomDialog extends BaseScreenDialog {
     protected void init() {
         ButterKnife.bind(this);
         initView();
-        initData();
         initEvent();
     }
 
@@ -60,23 +61,11 @@ public class ChooseBottomDialog extends BaseScreenDialog {
         return R.layout.dialog_bottom_choose;
     }
 
-    private void initData() {
-        String[] data = getContext().getResources().getStringArray(dataID);
-        Log.i(TAG, "initData: data.size = "+data.length);
-        list = new ArrayList<>();
-
-        for(String val : data){
-            list.add(new TextAdapter.TextBean(val));
-        }
-
-        adapter.setNewData(list);
-    }
-
     private void initEvent() {
 
-        adapter.setOnItemClickListener((adapter, view, position) -> {
+        rvView.setOnItemClickListener((adapterView, view, i, l) -> {
             if(onChooseListener != null){
-                onChooseListener.onChoose(list.get(position).name);
+                onChooseListener.onChoose("");
             }
         });
 
@@ -94,9 +83,10 @@ public class ChooseBottomDialog extends BaseScreenDialog {
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
 
-        rvView.setLayoutManager(new LinearLayoutManager(getContext()));
-        adapter = new TextAdapter(null);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),dataID);
         rvView.setAdapter(adapter);
+
+
     }
 
     public void setOnChooseListener(OnChooseListener onChooseListener){

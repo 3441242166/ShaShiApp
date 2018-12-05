@@ -3,20 +3,18 @@ package com.shashiwang.shashiapp.fragment;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.util.SharedPreferencesHelper;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.FeedbackActivity;
 import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.activity.PostListActivity;
 import com.shashiwang.shashiapp.activity.SettingActivity;
-import com.shashiwang.shashiapp.activity.login.LoginActivity;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
+import com.shashiwang.shashiapp.activity.LoginActivity;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
 import com.shashiwang.shashiapp.presenter.MyFragmentPresenter;
 import com.shashiwang.shashiapp.util.DividerItemDecoration;
@@ -26,8 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-
-import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 
 public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements IMyFragmentView{
 

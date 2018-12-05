@@ -59,9 +59,10 @@ dependencies {
     // 推送
 
     // fragment
-    def nav_version = '1.0.0-alpha01'
-    implementation "android.arch.navigation:navigation-fragment:$nav_version"
-    implementation "android.arch.navigation:navigation-ui:$nav_version"
+    implementation "android.arch.navigation:navigation-fragment:1.0.0-alpha07"
+    implementation "android.arch.navigation:navigation-ui:1.0.0-alpha07"
+    // 屏幕适配
+    implementation 'me.jessyan:autosize:1.1.0'
 
     /* *************************************视图类*********************************************** */
     // 底部导航栏

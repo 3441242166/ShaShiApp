@@ -1,4 +1,4 @@
-package com.shashiwang.shashiapp.contant;
+package com.shashiwang.shashiapp.constant;
 
 public enum IssueType {
     A,

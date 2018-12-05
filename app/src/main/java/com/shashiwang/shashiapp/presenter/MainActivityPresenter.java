@@ -16,7 +16,7 @@ import com.shashiwang.shashiapp.activity.post.PostDriverTopBarActivity;
 import com.shashiwang.shashiapp.activity.post.PostMaxFactoryTopBarActivity;
 import com.shashiwang.shashiapp.activity.post.PostStoneFactoryTopBarActivity;
 import com.shashiwang.shashiapp.base.BasePresenter;
-import com.shashiwang.shashiapp.contant.IssueType;
+import com.shashiwang.shashiapp.constant.IssueType;
 import com.shashiwang.shashiapp.view.IMainActivityView;
 
 public class MainActivityPresenter extends BasePresenter<IMainActivityView> {

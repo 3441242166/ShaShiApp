@@ -59,8 +59,6 @@
         <Button
             android:id="@+id/button6"
             style="@style/button_blue"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_margin="@dimen/dp_40"
             android:text="发布" />
 

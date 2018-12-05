@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/colorPrimary"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="48dp"
+    android:background="@color/colorPrimary">
 
 
     <Button
         android:id="@+id/ac_base_left"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
         android:layout_gravity="left"
         android:layout_marginStart="10dp"
         android:background="@drawable/icon_back_black"
@@ -34,10 +34,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginBottom="12dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
         android:maxEms="8"
         android:maxLines="1"
         android:textSize="18sp"
