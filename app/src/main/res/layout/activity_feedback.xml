@@ -17,13 +17,19 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
+        android:lines="4"
+        android:inputType="textMultiLine"
         android:id="@+id/editText"
         android:layout_width="0dp"
         android:layout_height="155dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
+        android:background="@null"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:gravity="start"
+        android:hint="感谢您使用沙石料厂，请写下您的宝贵意见，我们会及时与您取得联系！"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView19"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />

@@ -35,7 +35,8 @@
         <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textColor">@color/postText</item>
-        <item name="android:layout_marginTop">20dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
         <item name="android:layout_marginStart">16dp</item>
     </style>
 
@@ -53,27 +54,26 @@
 
     <style name="post_edit_plus">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">80dp</item>
+        <item name="android:layout_height">0dp</item>
         <item name="android:background">@null</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/postText</item>
         <item name="android:gravity">top|left</item>
         <item name="android:layout_marginEnd">8dp</item>
-        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_marginStart">@dimen/post_left</item>
+        <item name="android:inputType">textMultiLine</item>
         <item name="android:layout_marginBottom">16dp</item>
-        <item name="android:inputType">text</item>
     </style>
 
     <style name="post_edit_normal">
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">0dp</item>
         <item name="android:background">@null</item>
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/postText</item>
         <item name="android:gravity">top|left</item>
         <item name="android:layout_marginEnd">8dp</item>
-        <item name="android:layout_marginStart">16dp</item>
-        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:layout_marginStart">@dimen/post_left</item>
     </style>
 
     <!-- Button  -->

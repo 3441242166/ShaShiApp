@@ -7,6 +7,8 @@
     <dimen name="line_height">1dp</dimen>
     <dimen name="line_big_height">10dp</dimen>
 
+    <dimen name="post_left">16dp</dimen>
+
     <dimen name="post_item_height">50dp</dimen>
     <dimen name="post_item_large_height">100dp</dimen>
 

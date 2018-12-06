@@ -14,7 +14,7 @@
         <com.shashiwang.shashiapp.customizeview.SettingNormalLayout
             android:id="@+id/item_about"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/post_item_height"
             app:title="关于我们" />
 
         <View style="@style/view_line" />
@@ -24,7 +24,7 @@
             app:second_title_show="true"
             app:second_title="v 1.0"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="@dimen/post_item_height" />
 
         <View style="@style/view_line" />
 
@@ -34,7 +34,7 @@
             app:second_title_show="true"
             app:second_title="0.0B"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="@dimen/post_item_height" />
 
         <View style="@style/view_line" />
 
@@ -44,14 +44,14 @@
             app:second_title_show="true"
             app:second_title="QQ: 3441242166"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="@dimen/post_item_height" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.SettingNormalLayout
             android:id="@+id/item_broadcast"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/post_item_height"
             app:title="设置播报内容" />
 
         <View style="@style/view_line" />

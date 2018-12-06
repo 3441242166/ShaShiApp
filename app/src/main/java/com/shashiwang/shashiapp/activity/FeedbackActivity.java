@@ -3,12 +3,23 @@ package com.shashiwang.shashiapp.activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.base.BasePresenter;
+import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 
-public class FeedbackActivity extends AppCompatActivity {
+public class FeedbackActivity extends BaseTopBarActivity {
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_feedback);
+    protected BasePresenter setPresenter() {
+        return null;
+    }
+
+    @Override
+    protected int getFrameContentView() {
+        return R.layout.activity_feedback;
+    }
+
+    @Override
+    protected void initFrame(Bundle savedInstanceState) {
+        setTitle("意见反馈");
     }
 }
