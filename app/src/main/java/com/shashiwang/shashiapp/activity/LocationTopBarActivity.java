@@ -97,7 +97,7 @@ public class LocationTopBarActivity extends BaseTopBarActivity<LocationPresenter
         setTopRightButton(R.drawable.icon_certain, () -> {
             if(lastSelect != -1){
                 Intent intent = new Intent();
-                intent.putExtra(RESULT_DATA, data.get(lastSelect).info.address);
+                intent.putExtra(RESULT_DATA, data.get(lastSelect).info.name);
                 setResult(RESULT_SUCCESS, intent);
                 finish();
             }else {
@@ -112,6 +112,7 @@ public class LocationTopBarActivity extends BaseTopBarActivity<LocationPresenter
                 Log.i(TAG, "onMapClick latitude" + latLng.latitude);
                 Log.i(TAG, "onMapClick longitude" + latLng.longitude);
                 presenter.setLatLng(latLng);
+                targetPoint(latLng);
             }
 
             @Override
@@ -205,7 +206,6 @@ public class LocationTopBarActivity extends BaseTopBarActivity<LocationPresenter
         }
         this.data = list;
         adapter.setNewData(list);
-        //adapter.notifyDataSetChanged();
     }
 
     @Override

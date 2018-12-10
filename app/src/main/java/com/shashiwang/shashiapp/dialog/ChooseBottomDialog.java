@@ -39,14 +39,14 @@ public class ChooseBottomDialog extends BaseScreenDialog {
     ListView rvView;
 
     private String title;
-    private int dataID;
+    private String[] data;
 
     private OnChooseListener onChooseListener;
 
     public ChooseBottomDialog(Context context,String title,int dataID) {
         super(context);
         this.title = title;
-        this.dataID  =dataID;
+        data  =  context.getResources().getStringArray(dataID);
     }
 
     @Override
@@ -66,9 +66,11 @@ public class ChooseBottomDialog extends BaseScreenDialog {
         rvView.setOnItemClickListener((adapterView, view, i, l) -> {
             if(onChooseListener != null){
                 onChooseListener.onChoose("");
+                ChooseBottomDialog.this.cancel();
             }
         });
 
+        ivBack.setOnClickListener(view -> ChooseBottomDialog.this.cancel());
     }
 
     private void initView() {
@@ -83,7 +85,11 @@ public class ChooseBottomDialog extends BaseScreenDialog {
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),dataID);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
+                android.R.layout.simple_list_item_1 ,
+                android.R.id.text1,
+                data);
+
         rvView.setAdapter(adapter);
 
 
@@ -93,7 +99,7 @@ public class ChooseBottomDialog extends BaseScreenDialog {
         this.onChooseListener = onChooseListener;
     }
 
-    interface OnChooseListener{
+    public interface OnChooseListener{
         void onChoose(String str);
     }
 

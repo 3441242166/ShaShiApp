@@ -51,7 +51,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activity.LocationTopBarActivity" />
-        <activity android:name=".activity.post.PostStoneFactoryTopBarActivity" />
+        <activity android:name=".activity.post.PostStoneFactoryActivity" />
         <activity android:name=".activity.LoginActivity" />
 
         <service
@@ -59,10 +59,10 @@
             android:enabled="true"
             android:process=":remote" />
 
-        <activity android:name=".activity.post.PostCarMessageTopBarActivity" />
-        <activity android:name=".activity.post.PostDriverTopBarActivity" />
-        <activity android:name=".activity.post.PostCostTopBarActivity" />
-        <activity android:name=".activity.post.PostMaxFactoryTopBarActivity" />
+        <activity android:name=".activity.post.PostCarMessageActivity" />
+        <activity android:name=".activity.post.PostDriverActivity" />
+        <activity android:name=".activity.post.PostCostActivity" />
+        <activity android:name=".activity.post.PostMaxFactoryActivity" />
         <activity android:name=".activity.FeedbackActivity" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.PostListActivity"></activity>

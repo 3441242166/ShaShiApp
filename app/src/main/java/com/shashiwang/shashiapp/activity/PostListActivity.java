@@ -1,15 +1,28 @@
 package com.shashiwang.shashiapp.activity;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.base.BasePresenter;
+import com.shashiwang.shashiapp.presenter.PostListPresenter;
+import com.shashiwang.shashiapp.util.DividerItemDecoration;
+import com.shashiwang.shashiapp.view.PostListView;
 
-public class PostListActivity extends BaseTopBarActivity {
+import butterknife.BindView;
+
+public class PostListActivity extends BaseTopBarActivity<PostListPresenter> implements PostListView {
+
+    @BindView(R.id.rv_list)
+    RecyclerView recyclerView;
+
+
 
     @Override
-    protected BasePresenter setPresenter() {
-        return null;
+    protected PostListPresenter setPresenter() {
+        return new PostListPresenter(this,this);
     }
 
     @Override
@@ -19,6 +32,37 @@ public class PostListActivity extends BaseTopBarActivity {
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
+        initView();
+        initEvent();
+    }
+
+    private void initEvent() {
+
+    }
+
+    private void initView() {
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration());
+    }
+
+    @Override
+    public void showProgress() {
+
+    }
+
+    @Override
+    public void dismissProgress() {
+
+    }
+
+    @Override
+    public void loadDataSuccess(Object data) {
+
+    }
+
+    @Override
+    public void errorMessage(String throwable) {
 
     }
 }

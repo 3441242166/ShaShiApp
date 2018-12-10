@@ -7,20 +7,23 @@
     android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
         android:layout_height="@dimen/post_item_height"
         android:background="@color/dialogToolbar"
-        app:layout_constraintBottom_toTopOf="@+id/rv_dialog_post">
+        app:layout_constraintBottom_toTopOf="@+id/rv_dialog_post"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <ImageView
             android:id="@+id/im_dialog_back"
             android:layout_width="17dp"
-            android:layout_height="17dp"
+            android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
-            android:src="@mipmap/icon_close"
+            android:src="@drawable/icon_back_black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -52,7 +55,6 @@
         android:id="@+id/rv_dialog_post"
         android:layout_width="0dp"
         android:layout_height="250dp"
-        android:background="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

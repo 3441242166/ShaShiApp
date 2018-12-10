@@ -11,71 +11,79 @@
         android:orientation="vertical">
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
-            app:title="品牌"
+            android:id="@+id/ed_brand"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:hint_content="请输入品牌名称"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:title="品牌" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
-            app:title="行驶里程"
+            android:id="@+id/ed_mileage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:hint_content="请输入行驶里程"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:title="行驶里程" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
-            app:title="价格"
+            android:id="@+id/ed_price"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:hint_content="请输入价格"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:title="价格" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
-            app:title="联系人"
+            android:id="@+id/ed_people"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:hint_content="请输入联系人"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:title="联系人" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
-            app:title="联系电话"
+            android:id="@+id/ed_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:hint_content="请输入联系电话"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:title="联系电话" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostChooseLayout
-            app:title="类型"
-            app:hint_content="请选择"
+            android:id="@+id/ch_type"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:hint_content="请选择"
+            app:title="类型" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostChooseLayout
-            app:title="出厂年限"
-            app:hint_content="请选择"
+            android:id="@+id/ch_create_year"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:hint_content="请选择"
+            app:title="出厂年限" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditPlusLayout
-            app:title="备注信息"
-            app:hint_content="请输入备注信息"
+            android:id="@+id/ed_message"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:hint_content="请输入备注信息"
+            app:title="备注信息" />
 
         <View style="@style/view_line" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/bt_send"
             style="@style/button_blue"
             android:layout_margin="@dimen/dp_40"
             android:text="发布" />

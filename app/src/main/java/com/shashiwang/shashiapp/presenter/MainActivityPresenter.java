@@ -10,11 +10,11 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.activity.post.PostCarMessageTopBarActivity;
-import com.shashiwang.shashiapp.activity.post.PostCostTopBarActivity;
-import com.shashiwang.shashiapp.activity.post.PostDriverTopBarActivity;
-import com.shashiwang.shashiapp.activity.post.PostMaxFactoryTopBarActivity;
-import com.shashiwang.shashiapp.activity.post.PostStoneFactoryTopBarActivity;
+import com.shashiwang.shashiapp.activity.post.PostCarMessageActivity;
+import com.shashiwang.shashiapp.activity.post.PostCostActivity;
+import com.shashiwang.shashiapp.activity.post.PostDriverActivity;
+import com.shashiwang.shashiapp.activity.post.PostMaxFactoryActivity;
+import com.shashiwang.shashiapp.activity.post.PostStoneFactoryActivity;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.constant.IssueType;
 import com.shashiwang.shashiapp.view.IMainActivityView;
@@ -62,21 +62,21 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
         RelativeLayout freight = popView.findViewById(R.id.rl_pop_freight);
 
         sale.setOnClickListener(v -> {
-            openActivity(PostCarMessageTopBarActivity.class,IssueType.A);
+            openActivity(PostCarMessageActivity.class,IssueType.A);
         });
         stoneFactory.setOnClickListener(v -> {
-            openActivity(PostStoneFactoryTopBarActivity.class,IssueType.A);
+            openActivity(PostStoneFactoryActivity.class,IssueType.A);
             //openActivity(LocationTopBarActivity.class,IssueType.A);
         });
 
         dirver.setOnClickListener(v -> {
-            openActivity(PostDriverTopBarActivity.class,IssueType.A);
+            openActivity(PostDriverActivity.class,IssueType.A);
         });
         freight.setOnClickListener(v -> {
-            openActivity(PostCostTopBarActivity.class,IssueType.A);
+            openActivity(PostCostActivity.class,IssueType.A);
         });
         mixStation.setOnClickListener(v -> {
-            openActivity(PostMaxFactoryTopBarActivity.class,IssueType.A);
+            openActivity(PostMaxFactoryActivity.class,IssueType.A);
         });
     }
 

@@ -11,61 +11,68 @@
         android:orientation="vertical">
 
         <com.shashiwang.shashiapp.customizeview.PostLocationLayout
-            app:title="起始位置"
-            app:hint_content="点击选择"
+            android:id="@+id/ed_start_location"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:hint_content="点击选择"
+            app:title="起始位置" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostLocationLayout
-            app:title="终点位置"
+            android:id="@+id/ed_end_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:hint_content="点击选择"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:title="终点位置" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
-            app:title="总公里"
+            android:id="@+id/ed_mileage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:hint_content="请输入路程里程数"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:title="总公里" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
-            app:title="货物名称"
+            android:id="@+id/ed_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             app:hint_content="请输入货物名称"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            app:title="货物名称" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
-            app:title="运费价格"
-            app:hint_content="请输入运费价格"
+            android:id="@+id/ed_price"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:hint_content="请输入运费价格"
+            app:title="运费价格" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostChooseLayout
-            app:title="需求车辆"
-            app:hint_content="请选择"
+            android:id="@+id/ch_car"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:hint_content="请选择"
+            app:title="需求车辆" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditPlusLayout
-            app:title="备注信息"
-            app:hint_content="添加备注信息"
+            android:id="@+id/ed_message"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            app:hint_content="添加备注信息"
+            app:title="备注信息" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/bt_send"
             style="@style/button_blue"
             android:layout_margin="@dimen/dp_40"
             android:text="发布" />

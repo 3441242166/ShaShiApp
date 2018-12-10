@@ -3,23 +3,26 @@ package com.shashiwang.shashiapp.activity.post;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.View;
 import android.widget.Button;
 
 import com.shashiwang.shashiapp.activity.LocationTopBarActivity;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.constant.Constant;
-import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
 import com.shashiwang.shashiapp.customizeview.PostLocationLayout;
-import com.shashiwang.shashiapp.presenter.IssueActivityPresenter;
-import com.shashiwang.shashiapp.view.IIssueActivityView;
+import com.shashiwang.shashiapp.presenter.PostPresenter;
+import com.shashiwang.shashiapp.view.PostDataView;
 import com.shashiwang.shashiapp.R;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import butterknife.BindView;
 
-public class PostStoneFactoryTopBarActivity extends BaseTopBarActivity<IssueActivityPresenter> implements IIssueActivityView {
-    private static final String TAG = "PostStoneFactoryTopBarActivity";
+public class PostStoneFactoryActivity extends BaseTopBarActivity<PostPresenter> implements PostDataView {
+    private static final String TAG = "PostStoneFactoryActivity";
 
     @BindView(R.id.ed_title)
     PostEditLayout title;
@@ -34,11 +37,11 @@ public class PostStoneFactoryTopBarActivity extends BaseTopBarActivity<IssueActi
     @BindView(R.id.ed_message)
     PostEditPlusLayout message;
     @BindView(R.id.bt_send)
-    Button send;
+    Button btSend;
 
     @Override
-    protected IssueActivityPresenter setPresenter() {
-        return new IssueActivityPresenter(this,this);
+    protected PostPresenter setPresenter() {
+        return new PostPresenter(this,this);
     }
 
     @Override
@@ -54,12 +57,25 @@ public class PostStoneFactoryTopBarActivity extends BaseTopBarActivity<IssueActi
 
     private void initEvent() {
         location.setOnClickListener(view -> {
-            startActivityForResult(new Intent(PostStoneFactoryTopBarActivity.this, LocationTopBarActivity.class),1);
+            startActivityForResult(new Intent(PostStoneFactoryActivity.this, LocationTopBarActivity.class),1);
         });
-        send.setOnClickListener(view -> new ChooseBottomDialog(PostStoneFactoryTopBarActivity.this,"xxx",R.array.car_type)
-                .show());
+
+        btSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postData();
+            }
+        });
     }
 
+    private void postData() {
+        Map<String,String> map = new HashMap<>();
+        
+        
+        
+        presenter.postData(map);
+    }
+    
     @Override
     public void showProgress() {
 
@@ -83,7 +99,7 @@ public class PostStoneFactoryTopBarActivity extends BaseTopBarActivity<IssueActi
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == Constant.RESULT_SUCCESS && data!=null){
+        if(resultCode == Constant.RESULT_SUCCESS && data!=null){
             location.setContantText(data.getStringExtra(Constant.RESULT_DATA));
         }
     }
