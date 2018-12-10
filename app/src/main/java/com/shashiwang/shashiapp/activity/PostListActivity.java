@@ -5,6 +5,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.adapter.PostAdapter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.presenter.PostListPresenter;
@@ -18,7 +19,7 @@ public class PostListActivity extends BaseTopBarActivity<PostListPresenter> impl
     @BindView(R.id.rv_list)
     RecyclerView recyclerView;
 
-
+    private PostAdapter adapter;
 
     @Override
     protected PostListPresenter setPresenter() {
@@ -41,9 +42,10 @@ public class PostListActivity extends BaseTopBarActivity<PostListPresenter> impl
     }
 
     private void initView() {
-
+        adapter = new PostAdapter(null,this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration());
+        recyclerView.setAdapter(adapter);
     }
 
     @Override
