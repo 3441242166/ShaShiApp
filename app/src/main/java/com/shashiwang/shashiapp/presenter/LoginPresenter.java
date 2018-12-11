@@ -1,6 +1,7 @@
 package com.shashiwang.shashiapp.presenter;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.view.ILoginView;
@@ -12,7 +13,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
 
     }
 }

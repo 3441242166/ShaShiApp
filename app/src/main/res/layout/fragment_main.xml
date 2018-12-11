@@ -61,7 +61,7 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:id="@+id/button5"
+                android:id="@+id/bt_freight"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
@@ -69,35 +69,35 @@
                 android:background="@mipmap/bck_5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHeight_percent=".27"
-                app:layout_constraintStart_toEndOf="@+id/button2"
-                app:layout_constraintTop_toTopOf="@+id/button2"
+                app:layout_constraintStart_toEndOf="@+id/bt_facory"
+                app:layout_constraintTop_toTopOf="@+id/bt_facory"
                 app:layout_constraintWidth_percent=".45" />
 
             <ImageView
-                android:id="@+id/button4"
+                android:id="@+id/bt_driver"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@mipmap/bck_4"
-                app:layout_constraintBottom_toTopOf="@+id/button3"
-                app:layout_constraintEnd_toEndOf="@+id/button5"
+                app:layout_constraintBottom_toTopOf="@+id/bt_car"
+                app:layout_constraintEnd_toEndOf="@+id/bt_freight"
                 app:layout_constraintHeight_percent=".27"
-                app:layout_constraintStart_toStartOf="@+id/button5"
-                app:layout_constraintTop_toBottomOf="@+id/button5"
+                app:layout_constraintStart_toStartOf="@+id/bt_freight"
+                app:layout_constraintTop_toBottomOf="@+id/bt_freight"
                 app:layout_constraintWidth_percent=".45" />
 
             <ImageView
-                android:id="@+id/button3"
+                android:id="@+id/bt_car"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:background="@mipmap/bck_3"
-                app:layout_constraintBottom_toBottomOf="@+id/button"
-                app:layout_constraintEnd_toEndOf="@+id/button4"
+                app:layout_constraintBottom_toBottomOf="@+id/bt_station"
+                app:layout_constraintEnd_toEndOf="@+id/bt_driver"
                 app:layout_constraintHeight_percent=".27"
-                app:layout_constraintStart_toStartOf="@+id/button4"
+                app:layout_constraintStart_toStartOf="@+id/bt_driver"
                 app:layout_constraintWidth_percent=".45" />
 
             <ImageView
-                android:id="@+id/button2"
+                android:id="@+id/bt_facory"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="8dp"
@@ -109,17 +109,17 @@
                 app:layout_constraintWidth_percent=".46" />
 
             <ImageView
-                android:id="@+id/button"
+                android:id="@+id/bt_station"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@mipmap/bck_1"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="@+id/button2"
+                app:layout_constraintEnd_toEndOf="@+id/bt_facory"
                 app:layout_constraintHeight_percent=".43"
-                app:layout_constraintStart_toStartOf="@+id/button2"
-                app:layout_constraintTop_toBottomOf="@+id/button2"
+                app:layout_constraintStart_toStartOf="@+id/bt_facory"
+                app:layout_constraintTop_toBottomOf="@+id/bt_facory"
                 app:layout_constraintWidth_percent=".46" />
 
             <TextView
@@ -131,8 +131,8 @@
                 android:text="沙事料厂"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/button2"
-                app:layout_constraintTop_toTopOf="@+id/button2" />
+                app:layout_constraintStart_toStartOf="@+id/bt_facory"
+                app:layout_constraintTop_toTopOf="@+id/bt_facory" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -143,8 +143,8 @@
                 android:text="搅拌站"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/button"
-                app:layout_constraintTop_toTopOf="@+id/button" />
+                app:layout_constraintStart_toStartOf="@+id/bt_station"
+                app:layout_constraintTop_toTopOf="@+id/bt_station" />
 
             <TextView
                 android:id="@+id/textView6"
@@ -155,8 +155,8 @@
                 android:text="运费信息"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/button5"
-                app:layout_constraintTop_toTopOf="@+id/button5" />
+                app:layout_constraintStart_toStartOf="@+id/bt_freight"
+                app:layout_constraintTop_toTopOf="@+id/bt_freight" />
 
             <TextView
                 android:id="@+id/textView7"
@@ -167,8 +167,8 @@
                 android:text="司机招聘"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
-                app:layout_constraintEnd_toEndOf="@+id/button4"
-                app:layout_constraintTop_toTopOf="@+id/button4" />
+                app:layout_constraintEnd_toEndOf="@+id/bt_driver"
+                app:layout_constraintTop_toTopOf="@+id/bt_driver" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -179,8 +179,8 @@
                 android:text="车辆买卖"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
-                app:layout_constraintStart_toStartOf="@+id/button3"
-                app:layout_constraintTop_toTopOf="@+id/button3" />
+                app:layout_constraintStart_toStartOf="@+id/bt_car"
+                app:layout_constraintTop_toTopOf="@+id/bt_car" />
 
         </android.support.constraint.ConstraintLayout>
 
@@ -188,8 +188,7 @@
             android:id="@+id/imageView5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            app:srcCompat="@mipmap/bck_5" />
+            app:srcCompat="@drawable/bottom_banner" />
 
     </LinearLayout>
 

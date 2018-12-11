@@ -1,6 +1,7 @@
 package com.shashiwang.shashiapp.presenter;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.view.PostDataView;
@@ -15,7 +16,7 @@ public class PostPresenter extends BasePresenter<PostDataView> {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
 
     }
 

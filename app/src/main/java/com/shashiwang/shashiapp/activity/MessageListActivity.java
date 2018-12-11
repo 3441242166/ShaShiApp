@@ -14,7 +14,7 @@ import com.shashiwang.shashiapp.view.PostListView;
 
 import butterknife.BindView;
 
-public class PostListActivity extends BaseTopBarActivity<PostListPresenter> implements PostListView {
+public class MessageListActivity extends BaseTopBarActivity<PostListPresenter> implements PostListView {
 
     @BindView(R.id.rv_list)
     RecyclerView recyclerView;

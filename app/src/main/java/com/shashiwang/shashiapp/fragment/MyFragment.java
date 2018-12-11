@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.FeedbackActivity;
 import com.shashiwang.shashiapp.activity.MainActivity;
-import com.shashiwang.shashiapp.activity.PostListActivity;
+import com.shashiwang.shashiapp.activity.MessageListActivity;
 import com.shashiwang.shashiapp.activity.SettingActivity;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
 import com.shashiwang.shashiapp.activity.LoginActivity;
@@ -29,7 +29,7 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
 
     @BindView(R.id.iv_head)
     ImageView ivHead;
-    @BindView(R.id.tv_name)
+    @BindView(R.id.tv_name_1)
     TextView tvName;
     @BindView(R.id.bt_login)
     Button btLogin;
@@ -42,7 +42,7 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
 
     private static final String[] TITLE = {"我的发布", "推荐有奖", "意见反馈", "发布信息"};
     private static final int[] IMG = {R.mipmap.gv_animation, R.mipmap.gv_multipleltem, R.mipmap.gv_header_and_footer, R.mipmap.gv_pulltorefresh};
-    private static final Class[] CLASSES = {PostListActivity.class,MainActivity.class,FeedbackActivity.class, MainActivity.class};
+    private static final Class[] CLASSES = {MessageListActivity.class,MainActivity.class,FeedbackActivity.class, MainActivity.class};
 
     @Override
     protected MyFragmentPresenter setPresenter() {

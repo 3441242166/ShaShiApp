@@ -1,6 +1,7 @@
 package com.shashiwang.shashiapp.presenter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -117,7 +118,7 @@ public class LocationPresenter extends BasePresenter<ILocationView> {
 
 
     @Override
-    public void init() {
+    public void init(Bundle savedInstanceState) {
         mLocationClient = new LocationClient(mContext);
         initLocation();
         initPoi();

@@ -43,4 +43,9 @@
         <attr name="title"/>
     </declare-styleable>
 
+    <declare-styleable name="MessageLayout">
+        <attr name="title"/>
+        <attr name="item_content"/>
+    </declare-styleable>
+
 </resources>

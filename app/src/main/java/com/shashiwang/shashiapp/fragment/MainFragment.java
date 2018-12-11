@@ -1,6 +1,9 @@
 package com.shashiwang.shashiapp.fragment;
 
 import android.graphics.Color;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
@@ -23,7 +26,16 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
 
     @BindView(R.id.fg_main_banner)
     Banner banner;
-
+    @BindView(R.id.bt_facory)
+    ImageView btFactory;
+    @BindView(R.id.bt_station)
+    ImageView btStation;
+    @BindView(R.id.bt_freight)
+    ImageView btFreight;
+    @BindView(R.id.bt_driver)
+    ImageView btDriver;
+    @BindView(R.id.bt_car)
+    ImageView btCar;
 
     @Override
     protected MainFragmentPresenter setPresenter() {
@@ -43,6 +55,29 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
         banner.setImageLoader(new ImageLoader());
 
         presenter.getBannerData();
+        initEvent();
+    }
+
+    private void initEvent() {
+        btFactory.setOnClickListener(view -> {
+
+        });
+
+        btStation.setOnClickListener(view -> {
+
+        });
+
+        btFreight.setOnClickListener(view -> {
+
+        });
+
+        btDriver.setOnClickListener(view -> {
+
+        });
+
+        btCar.setOnClickListener(view -> {
+
+        });
     }
 
     @Override
@@ -58,10 +93,11 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
 
     @Override
     public void loadDataSuccess(List<BannerBean> data) {
-        List<String> imgUrls = new ArrayList<>(data.size());
+        List<Integer> imgUrls = new ArrayList<>(data.size());
         List<String> titles = new ArrayList<>(data.size());
         for(BannerBean bean :data){
-            imgUrls.add(bean.getImgUrl());
+            bean.setImgUrl(R.drawable.banner_one);
+            imgUrls.add(bean.getImgId());
             titles.add(bean.getTitle());
         }
 

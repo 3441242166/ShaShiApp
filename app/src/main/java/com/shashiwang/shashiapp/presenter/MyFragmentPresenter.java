@@ -1,6 +1,7 @@
 package com.shashiwang.shashiapp.presenter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -19,7 +20,7 @@ public class MyFragmentPresenter extends BasePresenter<IMyFragmentView> {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         Log.i(TAG, "init");
 
         String token = (String) getSharedPreference(TOKEN,null);

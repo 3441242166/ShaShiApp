@@ -3,6 +3,7 @@ package com.shashiwang.shashiapp.presenter;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +37,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initPopupWindow();
     }
 

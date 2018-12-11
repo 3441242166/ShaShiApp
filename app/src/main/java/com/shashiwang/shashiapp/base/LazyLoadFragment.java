@@ -34,7 +34,7 @@ public abstract class LazyLoadFragment<T extends BasePresenter> extends Fragment
         mUnbinder = ButterKnife.bind(this, view);
         init();
         if(presenter!= null){
-            presenter.init();
+            presenter.init(savedInstanceState);
         }
         return view;
     }

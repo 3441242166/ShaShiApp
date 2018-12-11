@@ -29,19 +29,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <!--百度地图-->
+
+        <!-- 百度地图 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
             android:value="ft0K2FbiUTZ3pH4OdzXitw8CUeGHPtGS" />
 
-        <!--屏幕适配-->
+        <!-- 屏幕适配 -->
         <meta-data
             android:name="design_width_in_dp"
-            android:value="360"/>
+            android:value="360" />
         <meta-data
             android:name="design_height_in_dp"
-            android:value="640"/>
-
+            android:value="640" />
 
         <activity android:name=".activity.MainActivity">
             <intent-filter>
@@ -65,7 +65,14 @@
         <activity android:name=".activity.post.PostMaxFactoryActivity" />
         <activity android:name=".activity.FeedbackActivity" />
         <activity android:name=".activity.SettingActivity" />
-        <activity android:name=".activity.PostListActivity"></activity>
+        <activity android:name=".activity.MessageListActivity" />
+        <activity android:name=".base.BaseMessageActivity" />
+        <activity android:name=".activity.message.FactoryMessageActivity" />
+        <activity android:name=".activity.message.StationMessageActivity" />
+        <activity android:name=".activity.message.CarMessageActivity" />
+        <activity android:name=".activity.message.DriverMessageActivity" />
+        <activity android:name=".activity.message.FreightMessageActivity" />
+        <activity android:name=".activity.message.MessageActivity"></activity>
     </application>
 
 </manifest>

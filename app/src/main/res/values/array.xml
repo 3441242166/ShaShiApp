@@ -23,4 +23,20 @@
         <item>前四后八</item>
         <item>单桥</item>
     </string-array>
+
+
+    <!--Message-->
+    <string-array name="factory_message">
+        <item>类型</item>
+        <item>价格</item>
+        <item>联系电话</item>
+        <item>地址</item>
+    </string-array>
+    <string-array name="factory_key">
+        <item>xx</item>
+        <item>xx</item>
+        <item>xx</item>
+        <item>xx</item>
+    </string-array>
+
 </resources>

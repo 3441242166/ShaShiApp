@@ -29,7 +29,7 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
 
         if(presenter != null){
             Log.i(TAG, "presenter.init");
-            presenter.init();
+            presenter.init(savedInstanceState);
         }
     }
 
