@@ -13,9 +13,12 @@ import com.shashiwang.shashiapp.activity.FeedbackActivity;
 import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
 import com.shashiwang.shashiapp.activity.SettingActivity;
+import com.shashiwang.shashiapp.activity.message.StationMessageActivity;
+import com.shashiwang.shashiapp.activity.post.PostCarMessageActivity;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
 import com.shashiwang.shashiapp.activity.LoginActivity;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
+import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.presenter.MyFragmentPresenter;
 import com.shashiwang.shashiapp.util.DividerItemDecoration;
 import com.shashiwang.shashiapp.view.IMyFragmentView;
@@ -24,6 +27,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.shashiwang.shashiapp.constant.Constant.CLASS;
+import static com.shashiwang.shashiapp.constant.Constant.TITLE;
+import static com.shashiwang.shashiapp.constant.Constant.TYPE;
+import static com.shashiwang.shashiapp.constant.MessageType.POST;
+import static com.shashiwang.shashiapp.constant.MessageType.POST_TITLE;
+import static com.shashiwang.shashiapp.constant.MessageType.STATION;
+import static com.shashiwang.shashiapp.constant.MessageType.STATION_TITLE;
 
 public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements IMyFragmentView{
 
@@ -63,6 +74,13 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
     private void initEvent() {
         adapter.setOnItemClickListener((adapter, view, position) -> {
             final Intent intent = new Intent(getContext(),CLASSES[position]);
+
+            if(position == 0){
+                intent.putExtra(Constant.TYPE,POST);
+                intent.putExtra(Constant.TITLE,POST_TITLE);
+                intent.putExtra(Constant.CLASS,PostCarMessageActivity.class);
+            }
+
             startActivity(intent);
         });
 

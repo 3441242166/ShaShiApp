@@ -20,6 +20,7 @@ public class FreightMessageActivity extends BaseTopBarActivity {
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
+        setTitle("详情");
 
     }
 }

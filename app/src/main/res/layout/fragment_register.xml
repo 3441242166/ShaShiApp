@@ -6,20 +6,50 @@
     android:layout_height="350dp"
     tools:layout_editor_absoluteY="25dp">
 
+
+    <Button
+        android:id="@+id/bt_login"
+        style="@style/button_blue"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        android:text="注册"
+        android:textColor="#ffffff"
+        android:transitionName="loginBtn"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+
+    <Button
+        android:id="@+id/bt_code"
+        android:layout_width="58dp"
+        android:layout_height="wrap_content"
+        android:text="获取验证码"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
+        app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
+        app:layout_constraintTop_toTopOf="@+id/textInputLayout4"
+        app:layout_constraintVertical_bias="0.0" />
+
     <android.support.design.widget.TextInputLayout
         android:id="@+id/textCodeLayout"
         android:layout_width="0dp"
         android:layout_height="@dimen/post_item_height"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:textColorHint="#c5c5c5"
         app:layout_constraintBottom_toTopOf="@+id/textInputLayout4"
-        app:layout_constraintEnd_toEndOf="@+id/button8"
+        app:layout_constraintEnd_toEndOf="@+id/bt_code"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout4"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
         <EditText
-            android:id="@+id/ev_code"
+            android:id="@+id/ev_phone"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/selector_bg_edit"
@@ -36,18 +66,43 @@
         android:layout_width="0dp"
         android:layout_height="@dimen/post_item_height"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="8dp"
         android:textColorHint="#c5c5c5"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
-        app:layout_constraintEnd_toStartOf="@+id/button8"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout5"
+        app:layout_constraintEnd_toStartOf="@+id/bt_code"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textInputLayout3">
 
         <EditText
-            android:id="@+id/ev_count"
+            android:id="@+id/ev_code"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/selector_bg_edit"
             android:hint="请输入验证码"
+            android:inputType="number"
+            android:paddingBottom="2dp"
+            android:textColor="#2fa881"
+            android:textCursorDrawable="@drawable/shape_input_cursor"
+            android:textSize="13sp" />
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/textInputLayout5"
+        android:layout_width="0dp"
+        android:layout_height="@dimen/post_item_height"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:textColorHint="#c5c5c5"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout3"
+        app:layout_constraintEnd_toStartOf="@+id/iv_code"
+        app:layout_constraintStart_toStartOf="@+id/textInputLayout3">
+
+        <EditText
+            android:id="@+id/ev_image_code"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/selector_bg_edit"
+            android:hint="请输入图片验证码"
             android:inputType="number"
             android:paddingBottom="2dp"
             android:textColor="#2fa881"
@@ -61,7 +116,7 @@
         android:layout_height="@dimen/post_item_height"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         android:textColorHint="#c5c5c5"
         app:layout_constraintBottom_toTopOf="@+id/bt_login"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,29 +135,14 @@
             android:textSize="13sp" />
     </android.support.design.widget.TextInputLayout>
 
-    <Button
-        android:id="@+id/bt_login"
-        style="@style/button_blue"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:text="注册"
-        android:textColor="#ffffff"
-        android:transitionName="loginBtn"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
 
-
-    <Button
-        android:id="@+id/button8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="获取验证码"
-        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout4"
+    <ImageView
+        android:id="@+id/iv_code"
+        android:layout_width="58dp"
+        android:layout_height="0dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="@+id/textInputLayout5"
         app:layout_constraintEnd_toEndOf="@+id/textInputLayout3"
-        app:layout_constraintTop_toTopOf="@+id/textInputLayout4" />
+        app:layout_constraintTop_toTopOf="@+id/textInputLayout5" />
 
 </android.support.constraint.ConstraintLayout>
