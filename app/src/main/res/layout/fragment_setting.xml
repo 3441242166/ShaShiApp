@@ -57,10 +57,11 @@
         <View style="@style/view_line" />
 
         <Button
-            android:layout_margin="20dp"
-            android:text="退出登陆"
+            android:id="@+id/bt_exit"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_margin="20dp"
+            android:text="退出登陆" />
 
     </LinearLayout>
 

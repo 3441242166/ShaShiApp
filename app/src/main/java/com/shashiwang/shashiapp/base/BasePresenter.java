@@ -20,7 +20,4 @@ public abstract class BasePresenter<T extends IBaseView> {
             mView = null;
         }
     }
-
-
-
 }

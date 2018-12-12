@@ -84,7 +84,9 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
             startActivity(intent);
         });
 
-        ivSetting.setOnClickListener(view -> startActivity(new Intent(getContext(), SettingActivity.class)));
+        ivSetting.setOnClickListener(view -> {
+            startActivityForResult(new Intent(getContext(), SettingActivity.class),0);
+        });
     }
 
     private void initView() {
@@ -129,4 +131,9 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
         btLogin.setOnClickListener(view -> startActivity(new Intent(getContext(), LoginActivity.class)));
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+    }
 }

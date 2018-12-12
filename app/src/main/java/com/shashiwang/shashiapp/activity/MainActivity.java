@@ -1,5 +1,6 @@
 package com.shashiwang.shashiapp.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.ActivityCompat;
@@ -172,5 +173,14 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
             //ivMore.setVisibility(View.VISIBLE);
             //popupWindow.dismiss();
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        for(Fragment fragment:fragmentList){
+            fragment.onActivityResult(requestCode, resultCode, data);
+        }
+
     }
 }
