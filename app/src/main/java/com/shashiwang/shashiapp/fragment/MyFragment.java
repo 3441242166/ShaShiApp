@@ -13,7 +13,6 @@ import com.shashiwang.shashiapp.activity.FeedbackActivity;
 import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
 import com.shashiwang.shashiapp.activity.SettingActivity;
-import com.shashiwang.shashiapp.activity.message.StationMessageActivity;
 import com.shashiwang.shashiapp.activity.post.PostCarMessageActivity;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
 import com.shashiwang.shashiapp.activity.LoginActivity;
@@ -28,13 +27,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.shashiwang.shashiapp.constant.Constant.CLASS;
-import static com.shashiwang.shashiapp.constant.Constant.TITLE;
-import static com.shashiwang.shashiapp.constant.Constant.TYPE;
 import static com.shashiwang.shashiapp.constant.MessageType.POST;
 import static com.shashiwang.shashiapp.constant.MessageType.POST_TITLE;
-import static com.shashiwang.shashiapp.constant.MessageType.STATION;
-import static com.shashiwang.shashiapp.constant.MessageType.STATION_TITLE;
 
 public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements IMyFragmentView{
 
@@ -124,11 +118,15 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
     }
 
     @Override
-    public void unLogin() {
-        btLogin.setVisibility(View.VISIBLE);
-        tvName.setVisibility(View.GONE);
-
-        btLogin.setOnClickListener(view -> startActivity(new Intent(getContext(), LoginActivity.class)));
+    public void unLogin(boolean is) {
+        if(is){
+            btLogin.setVisibility(View.VISIBLE);
+            tvName.setVisibility(View.GONE);
+            btLogin.setOnClickListener(view -> startActivity(new Intent(getContext(), LoginActivity.class)));
+        }else {
+            btLogin.setVisibility(View.GONE);
+            tvName.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override

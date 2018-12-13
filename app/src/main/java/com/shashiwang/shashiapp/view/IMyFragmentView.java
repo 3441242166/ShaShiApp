@@ -4,6 +4,6 @@ import com.shashiwang.shashiapp.base.IBaseView;
 
 public interface IMyFragmentView extends IBaseView {
 
-    void unLogin();
+    void unLogin(boolean b);
 
 }

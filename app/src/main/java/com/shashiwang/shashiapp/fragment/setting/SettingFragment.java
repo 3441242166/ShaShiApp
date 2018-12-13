@@ -1,6 +1,7 @@
 package com.shashiwang.shashiapp.fragment.setting;
 
 
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
@@ -38,12 +39,15 @@ public class SettingFragment extends LazyLoadFragment {
     protected void init() {
         broadcast.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_settingBroadcastFragment));
         about.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_aboutFragment));
-        btExit.setOnClickListener(view -> {
-            SharedPreferencesHelper.remove(TOKEN);
 
+        if(!TextUtils.isEmpty((String) SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
+            btExit.setVisibility(View.VISIBLE);
+            btExit.setOnClickListener(view -> {
+                SharedPreferencesHelper.remove(TOKEN);
+                getActivity().finish();
+            });
+        }
 
-            getActivity().finish();
-        });
     }
 
 

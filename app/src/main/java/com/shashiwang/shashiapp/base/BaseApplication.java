@@ -5,6 +5,7 @@ import android.app.Application;
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
 import com.example.config.Config;
+import com.example.net.interceptors.TokenInterceptor;
 
 
 public class BaseApplication extends Application {

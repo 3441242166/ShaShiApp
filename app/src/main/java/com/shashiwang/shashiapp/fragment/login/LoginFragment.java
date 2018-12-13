@@ -65,6 +65,7 @@ public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements I
     @Override
     public void loadDataSuccess(Object data) {
 
+        getActivity().finish();
     }
 
     @Override

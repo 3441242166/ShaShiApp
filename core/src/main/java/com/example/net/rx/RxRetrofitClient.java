@@ -1,12 +1,15 @@
 package com.example.net.rx;
 
 import com.example.net.HttpMethod;
+import com.example.net.RetrofitCreator;
 import com.example.net.RetrofitCreators;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -16,13 +19,16 @@ public class RxRetrofitClient {
 
     private final String URL;
     private final Map<String,Object> PARAMS;
+    private final ArrayList<Interceptor> INTERCEPTORS;
     private final RequestBody BODY;
     private final File FILE;
 
     RxRetrofitClient(String url, Map<String, Object> params,
+                     ArrayList<Interceptor> interceptors,
                      RequestBody body,
                      File file) {
         URL = url;
+        INTERCEPTORS = interceptors;
         PARAMS = params;
         BODY = body;
         FILE = file;
@@ -33,7 +39,7 @@ public class RxRetrofitClient {
     }
 
     private Observable<String> request(HttpMethod method){
-        final RxRetrofitService service = RetrofitCreators.getRxRetrofitService();
+        final RxRetrofitService service = new RetrofitCreator().addInterceptors(INTERCEPTORS).getRxRetrofitService();
 
         Observable<String> observable = null;
 
@@ -59,7 +65,7 @@ public class RxRetrofitClient {
             case UPLOAD:
                final RequestBody requestBody = RequestBody.create(MediaType.parse(MultipartBody.FORM.toString()),FILE);
                final MultipartBody.Part body = MultipartBody.Part.createFormData("file",FILE.getName(),requestBody);
-                observable = RetrofitCreators.getRxRetrofitService().upload(URL, body);
+                observable = new RetrofitCreator().getRxRetrofitService().upload(URL, body);
                break;
         }
 

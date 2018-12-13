@@ -7,13 +7,22 @@ import java.util.Map;
 public class MessageBean<T> implements MultiItemEntity {
 
     private int type;
+    private T bean;
 
-    public MessageBean(int type){
+    public MessageBean(int type, T bean){
         this.type = type;
     }
 
     @Override
     public int getItemType() {
         return type;
+    }
+
+    public T getBean() {
+        return bean;
+    }
+
+    public void setBean(T bean) {
+        this.bean = bean;
     }
 }

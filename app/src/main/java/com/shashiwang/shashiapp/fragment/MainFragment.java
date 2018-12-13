@@ -11,6 +11,7 @@ import com.shashiwang.shashiapp.activity.MessageListActivity;
 import com.shashiwang.shashiapp.activity.message.CarMessageActivity;
 import com.shashiwang.shashiapp.activity.message.DriverMessageActivity;
 import com.shashiwang.shashiapp.activity.message.FactoryMessageActivity;
+import com.shashiwang.shashiapp.activity.message.FreightListActivity;
 import com.shashiwang.shashiapp.activity.message.FreightMessageActivity;
 import com.shashiwang.shashiapp.activity.message.StationMessageActivity;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
@@ -32,6 +33,7 @@ import qiu.niorgai.StatusBarCompat;
 import static com.shashiwang.shashiapp.constant.Constant.CLASS;
 import static com.shashiwang.shashiapp.constant.Constant.TITLE;
 import static com.shashiwang.shashiapp.constant.Constant.TYPE;
+import static com.shashiwang.shashiapp.constant.Constant.URL;
 import static com.shashiwang.shashiapp.constant.MessageType.*;
 
 public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implements IMainFragmentView {
@@ -77,6 +79,8 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
             intent.putExtra(TYPE,FACTORY);
             intent.putExtra(TITLE,FACTORY_TITLE);
             intent.putExtra(CLASS,FactoryMessageActivity.class);
+            intent.putExtra(URL,FACTORY_URL);
+
             startActivity(intent);
         });
 
@@ -85,14 +89,18 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
             intent.putExtra(TYPE,STATION);
             intent.putExtra(TITLE,STATION_TITLE);
             intent.putExtra(CLASS,StationMessageActivity.class);
+            intent.putExtra(URL,STATION_URL);
+
             startActivity(intent);
         });
 
         btFreight.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),MessageListActivity.class);
-            intent.putExtra(TYPE,FREIGHT);
-            intent.putExtra(TITLE,FREIGHT_TITLE);
-            intent.putExtra(CLASS,FreightMessageActivity.class);
+            Intent intent = new Intent(getContext(),FreightListActivity.class);
+//            intent.putExtra(TYPE,FREIGHT);
+//            intent.putExtra(TITLE,FREIGHT_TITLE);
+//            intent.putExtra(CLASS,FreightMessageActivity.class);
+//            intent.putExtra(URL,FREIGHT_URL);
+
             startActivity(intent);
         });
 
@@ -101,6 +109,8 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
             intent.putExtra(TYPE,DRIVER);
             intent.putExtra(TITLE,DRIVER_TITLE);
             intent.putExtra(CLASS,DriverMessageActivity.class);
+            intent.putExtra(URL,DRIVER_URL);
+
             startActivity(intent);
         });
 
@@ -109,6 +119,8 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
             intent.putExtra(TYPE,CAR);
             intent.putExtra(TITLE,CAR_TITLE);
             intent.putExtra(CLASS,CarMessageActivity.class);
+            intent.putExtra(URL,CAR_URL);
+
             startActivity(intent);
         });
     }

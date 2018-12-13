@@ -22,15 +22,16 @@ public class MyFragmentPresenter extends BasePresenter<IMyFragmentView> {
     @Override
     protected void init(Bundle savedInstanceState) {
         Log.i(TAG, "init");
+        checkLogin();
+    }
 
+    public void checkLogin(){
         String token = (String) getSharedPreference(TOKEN,null);
         if(TextUtils.isEmpty(token)){
             Log.i(TAG, "UnLogin");
-            mView.unLogin();
+            mView.unLogin(true);
             return;
         }
-
-
     }
 
 }

@@ -15,4 +15,11 @@ public class   MessageType {
     public static final String FACTORY_TITLE = "沙石料厂信息";
     public static final String STATION_TITLE = "搅拌站信息";
     public static final String POST_TITLE = "我的发布";
+
+    public static final String CAR_URL = "api/car/trade";
+    public static final String FREIGHT_URL = "api/freight/";
+    public static final String DRIVER_URL = "api/recruit/driver/";
+    public static final String FACTORY_URL = "api/stone/factory/";
+    public static final String STATION_URL = "api/mixing/plant/";
+    public static final String POST_URL = "我的发布";
 }

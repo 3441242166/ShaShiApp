@@ -2,5 +2,7 @@ package com.shashiwang.shashiapp.view;
 
 import com.shashiwang.shashiapp.base.IBaseView;
 
-public interface PostListView extends IBaseView {
+import java.util.List;
+
+public interface PostListView extends IBaseView<List> {
 }

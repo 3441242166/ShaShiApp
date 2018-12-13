@@ -1,9 +1,13 @@
 package com.example.net.rx;
 
+import com.example.net.retrofit.RetrofitClientBuilder;
+
 import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
@@ -11,6 +15,7 @@ public class RxRetrofitClientBuilder {
 
     private  String mUrl;
     private  Map<String,Object> mParams;
+    private ArrayList<Interceptor> interceptors;
     private  RequestBody mRequestBody;
     private  File file;
 
@@ -42,6 +47,19 @@ public class RxRetrofitClientBuilder {
         return this;
     }
 
+    public final RxRetrofitClientBuilder header(ArrayList<Interceptor> interceptors){
+        this.interceptors = interceptors;
+        return this;
+    }
+
+    public final RxRetrofitClientBuilder header(Interceptor interceptor){
+        if(interceptors == null){
+            interceptors = new ArrayList<>();
+        }
+        this.interceptors.add(interceptor);
+        return this;
+    }
+
     public final RxRetrofitClientBuilder raw(String raw){
         this.mRequestBody = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"),raw);
         return this;
@@ -51,12 +69,16 @@ public class RxRetrofitClientBuilder {
         if(mParams == null){
             mParams = new HashMap<>();
         }
+        if(interceptors == null){
+            interceptors = new ArrayList<>();
+        }
     }
 
     public final RxRetrofitClient build(){
         check();
         return new RxRetrofitClient(mUrl,
                 mParams,
+                interceptors,
                 mRequestBody,
                 file);
     }

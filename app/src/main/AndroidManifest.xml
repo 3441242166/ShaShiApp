@@ -72,7 +72,8 @@
         <activity android:name=".activity.message.CarMessageActivity" />
         <activity android:name=".activity.message.DriverMessageActivity" />
         <activity android:name=".activity.message.FreightMessageActivity" />
-        <activity android:name=".activity.message.MessageActivity"></activity>
+        <activity android:name=".activity.message.MessageActivity" />
+        <activity android:name=".activity.message.FreightListActivity"></activity>
     </application>
 
 </manifest>

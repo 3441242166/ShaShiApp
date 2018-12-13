@@ -12,6 +12,7 @@ import com.shashiwang.shashiapp.base.LazyLoadFragment;
 import com.shashiwang.shashiapp.presenter.RegisterPresenter;
 import com.shashiwang.shashiapp.view.IRegisterView;
 
+import androidx.navigation.Navigation;
 import butterknife.BindView;
 
 public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implements IRegisterView {
@@ -73,7 +74,7 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
 
     @Override
     public void loadDataSuccess(Object data) {
-
+        //Navigation.findNavController(btRegister).popBackStack(R.id.registerFragment, false);
     }
 
     @Override

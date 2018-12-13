@@ -11,6 +11,10 @@ public final class Config {
         return Configurator.getInstance();
     }
 
+    public static Configurator getConfigurator() {
+        return Configurator.getInstance();
+    }
+
     public static <T> T getConfigurations(Object key){
         return (T) Configurator.getInstance().getConfiguration(key);
     }
