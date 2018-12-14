@@ -6,7 +6,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 
-import com.shashiwang.shashiapp.activity.LocationTopBarActivity;
+import com.shashiwang.shashiapp.activity.LocationActivity;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
@@ -57,7 +57,7 @@ public class PostStoneFactoryActivity extends BaseTopBarActivity<PostPresenter> 
 
     private void initEvent() {
         location.setOnClickListener(view -> {
-            startActivityForResult(new Intent(PostStoneFactoryActivity.this, LocationTopBarActivity.class),1);
+            startActivityForResult(new Intent(PostStoneFactoryActivity.this, LocationActivity.class),1);
         });
 
         btSend.setOnClickListener(new View.OnClickListener() {

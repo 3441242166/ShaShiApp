@@ -37,11 +37,10 @@ import java.util.List;
 
 import butterknife.BindView;
 
-import static com.shashiwang.shashiapp.constant.Constant.RESULT_DATA;
-import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
+import static com.shashiwang.shashiapp.constant.Constant.*;
 
-public class LocationTopBarActivity extends BaseTopBarActivity<LocationPresenter> implements ILocationView{
-    private static final String TAG = "LocationTopBarActivity";
+public class LocationActivity extends BaseTopBarActivity<LocationPresenter> implements ILocationView{
+    private static final String TAG = "LocationActivity";
 
     @BindView(R.id.mp_location)
     MapView mapView;
@@ -97,11 +96,17 @@ public class LocationTopBarActivity extends BaseTopBarActivity<LocationPresenter
         setTopRightButton(R.drawable.icon_certain, () -> {
             if(lastSelect != -1){
                 Intent intent = new Intent();
-                intent.putExtra(RESULT_DATA, data.get(lastSelect).info.name);
+                LatLng latLng = data.get(lastSelect).info.location;
+                Log.i(TAG, "initEvent: " +latLng.latitude + "   " + latLng.longitude);
+
+                intent.putExtra(LAT, String.valueOf(latLng.latitude));
+                intent.putExtra(LNG, String.valueOf(latLng.longitude));
+                intent.putExtra(LOCATION_NAME, data.get(lastSelect).info.name);
+
                 setResult(RESULT_SUCCESS, intent);
                 finish();
             }else {
-                Toast.makeText(LocationTopBarActivity.this,"请选择一个地点",Toast.LENGTH_SHORT).show();
+                Toast.makeText(LocationActivity.this,"请选择一个地点",Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -127,17 +132,14 @@ public class LocationTopBarActivity extends BaseTopBarActivity<LocationPresenter
         tvSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.i(TAG, "beforeTextChanged: "+charSequence);
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.i(TAG, "onTextChanged: "+charSequence);
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                Log.i(TAG, "afterTextChanged: "+editable);
                 String str = editable.toString();
 
                 if(TextUtils.isEmpty(str)){

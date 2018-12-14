@@ -65,7 +65,7 @@ public class ChooseBottomDialog extends BaseScreenDialog {
 
         rvView.setOnItemClickListener((adapterView, view, i, l) -> {
             if(onChooseListener != null){
-                onChooseListener.onChoose("");
+                onChooseListener.onChoose(data[i]);
                 ChooseBottomDialog.this.cancel();
             }
         });

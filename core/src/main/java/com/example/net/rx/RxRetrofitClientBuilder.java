@@ -1,5 +1,7 @@
 package com.example.net.rx;
 
+import android.util.Log;
+
 import com.example.net.retrofit.RetrofitClientBuilder;
 
 import java.io.File;
@@ -12,6 +14,7 @@ import okhttp3.MediaType;
 import okhttp3.RequestBody;
 
 public class RxRetrofitClientBuilder {
+    private static final String TAG = "RxRetrofitClientBuilder";
 
     private  String mUrl;
     private  Map<String,Object> mParams;
@@ -72,6 +75,12 @@ public class RxRetrofitClientBuilder {
         if(interceptors == null){
             interceptors = new ArrayList<>();
         }
+
+        Log.i(TAG, "check: ");
+        for( String key:mParams.keySet()){
+            Log.i(TAG, "check:  " + key + "  :  " + mParams.get(key));
+        }
+
     }
 
     public final RxRetrofitClient build(){

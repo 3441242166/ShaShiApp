@@ -71,6 +71,8 @@ dependencies {
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.8.1'
+    //eventBus
+    implementation 'org.greenrobot:eventbus:3.1.1'
 
     /* *************************************视图类*********************************************** */
     // 底部导航栏

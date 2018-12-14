@@ -67,7 +67,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
         });
         stoneFactory.setOnClickListener(v -> {
             openActivity(PostStoneFactoryActivity.class,IssueType.A);
-            //openActivity(LocationTopBarActivity.class,IssueType.A);
+            //openActivity(LocationActivity.class,IssueType.A);
         });
 
         dirver.setOnClickListener(v -> {

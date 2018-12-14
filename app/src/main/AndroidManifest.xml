@@ -50,7 +50,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LocationTopBarActivity" />
+        <activity android:name=".activity.LocationActivity" />
         <activity android:name=".activity.post.PostStoneFactoryActivity" />
         <activity android:name=".activity.LoginActivity" />
 

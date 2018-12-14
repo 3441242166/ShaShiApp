@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.baidu.mapapi.cloud.CloudManager;
+import com.baidu.mapapi.cloud.CloudRgcInfo;
+import com.baidu.mapapi.cloud.CloudRgcResult;
 import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
@@ -17,6 +20,12 @@ import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.customizeview.MessageLayout;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
+import java.util.Map;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -65,7 +74,7 @@ public class FreightMessageActivity extends BaseTopBarActivity {
     protected void initFrame(Bundle savedInstanceState) {
         setTitle("详情");
         id = getIntent().getIntExtra(ID,-1);
-
+        EventBus.getDefault().register(this);
         getMessage();
     }
 
@@ -95,7 +104,7 @@ public class FreightMessageActivity extends BaseTopBarActivity {
     }
 
     private void loadDataSuccess(){
-        tvTitle.setText(message.getUser_id());
+        tvTitle.setText(""+message.getUser_id());
         tvTime.setText(message.getUpdated_at());
         tvContent.setText(message.getRemark());
 
@@ -107,8 +116,21 @@ public class FreightMessageActivity extends BaseTopBarActivity {
         tvCar.setContantText(message.getCar_category());
         tvPhone.setContantText("123456789");
 
-
-
+        CloudRgcInfo info = new CloudRgcInfo();
+        info.location = String.valueOf(message.getStart_location_lat()) +"," + String.valueOf(message.getStart_location_lng());
+        CloudManager.getInstance().rgcSearch(info);
+        info.location = String.valueOf(message.getEnd_location_lat()) +"," + String.valueOf(message.getEnd_location_lng());
+        CloudManager.getInstance().rgcSearch(info);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(CloudRgcResult data ) {
+        data.customLocationDescription;
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
 }
