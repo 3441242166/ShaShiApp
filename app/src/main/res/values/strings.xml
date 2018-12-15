@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ShaShiAPP</string>
+    <string name="app_name">沙石料厂</string>
     <string name="title_activity_issue">IssueActivity</string>
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>

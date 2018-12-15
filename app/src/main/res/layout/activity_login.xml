@@ -54,5 +54,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/icon_back_black" />
 
+    <View
+        android:id="@+id/view2"
+        android:layout_width="290dp"
+        android:layout_height="3dp"
+        android:background="#a1ffffff"
+        app:layout_constraintEnd_toEndOf="@+id/cardView"
+        app:layout_constraintStart_toStartOf="@+id/cardView"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <View
+        android:layout_width="280dp"
+        android:layout_height="3dp"
+        android:background="#7effffff"
+        app:layout_constraintEnd_toEndOf="@+id/view2"
+        app:layout_constraintStart_toStartOf="@+id/view2"
+        app:layout_constraintTop_toBottomOf="@+id/view2" />
 
 </android.support.constraint.ConstraintLayout>

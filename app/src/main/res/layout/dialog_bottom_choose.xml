@@ -52,6 +52,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <ListView
+        android:background="@color/colorWhite"
         android:id="@+id/rv_dialog_post"
         android:layout_width="0dp"
         android:layout_height="250dp"

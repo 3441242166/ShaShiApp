@@ -44,6 +44,8 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
+        setTitle("运费信息");
+
         adapter = new FreightAdapter(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration());

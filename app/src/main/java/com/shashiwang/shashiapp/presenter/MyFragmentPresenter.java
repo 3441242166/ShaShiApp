@@ -25,7 +25,7 @@ public class MyFragmentPresenter extends BasePresenter<IMyFragmentView> {
         checkLogin();
     }
 
-    private void checkLogin(){
+    public void checkLogin(){
         String token = (String) getSharedPreference(TOKEN,null);
         if(TextUtils.isEmpty(token)){
             Log.i(TAG, "UnLogin");
