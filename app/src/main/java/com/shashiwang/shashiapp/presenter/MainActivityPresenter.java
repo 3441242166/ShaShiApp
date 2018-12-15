@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
@@ -61,6 +62,10 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
         RelativeLayout sale = popView.findViewById(R.id.rl_pop_sale);
         RelativeLayout dirver = popView.findViewById(R.id.rl_pop_dirver);
         RelativeLayout freight = popView.findViewById(R.id.rl_pop_freight);
+
+        ImageView ivBack = popView.findViewById(R.id.iv_back);
+
+        ivBack.setOnClickListener(view -> popupWindow.dismiss());
 
         sale.setOnClickListener(v -> {
             openActivity(PostCarMessageActivity.class,IssueType.A);

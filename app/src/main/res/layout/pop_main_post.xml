@@ -28,13 +28,20 @@
             <ImageView
                 android:id="@+id/iv_job"
                 style="@style/style_post_pop_img"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="37dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="38dp"
                 android:src="@drawable/icon_post_freight" />
 
             <TextView
                 android:id="@+id/tv_job"
                 style="@style/style_post_pop_text"
                 android:layout_below="@+id/iv_job"
-                android:text="运费发布" />
+                android:text="运费发布"
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -46,13 +53,20 @@
             <ImageView
                 android:id="@+id/iv_recruit"
                 style="@style/style_post_pop_img"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="37dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="38dp"
                 android:src="@drawable/icon_post_driver_recruit" />
 
             <TextView
                 android:id="@+id/tv_recruit"
                 style="@style/style_post_pop_text"
                 android:layout_below="@+id/iv_recruit"
-                android:text="司机招聘" />
+                android:text="司机招聘"
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -64,13 +78,20 @@
             <ImageView
                 android:id="@+id/iv_car_sale"
                 style="@style/style_post_pop_img"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="38dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="37dp"
                 android:src="@drawable/icon_post_car_trade" />
 
             <TextView
                 android:id="@+id/tv_friend"
                 style="@style/style_post_pop_text"
                 android:layout_below="@+id/iv_car_sale"
-                android:text="车辆出售" />
+                android:text="车辆出售"
+                android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
 
@@ -95,13 +116,20 @@
             <ImageView
                 android:id="@+id/iv_sign_in"
                 style="@style/style_post_pop_img"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="68dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="68dp"
                 android:src="@drawable/icon_post_stone_factory" />
 
             <TextView
                 android:id="@+id/tv_sign_in"
                 style="@style/style_post_pop_text"
                 android:layout_below="@+id/iv_sign_in"
-                android:text="我是沙石料厂" />
+                android:text="我是沙石料厂"
+                android:textSize="12sp" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -113,17 +141,39 @@
             <ImageView
                 android:id="@+id/iv_post"
                 style="@style/style_post_pop_img"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="68dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginEnd="68dp"
                 android:src="@drawable/icon_post_mix_station" />
 
             <TextView
                 android:id="@+id/tv_post"
                 style="@style/style_post_pop_text"
                 android:layout_below="@+id/iv_post"
-                android:text="我是搅拌站/工地" />
+                android:text="我是搅拌站/工地"
+                android:textSize="12sp" />
         </RelativeLayout>
 
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_back"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="31dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/met_ic_clear" />
 
 
 </android.support.constraint.ConstraintLayout>

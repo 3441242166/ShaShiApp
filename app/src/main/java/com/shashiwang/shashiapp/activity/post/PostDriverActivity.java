@@ -1,8 +1,15 @@
 package com.shashiwang.shashiapp.activity.post;
 
+import com.example.net.interceptors.TokenInterceptor;
+import com.example.net.rx.RxRetrofitClient;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
+import com.shashiwang.shashiapp.bean.FreightMessage;
+import com.shashiwang.shashiapp.bean.HttpResult;
+import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.customizeview.PostChooseLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
@@ -11,16 +18,23 @@ import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
 import com.shashiwang.shashiapp.presenter.PostPresenter;
 import com.shashiwang.shashiapp.view.PostDataView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
-public class PostDriverActivity extends BaseTopBarActivity<PostPresenter> implements PostDataView {
+public class PostDriverActivity extends BaseTopBarActivity{
+    private static final String TAG = "PostDriverActivity";
+
     @BindView(R.id.ed_salary)
     PostEditLayout edMileage;
     @BindView(R.id.ed_location)
@@ -41,7 +55,7 @@ public class PostDriverActivity extends BaseTopBarActivity<PostPresenter> implem
 
     @Override
     protected PostPresenter setPresenter() {
-        return new PostPresenter(this,this);
+        return null;
     }
 
     @Override
@@ -65,32 +79,45 @@ public class PostDriverActivity extends BaseTopBarActivity<PostPresenter> implem
         btSend.setOnClickListener(view -> postData());
     }
 
+    @SuppressLint("CheckResult")
     private void postData() {
-        Map<String,String> map = new HashMap<>();
 
+        if(checkData()){
+            RxRetrofitClient.builder()
+                    .header(new TokenInterceptor())
+                    .url("api/recruit/driver")
+                    .params("salary","")
+                    .params("job_desc","")
+                    .params("work_year","")
+                    .params("work_address","")
+                    .params("linkman","")
+                    .params("phone","")
+                    .build()
+                    .post()
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(s -> {
+                        Log.i(TAG, "getList: success " + s);
+                        HttpResult<MessageResult<FreightMessage>> result = new Gson().fromJson(s,new TypeToken<HttpResult<MessageResult<FreightMessage>>>(){}.getType());
 
+                        if(result.isSuccess()){
+                            Toast.makeText(PostDriverActivity.this,"发布成功",Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else {
+                            Toast.makeText(PostDriverActivity.this,result.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
 
-        presenter.postData(map);
+                    }, throwable -> {
+                        Log.i(TAG, "getList: error = " + throwable);
+                        Toast.makeText(PostDriverActivity.this,throwable.getMessage(),Toast.LENGTH_SHORT).show();
+                    });
+        }
+
     }
 
+    private boolean checkData() {
 
-    @Override
-    public void showProgress() {
-
+        return true;
     }
 
-    @Override
-    public void dismissProgress() {
-
-    }
-
-    @Override
-    public void loadDataSuccess(Object data) {
-
-    }
-
-    @Override
-    public void errorMessage(String throwable) {
-
-    }
 }

@@ -14,6 +14,7 @@ import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
 import com.shashiwang.shashiapp.activity.SettingActivity;
 import com.shashiwang.shashiapp.activity.post.PostCarMessageActivity;
+import com.shashiwang.shashiapp.activity.post.PostListActivity;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
 import com.shashiwang.shashiapp.activity.LoginActivity;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
@@ -47,7 +48,7 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
 
     private static final String[] TITLE = {"我的发布", "推荐有奖", "意见反馈", "发布信息"};
     private static final int[] IMG = {R.mipmap.gv_animation, R.mipmap.gv_multipleltem, R.mipmap.gv_header_and_footer, R.mipmap.gv_pulltorefresh};
-    private static final Class[] CLASSES = {MessageListActivity.class,MainActivity.class,FeedbackActivity.class, MainActivity.class};
+    private static final Class[] CLASSES = {PostListActivity.class,MainActivity.class,FeedbackActivity.class, MainActivity.class};
 
     @Override
     protected MyFragmentPresenter setPresenter() {
@@ -72,7 +73,7 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
             if(position == 0){
                 intent.putExtra(Constant.TYPE,POST);
                 intent.putExtra(Constant.TITLE,POST_TITLE);
-                intent.putExtra(Constant.CLASS,PostCarMessageActivity.class);
+                intent.putExtra(Constant.CLASS,PostListActivity.class);
             }
 
             startActivity(intent);

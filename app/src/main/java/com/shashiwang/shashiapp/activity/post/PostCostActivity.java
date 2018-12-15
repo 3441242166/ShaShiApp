@@ -53,10 +53,10 @@ public class PostCostActivity extends BaseTopBarActivity{
     @BindView(R.id.bt_send)
     Button btSend;
 
-    private String startLat = "1.1";
-    private String startLng = "1.1";
-    private String endLat = "2.2";
-    private String endLng = "2.2";
+    private String startLat;
+    private String startLng;
+    private String endLat;
+    private String endLng;
 
     @Override
     protected PostPresenter setPresenter() {

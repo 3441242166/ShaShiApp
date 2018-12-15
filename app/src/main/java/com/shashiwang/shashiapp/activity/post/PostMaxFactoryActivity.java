@@ -1,13 +1,23 @@
 package com.shashiwang.shashiapp.activity.post;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.net.interceptors.TokenInterceptor;
+import com.example.net.rx.RxRetrofitClient;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.LocationActivity;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
+import com.shashiwang.shashiapp.bean.FreightMessage;
+import com.shashiwang.shashiapp.bean.HttpResult;
+import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
@@ -19,9 +29,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
-public class PostMaxFactoryActivity extends BaseTopBarActivity<PostPresenter> implements PostDataView {
-
+public class PostMaxFactoryActivity extends BaseTopBarActivity{
+    private static final String TAG = "PostMaxFactoryActivity";
 
     @BindView(R.id.ed_title)
     PostEditLayout title;
@@ -38,9 +50,12 @@ public class PostMaxFactoryActivity extends BaseTopBarActivity<PostPresenter> im
     @BindView(R.id.bt_send)
     Button btSend;
 
+    private String startLat;
+    private String startLng;
+
     @Override
     protected PostPresenter setPresenter() {
-        return new PostPresenter(this,this);
+        return null;
     }
 
     @Override
@@ -62,39 +77,56 @@ public class PostMaxFactoryActivity extends BaseTopBarActivity<PostPresenter> im
         btSend.setOnClickListener(view -> postData());
     }
 
+    @SuppressLint("CheckResult")
     private void postData() {
-        Map<String,String> map = new HashMap<>();
 
+        if(checkData()){
+            RxRetrofitClient.builder()
+                    .header(new TokenInterceptor())
+                    .url("api/recruit/driver")
+                    .params("name","")
+                    .params("category_price","")
+                    .params("linkman","")
+                    .params("phone","")
+                    .params("location_lat","")
+                    .params("location_lng","")
+                    .params("remark","")
+                    .build()
+                    .post()
+                    .subscribeOn(Schedulers.newThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(s -> {
+                        Log.i(TAG, "getList: success " + s);
+                        HttpResult<MessageResult<FreightMessage>> result = new Gson().fromJson(s,new TypeToken<HttpResult<MessageResult<FreightMessage>>>(){}.getType());
 
+                        if(result.isSuccess()){
+                            Toast.makeText(PostMaxFactoryActivity.this,"发布成功",Toast.LENGTH_SHORT).show();
+                            finish();
+                        }else {
+                            Toast.makeText(PostMaxFactoryActivity.this,result.getMessage(),Toast.LENGTH_SHORT).show();
+                        }
 
-        presenter.postData(map);
+                    }, throwable -> {
+                        Log.i(TAG, "getList: error = " + throwable);
+                        Toast.makeText(PostMaxFactoryActivity.this,throwable.getMessage(),Toast.LENGTH_SHORT).show();
+                    });
+        }
+
+    }
+
+    private boolean checkData() {
+
+        return true;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Constant.RESULT_SUCCESS && data!=null){
-            location.setContantText(data.getStringExtra(Constant.RESULT_DATA));
+            location.setContantText(data.getStringExtra(Constant.LOCATION_NAME));
+            startLat = data.getStringExtra(Constant.LAT);
+            startLng = data.getStringExtra(Constant.LNG);
         }
     }
 
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void dismissProgress() {
-
-    }
-
-    @Override
-    public void loadDataSuccess(Object data) {
-
-    }
-
-    @Override
-    public void errorMessage(String throwable) {
-
-    }
 }

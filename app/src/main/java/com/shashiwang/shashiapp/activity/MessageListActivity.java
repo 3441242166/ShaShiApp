@@ -5,20 +5,12 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.activity.message.CarMessageActivity;
 import com.shashiwang.shashiapp.adapter.MessageAdapter;
-import com.shashiwang.shashiapp.adapter.PostAdapter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
-import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.bean.FreightMessage;
-import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageBean;
-import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.presenter.PostListPresenter;
 import com.shashiwang.shashiapp.util.DividerItemDecoration;
 import com.shashiwang.shashiapp.view.PostListView;
@@ -53,7 +45,7 @@ public class MessageListActivity extends BaseTopBarActivity<PostListPresenter> i
 
     @Override
     protected int getFrameContentView() {
-        return R.layout.activity_post_list;
+        return R.layout.activity_message_list;
     }
 
     @Override

@@ -74,6 +74,7 @@ public class FreightMessageActivity extends BaseTopBarActivity {
     protected void initFrame(Bundle savedInstanceState) {
         setTitle("详情");
         id = getIntent().getIntExtra(ID,-1);
+        Log.i(TAG, "initFrame: DataID = " + id);
         EventBus.getDefault().register(this);
         getMessage();
     }
@@ -93,7 +94,7 @@ public class FreightMessageActivity extends BaseTopBarActivity {
 
                     if(result.isSuccess()){
                         message = result.getData();
-                        loadDataSuccess();
+                        loadDataSuccess(message);
                     }else {
                         Log.i(TAG, "getMessage: fail");
                     }
@@ -103,7 +104,7 @@ public class FreightMessageActivity extends BaseTopBarActivity {
                 });
     }
 
-    private void loadDataSuccess(){
+    private void loadDataSuccess(FreightMessage message){
         tvTitle.setText(""+message.getUser_id());
         tvTime.setText(message.getUpdated_at());
         tvContent.setText(message.getRemark());
@@ -125,7 +126,7 @@ public class FreightMessageActivity extends BaseTopBarActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(CloudRgcResult data ) {
-        data.customLocationDescription;
+
     }
 
     @Override
