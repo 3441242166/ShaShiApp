@@ -27,38 +27,90 @@
     <com.shashiwang.shashiapp.customizeview.LoginEditText
         android:id="@+id/ev_phone"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:textColorHint="#c5c5c5"
         app:hint_content="请输入手机号码"
-        app:layout_constraintBottom_toTopOf="@+id/ev_code"
-        app:layout_constraintEnd_toEndOf="@+id/ev_code"
-        app:layout_constraintStart_toStartOf="@+id/ev_code"
+        app:layout_constraintBottom_toTopOf="@+id/ly_code"
+        app:layout_constraintEnd_toEndOf="@+id/ly_code"
+        app:layout_constraintStart_toStartOf="@+id/ly_code"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
     </com.shashiwang.shashiapp.customizeview.LoginEditText>
 
-    <com.shashiwang.shashiapp.customizeview.LoginEditText
-        android:id="@+id/ev_code"
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/ly_code"
         android:layout_width="0dp"
         android:layout_height="50dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:textColorHint="#c5c5c5"
-        app:hint_content="请输入验证码"
         app:layout_constraintBottom_toTopOf="@+id/ev_img_code"
         app:layout_constraintEnd_toEndOf="@+id/ev_img_code"
-        app:layout_constraintStart_toStartOf="@+id/ev_password"
-        app:right_icon="@mipmap/ic_contact">
+        app:layout_constraintStart_toStartOf="@+id/ev_password">
 
-    </com.shashiwang.shashiapp.customizeview.LoginEditText>
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@mipmap/ic_bottom_my" />
+
+        <EditText
+            android:hint="请输入验证码"
+            android:id="@+id/ev_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="1dp"
+            android:background="@null"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_left"
+            app:layout_constraintEnd_toStartOf="@+id/bt_code"
+            app:layout_constraintStart_toEndOf="@+id/iv_left"
+            app:layout_constraintTop_toTopOf="@+id/iv_left"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_left" />
+
+        <Button
+            android:id="@+id/bt_code"
+            android:layout_width="58dp"
+            android:layout_height="21dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/shape_login_button"
+            android:text="获取验证码"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toTopOf="@+id/view3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@mipmap/ic_bottom_my" />
+
+    </android.support.constraint.ConstraintLayout>
 
     <com.shashiwang.shashiapp.customizeview.LoginEditText
         android:id="@+id/ev_img_code"
         android:layout_width="0dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="8dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
         android:textColorHint="#c5c5c5"
         app:hint_content="请输入验证码"
         app:layout_constraintBottom_toTopOf="@+id/ev_password"
@@ -70,7 +122,7 @@
     <com.shashiwang.shashiapp.customizeview.LoginEditText
         android:id="@+id/ev_password"
         android:layout_width="0dp"
-        android:layout_height="50dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"

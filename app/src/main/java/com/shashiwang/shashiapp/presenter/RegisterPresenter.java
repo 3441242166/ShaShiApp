@@ -5,8 +5,11 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.CountDownTimer;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+import android.view.TextureView;
 
 import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
@@ -23,6 +26,18 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
     private static final String TAG = "RegisterPresenter";
 
     private ImageCode imageCode;
+
+    private CountDownTimer timer = new CountDownTimer(60000, 1000) {
+        @Override
+        public void onTick(long millisUntilFinished) {
+            mView.setCodeText(millisUntilFinished/1000 + "秒");
+        }
+
+        @Override
+        public void onFinish() {
+            mView.setCodeText("获取验证码");
+        }
+    };
 
     public RegisterPresenter(IRegisterView view, Context context) {
         super(view, context);
@@ -92,6 +107,11 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
 
     @SuppressLint("CheckResult")
     public void getCode(String imgCode,String phone) {
+        if(TextUtils.isEmpty(imgCode)){
+            mView.errorMessage("请输入验证码");
+            return;
+        }
+
 
         RxRetrofitClient.builder()
                 .url("/api/user/send/sms")
@@ -104,10 +124,17 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
                             Log.i(TAG, "accept: "+s);
+                            timer.start();
                         }
                         , throwable -> {
                             Log.i(TAG, "accept: "+throwable);
                         });
+    }
+
+    @Override
+    public void destroy() {
+        super.destroy();
+        timer.cancel();
     }
 
     private static class ImageCode{

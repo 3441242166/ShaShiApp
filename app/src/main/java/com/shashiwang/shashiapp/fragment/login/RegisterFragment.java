@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
@@ -15,6 +16,7 @@ import com.shashiwang.shashiapp.view.IRegisterView;
 
 import androidx.navigation.Navigation;
 import butterknife.BindView;
+import es.dmoral.toasty.Toasty;
 
 import static androidx.navigation.Navigation.findNavController;
 
@@ -23,7 +25,9 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
     @BindView(R.id.ev_phone)
     LoginEditText evPhone;
     @BindView(R.id.ev_code)
-    LoginEditText evCode;
+    EditText evCode;
+    @BindView(R.id.bt_code)
+    Button btCode;
     @BindView(R.id.ev_img_code)
     LoginEditText evImageCode;
     @BindView(R.id.ev_password)
@@ -49,10 +53,10 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
     private void initEvent() {
         btRegister.setOnClickListener(view -> {
             presenter.register(evPhone.getContantText(),evPassword.getContantText()
-            ,evCode.getContantText(),evImageCode.getContantText());
+            ,evCode.getText().toString(),evImageCode.getContantText());
         });
 
-        evCode.setOnLeftClickListener(() -> presenter.getCode(evImageCode.getContantText(), evPhone.getContantText()));
+        btCode.setOnClickListener(view -> presenter.getCode(evImageCode.getContantText(), evPhone.getContantText()));
 
         evImageCode.setOnLeftClickListener(() -> presenter.getImageCode());
     }
@@ -69,17 +73,25 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
 
     @Override
     public void loadDataSuccess(Object data) {
-        //Navigation.findNavController(btRegister).popBackStack(R.id.registerFragment, false);
         findNavController(getActivity(), R.id.login_fragment).navigateUp();
     }
 
     @Override
     public void errorMessage(String throwable) {
-
+        Toasty.warning(getContext(), throwable).show();
     }
 
     @Override
     public void showImage(Bitmap bitmap) {
         evImageCode.setRightImage(bitmap);
+    }
+
+    @Override
+    public void setCodeText(String str) {
+        btCode.setText(str);
+        if(str.equals("获取验证码")){
+            btCode.setClickable(true);
+        }
+        btCode.setClickable(false);
     }
 }

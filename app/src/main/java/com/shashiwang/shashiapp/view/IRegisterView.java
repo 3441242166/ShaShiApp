@@ -6,4 +6,5 @@ import com.shashiwang.shashiapp.base.IBaseView;
 
 public interface IRegisterView extends IBaseView {
     void showImage(Bitmap bitmap);
+    void setCodeText(String str);
 }
