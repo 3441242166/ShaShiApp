@@ -66,7 +66,8 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
     protected void init() {
         StatusBarCompat.setStatusBarColor(Objects.requireNonNull(getActivity()), Color.parseColor("#FFD100"));
 
-        banner.setBannerStyle(BannerConfig.NUM_INDICATOR_TITLE);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        banner.setIndicatorGravity(BannerConfig.CENTER);
         banner.setImageLoader(new ImageLoader());
 
         presenter.getBannerData();
@@ -139,15 +140,12 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
     @Override
     public void loadDataSuccess(List<BannerBean> data) {
         List<Integer> imgUrls = new ArrayList<>(data.size());
-        List<String> titles = new ArrayList<>(data.size());
         for(BannerBean bean :data){
             bean.setImgUrl(R.drawable.banner_one);
             imgUrls.add(bean.getImgId());
-            titles.add(bean.getTitle());
         }
 
         banner.setImages(imgUrls);
-        banner.setBannerTitles(titles);
 
         banner.start();
     }

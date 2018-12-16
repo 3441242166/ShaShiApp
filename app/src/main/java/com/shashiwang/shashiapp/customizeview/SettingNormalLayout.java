@@ -36,7 +36,7 @@ public class SettingNormalLayout extends ConstraintLayout {
         TypedArray array=context.obtainStyledAttributes(attrs, R.styleable.SettingNormalLayout);
         title = array.getString(R.styleable.SettingNormalLayout_title);
         secondTitle = array.getString(R.styleable.SettingNormalLayout_second_title);
-        icon = array.getInt(R.styleable.SettingNormalLayout_left_icon,-1);
+        icon = array.getResourceId(R.styleable.SettingNormalLayout_left_icon,-1);
 
         isSecondTitleShow = array.getBoolean(R.styleable.SettingNormalLayout_second_title_show,true);
         isIconShow = array.getBoolean(R.styleable.SettingNormalLayout_icon_show,true);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
 import com.shashiwang.shashiapp.adapter.MessageAdapter;
@@ -58,7 +59,15 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
 
         });
 
+        initEvent();
+
         presenter.getList();
+    }
+
+    private void initEvent() {
+        adapter.setOnLoadMoreListener(() -> {
+            recyclerView.postDelayed(() -> presenter.getList(), 500);
+        },recyclerView);
     }
 
     @Override
@@ -75,6 +84,7 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
     public void loadDataSuccess(List<FreightMessage> data) {
         list = data;
         adapter.setNewData(data);
+        adapter.loadMoreEnd();
     }
 
     @Override

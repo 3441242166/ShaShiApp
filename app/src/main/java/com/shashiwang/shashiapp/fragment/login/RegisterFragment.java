@@ -9,26 +9,25 @@ import android.widget.ImageView;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
+import com.shashiwang.shashiapp.customizeview.LoginEditText;
 import com.shashiwang.shashiapp.presenter.RegisterPresenter;
 import com.shashiwang.shashiapp.view.IRegisterView;
 
 import androidx.navigation.Navigation;
 import butterknife.BindView;
 
+import static androidx.navigation.Navigation.findNavController;
+
 public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implements IRegisterView {
 
     @BindView(R.id.ev_phone)
-    EditText evPhone;
+    LoginEditText evPhone;
     @BindView(R.id.ev_code)
-    EditText evCode;
-    @BindView(R.id.ev_image_code)
-    EditText evImageCode;
+    LoginEditText evCode;
+    @BindView(R.id.ev_img_code)
+    LoginEditText evImageCode;
     @BindView(R.id.ev_password)
-    EditText evPassword;
-    @BindView(R.id.iv_code)
-    ImageView ivCode;
-    @BindView(R.id.bt_code)
-    Button btCode;
+    LoginEditText evPassword;
     @BindView(R.id.bt_login)
     Button btRegister;
 
@@ -49,17 +48,13 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
 
     private void initEvent() {
         btRegister.setOnClickListener(view -> {
-            presenter.register(evPhone.getText().toString(),evPassword.getText().toString()
-            ,evCode.getText().toString(),evImageCode.getText().toString());
+            presenter.register(evPhone.getContantText(),evPassword.getContantText()
+            ,evCode.getContantText(),evImageCode.getContantText());
         });
 
-        btCode.setOnClickListener(view -> {
-            presenter.getCode(evImageCode.getText().toString(),evPhone.getText().toString());
-        });
+        evCode.setOnLeftClickListener(() -> presenter.getCode(evImageCode.getContantText(), evPhone.getContantText()));
 
-        ivCode.setOnClickListener(view -> {
-            presenter.getImageCode();
-        });
+        evImageCode.setOnLeftClickListener(() -> presenter.getImageCode());
     }
 
     @Override
@@ -75,6 +70,7 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
     @Override
     public void loadDataSuccess(Object data) {
         //Navigation.findNavController(btRegister).popBackStack(R.id.registerFragment, false);
+        findNavController(getActivity(), R.id.login_fragment).navigateUp();
     }
 
     @Override
@@ -84,6 +80,6 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
 
     @Override
     public void showImage(Bitmap bitmap) {
-        ivCode.setImageBitmap(bitmap);
+        evImageCode.setRightImage(bitmap);
     }
 }

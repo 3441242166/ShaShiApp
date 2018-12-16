@@ -22,7 +22,11 @@ public class SettingActivity extends BaseTopBarActivity {
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
-
+        setTopLeftButton(() -> {
+            if(!findNavController(SettingActivity.this, R.id.setting_fragment).navigateUp()){
+                finish();
+            }
+        });
     }
 
     @Override

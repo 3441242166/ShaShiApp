@@ -37,6 +37,7 @@ public class SettingFragment extends LazyLoadFragment {
 
     @Override
     protected void init() {
+
         broadcast.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_settingBroadcastFragment));
         about.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_aboutFragment));
 

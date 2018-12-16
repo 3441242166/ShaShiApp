@@ -63,7 +63,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
         RelativeLayout dirver = popView.findViewById(R.id.rl_pop_dirver);
         RelativeLayout freight = popView.findViewById(R.id.rl_pop_freight);
 
-        ImageView ivBack = popView.findViewById(R.id.iv_back);
+        ImageView ivBack = popView.findViewById(R.id.iv_logo);
 
         ivBack.setOnClickListener(view -> popupWindow.dismiss());
 

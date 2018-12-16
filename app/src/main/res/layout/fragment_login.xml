@@ -17,7 +17,7 @@
         android:paddingStart="20dp"
         android:textSize="10sp"
         app:layout_constraintBottom_toTopOf="@+id/bt_login"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout2" />
+        app:layout_constraintEnd_toEndOf="@+id/ev_password" />
 
     <Button
         android:id="@+id/bt_login"
@@ -49,54 +49,37 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayout"
+    <com.shashiwang.shashiapp.customizeview.LoginEditText
+        android:id="@+id/ev_count"
         android:layout_width="0dp"
-        android:layout_height="@dimen/post_item_height"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:textColorHint="#c5c5c5"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+        app:hint_content="请输入账号"
+        app:input_type="3"
+        app:layout_constraintBottom_toTopOf="@+id/ev_password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0">
 
-        <EditText
-            android:id="@+id/ev_count"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/selector_bg_edit"
-            android:hint="用户名"
-            android:inputType="number"
-            android:paddingBottom="2dp"
-            android:textColor="#2fa881"
-            android:textCursorDrawable="@drawable/shape_input_cursor"
-            android:textSize="13sp" />
-    </android.support.design.widget.TextInputLayout>
+    </com.shashiwang.shashiapp.customizeview.LoginEditText>
 
-    <android.support.design.widget.TextInputLayout
-        android:id="@+id/textInputLayout2"
+    <com.shashiwang.shashiapp.customizeview.LoginEditText
+        android:id="@+id/ev_password"
         android:layout_width="0dp"
-        android:layout_height="@dimen/post_item_height"
+        app:right_icon="@mipmap/ic_contact"
+        app:input_type="4"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:textColorHint="#c5c5c5"
+        app:hint_content="请输入密码"
         app:layout_constraintBottom_toTopOf="@+id/tv_forget"
-        app:layout_constraintEnd_toEndOf="@+id/textInputLayout"
-        app:layout_constraintStart_toStartOf="@+id/textInputLayout">
+        app:layout_constraintEnd_toEndOf="@+id/ev_count"
+        app:layout_constraintStart_toStartOf="@+id/ev_count">
 
-        <EditText
-            android:id="@+id/ev_password"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/selector_bg_edit"
-            android:hint="密码"
-            android:inputType="textPassword"
-            android:paddingBottom="2dp"
-            android:textColor="#2fa881"
-            android:textCursorDrawable="@drawable/shape_input_cursor"
-            android:textSize="13sp" />
-    </android.support.design.widget.TextInputLayout>
+    </com.shashiwang.shashiapp.customizeview.LoginEditText>
 
 </android.support.constraint.ConstraintLayout>

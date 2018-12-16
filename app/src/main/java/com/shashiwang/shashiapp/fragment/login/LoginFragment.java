@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
+import com.shashiwang.shashiapp.customizeview.LoginEditText;
 import com.shashiwang.shashiapp.presenter.LoginPresenter;
 import com.shashiwang.shashiapp.view.ILoginView;
 
@@ -23,9 +24,9 @@ public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements I
     @BindView(R.id.tv_forget)
     TextView tvForget;
     @BindView(R.id.ev_count)
-    EditText evCount;
+    LoginEditText evCount;
     @BindView(R.id.ev_password)
-    EditText evPassword;
+    LoginEditText evPassword;
 
     @Override
     protected LoginPresenter setPresenter() {
@@ -48,7 +49,7 @@ public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements I
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_forgetFragment);
         });
 
-        btLogin.setOnClickListener(view -> presenter.login(evCount.getText().toString(),evPassword.getText().toString()));
+        btLogin.setOnClickListener(view -> presenter.login(evCount.getContantText(),evPassword.getContantText()));
 
     }
 

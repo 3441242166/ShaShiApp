@@ -4,6 +4,8 @@
     <attr name="hint_content" format="string" />
     <attr name="item_content" format="string" />
     <attr name="left_icon" format="integer" />
+    <attr name="right_icon" format="integer" />
+    <attr name="input_type" format="integer" />
     <attr name="icon_show" format="boolean" />
     <attr name="second_title_show" format="boolean" />
 
@@ -46,6 +48,13 @@
     <declare-styleable name="MessageLayout">
         <attr name="title"/>
         <attr name="item_content"/>
+    </declare-styleable>
+
+    <declare-styleable name="LoginEditText">
+        <attr name="hint_content"/>
+        <attr name="left_icon"/>
+        <attr name="right_icon"/>
+        <attr name="input_type"/>
     </declare-styleable>
 
 </resources>
