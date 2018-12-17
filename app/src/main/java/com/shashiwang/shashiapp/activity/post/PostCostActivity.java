@@ -98,6 +98,8 @@ public class PostCostActivity extends BaseTopBarActivity{
                     .params("start_location_lng",startLng)
                     .params("end_location_lat",endLat)
                     .params("end_location_lng",endLng)
+                    .params("start_location",edStart.getContantText())
+                    .params("end_location",edEnd.getContantText())
                     .params("distance",edMileage.getContantText())
                     .params("cargo_name",edName.getContantText())
                     .params("price",edPrice.getContantText())

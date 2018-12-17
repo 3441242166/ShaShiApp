@@ -108,8 +108,8 @@ public class FreightMessageActivity extends BaseTopBarActivity {
         tvTime.setText(message.getUpdated_at());
         tvContent.setText(message.getRemark());
 
-        tvStart.setContantText("start");
-        tvEnd.setContantText("end");
+        tvStart.setContantText(message.getStart_location());
+        tvEnd.setContantText(message.getEnd_location());
         tvDistance.setContantText(String.valueOf(message.getDistance()));
         tvName.setContantText(message.getCargo_name());
         tvPrice.setContantText(String.valueOf(message.getPrice()));

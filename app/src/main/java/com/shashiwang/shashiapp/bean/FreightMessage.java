@@ -8,6 +8,8 @@ public class FreightMessage {
     private String start_location_lng;
     private String end_location_lat;
     private String end_location_lng;
+    private String start_location;
+    private String end_location;
     private int distance;
     private String cargo_name;
     private int price;
@@ -119,5 +121,21 @@ public class FreightMessage {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public String getStart_location() {
+        return start_location;
+    }
+
+    public void setStart_location(String start_location) {
+        this.start_location = start_location;
+    }
+
+    public String getEnd_location() {
+        return end_location;
+    }
+
+    public void setEnd_location(String end_location) {
+        this.end_location = end_location;
     }
 }
