@@ -3,6 +3,7 @@ package com.shashiwang.shashiapp.customizeview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.constraint.ConstraintLayout;
+import android.text.InputType;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ public class PostEditLayout extends ConstraintLayout {
     String title;
     String hintContent;
     String content;
+    int inputType;
 
     public PostEditLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -31,6 +33,7 @@ public class PostEditLayout extends ConstraintLayout {
         title = array.getString(R.styleable.PostEditLayout_title);
         content = array.getString(R.styleable.PostEditLayout_item_content);
         hintContent = array.getString(R.styleable.PostEditLayout_hint_content);
+        inputType = array.getInt(R.styleable.LoginEditText_input_type,1);
         array.recycle();
 
         initView();
@@ -44,6 +47,23 @@ public class PostEditLayout extends ConstraintLayout {
         txTitle.setText(title);
         etContent.setText(content);
         etContent.setHint(hintContent);
+
+        switch (inputType){
+            case 1:
+                inputType = InputType.TYPE_CLASS_TEXT;
+                break;
+            case 2:
+                inputType = InputType.TYPE_CLASS_NUMBER;
+                break;
+            case 3:
+                inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD;
+                break;
+            case 4:
+                inputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
+                break;
+        }
+
+        etContent.setInputType(inputType);
     }
 
     public String getContantText(){

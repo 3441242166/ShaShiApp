@@ -13,6 +13,8 @@ import com.shashiwang.shashiapp.view.ILoginView;
 import androidx.navigation.Navigation;
 import butterknife.BindView;
 
+import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
+
 public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements ILoginView {
 
     @BindView(R.id.bt_login)
@@ -75,6 +77,7 @@ public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements I
 
     @Override
     public void loadDataSuccess(Object data) {
+        getActivity().setResult(RESULT_SUCCESS);
         getActivity().finish();
     }
 

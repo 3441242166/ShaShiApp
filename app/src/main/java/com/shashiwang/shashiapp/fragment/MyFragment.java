@@ -3,6 +3,7 @@ package com.shashiwang.shashiapp.fragment;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,10 +29,15 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static com.shashiwang.shashiapp.constant.Constant.REQUEST_LOGIN;
+import static com.shashiwang.shashiapp.constant.Constant.REQUEST_SETTIN;
+import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
 import static com.shashiwang.shashiapp.constant.MessageType.POST;
 import static com.shashiwang.shashiapp.constant.MessageType.POST_TITLE;
 
 public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements IMyFragmentView{
+    private static final String TAG = "MyFragment";
+
 
     @BindView(R.id.iv_head)
     ImageView ivHead;
@@ -47,7 +53,8 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
     private TextAdapter adapter;
 
     private static final String[] TITLE = {"我的发布", "推荐有奖", "意见反馈", "发布信息"};
-    private static final int[] IMG = {R.mipmap.gv_animation, R.mipmap.gv_multipleltem, R.mipmap.gv_header_and_footer, R.mipmap.gv_pulltorefresh};
+    private static final int[] IMG = {R.drawable.ic_my_1,R.drawable.ic_my_2,
+            R.drawable.ic_my_3, R.drawable.ic_my_4};
     private static final Class[] CLASSES = {PostListActivity.class,MainActivity.class,FeedbackActivity.class, MainActivity.class};
 
     @Override
@@ -80,7 +87,7 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
         });
 
         ivSetting.setOnClickListener(view -> {
-            startActivityForResult(new Intent(getContext(), SettingActivity.class),0);
+            startActivityForResult(new Intent(getContext(), SettingActivity.class),REQUEST_SETTIN);
         });
     }
 
@@ -93,9 +100,6 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration());
         recyclerView.setAdapter(adapter);
-
-
-
     }
 
     @Override
@@ -123,16 +127,18 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
         if(is){
             btLogin.setVisibility(View.VISIBLE);
             tvName.setVisibility(View.GONE);
-            btLogin.setOnClickListener(view -> startActivity(new Intent(getContext(), LoginActivity.class)));
+            btLogin.setOnClickListener(view -> startActivityForResult(new Intent(getContext(), LoginActivity.class),REQUEST_LOGIN));
         }else {
             btLogin.setVisibility(View.GONE);
             tvName.setVisibility(View.VISIBLE);
+            presenter.getUserMessage();
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG, "onActivityResult: requestCode = "+ requestCode + "  resultCode = "+ resultCode);
         presenter.checkLogin();
     }
 }

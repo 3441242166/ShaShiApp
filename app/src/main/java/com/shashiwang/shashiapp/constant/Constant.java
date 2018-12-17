@@ -17,6 +17,9 @@ public class Constant {
     public static final int RESULT_SUCCESS = 1;
     public static final int RESULT_ERROR = 0;
 
+    public static final int REQUEST_LOGIN = 0;
+    public static final int REQUEST_SETTIN = 1;
+    public static final int REQUEST_LOCATION = 2;
     //-------------Map回调---------------------//
     public static final String LAT = "lat";
     public static final String LNG = "lng";

@@ -32,7 +32,7 @@ public class MyFragmentPresenter extends BasePresenter<IMyFragmentView> {
             mView.unLogin(true);
             return;
         }
-
+        mView.unLogin(false);
     }
 
     public void getUserMessage(){

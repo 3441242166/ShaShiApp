@@ -19,6 +19,7 @@
         <attr name="title"/>
         <attr name="hint_content"/>
         <attr name="item_content"/>
+        <attr name="input_type"/>
     </declare-styleable>
 
     <declare-styleable name="PostEditPlusLayout">

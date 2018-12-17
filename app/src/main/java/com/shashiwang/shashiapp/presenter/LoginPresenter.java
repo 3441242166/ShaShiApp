@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.bean.HttpResult;
+import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.view.ILoginView;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;

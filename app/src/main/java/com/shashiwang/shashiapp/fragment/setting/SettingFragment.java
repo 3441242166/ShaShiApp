@@ -14,6 +14,7 @@ import com.shashiwang.shashiapp.customizeview.SettingNormalLayout;
 import androidx.navigation.Navigation;
 import butterknife.BindView;
 
+import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 
 public class SettingFragment extends LazyLoadFragment {
@@ -45,6 +46,7 @@ public class SettingFragment extends LazyLoadFragment {
             btExit.setVisibility(View.VISIBLE);
             btExit.setOnClickListener(view -> {
                 SharedPreferencesHelper.remove(TOKEN);
+                getActivity().setResult(RESULT_SUCCESS);
                 getActivity().finish();
             });
         }

@@ -64,7 +64,6 @@ public class LoginEditText extends ConstraintLayout {
         }
 
         evInput.setHint(hintContent);
-        evInput.setInputType(inputType);
 
         switch (inputType){
             case 1:
