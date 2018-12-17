@@ -20,6 +20,7 @@ import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.adapter.LocationAdapter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.presenter.LocationPresenter;
+import com.shashiwang.shashiapp.util.DividerItemDecoration;
 import com.shashiwang.shashiapp.view.ILocationView;
 
 import android.os.Bundle;
@@ -76,6 +77,7 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
     private void initView() {
         setTitle("选择地点");
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.addItemDecoration(new DividerItemDecoration());
         adapter = new LocationAdapter(null,this);
         recyclerView.setAdapter(adapter);
     }

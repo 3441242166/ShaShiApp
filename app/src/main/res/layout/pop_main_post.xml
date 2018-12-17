@@ -34,7 +34,7 @@
                 android:layout_marginStart="37dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="38dp"
-                android:src="@drawable/icon_post_freight" />
+                android:src="@drawable/logo_frigen" />
 
             <TextView
                 android:id="@+id/tv_job"
@@ -59,7 +59,7 @@
                 android:layout_marginStart="37dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="38dp"
-                android:src="@drawable/icon_post_driver_recruit" />
+                android:src="@drawable/logo_driver" />
 
             <TextView
                 android:id="@+id/tv_recruit"
@@ -84,7 +84,7 @@
                 android:layout_marginStart="38dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="37dp"
-                android:src="@drawable/icon_post_car_trade" />
+                android:src="@drawable/logo_car" />
 
             <TextView
                 android:id="@+id/tv_friend"
@@ -122,7 +122,7 @@
                 android:layout_marginStart="68dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="68dp"
-                android:src="@drawable/icon_post_stone_factory" />
+                android:src="@drawable/logo_factory" />
 
             <TextView
                 android:id="@+id/tv_sign_in"
@@ -147,7 +147,7 @@
                 android:layout_marginStart="68dp"
                 android:layout_marginTop="0dp"
                 android:layout_marginEnd="68dp"
-                android:src="@drawable/icon_post_mix_station" />
+                android:src="@drawable/logo_station" />
 
             <TextView
                 android:id="@+id/tv_post"

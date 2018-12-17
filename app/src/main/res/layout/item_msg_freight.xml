@@ -39,7 +39,7 @@
             android:layout_height="28dp"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
-            android:src="@drawable/icon_back_black"
+            android:src="@drawable/ic_phone"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

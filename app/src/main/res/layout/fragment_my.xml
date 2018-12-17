@@ -76,7 +76,7 @@
                 android:layout_marginEnd="12dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/icon_post_mix_station" />
+                app:srcCompat="@drawable/ic_setting" />
 
         </android.support.constraint.ConstraintLayout>
 

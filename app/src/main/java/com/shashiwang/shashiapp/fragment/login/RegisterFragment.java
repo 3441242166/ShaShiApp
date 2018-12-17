@@ -1,20 +1,16 @@
 package com.shashiwang.shashiapp.fragment.login;
 
 import android.graphics.Bitmap;
-import android.view.View;
+import android.text.InputType;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
 import com.shashiwang.shashiapp.customizeview.LoginEditText;
 import com.shashiwang.shashiapp.presenter.RegisterPresenter;
 import com.shashiwang.shashiapp.view.IRegisterView;
 
-import androidx.navigation.Navigation;
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
 
@@ -35,6 +31,8 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
     @BindView(R.id.bt_login)
     Button btRegister;
 
+    boolean isShowPassword = false;
+
     @Override
     protected RegisterPresenter setPresenter() {
         return new RegisterPresenter(this,getContext());
@@ -52,13 +50,24 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
 
     private void initEvent() {
         btRegister.setOnClickListener(view -> {
-            presenter.register(evPhone.getContantText(),evPassword.getContantText()
-            ,evCode.getText().toString(),evImageCode.getContantText());
+            presenter.register(evPhone.getContentText(),evPassword.getContentText()
+            ,evCode.getText().toString(),evImageCode.getContentText());
         });
 
-        btCode.setOnClickListener(view -> presenter.getCode(evImageCode.getContantText(), evPhone.getContantText()));
+        btCode.setOnClickListener(view -> presenter.getCode(evImageCode.getContentText(), evPhone.getContentText()));
 
-        evImageCode.setOnLeftClickListener(() -> presenter.getImageCode());
+        evImageCode.setOnRightClickListener(() -> presenter.getImageCode());
+
+        evPassword.setOnRightClickListener(() -> {
+            if(isShowPassword){
+                evPassword.setRightImage(R.drawable.ic_open_eye);
+                evPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }else {
+                evPassword.setRightImage(R.drawable.ic_close_eye);
+                evPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }
+            isShowPassword = !isShowPassword;
+        });
     }
 
     @Override

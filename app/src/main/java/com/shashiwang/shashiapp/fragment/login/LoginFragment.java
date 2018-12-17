@@ -1,12 +1,10 @@
 package com.shashiwang.shashiapp.fragment.login;
 
-import android.view.View;
+import android.text.InputType;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
 import com.shashiwang.shashiapp.customizeview.LoginEditText;
 import com.shashiwang.shashiapp.presenter.LoginPresenter;
@@ -27,6 +25,8 @@ public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements I
     LoginEditText evCount;
     @BindView(R.id.ev_password)
     LoginEditText evPassword;
+
+    boolean isShowPassword = false;
 
     @Override
     protected LoginPresenter setPresenter() {
@@ -49,8 +49,18 @@ public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements I
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_forgetFragment);
         });
 
-        btLogin.setOnClickListener(view -> presenter.login(evCount.getContantText(),evPassword.getContantText()));
+        btLogin.setOnClickListener(view -> presenter.login(evCount.getContentText(),evPassword.getContentText()));
 
+        evPassword.setOnRightClickListener(() -> {
+            if(isShowPassword){
+                evPassword.setRightImage(R.drawable.ic_open_eye);
+                evPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }else {
+                evPassword.setRightImage(R.drawable.ic_close_eye);
+                evPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }
+            isShowPassword = !isShowPassword;
+        });
     }
 
     @Override
@@ -65,7 +75,6 @@ public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements I
 
     @Override
     public void loadDataSuccess(Object data) {
-
         getActivity().finish();
     }
 

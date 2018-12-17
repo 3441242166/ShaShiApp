@@ -6,11 +6,11 @@ import android.graphics.Bitmap;
 import android.support.constraint.ConstraintLayout;
 import android.text.InputType;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.shashiwang.shashiapp.R;
 
@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class LoginEditText extends ConstraintLayout {
+    private static final String TAG = "LoginEditText";
 
     @BindView(R.id.iv_left)
     ImageView ivLeft;
@@ -29,8 +30,9 @@ public class LoginEditText extends ConstraintLayout {
     int leftImage;
     int rightImage;
     String hintContent;
-    int inputType = 1;
-    private OnLeftClickListener onClickListener;
+    private OnRightClickListener onClickListener;
+
+    int inputType;
 
 
     public LoginEditText(Context context, AttributeSet attrs) {
@@ -39,7 +41,7 @@ public class LoginEditText extends ConstraintLayout {
         TypedArray array=context.obtainStyledAttributes(attrs, R.styleable.LoginEditText);
         leftImage = array.getResourceId(R.styleable.LoginEditText_left_icon,-1);
         rightImage = array.getResourceId(R.styleable.LoginEditText_right_icon,-1);
-        inputType = array.getInt(R.styleable.LoginEditText_input_type,inputType);
+        inputType = array.getInt(R.styleable.LoginEditText_input_type,1);
         hintContent = array.getString(R.styleable.LoginEditText_hint_content);
         array.recycle();
 
@@ -57,11 +59,6 @@ public class LoginEditText extends ConstraintLayout {
 
         if(rightImage != -1) {
             ivRight.setImageResource(rightImage);
-            ivRight.setOnClickListener(view -> {
-                if (onClickListener != null) {
-                    onClickListener.onClick();
-                }
-            });
         }else {
             ivRight.setVisibility(View.GONE);
         }
@@ -77,17 +74,24 @@ public class LoginEditText extends ConstraintLayout {
                 inputType = InputType.TYPE_CLASS_NUMBER;
                 break;
             case 3:
-                inputType = InputType.TYPE_CLASS_PHONE;
+                inputType = InputType.TYPE_NUMBER_VARIATION_PASSWORD;
                 break;
             case 4:
-                inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD;
+                inputType = InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD;
                 break;
         }
 
         evInput.setInputType(inputType);
+
+        ivRight.setOnClickListener(view -> {
+            Log.i(TAG, "initView: Listener = " + onClickListener);
+            if (onClickListener != null) {
+                onClickListener.onClick();
+            }
+        });
     }
 
-    public String getContantText(){
+    public String getContentText(){
         return evInput.getText().toString();
     }
 
@@ -105,7 +109,8 @@ public class LoginEditText extends ConstraintLayout {
         ivRight.setImageBitmap(resID);
     }
 
-    public void setOnLeftClickListener(OnLeftClickListener onClickListener){
+    public void setOnRightClickListener(OnRightClickListener onClickListener){
+        Log.i(TAG, "setOnRightClickListener:");
         this.onClickListener = onClickListener;
     }
 
@@ -114,7 +119,8 @@ public class LoginEditText extends ConstraintLayout {
         evInput.setInputType(inputType);
     }
 
-    public interface OnLeftClickListener{
+    public interface OnRightClickListener {
         void onClick();
     }
+
 }
