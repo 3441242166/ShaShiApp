@@ -38,7 +38,6 @@ public class FreightListPresenter extends BasePresenter<IFreightListView> {
     public void getList(){
 
         RxRetrofitClient.builder()
-                .header(new TokenInterceptor())
                 .url("api/freight/")
                 .build()
                 .get()

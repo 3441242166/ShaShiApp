@@ -82,7 +82,6 @@ public class FreightMessageActivity extends BaseTopBarActivity {
     @SuppressLint("CheckResult")
     private void getMessage(){
         RxRetrofitClient.builder()
-                .header(new TokenInterceptor())
                 .url("api/freight/"+id)
                 .build()
                 .get()
