@@ -13,7 +13,7 @@ import android.widget.RelativeLayout;
 
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.post.PostCarMessageActivity;
-import com.shashiwang.shashiapp.activity.post.PostCostActivity;
+import com.shashiwang.shashiapp.activity.post.PostFreightActivity;
 import com.shashiwang.shashiapp.activity.post.PostDriverActivity;
 import com.shashiwang.shashiapp.activity.post.PostMaxFactoryActivity;
 import com.shashiwang.shashiapp.activity.post.PostStoneFactoryActivity;
@@ -79,7 +79,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
             openActivity(PostDriverActivity.class,IssueType.A);
         });
         freight.setOnClickListener(v -> {
-            openActivity(PostCostActivity.class,IssueType.A);
+            openActivity(PostFreightActivity.class,IssueType.A);
         });
         mixStation.setOnClickListener(v -> {
             openActivity(PostMaxFactoryActivity.class,IssueType.A);

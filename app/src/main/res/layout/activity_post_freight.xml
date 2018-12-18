@@ -29,12 +29,14 @@
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
-            app:input_type="2"
             android:id="@+id/ed_mileage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hint_content="请输入路程里程数"
-            app:title="总公里" />
+            app:input_type="2"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:title="公里数" />
 
         <View style="@style/view_line" />
 
@@ -54,6 +56,16 @@
             android:layout_height="wrap_content"
             app:hint_content="请输入运费价格"
             app:title="运费价格" />
+
+        <View style="@style/view_line" />
+
+        <com.shashiwang.shashiapp.customizeview.PostEditLayout
+            android:id="@+id/ed_phone"
+            app:input_type="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint_content="请输入联系方式"
+            app:title="联系方式" />
 
         <View style="@style/view_line" />
 

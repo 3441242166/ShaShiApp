@@ -2,6 +2,7 @@ package com.shashiwang.shashiapp.fragment.login;
 
 import android.graphics.Bitmap;
 import android.text.InputType;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -98,9 +99,12 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
     @Override
     public void setCodeText(String str) {
         btCode.setText(str);
+
         if(str.equals("获取验证码")){
+            Log.i(TAG, "setCodeText: clickable = true");
             btCode.setClickable(true);
         }
+
         btCode.setClickable(false);
     }
 }

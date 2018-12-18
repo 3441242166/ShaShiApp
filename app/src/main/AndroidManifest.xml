@@ -61,7 +61,7 @@
 
         <activity android:name=".activity.post.PostCarMessageActivity" />
         <activity android:name=".activity.post.PostDriverActivity" />
-        <activity android:name=".activity.post.PostCostActivity" />
+        <activity android:name=".activity.post.PostFreightActivity" />
         <activity android:name=".activity.post.PostMaxFactoryActivity" />
         <activity android:name=".activity.FeedbackActivity" />
         <activity android:name=".activity.SettingActivity" />
@@ -74,7 +74,8 @@
         <activity android:name=".activity.message.FreightMessageActivity" />
         <activity android:name=".activity.message.MessageActivity" />
         <activity android:name=".activity.message.FreightListActivity" />
-        <activity android:name=".activity.post.PostListActivity"></activity>
+        <activity android:name=".activity.post.PostListActivity" />
+        <activity android:name=".activity.UserMessageActivity"></activity>
     </application>
 
 </manifest>

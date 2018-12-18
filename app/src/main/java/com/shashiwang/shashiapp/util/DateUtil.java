@@ -19,40 +19,21 @@ public class DateUtil {
 
     public static String getNow(String type) {
         Date currentTime = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat(type);
-        String dateString = formatter.format(currentTime);
-        Log.i("date","getNowDateTimeString    "+dateString);
-        return dateString;
+        return new SimpleDateFormat(type).format(currentTime);
     }
 
     public static String getStringByDate(Date date,String type){
-        SimpleDateFormat formatter = new SimpleDateFormat(type);
-        Log.i(TAG, "getStringByDateTime: dateString " +formatter.format(date));
-        return formatter.format(date);
+        return new SimpleDateFormat(type).format(date);
     }
 
-    public static String getTimeString(String dateTime,String type) {
-        SimpleDateFormat formatter = new SimpleDateFormat(type);
-        Date date= new Date();
-        try {
-            date = formatter.parse(dateTime);
-        } catch (ParseException e) {
-            e.printStackTrace();
+    public static String getTimeString(String dateTime) {
+        String[] ar = dateTime.split(" ");
+        if(ar.length<2){
+            Log.i("date","error dateTime");
+            return "";
         }
-        String dateString = formatter.format(date);
-        Log.i("date","getNowTimeString    "+dateString);
-        return dateString;
-    }
-
-    public static Date getTimeByDateString(String date){
-        Date mDate = new Date();
-        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss", Locale.CHINA);
-        try {
-            mDate = format.parse(date);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return mDate;
+        Log.i("date","getNowTimeString    "+ar[1]);
+        return ar[1];
     }
 
     /*    date_1 大 返回 1 --- date_1 小 返回 -1 ---else 返回 0 */
@@ -76,7 +57,7 @@ public class DateUtil {
 
     public static int differentDays(String bdate, String smdate){
 
-        DateFormat  sdf=new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat  sdf=new SimpleDateFormat(DATE_TIME);
 
         try {
             Date d1 = sdf.parse(bdate);
@@ -84,8 +65,10 @@ public class DateUtil {
 
             long diff = d1.getTime() - d2.getTime();
             long days = diff / (1000 * 60 * 60 * 24);
-            return (int)days;
+            Log.i(TAG, "differentDays: " + days);
+            return (int)days + 1;
         }catch (Exception e){
+            Log.i(TAG, "differentHours: "+e);
             return -1;
         }
 
@@ -93,7 +76,7 @@ public class DateUtil {
 
     public static int differentHours(String bdate, String smdate){
 
-        DateFormat  sdf=new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat  sdf=new SimpleDateFormat(DATE_TIME);
 
         try {
             Date d1 = sdf.parse(bdate);
@@ -101,8 +84,12 @@ public class DateUtil {
 
             long diff = d1.getTime() - d2.getTime();
             long days = diff / (1000 * 60 * 60 * 24);
-            return (int)days;
+            diff  = diff - days * (1000 * 60 * 60 * 24);
+            long hours = diff / (1000 * 60 * 60 );
+            Log.i(TAG, "differentHours: " + hours);
+            return (int)hours+1;
         }catch (Exception e){
+            Log.i(TAG, "differentHours: "+e);
             return -1;
         }
 
@@ -110,7 +97,7 @@ public class DateUtil {
 
     public static int differentMinutes(String bdate, String smdate){
 
-        DateFormat  sdf=new SimpleDateFormat("yyyy-MM-dd");
+        DateFormat sdf = new SimpleDateFormat(DATE_TIME);
 
         try {
             Date d1 = sdf.parse(bdate);
@@ -118,11 +105,63 @@ public class DateUtil {
 
             long diff = d1.getTime() - d2.getTime();
             long days = diff / (1000 * 60 * 60 * 24);
-            return (int)days;
+            diff  = diff - days * (1000 * 60 * 60 * 24);
+            long hours = diff / (1000 * 60 * 60 );
+            diff  = diff - hours * (1000 * 60 * 60);
+            long minute = diff / (1000 * 60 );
+            Log.i(TAG, "differentMinutes: " + minute);
+            return (int)minute+1;
         }catch (Exception e){
+            Log.i(TAG, "differentHours: "+e);
             return -1;
         }
-
     }
+
+    /**
+     * 规则:
+     * 大于6小时 显示详细日期时间
+     * 大于60分钟 显示 n 小时前
+     * 显示 n 分钟前
+     * @param startTime 开始时间
+     * @return
+     */
+    public static String getDifferentString(String startTime){
+        Log.i(TAG, "getDifferentString: startTime = "+ startTime + "  nowTime = "+getNow(DATE_TIME));
+        String now = getNow(DATE_TIME);
+
+        DateFormat sdf = new SimpleDateFormat(DATE_TIME);
+
+        try {
+            Date d1 = sdf.parse(now);
+            Date d2 = sdf.parse(startTime);
+
+            long diff = (d1.getTime() - d2.getTime()) /1000;
+
+            int difMinutes = (int) (diff / 60);
+            Log.i(TAG, "getDifferentString: difMinutes = "+difMinutes);
+            if(difMinutes < 60){
+                if(difMinutes < 3){
+                    Log.i(TAG, "getDifferentString: 刚刚");
+                    return "刚刚";
+                }
+                Log.i(TAG, "getDifferentString: " + difMinutes + "分钟前");
+                return difMinutes + "分钟前";
+            }
+
+            int difHours = difMinutes / 60;
+            Log.i(TAG, "getDifferentString: difHours = "+difHours);
+            if(difHours < 6){
+                Log.i(TAG, "getDifferentString: "+ difHours + "小时前");
+                return difHours + "小时前";
+            }
+            Log.i(TAG, "getDifferentString: "+startTime);
+            return startTime;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "";
+    }
+
 }
 

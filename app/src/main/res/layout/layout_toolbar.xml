@@ -8,9 +8,9 @@
 
     <Button
         android:id="@+id/ac_base_left"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:layout_gravity="left"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_gravity="start"
         android:layout_marginStart="10dp"
         android:background="@drawable/icon_back_black"
         app:layout_constraintBottom_toBottomOf="@+id/ac_base_title"
@@ -19,11 +19,11 @@
 
     <Button
         android:id="@+id/ac_base_right"
-        android:layout_width="28dp"
-        android:layout_height="28dp"
-        android:layout_gravity="right"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_gravity="end"
         android:layout_marginEnd="10dp"
-        android:background="@mipmap/ic_launcher"
+        android:background="@null"
         android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/ac_base_title"
         app:layout_constraintEnd_toEndOf="parent"

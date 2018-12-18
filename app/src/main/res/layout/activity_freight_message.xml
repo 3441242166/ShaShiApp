@@ -64,6 +64,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:item_content="XXX"
+                    app:item_icon="@drawable/ic_location"
                     app:title="起始位置:" />
 
                 <View
@@ -74,6 +75,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:item_content="XXX"
+                    app:item_icon="@drawable/ic_location"
                     app:title="终点位置:" />
 
                 <View

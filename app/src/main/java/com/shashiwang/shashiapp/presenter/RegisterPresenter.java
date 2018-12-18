@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.bean.HttpResult;
+import com.shashiwang.shashiapp.util.CheckUtil;
 import com.shashiwang.shashiapp.view.IRegisterView;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -73,7 +74,18 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
 
     @SuppressLint("CheckResult")
     public void register(String phone, String password, String code, String imgCode) {
-        //HttpResult<String> result = new Gson().fromJson("",new TypeToken<HttpResult<String>>(){}.getType());
+        if(!CheckUtil.isPhone(phone)){
+            mView.errorMessage("请输入正确的手机号");
+            return;
+        }
+        if(TextUtils.isEmpty(code)){
+            mView.errorMessage("请输入验证码");
+            return;
+        }
+        if(TextUtils.isEmpty(password)){
+            mView.errorMessage("请输入密码");
+            return;
+        }
 
         RxRetrofitClient.builder()
                 .url("/api/user/register")
@@ -89,7 +101,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
                 .subscribe(s -> {
                             Log.i(TAG, "accept: "+s);
 
-                            HttpResult<String> result = new Gson().fromJson(s,new TypeToken<HttpResult<String>>(){}.getType());
+                            HttpResult<Object> result = new Gson().fromJson(s,new TypeToken<HttpResult<Object>>(){}.getType());
 
                             if(result.isSuccess()){
                                 mView.loadDataSuccess(null);
@@ -107,6 +119,11 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
 
     @SuppressLint("CheckResult")
     public void getCode(String imgCode,String phone) {
+
+        if(!CheckUtil.isPhone(phone)){
+            mView.errorMessage("请输入正确的手机号");
+            return;
+        }
         if(TextUtils.isEmpty(imgCode)){
             mView.errorMessage("请输入验证码");
             return;
@@ -124,10 +141,16 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
                             Log.i(TAG, "accept: "+s);
-                            timer.start();
+                            HttpResult<Object> result = new Gson().fromJson(s,new TypeToken<HttpResult<Object>>(){}.getType());
+                            if(result.isSuccess()){
+                                timer.start();
+                            }else {
+                                mView.errorMessage(result.getMessage());
+                            }
                         }
                         , throwable -> {
                             Log.i(TAG, "accept: "+throwable);
+                            mView.errorMessage("网络异常");
                         });
     }
 

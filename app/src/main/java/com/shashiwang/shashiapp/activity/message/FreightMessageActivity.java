@@ -1,9 +1,12 @@
 package com.shashiwang.shashiapp.activity.message;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.TextView;
 
 import com.baidu.mapapi.cloud.CloudManager;
@@ -20,18 +23,22 @@ import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.customizeview.MessageLayout;
+import com.shashiwang.shashiapp.util.DateUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.util.Date;
 import java.util.Map;
 
 import butterknife.BindView;
+import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.shashiwang.shashiapp.constant.Constant.ID;
+import static com.shashiwang.shashiapp.util.MapUtil.isAvailable;
 
 public class FreightMessageActivity extends BaseTopBarActivity {
     private static final String TAG = "FreightMessageActivity";
@@ -72,11 +79,66 @@ public class FreightMessageActivity extends BaseTopBarActivity {
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
-        setTitle("详情");
         id = getIntent().getIntExtra(ID,-1);
-        Log.i(TAG, "initFrame: DataID = " + id);
-        EventBus.getDefault().register(this);
+        initView();
+        initEvent();
         getMessage();
+    }
+
+    public void initView(){
+        setTitle("详情");
+    }
+
+    public void initEvent(){
+        tvStart.setOnClickListener(view -> {
+            boolean isBaiduUsed = isAvailable(FreightMessageActivity.this, "com.baidu.BaiduMap");
+            boolean isGaodeUsed = isAvailable(FreightMessageActivity.this, "com.autonavi.minimap");
+            Log.i(TAG, "initEvent: baidu = "+isBaiduUsed +"  gaode = "+isGaodeUsed);
+            if(!isBaiduUsed && !isGaodeUsed){
+                Toasty.info(FreightMessageActivity.this,"该手机未安装地图软件");
+            }
+            if(isBaiduUsed){
+                Intent i1 = new Intent();
+                String url = "baidumap://map/show?center="+message.getStart_location_lat()+","+message.getStart_location_lng()
+                        +"&zoom=11&src=com.shashiwang.shashiapp";
+                Log.i(TAG, "openDialog: url = "+url);
+                i1.setData(Uri.parse(url));
+                startActivity(i1);
+                return;
+            }
+            if(isGaodeUsed){
+                Intent i1 = new Intent();
+                String url = "//uri.amap.com/marker?position="+message.getStart_location_lat()+","+message.getStart_location_lng();
+                Log.i(TAG, "openDialog: url = "+url);
+                i1.setData(Uri.parse(url));
+                startActivity(i1);
+            }
+        });
+
+        tvEnd.setOnClickListener(view -> {
+            boolean isBaiduUsed = isAvailable(FreightMessageActivity.this, "com.baidu.BaiduMap");
+            boolean isGaodeUsed = isAvailable(FreightMessageActivity.this, "com.autonavi.minimap");
+            Log.i(TAG, "initEvent: baidu = "+isBaiduUsed +"  gaode = "+isGaodeUsed);
+            if(!isBaiduUsed && !isGaodeUsed){
+                Toasty.info(FreightMessageActivity.this,"该手机未安装地图软件");
+            }
+            if(isBaiduUsed){
+                Intent i1 = new Intent();
+                String url = "baidumap://map/show?center="+message.getStart_location_lat()+","+message.getStart_location_lng()
+                        +"&zoom=11&src=com.shashiwang.shashiapp";
+                Log.i(TAG, "openDialog: url = "+url);
+                i1.setData(Uri.parse(url));
+                startActivity(i1);
+                return;
+            }
+            if(isGaodeUsed){
+                Intent i1 = new Intent();
+                String url = "//uri.amap.com/marker?position="+message.getStart_location_lat()+","+message.getStart_location_lng();
+                Log.i(TAG, "openDialog: url = "+url);
+                i1.setData(Uri.parse(url));
+                startActivity(i1);
+            }
+        });
     }
 
     @SuppressLint("CheckResult")
@@ -105,7 +167,7 @@ public class FreightMessageActivity extends BaseTopBarActivity {
 
     private void loadDataSuccess(FreightMessage message){
         tvTitle.setText(""+message.getUser_id());
-        tvTime.setText(message.getUpdated_at());
+        tvTime.setText(DateUtil.getDifferentString(message.getUpdated_at()));
         tvContent.setText(message.getRemark());
 
         tvStart.setContantText(message.getStart_location());
@@ -121,11 +183,6 @@ public class FreightMessageActivity extends BaseTopBarActivity {
         CloudManager.getInstance().rgcSearch(info);
         info.location = String.valueOf(message.getEnd_location_lat()) +"," + String.valueOf(message.getEnd_location_lng());
         CloudManager.getInstance().rgcSearch(info);
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onMessageEvent(CloudRgcResult data ) {
-
     }
 
     @Override

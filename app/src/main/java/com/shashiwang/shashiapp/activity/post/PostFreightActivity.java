@@ -30,8 +30,8 @@ import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class PostCostActivity extends BaseTopBarActivity{
-    private static final String TAG = "PostCostActivity";
+public class PostFreightActivity extends BaseTopBarActivity{
+    private static final String TAG = "PostFreightActivity";
 
     @BindView(R.id.ed_start_location)
     PostLocationLayout edStart;
@@ -44,6 +44,8 @@ public class PostCostActivity extends BaseTopBarActivity{
     PostEditLayout edName;
     @BindView(R.id.ed_price)
     PostEditLayout edPrice;
+    @BindView(R.id.ed_phone)
+    PostEditLayout edPhone;
 
     @BindView(R.id.ed_message)
     PostEditPlusLayout edMessage;
@@ -66,7 +68,7 @@ public class PostCostActivity extends BaseTopBarActivity{
 
     @Override
     protected int getFrameContentView() {
-        return R.layout.activity_post_cost;
+        return R.layout.activity_post_freight;
     }
 
     @Override
@@ -76,11 +78,11 @@ public class PostCostActivity extends BaseTopBarActivity{
     }
 
     private void initEvent() {
-        edStart.setOnClickListener(view -> startActivityForResult(new Intent(PostCostActivity.this, LocationActivity.class),1));
-        edEnd.setOnClickListener(view -> startActivityForResult(new Intent(PostCostActivity.this, LocationActivity.class),2));
+        edStart.setOnClickListener(view -> startActivityForResult(new Intent(PostFreightActivity.this, LocationActivity.class),1));
+        edEnd.setOnClickListener(view -> startActivityForResult(new Intent(PostFreightActivity.this, LocationActivity.class),2));
 
         chCar.setOnClickListener(view -> {
-            ChooseBottomDialog dialog = new ChooseBottomDialog(PostCostActivity.this,"选择车辆类型",R.array.car_type);
+            ChooseBottomDialog dialog = new ChooseBottomDialog(PostFreightActivity.this,"选择车辆类型",R.array.car_type);
             dialog.setOnChooseListener(str -> chCar.setContantText(str));
             dialog.show();
         });
@@ -105,6 +107,7 @@ public class PostCostActivity extends BaseTopBarActivity{
                     .params("price",edPrice.getContantText())
                     .params("car_category",chCar.getContantText())
                     .params("remark",edMessage.getContantText())
+                    .params("phone",edPhone.getContantText())
                     .build()
                     .post()
                     .subscribeOn(Schedulers.newThread())
@@ -114,15 +117,15 @@ public class PostCostActivity extends BaseTopBarActivity{
                         HttpResult<MessageResult<FreightMessage>> result = new Gson().fromJson(s,new TypeToken<HttpResult<MessageResult<FreightMessage>>>(){}.getType());
 
                         if(result.isSuccess()){
-                            Toast.makeText(PostCostActivity.this,"发布成功",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PostFreightActivity.this,"发布成功",Toast.LENGTH_SHORT).show();
                             finish();
                         }else {
-                            Toast.makeText(PostCostActivity.this,result.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PostFreightActivity.this,result.getMessage(),Toast.LENGTH_SHORT).show();
                         }
 
                     }, throwable -> {
                         Log.i(TAG, "getList: error = " + throwable);
-                        Toast.makeText(PostCostActivity.this,throwable.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PostFreightActivity.this,throwable.getMessage(),Toast.LENGTH_SHORT).show();
                     });
         }
 

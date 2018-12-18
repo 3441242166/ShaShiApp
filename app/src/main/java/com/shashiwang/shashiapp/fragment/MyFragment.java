@@ -3,18 +3,19 @@ package com.shashiwang.shashiapp.fragment;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.util.SharedPreferencesHelper;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.FeedbackActivity;
 import com.shashiwang.shashiapp.activity.MainActivity;
-import com.shashiwang.shashiapp.activity.MessageListActivity;
 import com.shashiwang.shashiapp.activity.SettingActivity;
-import com.shashiwang.shashiapp.activity.post.PostCarMessageActivity;
+import com.shashiwang.shashiapp.activity.UserMessageActivity;
 import com.shashiwang.shashiapp.activity.post.PostListActivity;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
 import com.shashiwang.shashiapp.activity.LoginActivity;
@@ -28,10 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+import de.hdodenhof.circleimageview.CircleImageView;
+import es.dmoral.toasty.Toasty;
 
 import static com.shashiwang.shashiapp.constant.Constant.REQUEST_LOGIN;
-import static com.shashiwang.shashiapp.constant.Constant.REQUEST_SETTIN;
-import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
+import static com.shashiwang.shashiapp.constant.Constant.REQUEST_SETTING;
+import static com.shashiwang.shashiapp.constant.Constant.REQUEST_USER_MESSAGE;
+import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 import static com.shashiwang.shashiapp.constant.MessageType.POST;
 import static com.shashiwang.shashiapp.constant.MessageType.POST_TITLE;
 
@@ -40,8 +44,8 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
 
 
     @BindView(R.id.iv_head)
-    ImageView ivHead;
-    @BindView(R.id.tv_name_1)
+    CircleImageView ivHead;
+    @BindView(R.id.tv_name)
     TextView tvName;
     @BindView(R.id.bt_login)
     Button btLogin;
@@ -87,7 +91,15 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
         });
 
         ivSetting.setOnClickListener(view -> {
-            startActivityForResult(new Intent(getContext(), SettingActivity.class),REQUEST_SETTIN);
+            startActivityForResult(new Intent(getContext(), SettingActivity.class), REQUEST_SETTING);
+        });
+
+        ivHead.setOnClickListener(view -> {
+            if(!TextUtils.isEmpty((String)SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
+                startActivityForResult(new Intent(getContext(), UserMessageActivity.class), REQUEST_USER_MESSAGE);
+            }else {
+                Toasty.info(getContext(),"请先登陆");
+            }
         });
     }
 
