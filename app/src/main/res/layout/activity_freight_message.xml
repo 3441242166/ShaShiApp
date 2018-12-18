@@ -175,7 +175,7 @@
         </android.support.constraint.ConstraintLayout>
 
         <Button
-            android:id="@+id/bt_conect"
+            android:id="@+id/bt_phone"
             android:layout_width="198dp"
             android:layout_height="40dp"
             android:layout_marginTop="50dp"

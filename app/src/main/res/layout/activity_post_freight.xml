@@ -60,12 +60,23 @@
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
+            android:id="@+id/ed_man"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint_content="请输入联系人"
+            app:title="联系人" />
+
+        <View style="@style/view_line" />
+
+        <com.shashiwang.shashiapp.customizeview.PostEditLayout
             android:id="@+id/ed_phone"
             app:input_type="2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:hint_content="请输入联系方式"
             app:title="联系方式" />
+
+
 
         <View style="@style/view_line" />
 

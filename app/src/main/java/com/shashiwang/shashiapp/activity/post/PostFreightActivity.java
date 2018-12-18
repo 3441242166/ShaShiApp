@@ -46,6 +46,8 @@ public class PostFreightActivity extends BaseTopBarActivity{
     PostEditLayout edPrice;
     @BindView(R.id.ed_phone)
     PostEditLayout edPhone;
+    @BindView(R.id.ed_man)
+    PostEditLayout edMan;
 
     @BindView(R.id.ed_message)
     PostEditPlusLayout edMessage;
@@ -108,6 +110,7 @@ public class PostFreightActivity extends BaseTopBarActivity{
                     .params("car_category",chCar.getContantText())
                     .params("remark",edMessage.getContantText())
                     .params("phone",edPhone.getContantText())
+                    .params("linkman",edMan.getContantText())
                     .build()
                     .post()
                     .subscribeOn(Schedulers.newThread())

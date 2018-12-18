@@ -17,7 +17,8 @@ public class FreightMessage {
     private String remark;
     private String created_at;
     private String updated_at;
-
+    private String linkman;
+    private String phone;
 
     public int getId() {
         return id;
@@ -137,5 +138,21 @@ public class FreightMessage {
 
     public void setEnd_location(String end_location) {
         this.end_location = end_location;
+    }
+
+    public String getLinkman() {
+        return linkman;
+    }
+
+    public void setLinkman(String linkman) {
+        this.linkman = linkman;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

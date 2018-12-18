@@ -22,6 +22,8 @@ public class FreightAdapter extends BaseQuickAdapter<FreightMessage,BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder helper, FreightMessage item) {
+        helper.addOnClickListener(R.id.iv_phone);
+
         helper.setText(R.id.tv_title,""+item.getUser_id());
         helper.setText(R.id.tv_label,DateUtil.getDifferentString(item.getCreated_at()));
 

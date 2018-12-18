@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.baidu.mapapi.cloud.CloudManager;
@@ -63,6 +64,8 @@ public class FreightMessageActivity extends BaseTopBarActivity {
     MessageLayout tvName;
     @BindView(R.id.tv_phone)
     MessageLayout tvPhone;
+    @BindView(R.id.bt_phone)
+    Button btPhone;
 
     int id = -1;
     private FreightMessage message;
@@ -138,6 +141,13 @@ public class FreightMessageActivity extends BaseTopBarActivity {
                 i1.setData(Uri.parse(url));
                 startActivity(i1);
             }
+        });
+
+        btPhone.setOnClickListener(view -> {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            Uri data = Uri.parse("tel:" + message.getPhone());
+            intent.setData(data);
+            startActivity(intent);
         });
     }
 

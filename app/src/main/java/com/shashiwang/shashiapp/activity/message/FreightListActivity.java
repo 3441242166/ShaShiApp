@@ -1,10 +1,12 @@
 package com.shashiwang.shashiapp.activity.message;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shashiwang.shashiapp.R;
@@ -68,6 +70,15 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
         adapter.setOnLoadMoreListener(() -> {
             recyclerView.postDelayed(() -> presenter.getList(), 500);
         },recyclerView);
+
+        adapter.setOnItemChildClickListener((adapter, view, position) -> {
+            if(view.getId() == R.id.iv_phone){
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                Uri data = Uri.parse("tel:" + list.get(position).getPhone());
+                intent.setData(data);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
