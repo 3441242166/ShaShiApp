@@ -14,8 +14,10 @@ import android.view.TextureView;
 import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.bean.HttpResult;
+import com.shashiwang.shashiapp.util.BitmapUtil;
 import com.shashiwang.shashiapp.util.CheckUtil;
 import com.shashiwang.shashiapp.view.IRegisterView;
 
@@ -62,9 +64,8 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
                             Log.i(TAG, "accept: "+s);
                             HttpResult<ImageCode> result = new Gson().fromJson(s,new TypeToken<HttpResult<ImageCode>>(){}.getType());
                             imageCode = result.getData();
-                            String imgData  = imageCode.img.replace("data:image/png;base64,", "");
-                            byte[] decodedString = Base64.decode(imgData, Base64.DEFAULT);
-                            Bitmap bitmap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+
+                            Bitmap bitmap = BitmapUtil.getByBase64(imageCode.img);
                             mView.showImage(bitmap);
                         }
                         , throwable -> {
@@ -73,7 +74,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
     }
 
     @SuppressLint("CheckResult")
-    public void register(String phone, String password, String code, String imgCode) {
+    public void register(String phone, String password, String code) {
         if(!CheckUtil.isPhone(phone)){
             mView.errorMessage("请输入正确的手机号");
             return;
@@ -104,11 +105,10 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
                             HttpResult<Object> result = new Gson().fromJson(s,new TypeToken<HttpResult<Object>>(){}.getType());
 
                             if(result.isSuccess()){
-                                mView.loadDataSuccess(null);
+                                mView.loadDataSuccess(mContext.getString(R.string.register_success));
                             }else {
                                 mView.errorMessage(result.getMessage());
                             }
-
 
                         }
                         , throwable -> {
@@ -161,12 +161,6 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
     }
 
     private static class ImageCode{
-        public boolean sensitive;
-        public String key;
-        public String img;
-    }
-
-    private static class MsgCode{
         public boolean sensitive;
         public String key;
         public String img;

@@ -12,7 +12,7 @@ public class Constant {
     public static final String ID = "id";
 
     /*      Activity之间         */
-    public static final String RESULT_DATA = "data";
+    public static final String RESULT_DATA = "DATA";
 
     public static final int RESULT_SUCCESS = 1;
     public static final int RESULT_ERROR = 0;
@@ -20,7 +20,11 @@ public class Constant {
     public static final int REQUEST_LOGIN = 0;
     public static final int REQUEST_SETTING = 1;
     public static final int REQUEST_LOCATION = 2;
-    public static final int REQUEST_USER_MESSAGE= 3;
+    public static final int REQUEST_START_LOCATION = 2;
+    public static final int REQUEST_END_LOCATION = 3;
+
+    public static final int REQUEST_USER_MESSAGE= 4;
+    public static final int REQUEST_PERMISSION= 5;
     //-------------Map回调---------------------//
     public static final String LAT = "lat";
     public static final String LNG = "lng";

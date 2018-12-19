@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.util.DateUtil;
+import com.shashiwang.shashiapp.util.StringUtil;
 
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class FreightAdapter extends BaseQuickAdapter<FreightMessage,BaseViewHold
     protected void convert(BaseViewHolder helper, FreightMessage item) {
         helper.addOnClickListener(R.id.iv_phone);
 
-        helper.setText(R.id.tv_title,""+item.getUser_id());
+        helper.setText(R.id.tv_title,StringUtil.getFirstChinese(item.getLinkman())+"先生");
         helper.setText(R.id.tv_label,DateUtil.getDifferentString(item.getCreated_at()));
 
         helper.setText(R.id.tv_name,item.getCargo_name());
@@ -38,6 +39,5 @@ public class FreightAdapter extends BaseQuickAdapter<FreightMessage,BaseViewHold
 
         helper.setText(R.id.tv_content,item.getRemark());
     }
-
 
 }

@@ -2,12 +2,19 @@ package com.shashiwang.shashiapp.activity.message;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.baidu.mapapi.cloud.CloudManager;
@@ -25,6 +32,7 @@ import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.customizeview.MessageLayout;
 import com.shashiwang.shashiapp.util.DateUtil;
+import com.shashiwang.shashiapp.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -67,7 +75,7 @@ public class FreightMessageActivity extends BaseTopBarActivity {
     @BindView(R.id.bt_phone)
     Button btPhone;
 
-    int id = -1;
+    private int id = -1;
     private FreightMessage message;
 
     @Override
@@ -94,53 +102,12 @@ public class FreightMessageActivity extends BaseTopBarActivity {
 
     public void initEvent(){
         tvStart.setOnClickListener(view -> {
-            boolean isBaiduUsed = isAvailable(FreightMessageActivity.this, "com.baidu.BaiduMap");
-            boolean isGaodeUsed = isAvailable(FreightMessageActivity.this, "com.autonavi.minimap");
-            Log.i(TAG, "initEvent: baidu = "+isBaiduUsed +"  gaode = "+isGaodeUsed);
-            if(!isBaiduUsed && !isGaodeUsed){
-                Toasty.info(FreightMessageActivity.this,"该手机未安装地图软件");
-            }
-            if(isBaiduUsed){
-                Intent i1 = new Intent();
-                String url = "baidumap://map/show?center="+message.getStart_location_lat()+","+message.getStart_location_lng()
-                        +"&zoom=11&src=com.shashiwang.shashiapp";
-                Log.i(TAG, "openDialog: url = "+url);
-                i1.setData(Uri.parse(url));
-                startActivity(i1);
-                return;
-            }
-            if(isGaodeUsed){
-                Intent i1 = new Intent();
-                String url = "//uri.amap.com/marker?position="+message.getStart_location_lat()+","+message.getStart_location_lng();
-                Log.i(TAG, "openDialog: url = "+url);
-                i1.setData(Uri.parse(url));
-                startActivity(i1);
-            }
+            navigatorMap(message.getStart_location_lat(),message.getStart_location_lng());
         });
 
+
         tvEnd.setOnClickListener(view -> {
-            boolean isBaiduUsed = isAvailable(FreightMessageActivity.this, "com.baidu.BaiduMap");
-            boolean isGaodeUsed = isAvailable(FreightMessageActivity.this, "com.autonavi.minimap");
-            Log.i(TAG, "initEvent: baidu = "+isBaiduUsed +"  gaode = "+isGaodeUsed);
-            if(!isBaiduUsed && !isGaodeUsed){
-                Toasty.info(FreightMessageActivity.this,"该手机未安装地图软件");
-            }
-            if(isBaiduUsed){
-                Intent i1 = new Intent();
-                String url = "baidumap://map/show?center="+message.getStart_location_lat()+","+message.getStart_location_lng()
-                        +"&zoom=11&src=com.shashiwang.shashiapp";
-                Log.i(TAG, "openDialog: url = "+url);
-                i1.setData(Uri.parse(url));
-                startActivity(i1);
-                return;
-            }
-            if(isGaodeUsed){
-                Intent i1 = new Intent();
-                String url = "//uri.amap.com/marker?position="+message.getStart_location_lat()+","+message.getStart_location_lng();
-                Log.i(TAG, "openDialog: url = "+url);
-                i1.setData(Uri.parse(url));
-                startActivity(i1);
-            }
+            navigatorMap(message.getEnd_location_lat(),message.getEnd_location_lng());
         });
 
         btPhone.setOnClickListener(view -> {
@@ -149,6 +116,28 @@ public class FreightMessageActivity extends BaseTopBarActivity {
             intent.setData(data);
             startActivity(intent);
         });
+    }
+
+    private void navigatorMap(String lat,String lng){
+        boolean isBaiduUsed = isAvailable(FreightMessageActivity.this, "com.baidu.BaiduMap");
+        boolean isGaodeUsed = isAvailable(FreightMessageActivity.this, "com.autonavi.minimap");
+        Log.i(TAG, "initEvent: baidu = "+isBaiduUsed +"  gaode = "+isGaodeUsed);
+        if(!isBaiduUsed && !isGaodeUsed){
+            Toasty.info(FreightMessageActivity.this,"该手机未安装地图软件").show();
+        }
+        if(isBaiduUsed && isGaodeUsed){
+            openSelectDialog(lat,lng);
+            return;
+        }
+        if(isGaodeUsed){
+            openGaodeMap(lat,lng);
+            return;
+        }
+        if(isBaiduUsed){
+            openBaiduMap(lat,lng);
+            return;
+        }
+
     }
 
     @SuppressLint("CheckResult")
@@ -176,7 +165,7 @@ public class FreightMessageActivity extends BaseTopBarActivity {
     }
 
     private void loadDataSuccess(FreightMessage message){
-        tvTitle.setText(""+message.getUser_id());
+        tvTitle.setText(StringUtil.getFirstChinese(message.getLinkman())+"先生");
         tvTime.setText(DateUtil.getDifferentString(message.getUpdated_at()));
         tvContent.setText(message.getRemark());
 
@@ -186,7 +175,7 @@ public class FreightMessageActivity extends BaseTopBarActivity {
         tvName.setContantText(message.getCargo_name());
         tvPrice.setContantText(String.valueOf(message.getPrice()));
         tvCar.setContantText(message.getCar_category());
-        tvPhone.setContantText("123456789");
+        tvPhone.setContantText(message.getPhone());
 
         CloudRgcInfo info = new CloudRgcInfo();
         info.location = String.valueOf(message.getStart_location_lat()) +"," + String.valueOf(message.getStart_location_lng());
@@ -195,9 +184,53 @@ public class FreightMessageActivity extends BaseTopBarActivity {
         CloudManager.getInstance().rgcSearch(info);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        EventBus.getDefault().unregister(this);
+    private void openBaiduMap(String lat,String lng){
+        Intent i1 = new Intent();
+        String url = "baidumap://map/direction?destination="+lat+","+lng+"&src=com.shashiwang.shashiapp";
+        Log.i(TAG, "openDialog: url = "+url);
+        i1.setData(Uri.parse(url));
+        startActivity(i1);
     }
+
+    private void openGaodeMap(String lat,String lng){
+        Intent intent = new Intent("android.intent.action.VIEW",
+                android.net.Uri.parse("androidamap://navi?sourceApplication=amap&lat=" + lat + "&lon=" + lng));
+        intent.setPackage("com.autonavi.minimap");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+    }
+
+    private void openSelectDialog(String lat,String lng){
+        View view = LayoutInflater.from(this).inflate(R.layout.dialog_select, null);
+        final PopupWindow popupWindow = getPopupWindow(view);
+        //设置点击事件
+        TextView tvBaidu = view.findViewById(R.id.tv_baidu);
+        TextView tvGaode = view.findViewById(R.id.tv_gaode);
+
+        tvBaidu.setOnClickListener(v -> {
+            openBaiduMap(lat,lng);
+            popupWindow.dismiss();
+        });
+
+        tvGaode.setOnClickListener(v -> {
+            openGaodeMap(lat,lng);
+            popupWindow.dismiss();
+        });
+
+        View parent = LayoutInflater.from(this).inflate(R.layout.activity_freight_message, null);
+        //显示PopupWindow
+        popupWindow.showAtLocation(parent, Gravity.BOTTOM, 0, 0);
+    }
+
+    private PopupWindow getPopupWindow(View view) {
+        PopupWindow popupWindow = new PopupWindow(this);
+        popupWindow.setContentView(view);
+        popupWindow.setWidth(WindowManager.LayoutParams.MATCH_PARENT);
+        popupWindow.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+        popupWindow.setBackgroundDrawable(new ColorDrawable(Color.WHITE));
+        popupWindow.setFocusable(true);
+        popupWindow.setOutsideTouchable(true);
+        return popupWindow;
+    }
+
 }

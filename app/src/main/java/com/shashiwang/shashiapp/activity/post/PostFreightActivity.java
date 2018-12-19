@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.Toast;
@@ -27,8 +28,13 @@ import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
 import com.shashiwang.shashiapp.presenter.PostPresenter;
 
 import butterknife.BindView;
+import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.shashiwang.shashiapp.constant.Constant.REQUEST_END_LOCATION;
+import static com.shashiwang.shashiapp.constant.Constant.REQUEST_START_LOCATION;
 
 public class PostFreightActivity extends BaseTopBarActivity{
     private static final String TAG = "PostFreightActivity";
@@ -67,7 +73,6 @@ public class PostFreightActivity extends BaseTopBarActivity{
         return null;
     }
 
-
     @Override
     protected int getFrameContentView() {
         return R.layout.activity_post_freight;
@@ -80,8 +85,9 @@ public class PostFreightActivity extends BaseTopBarActivity{
     }
 
     private void initEvent() {
-        edStart.setOnClickListener(view -> startActivityForResult(new Intent(PostFreightActivity.this, LocationActivity.class),1));
-        edEnd.setOnClickListener(view -> startActivityForResult(new Intent(PostFreightActivity.this, LocationActivity.class),2));
+        edStart.setOnClickListener(view -> startActivityForResult(new Intent(PostFreightActivity.this, LocationActivity.class),REQUEST_START_LOCATION));
+
+        edEnd.setOnClickListener(view -> startActivityForResult(new Intent(PostFreightActivity.this, LocationActivity.class),REQUEST_END_LOCATION));
 
         chCar.setOnClickListener(view -> {
             ChooseBottomDialog dialog = new ChooseBottomDialog(PostFreightActivity.this,"选择车辆类型",R.array.car_type);
@@ -95,7 +101,7 @@ public class PostFreightActivity extends BaseTopBarActivity{
     private void postData() {
 
         if(checkData()){
-            RxRetrofitClient.builder()
+            Disposable disposable = RxRetrofitClient.builder()
                     .header(new TokenInterceptor())
                     .url("api/freight/")
                     .params("start_location_lat",startLat)
@@ -130,11 +136,42 @@ public class PostFreightActivity extends BaseTopBarActivity{
                         Log.i(TAG, "getList: error = " + throwable);
                         Toast.makeText(PostFreightActivity.this,throwable.getMessage(),Toast.LENGTH_SHORT).show();
                     });
+            disposable.dispose();
+        }else {
+            Toasty.info(this,R.string.incomplete_message).show();
         }
 
     }
 
     private boolean checkData() {
+
+        if(TextUtils.isEmpty(edStart.getContantText())){
+            return false;
+        }
+        if(TextUtils.isEmpty(edEnd.getContantText())){
+            return false;
+        }
+        if(TextUtils.isEmpty(edMileage.getContantText())){
+            return false;
+        }
+        if(TextUtils.isEmpty(edName.getContantText())){
+            return false;
+        }
+        if(TextUtils.isEmpty(edPrice.getContantText())){
+            return false;
+        }
+        if(TextUtils.isEmpty(chCar.getContantText())){
+            return false;
+        }
+        if(TextUtils.isEmpty(edMessage.getContantText())){
+            return false;
+        }
+        if(TextUtils.isEmpty(edPhone.getContantText())){
+            return false;
+        }
+        if(TextUtils.isEmpty(edMan.getContantText())){
+            return false;
+        }
 
         return true;
     }
@@ -142,15 +179,16 @@ public class PostFreightActivity extends BaseTopBarActivity{
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        // 获取地图返回坐标和地名
         if(resultCode == Constant.RESULT_SUCCESS && data!=null){
             switch (requestCode){
-                case 1:
+                case REQUEST_START_LOCATION:
                     edStart.setContantText(data.getStringExtra(Constant.LOCATION_NAME));
                     startLat = data.getStringExtra(Constant.LAT);
                     startLng = data.getStringExtra(Constant.LNG);
 
                     break;
-                case 2:
+                case REQUEST_END_LOCATION:
                     edEnd.setContantText(data.getStringExtra(Constant.LOCATION_NAME));
                     endLat = data.getStringExtra(Constant.LAT);
                     endLng =  data.getStringExtra(Constant.LNG);

@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -22,6 +23,8 @@ public class SettingSwitchLayout extends ConstraintLayout {
 
     String title;
 
+    OnSwitchListener onSwitchListener;
+
     public SettingSwitchLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
 
@@ -37,6 +40,13 @@ public class SettingSwitchLayout extends ConstraintLayout {
         inflater.inflate(R.layout.view_setting_switch,this);
         ButterKnife.bind(this);
 
+        sw.setOnCheckedChangeListener((compoundButton, b) -> {
+            if(onSwitchListener != null){
+                onSwitchListener.onSwitch(b);
+            }
+        });
+
+
         txTitle.setText(title);
     }
 
@@ -48,4 +58,15 @@ public class SettingSwitchLayout extends ConstraintLayout {
         sw.setChecked(is);
     }
 
+    public void setCheckable(boolean is){
+        sw.setClickable(is);
+    }
+
+    public void setOnSwitchListener(OnSwitchListener onSwitchListener){
+        this.onSwitchListener = onSwitchListener;
+    }
+
+    public interface OnSwitchListener{
+        void onSwitch(boolean is);
+    }
 }

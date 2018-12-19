@@ -69,7 +69,8 @@
                 android:background="@mipmap/bck_5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/bt_facory"
-                app:layout_constraintTop_toTopOf="@+id/bt_facory"/>
+                app:layout_constraintTop_toTopOf="@+id/bt_facory"
+                tools:ignore="ContentDescription" />
 
             <ImageView
                 android:id="@+id/bt_driver"
@@ -78,6 +79,7 @@
                 android:background="@mipmap/bck_4"
                 app:layout_constraintBottom_toTopOf="@+id/bt_car"
                 app:layout_constraintEnd_toEndOf="@+id/bt_freight"
+                tools:ignore="ContentDescription"
                 app:layout_constraintStart_toStartOf="@+id/bt_freight"
                 app:layout_constraintTop_toBottomOf="@+id/bt_freight"/>
 
@@ -86,6 +88,7 @@
                 android:layout_width="163dp"
                 android:layout_height="65dp"
                 android:background="@mipmap/bck_3"
+                tools:ignore="ContentDescription"
                 app:layout_constraintBottom_toBottomOf="@+id/bt_station"
                 app:layout_constraintEnd_toEndOf="@+id/bt_driver"
                 app:layout_constraintStart_toStartOf="@+id/bt_driver" />
@@ -96,6 +99,7 @@
                 android:layout_height="105dp"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="9dp"
+                tools:ignore="ContentDescription"
                 android:background="@mipmap/bck_2"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -107,6 +111,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@mipmap/bck_1"
+                tools:ignore="ContentDescription"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="@+id/bt_facory"
                 app:layout_constraintStart_toStartOf="@+id/bt_facory"
@@ -118,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="15dp"
-                android:text="沙事料厂"
+                android:text="@string/name_factory"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/bt_facory"
@@ -130,7 +135,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="15dp"
-                android:text="搅拌站"
+                android:text="@string/name_station"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/bt_station"
@@ -142,7 +147,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="15dp"
-                android:text="运费信息"
+                android:text="@string/name_freight"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/bt_freight"
@@ -154,7 +159,7 @@
                 android:layout_height="23dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="12dp"
-                android:text="司机招聘"
+                android:text="@string/name_driver"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="@+id/bt_driver"
@@ -166,7 +171,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="15dp"
-                android:text="车辆买卖"
+                android:text="@string/name_car"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp"
                 app:layout_constraintStart_toStartOf="@+id/bt_car"
@@ -180,7 +185,8 @@
             android:layout_height="102dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:srcCompat="@drawable/bottom_banner" />
+            app:srcCompat="@drawable/bottom_banner"
+            tools:ignore="ContentDescription" />
 
     </LinearLayout>
 

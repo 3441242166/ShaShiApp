@@ -8,6 +8,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:gravity="center"
         android:orientation="vertical">
 
         <com.shashiwang.shashiapp.customizeview.PostLocationLayout
@@ -76,8 +77,6 @@
             app:hint_content="请输入联系方式"
             app:title="联系方式" />
 
-
-
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostChooseLayout
@@ -93,14 +92,16 @@
             android:id="@+id/ed_message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hint_content="添加备注信息"
-            app:title="备注信息" />
+            app:hint_content="@string/hint_post_remark"
+            app:title="@string/name_remark" />
 
         <Button
             android:id="@+id/bt_send"
-            style="@style/button_blue"
-            android:layout_margin="@dimen/dp_40"
-            android:text="发布" />
+            style="@style/button_yellow"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_margin="20dp"
+            android:text="@string/name_post" />
 
     </LinearLayout>
 </android.support.v4.widget.NestedScrollView>

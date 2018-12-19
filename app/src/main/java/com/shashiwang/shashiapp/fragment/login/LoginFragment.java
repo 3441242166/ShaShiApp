@@ -12,6 +12,7 @@ import com.shashiwang.shashiapp.view.ILoginView;
 
 import androidx.navigation.Navigation;
 import butterknife.BindView;
+import es.dmoral.toasty.Toasty;
 
 import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
 
@@ -48,7 +49,7 @@ public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements I
         });
 
         tvForget.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_forgetFragment);
+            //Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_forgetFragment);
         });
 
         btLogin.setOnClickListener(view -> presenter.login(evCount.getContentText(),evPassword.getContentText()));
@@ -76,7 +77,8 @@ public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements I
     }
 
     @Override
-    public void loadDataSuccess(Object data) {
+    public void loadDataSuccess(String data) {
+        Toasty.normal(getContext(),data).show();
         getActivity().setResult(RESULT_SUCCESS);
         getActivity().finish();
     }

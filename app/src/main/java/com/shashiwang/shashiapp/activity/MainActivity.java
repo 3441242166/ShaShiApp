@@ -2,11 +2,11 @@ package com.shashiwang.shashiapp.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,8 +27,13 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
+import pub.devrel.easypermissions.AppSettingsDialog;
+import pub.devrel.easypermissions.EasyPermissions;
 
-public class MainActivity extends BaseMvpActivity<MainActivityPresenter> implements IMainActivityView{
+import static com.shashiwang.shashiapp.constant.Constant.REQUEST_PERMISSION;
+
+public class MainActivity extends BaseMvpActivity<MainActivityPresenter> implements IMainActivityView,EasyPermissions.PermissionCallbacks {
     private static final String TAG = "MainActivity";
 
     @BindView(R.id.bottom_main)
@@ -53,7 +58,7 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         return R.layout.activity_main;
     }
 
-    public static String[] data = new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION,
+    public static String[] DATA = new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION,
             android.Manifest.permission.ACCESS_COARSE_LOCATION,
             android.Manifest.permission.READ_PHONE_STATE,
             android.Manifest.permission.ACCESS_WIFI_STATE,
@@ -64,10 +69,14 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
 
     protected void init(Bundle savedInstanceState) {
         ButterKnife.bind(this);
-        ActivityCompat.requestPermissions(this,data, 1);
         initView();
         initData();
         initEvent();
+
+        if (!EasyPermissions.hasPermissions(this, DATA)) {
+            EasyPermissions.requestPermissions(this, "为了您的体验,请允许申请权限",
+                    1, DATA);
+        }
     }
 
     private void initView() {
@@ -133,7 +142,6 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
     @Override
     public void openPopupWindow(PopupWindow popupWindow) {
         popupWindow.showAtLocation(navigation, Gravity.BOTTOM, 0, 0);
-        //popupWindow.setOutsideTouchable(false);
     }
 
     @Override
@@ -156,31 +164,44 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
 
     }
 
-    private void showPopup(PopupWindow popupWindow) {
-        popupWindow.showAtLocation(navigation, Gravity.BOTTOM, 0, 0);
-        popupWindow.setOutsideTouchable(false);
-        //Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.turn_around_45);
-        //animation.setFillAfter(true);
-        //iv_close.startAnimation(animation);
-    }
-
-
-    private void dismissPopup(PopupWindow popupWindow) {
-        if (popupWindow.isShowing()) {
-            //Animation animation = AnimationUtils.loadAnimation(MainActivity.this, R.anim.turn_around_45_un);
-            //animation.setFillAfter(true);
-            //iv_close.startAnimation(animation);
-            //ivMore.setVisibility(View.VISIBLE);
-            //popupWindow.dismiss();
-        }
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        Log.i(TAG, "onActivityResult: requestCode = "+requestCode + "  resultCode = "+resultCode);
+
+        if(requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE){
+            if (!EasyPermissions.hasPermissions(this, DATA)) {
+                Toasty.info(this,"为了您的体验,请允许申请权限").show();
+            }
+        }
+
         for(Fragment fragment:fragmentList){
             fragment.onActivityResult(requestCode, resultCode, data);
         }
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog
+                    .Builder(this)
+                    .setTitle("为了您的体验,请允许申请权限")
+                    .setThemeResId(R.style.AppTheme)
+                    .build()
+                    .show();
+        }
     }
 }

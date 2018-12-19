@@ -70,7 +70,7 @@ public class LocationPresenter extends BasePresenter<ILocationView> {
                     }
                     mView.loadDataSuccess(data);
                 }else {
-                    Log.i(TAG, "onGetPoiResult: data  is null" );
+                    Log.i(TAG, "onGetPoiResult: DATA  is null" );
                 }
 
             }

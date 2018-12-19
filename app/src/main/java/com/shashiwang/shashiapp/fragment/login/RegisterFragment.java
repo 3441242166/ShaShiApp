@@ -52,7 +52,7 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
     private void initEvent() {
         btRegister.setOnClickListener(view -> {
             presenter.register(evPhone.getContentText(),evPassword.getContentText()
-            ,evCode.getText().toString(),evImageCode.getContentText());
+            ,evCode.getText().toString());
         });
 
         btCode.setOnClickListener(view -> presenter.getCode(evImageCode.getContentText(), evPhone.getContentText()));
@@ -82,7 +82,8 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
     }
 
     @Override
-    public void loadDataSuccess(Object data) {
+    public void loadDataSuccess(String data) {
+        Toasty.normal(getContext(),data).show();
         findNavController(getActivity(), R.id.login_fragment).navigateUp();
     }
 

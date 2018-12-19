@@ -19,6 +19,7 @@ import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.view.ILoginView;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
@@ -26,6 +27,8 @@ import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 
 public class LoginPresenter extends BasePresenter<ILoginView> {
     private static final String TAG = "LoginPresenter";
+
+    private Disposable loginDisposable;
 
     public LoginPresenter(ILoginView view, Context context) {
         super(view, context);
@@ -49,7 +52,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
             return;
         }
 
-        RxRetrofitClient.builder()
+        loginDisposable = RxRetrofitClient.builder()
                 .url("/api/user/login")
                 .params("phone",count)
                 .params("password",password)
@@ -63,10 +66,8 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
                     if(result.isSuccess()){
                         Log.i(TAG, "login: 登陆成功");
-
                         SharedPreferencesHelper.put(TOKEN,result.getData().token);
-
-                        mView.loadDataSuccess(null);
+                        mView.loadDataSuccess("登陆成功");
                     }else {
                         Log.i(TAG, "login: 登陆失败 "+result.getMessage());
                         mView.errorMessage(result.getMessage());
@@ -80,8 +81,16 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
     }
 
+    @Override
+    public void destroy() {
+        if(loginDisposable != null && !loginDisposable.isDisposed()){
+            loginDisposable.dispose();
+        }
+        super.destroy();
+    }
+
     private static class LoginBean{
-        public String token;
+        String token;
     }
 
 }

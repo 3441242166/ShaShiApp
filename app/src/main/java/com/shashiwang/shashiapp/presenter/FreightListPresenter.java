@@ -20,6 +20,8 @@ import java.util.List;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_FREIGHT;
+
 
 public class FreightListPresenter extends BasePresenter<IFreightListView> {
     private static final String TAG = "FreightListPresenter";
@@ -33,12 +35,11 @@ public class FreightListPresenter extends BasePresenter<IFreightListView> {
 
     }
 
-
     @SuppressLint("CheckResult")
     public void getList(){
 
         RxRetrofitClient.builder()
-                .url("api/freight/")
+                .url(URL_FREIGHT)
                 .build()
                 .get()
                 .subscribeOn(Schedulers.newThread())

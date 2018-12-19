@@ -24,15 +24,6 @@ import com.shashiwang.shashiapp.view.IMainActivityView;
 public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
     private static final String TAG = "MainActivityPresenter";
 
-    public static String[] data = new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.ACCESS_COARSE_LOCATION,
-            android.Manifest.permission.READ_PHONE_STATE,
-            android.Manifest.permission.ACCESS_WIFI_STATE,
-            android.Manifest.permission.ACCESS_NETWORK_STATE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            android.Manifest.permission.INTERNET,
-            android.Manifest.permission.CHANGE_WIFI_STATE,};
-
     public MainActivityPresenter(Context context, IMainActivityView view){
         super(view,context);
     }

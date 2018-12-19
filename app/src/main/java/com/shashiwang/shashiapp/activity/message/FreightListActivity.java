@@ -32,8 +32,8 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
     @BindView(R.id.rv_list)
     RecyclerView recyclerView;
 
-    FreightAdapter adapter;
-    List<FreightMessage> list;
+    private FreightAdapter adapter;
+    private List<FreightMessage> list;
 
     @Override
     protected FreightListPresenter setPresenter() {
@@ -47,29 +47,31 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
+        initView();
+        initEvent();
+        presenter.getList();
+    }
+
+    private void initView() {
         setTitle("运费信息");
 
         adapter = new FreightAdapter(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration());
         recyclerView.setAdapter(adapter);
-        adapter.setOnItemClickListener((adapter, view, position) -> {
-
-            Intent intent = new Intent(FreightListActivity.this,FreightMessageActivity.class);
-            intent.putExtra(ID,list.get(position).getId());
-            startActivity(intent);
-
-        });
-
-        initEvent();
-
-        presenter.getList();
     }
 
     private void initEvent() {
         adapter.setOnLoadMoreListener(() -> {
             recyclerView.postDelayed(() -> presenter.getList(), 500);
         },recyclerView);
+
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+            Intent intent = new Intent(FreightListActivity.this,FreightMessageActivity.class);
+            intent.putExtra(ID,list.get(position).getId());
+            startActivity(intent);
+
+        });
 
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
             if(view.getId() == R.id.iv_phone){

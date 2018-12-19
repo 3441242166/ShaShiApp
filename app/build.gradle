@@ -56,11 +56,13 @@ dependencies {
     implementation 'com.example.zhouwei.library:library:1.0.0'
     // BaseAdapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.37'
+    //  权限管理
+    implementation 'pub.devrel:easypermissions:2.0.0'
     // 推送
 
     // fragment
-    implementation "android.arch.navigation:navigation-fragment:1.0.0-alpha07"
-    implementation "android.arch.navigation:navigation-ui:1.0.0-alpha07"
+    implementation "android.arch.navigation:navigation-fragment:1.0.0-alpha09"
+    implementation "android.arch.navigation:navigation-ui:1.0.0-alpha09"
     // 屏幕适配
     implementation 'me.jessyan:autosize:1.1.0'
     //Rxjava Retrofit Okhttp

@@ -8,7 +8,7 @@ import android.view.MotionEvent;
 public class NoScrollViewPager extends ViewPager {
 
     //是否禁止左右滑动，true为禁止，false为不禁止
-    private boolean noScroll = false;
+    private boolean noScroll = true;
 
     public NoScrollViewPager(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -17,6 +17,7 @@ public class NoScrollViewPager extends ViewPager {
     public void setNoScroll(boolean noScroll) {
         this.noScroll = noScroll;
     }
+
     @Override
     public boolean onInterceptTouchEvent(MotionEvent arg0) {
         return !noScroll && super.onInterceptTouchEvent(arg0);

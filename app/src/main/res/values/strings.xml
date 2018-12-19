@@ -5,6 +5,38 @@
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
 
+    <!--ErrorMessage-->
+    <string name="error_message">请输入正确的信息</string>
+    <string name="error_phone">请输入正确的手机号</string>
+    <string name="incomplete_message">请输入完整的信息</string>
+    <string name="error_internet">网络异常,请稍后再试</string>
+    <!--ErrorMessage-->
+
+    <!--Message-->
+    <string name="login_success">登陆成功</string>
+    <string name="register_success">注册成功</string>
+    <!--Message-->
+    <!-- Hint -->
+    <string name="hint_login_code">请输入验证码</string>
+    <string name="hint_login_count">请输入手机号</string>
+    <string name="hint_login_password">请输入密码</string>
+    <string name="hint_post_remark">添加备注信息</string>
+    <!-- Hint -->
+    <string name="name_factory">沙事料厂</string>
+    <string name="name_station">搅拌站</string>
+    <string name="name_freight">运费信息</string>
+    <string name="name_driver">司机招聘</string>
+    <string name="name_car">车辆买卖</string>
+
+    <string name="name_login">登陆</string>
+    <string name="name_exit_login">退出登陆</string>
+    <string name="name_register">注册</string>
+    <string name="name_login_forget">忘记密码</string>
+    <string name="name_login_code">获取验证码</string>
+
+    <string name="default_name">先生</string>
+    <string name="qr_code">扫描二维码\n关注官方微信</string>
+
     <string name="post_name">名称:</string>
     <string name="post_price">品类价格:</string>
     <string name="post_location">所在位置:</string>
@@ -12,7 +44,9 @@
     <string name="post_phone">联系电话:</string>
     <string name="post_message">备注信息:</string>
     <string name="post_choose">点击选择:</string>
+    <string name="post_hint_factory">请输入石料厂名称:</string>
     <string name="post_send">发布</string>
-    <string name="post_hint_factory">请输入石料厂名称</string>
 
+    <string name="name_post">发布</string>
+    <string name="name_remark">备注信息</string>
 </resources>
