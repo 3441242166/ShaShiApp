@@ -3,6 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.shashiwang.shashiapp">
 
+    <permission
+        android:name="com.shashiwang.shashiapp.permission.JPUSH_MESSAGE"
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="com.shashiwang.shashiapp.permission.JPUSH_MESSAGE" />
     <uses-permission android:name="android.permission.RECEIVE_USER_PRESENT" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -73,6 +77,34 @@
         <service android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace" />
+
+        <receiver
+            android:name="com.shashiwang.shashiapp.received.JPushBroadcastReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <!--Required 用户注册SDK的intent-->
+                <action android:name="cn.jpush.android.intent.REGISTRATION" />
+                <!--Required 用户接收SDK消息的intent-->
+                <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
+                <!--Required 用户接收SDK通知栏信息的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
+                <!--Required 用户打开自定义通知栏的intent-->
+                <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
+                <!-- 接收网络变化 连接/断开 since 1.6.3 -->
+                <action android:name="cn.jpush.android.intent.CONNECTION" />
+                <category android:name="com.walker.stone" />
+            </intent-filter>
+        </receiver>
+
+        <receiver
+            android:name="com.shashiwang.shashiapp.received.MyJPushMessageReceiver"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+                <category android:name="com.shashiwang.shashiapp" />
+            </intent-filter>
+        </receiver>
 
         <activity android:name=".activity.MainActivity">
             <intent-filter>

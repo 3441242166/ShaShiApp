@@ -9,7 +9,7 @@
 
     <Button
         android:id="@+id/bt_login"
-        style="@style/button_yellow"
+        style="@style/button_yellow_send"
         android:layout_width="236dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"

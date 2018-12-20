@@ -87,15 +87,17 @@
 
     <!-- Button  -->
 
-    <style name="button_yellow">
+    <style name="button_yellow_send">
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:background">@drawable/shape_yellow_button</item>
     </style>
 
     <style name="bt_yellow_go">
-        <item name="android:textColor">@color/colorWhite</item>
-        <item name="android:background">@drawable/shape_yellow_button</item>
+        <item name="android:background">@drawable/shape_rectangular_button</item>
         <item name="android:layout_margin">3dp</item>
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:text">去这里</item>
+        <item name="android:textSize">@dimen/sp_12</item>
     </style>
 
     <!-- ImageView  -->

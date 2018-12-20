@@ -10,6 +10,12 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.baidu.tts.auth.AuthInfo;
+import com.baidu.tts.chainofresponsibility.logger.LoggerProxy;
+import com.baidu.tts.client.SpeechError;
+import com.baidu.tts.client.SpeechSynthesizer;
+import com.baidu.tts.client.SpeechSynthesizerListener;
+import com.baidu.tts.client.TtsMode;
 import com.example.util.SharedPreferencesHelper;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.FeedbackActivity;
@@ -95,11 +101,12 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
         });
 
         ivHead.setOnClickListener(view -> {
-            if(!TextUtils.isEmpty((String)SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
-                startActivityForResult(new Intent(getContext(), UserMessageActivity.class), REQUEST_USER_MESSAGE);
-            }else {
-                Toasty.info(getContext(),"请先登陆");
-            }
+//            if(!TextUtils.isEmpty((String)SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
+//                startActivityForResult(new Intent(getContext(), UserMessageActivity.class), REQUEST_USER_MESSAGE);
+//            }else {
+//                Toasty.info(getContext(),"请先登陆");
+//            }
+            test();
         });
     }
 
@@ -112,6 +119,56 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.addItemDecoration(new DividerItemDecoration());
         recyclerView.setAdapter(adapter);
+    }
+
+    private void test(){
+        LoggerProxy.printable(true);
+        SpeechSynthesizer mSpeechSynthesizer = SpeechSynthesizer.getInstance();
+        mSpeechSynthesizer.setContext(getContext());
+        mSpeechSynthesizer.setAppId("15221121");
+        mSpeechSynthesizer.setApiKey("vTLeIRab50P12ZP71vlK6GZp","dPnoKK8jM7lgR1I3wf7K6ljrqn503guI");
+
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_SPEAKER, "0");
+        mSpeechSynthesizer.initTts(TtsMode.ONLINE);
+
+        mSpeechSynthesizer.setSpeechSynthesizerListener(new SpeechSynthesizerListener() {
+            @Override
+            public void onSynthesizeStart(String s) {
+                Log.i(TAG, "onSynthesizeStart: ");
+            }
+
+            @Override
+            public void onSynthesizeDataArrived(String s, byte[] bytes, int i) {
+                Log.i(TAG, "onSynthesizeDataArrived: ");
+            }
+
+            @Override
+            public void onSynthesizeFinish(String s) {
+                Log.i(TAG, "onSynthesizeFinish: ");
+            }
+
+            @Override
+            public void onSpeechStart(String s) {
+                Log.i(TAG, "onSpeechStart: ");
+            }
+
+            @Override
+            public void onSpeechProgressChanged(String s, int i) {
+                Log.i(TAG, "onSpeechProgressChanged: ");
+            }
+
+            @Override
+            public void onSpeechFinish(String s) {
+                Log.i(TAG, "onSpeechFinish: ");
+            }
+
+            @Override
+            public void onError(String s, SpeechError speechError) {
+                Log.i(TAG, "onError: "+ s +"\n"+speechError);
+            }
+        });
+
+        mSpeechSynthesizer.speak("你好 我叫万浩 你叫什么名字?");
     }
 
     @Override

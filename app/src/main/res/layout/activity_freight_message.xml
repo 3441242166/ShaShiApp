@@ -67,16 +67,18 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="4"
-                        app:item_content="XXX"
+                        app:item_content="XXXx\nxxx\nxxx"
                         app:item_icon="@drawable/ic_location"
                         app:title="起始位置:" />
 
                     <Button
+                        android:id="@+id/bt_start"
                         style="@style/bt_yellow_go"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:background="@drawable/shape_yellow_button"
-                        android:text="到这里" />
+                        android:layout_width="0dp"
+                        android:layout_height="22dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/dp_4"
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <View
@@ -97,11 +99,13 @@
                         app:title="终点位置:" />
 
                     <Button
+                        android:id="@+id/bt_end"
                         style="@style/bt_yellow_go"
                         android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="到这里" />
+                        android:layout_height="22dp"
+                        android:layout_gravity="center"
+                        android:layout_margin="@dimen/dp_4"
+                        android:layout_weight="1" />
                 </LinearLayout>
 
                 <View

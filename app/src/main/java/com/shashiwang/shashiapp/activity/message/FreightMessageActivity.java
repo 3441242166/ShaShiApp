@@ -72,6 +72,10 @@ public class FreightMessageActivity extends BaseTopBarActivity {
     MessageLayout tvName;
     @BindView(R.id.tv_phone)
     MessageLayout tvPhone;
+    @BindView(R.id.bt_start)
+    Button btStart;
+    @BindView(R.id.bt_end)
+    Button btEnd;
     @BindView(R.id.bt_phone)
     Button btPhone;
 
@@ -101,12 +105,12 @@ public class FreightMessageActivity extends BaseTopBarActivity {
     }
 
     public void initEvent(){
-        tvStart.setOnClickListener(view -> {
+        btStart.setOnClickListener(view -> {
             navigatorMap(message.getStart_location_lat(),message.getStart_location_lng());
         });
 
 
-        tvEnd.setOnClickListener(view -> {
+        btEnd.setOnClickListener(view -> {
             navigatorMap(message.getEnd_location_lat(),message.getEnd_location_lng());
         });
 

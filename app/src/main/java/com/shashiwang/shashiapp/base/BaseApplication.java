@@ -6,6 +6,7 @@ import android.util.Log;
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.cloud.CloudManager;
+import com.baidu.tts.client.SpeechSynthesizer;
 import com.example.config.Config;
 import com.example.net.interceptors.TokenInterceptor;
 import com.shashiwang.shashiapp.util.LatLngListener;
@@ -35,6 +36,5 @@ public class BaseApplication extends Application {
         //声明LocationClient类
         //mLocationClient.registerLocationListener(myListener);
 
-        Log.i(TAG, "onCreate: isPushStopped " + JPushInterface.isPushStopped(this));
     }
 }
