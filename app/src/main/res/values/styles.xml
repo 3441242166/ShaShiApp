@@ -92,6 +92,12 @@
         <item name="android:background">@drawable/shape_yellow_button</item>
     </style>
 
+    <style name="bt_yellow_go">
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:background">@drawable/shape_yellow_button</item>
+        <item name="android:layout_margin">3dp</item>
+    </style>
+
     <!-- ImageView  -->
 
     <style name="style_post_pop_img">

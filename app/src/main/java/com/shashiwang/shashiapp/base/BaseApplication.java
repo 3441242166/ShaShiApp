@@ -1,6 +1,7 @@
 package com.shashiwang.shashiapp.base;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.baidu.location.LocationClient;
 import com.baidu.mapapi.SDKInitializer;
@@ -9,11 +10,12 @@ import com.example.config.Config;
 import com.example.net.interceptors.TokenInterceptor;
 import com.shashiwang.shashiapp.util.LatLngListener;
 
+import cn.jpush.android.api.JPushInterface;
+
 
 public class BaseApplication extends Application {
-
-    public LocationClient mLocationClient = null;
-    //private MyLocationListener myListener = new MyLocationListener();
+    private static final String TAG = "BaseApplication";
+    
 
     @Override
     public void onCreate() {
@@ -27,8 +29,12 @@ public class BaseApplication extends Application {
         CloudManager.getInstance().init();
         CloudManager.getInstance().registerListener(new LatLngListener());
 
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         //mLocationClient = new LocationClient(this);
         //声明LocationClient类
         //mLocationClient.registerLocationListener(myListener);
+
+        Log.i(TAG, "onCreate: isPushStopped " + JPushInterface.isPushStopped(this));
     }
 }
