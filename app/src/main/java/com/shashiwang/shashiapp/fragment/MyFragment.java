@@ -1,5 +1,6 @@
 package com.shashiwang.shashiapp.fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -106,31 +107,14 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
 //            }else {
 //                Toasty.info(getContext(),"请先登陆");
 //            }
-            test();
+            test("你好啊 你叫什么名字?");
         });
     }
 
-    private void initView() {
-        List<TextAdapter.TextBean> list = new ArrayList<>(TITLE.length);
-        for(int x=0;x<TITLE.length;x++){
-            list.add(new TextAdapter.TextBean(IMG[x],TITLE[x],false));
-        }
-        adapter = new TextAdapter(list);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        recyclerView.addItemDecoration(new DividerItemDecoration());
-        recyclerView.setAdapter(adapter);
-    }
+    private void test(String str){
 
-    private void test(){
-        LoggerProxy.printable(true);
         SpeechSynthesizer mSpeechSynthesizer = SpeechSynthesizer.getInstance();
         mSpeechSynthesizer.setContext(getContext());
-        mSpeechSynthesizer.setAppId("15221121");
-        mSpeechSynthesizer.setApiKey("vTLeIRab50P12ZP71vlK6GZp","dPnoKK8jM7lgR1I3wf7K6ljrqn503guI");
-
-        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_SPEAKER, "0");
-        mSpeechSynthesizer.initTts(TtsMode.ONLINE);
-
         mSpeechSynthesizer.setSpeechSynthesizerListener(new SpeechSynthesizerListener() {
             @Override
             public void onSynthesizeStart(String s) {
@@ -168,8 +152,27 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
             }
         });
 
-        mSpeechSynthesizer.speak("你好 我叫万浩 你叫什么名字?");
+        //mSpeechSynthesizer.setAppId("15221121");
+        mSpeechSynthesizer.setApiKey("vTLeIRab50P12ZP71vlK6GZp",
+                "dPnoKK8jM7lgR1I3wf7K6ljrqn503guI");
+
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_SPEAKER,"0");
+        mSpeechSynthesizer.initTts(TtsMode.ONLINE);
+
+        mSpeechSynthesizer.speak(str);
     }
+
+    private void initView() {
+        List<TextAdapter.TextBean> list = new ArrayList<>(TITLE.length);
+        for(int x=0;x<TITLE.length;x++){
+            list.add(new TextAdapter.TextBean(IMG[x],TITLE[x],false));
+        }
+        adapter = new TextAdapter(list);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new DividerItemDecoration());
+        recyclerView.setAdapter(adapter);
+    }
+
 
     @Override
     public void showProgress() {

@@ -30,6 +30,7 @@ import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
+import com.shashiwang.shashiapp.customizeview.ImageButton;
 import com.shashiwang.shashiapp.customizeview.MessageLayout;
 import com.shashiwang.shashiapp.util.DateUtil;
 import com.shashiwang.shashiapp.util.StringUtil;
@@ -73,9 +74,9 @@ public class FreightMessageActivity extends BaseTopBarActivity {
     @BindView(R.id.tv_phone)
     MessageLayout tvPhone;
     @BindView(R.id.bt_start)
-    Button btStart;
+    ImageButton btStart;
     @BindView(R.id.bt_end)
-    Button btEnd;
+    ImageButton btEnd;
     @BindView(R.id.bt_phone)
     Button btPhone;
 

@@ -62,4 +62,9 @@
         <attr name="input_type"/>
     </declare-styleable>
 
+    <declare-styleable name="ImageButton">
+        <attr name="item_content"/>
+        <attr name="item_icon"/>
+    </declare-styleable>
+
 </resources>

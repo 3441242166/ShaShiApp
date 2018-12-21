@@ -9,6 +9,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.baidu.tts.chainofresponsibility.logger.LoggerProxy;
+import com.baidu.tts.client.SpeechError;
+import com.baidu.tts.client.SpeechSynthesizer;
+import com.baidu.tts.client.SpeechSynthesizerListener;
+import com.baidu.tts.client.TtsMode;
+
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
@@ -31,6 +37,63 @@ public class JPushBroadcastReceiver extends BroadcastReceiver {
         Log.i(TAG, "onReceive: message = "+message);
         Log.i(TAG, "onReceive: extras = "+extras);
         Log.i(TAG, "onReceive: file = "+file);
+
+        //语音播放Value
+
+//        Intent service = new Intent(context,TestService.class);
+//        context.startService(service);
+
+        test(context,"");
+    }
+
+    private void test(Context context, String str){
+        LoggerProxy.printable(true);
+        SpeechSynthesizer mSpeechSynthesizer = SpeechSynthesizer.getInstance();
+        mSpeechSynthesizer.setContext(context);
+        mSpeechSynthesizer.setAppId("15221121");
+        mSpeechSynthesizer.setApiKey("vTLeIRab50P12ZP71vlK6GZp","dPnoKK8jM7lgR1I3wf7K6ljrqn503guI");
+
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_SPEAKER, "0");
+        mSpeechSynthesizer.initTts(TtsMode.ONLINE);
+
+        mSpeechSynthesizer.setSpeechSynthesizerListener(new SpeechSynthesizerListener() {
+            @Override
+            public void onSynthesizeStart(String s) {
+                Log.i(TAG, "onSynthesizeStart: ");
+            }
+
+            @Override
+            public void onSynthesizeDataArrived(String s, byte[] bytes, int i) {
+                Log.i(TAG, "onSynthesizeDataArrived: ");
+            }
+
+            @Override
+            public void onSynthesizeFinish(String s) {
+                Log.i(TAG, "onSynthesizeFinish: ");
+            }
+
+            @Override
+            public void onSpeechStart(String s) {
+                Log.i(TAG, "onSpeechStart: ");
+            }
+
+            @Override
+            public void onSpeechProgressChanged(String s, int i) {
+                Log.i(TAG, "onSpeechProgressChanged: ");
+            }
+
+            @Override
+            public void onSpeechFinish(String s) {
+                Log.i(TAG, "onSpeechFinish: ");
+            }
+
+            @Override
+            public void onError(String s, SpeechError speechError) {
+                Log.i(TAG, "onError: "+ s +"\n"+speechError);
+            }
+        });
+
+        mSpeechSynthesizer.speak(str);
     }
 
     // 打印所有的 intent extra 数据

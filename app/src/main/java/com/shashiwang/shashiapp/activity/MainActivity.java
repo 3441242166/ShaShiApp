@@ -65,7 +65,9 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
             android.Manifest.permission.ACCESS_NETWORK_STATE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             android.Manifest.permission.INTERNET,
-            android.Manifest.permission.CHANGE_WIFI_STATE,};
+            android.Manifest.permission.CHANGE_WIFI_STATE};
+//            android.Manifest.permission.WRITE_SETTINGS,
+//            android.Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS};
 
     protected void init(Bundle savedInstanceState) {
         ButterKnife.bind(this);

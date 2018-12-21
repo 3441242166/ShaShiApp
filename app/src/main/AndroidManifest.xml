@@ -12,8 +12,6 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
@@ -33,7 +31,6 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 访问网络，网络定位需要上网 -->
     <uses-permission android:name="android.permission.INTERNET" />
-
     <!-- Optional for location -->
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <!-- 用于开启 debug 版本的应用在6.0 系统上 层叠窗口权限 -->
@@ -42,8 +39,6 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-
 
     <application
         android:name=".base.BaseApplication"
@@ -73,35 +68,37 @@
             android:name="com.baidu.location.f"
             android:enabled="true"
             android:process=":remote" />
-
-        <service android:name="cn.jpush.android.service.PushService"
+        <service
+            android:name="cn.jpush.android.service.PushService"
             android:process=":multiprocess"
             tools:node="replace" />
 
         <receiver
-            android:name="com.shashiwang.shashiapp.received.JPushBroadcastReceiver"
+            android:name=".received.JPushBroadcastReceiver"
             android:enabled="true">
             <intent-filter>
-                <!--Required 用户注册SDK的intent-->
+
+                <!-- Required 用户注册SDK的intent -->
                 <action android:name="cn.jpush.android.intent.REGISTRATION" />
-                <!--Required 用户接收SDK消息的intent-->
+                <!-- Required 用户接收SDK消息的intent -->
                 <action android:name="cn.jpush.android.intent.MESSAGE_RECEIVED" />
-                <!--Required 用户接收SDK通知栏信息的intent-->
+                <!-- Required 用户接收SDK通知栏信息的intent -->
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_RECEIVED" />
-                <!--Required 用户打开自定义通知栏的intent-->
+                <!-- Required 用户打开自定义通知栏的intent -->
                 <action android:name="cn.jpush.android.intent.NOTIFICATION_OPENED" />
                 <!-- 接收网络变化 连接/断开 since 1.6.3 -->
                 <action android:name="cn.jpush.android.intent.CONNECTION" />
-                <category android:name="com.walker.stone" />
+
+                <category android:name="com.shashiwang.shashiapp" />
             </intent-filter>
         </receiver>
-
         <receiver
-            android:name="com.shashiwang.shashiapp.received.MyJPushMessageReceiver"
+            android:name=".received.MyJPushMessageReceiver"
             android:enabled="true"
-            android:exported="false" >
+            android:exported="false">
             <intent-filter>
                 <action android:name="cn.jpush.android.intent.RECEIVE_MESSAGE" />
+
                 <category android:name="com.shashiwang.shashiapp" />
             </intent-filter>
         </receiver>
@@ -123,7 +120,6 @@
         <activity android:name=".activity.FeedbackActivity" />
         <activity android:name=".activity.SettingActivity" />
         <activity android:name=".activity.MessageListActivity" />
-        <activity android:name=".base.BaseMessageActivity" />
         <activity android:name=".activity.message.FactoryMessageActivity" />
         <activity android:name=".activity.message.StationMessageActivity" />
         <activity android:name=".activity.message.CarMessageActivity" />
@@ -132,7 +128,11 @@
         <activity android:name=".activity.message.MessageActivity" />
         <activity android:name=".activity.message.FreightListActivity" />
         <activity android:name=".activity.post.PostListActivity" />
-        <activity android:name=".activity.UserMessageActivity"></activity>
+        <activity android:name=".activity.UserMessageActivity" />
+
+        <service
+            android:name=".service.TtsService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

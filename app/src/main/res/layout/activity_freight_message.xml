@@ -71,14 +71,14 @@
                         app:item_icon="@drawable/ic_location"
                         app:title="起始位置:" />
 
-                    <Button
+                    <com.shashiwang.shashiapp.customizeview.ImageButton
                         android:id="@+id/bt_start"
                         style="@style/bt_yellow_go"
                         android:layout_width="0dp"
                         android:layout_height="22dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/dp_4"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        app:item_content="到这去"
+                        app:item_icon="@drawable/icon_locate" />
                 </LinearLayout>
 
                 <View
@@ -98,14 +98,14 @@
                         app:item_icon="@drawable/ic_location"
                         app:title="终点位置:" />
 
-                    <Button
+                    <com.shashiwang.shashiapp.customizeview.ImageButton
                         android:id="@+id/bt_end"
                         style="@style/bt_yellow_go"
                         android:layout_width="0dp"
                         android:layout_height="22dp"
-                        android:layout_gravity="center"
-                        android:layout_margin="@dimen/dp_4"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                        app:item_content="到这去"
+                        app:item_icon="@drawable/icon_locate" />
                 </LinearLayout>
 
                 <View
