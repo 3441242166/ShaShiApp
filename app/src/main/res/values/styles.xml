@@ -12,7 +12,7 @@
 
     <!-- TextView  -->
 
-    <style name="style_post_pop_text">
+    <style name="text_post_pop">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
@@ -22,7 +22,7 @@
         <item name="android:textSize">14sp</item>
     </style>
 
-    <style name="style_item_text">
+    <style name="text_message_item">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_centerHorizontal">true</item>
@@ -33,7 +33,7 @@
         <item name="android:lines">1</item>
     </style>
 
-    <style name="style_textView_normal">
+    <style name="text_normal">
         <item name="android:layout_margin">@dimen/dp_4</item>
         <item name="android:gravity">center</item>
         <item name="android:layout_width">match_parent</item>
@@ -41,7 +41,7 @@
         <item name="android:textSize">18sp</item>
     </style>
 
-    <style name="post_title_text">
+    <style name="text_post_title">
         <item name="android:textSize">14sp</item>
         <item name="android:layout_width">80dp</item>
         <item name="android:layout_height">wrap_content</item>
@@ -61,9 +61,17 @@
         <item name="android:layout_marginEnd">16dp</item>
     </style>
 
+    <style name="yellow_tine_text">
+        <item name="android:textSize">10sp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:text">查看详情>></item>
+    </style>
+
     <!-- EditText  -->
 
-    <style name="post_edit_plus">
+    <style name="edit_post_plus">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:background">@null</item>
@@ -76,7 +84,7 @@
         <item name="android:layout_marginBottom">16dp</item>
     </style>
 
-    <style name="post_edit_normal">
+    <style name="edit_post_normal">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">0dp</item>
         <item name="android:background">@null</item>
@@ -89,7 +97,7 @@
 
     <!-- Button  -->
 
-    <style name="button_yellow_send">
+    <style name="bt_yellow_send">
         <item name="android:textColor">@color/colorWhite</item>
         <item name="android:background">@drawable/shape_yellow_button</item>
     </style>
@@ -110,17 +118,25 @@
         <item name="android:layout_centerHorizontal">true</item>
     </style>
 
-    <style name="post_next_img">
+    <style name="img_post_next">
         <item name="android:layout_width">22dp</item>
         <item name="android:layout_height">26dp</item>
         <item name="android:layout_marginEnd">12dp</item>
     </style>
 
-    <style name="post_location_img">
+    <style name="img_location">
         <item name="android:layout_marginStart">16dp</item>
         <item name="android:layout_width">16dp</item>
         <item name="android:layout_height">16dp</item>
         <item name="android:layout_marginEnd">12dp</item>
+    </style>
+
+    <style name="img_phone">
+        <item name="android:layout_marginStart">16dp</item>
+        <item name="android:layout_width">28dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:layout_marginEnd">12dp</item>
+        <item name="android:src">@drawable/ic_phone</item>
     </style>
 
     <!-- View -->

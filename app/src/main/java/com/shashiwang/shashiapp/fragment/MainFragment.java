@@ -8,11 +8,15 @@ import android.widget.ImageView;
 
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
+import com.shashiwang.shashiapp.activity.message.CarListActivity;
 import com.shashiwang.shashiapp.activity.message.CarMessageActivity;
+import com.shashiwang.shashiapp.activity.message.DriverListActivity;
 import com.shashiwang.shashiapp.activity.message.DriverMessageActivity;
+import com.shashiwang.shashiapp.activity.message.FactoryListActivity;
 import com.shashiwang.shashiapp.activity.message.FactoryMessageActivity;
 import com.shashiwang.shashiapp.activity.message.FreightListActivity;
 import com.shashiwang.shashiapp.activity.message.FreightMessageActivity;
+import com.shashiwang.shashiapp.activity.message.StationListActivity;
 import com.shashiwang.shashiapp.activity.message.StationMessageActivity;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
 import com.shashiwang.shashiapp.bean.BannerBean;
@@ -76,52 +80,27 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
 
     private void initEvent() {
         btFactory.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),MessageListActivity.class);
-            intent.putExtra(TYPE,FACTORY);
-            intent.putExtra(TITLE,FACTORY_TITLE);
-            intent.putExtra(CLASS,FactoryMessageActivity.class);
-            intent.putExtra(URL,FACTORY_URL);
-
+            Intent intent = new Intent(getContext(),FactoryListActivity.class);
             startActivity(intent);
         });
 
         btStation.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),MessageListActivity.class);
-            intent.putExtra(TYPE,STATION);
-            intent.putExtra(TITLE,STATION_TITLE);
-            intent.putExtra(CLASS,StationMessageActivity.class);
-            intent.putExtra(URL,STATION_URL);
-
+            Intent intent = new Intent(getContext(),StationListActivity.class);
             startActivity(intent);
         });
 
         btFreight.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(),FreightListActivity.class);
-//            intent.putExtra(TYPE,FREIGHT);
-//            intent.putExtra(TITLE,FREIGHT_TITLE);
-//            intent.putExtra(CLASS,FreightMessageActivity.class);
-//            intent.putExtra(URL,FREIGHT_URL);
-
             startActivity(intent);
         });
 
         btDriver.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),MessageListActivity.class);
-            intent.putExtra(TYPE,DRIVER);
-            intent.putExtra(TITLE,DRIVER_TITLE);
-            intent.putExtra(CLASS,DriverMessageActivity.class);
-            intent.putExtra(URL,DRIVER_URL);
-
+            Intent intent = new Intent(getContext(),DriverListActivity.class);
             startActivity(intent);
         });
 
         btCar.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),MessageListActivity.class);
-            intent.putExtra(TYPE,CAR);
-            intent.putExtra(TITLE,CAR_TITLE);
-            intent.putExtra(CLASS,CarMessageActivity.class);
-            intent.putExtra(URL,CAR_URL);
-
+            Intent intent = new Intent(getContext(),CarListActivity.class);
             startActivity(intent);
         });
     }

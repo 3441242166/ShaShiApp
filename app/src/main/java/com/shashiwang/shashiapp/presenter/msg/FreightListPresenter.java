@@ -1,4 +1,4 @@
-package com.shashiwang.shashiapp.presenter;
+package com.shashiwang.shashiapp.presenter.msg;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -18,13 +18,15 @@ import com.shashiwang.shashiapp.view.IFreightListView;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_FREIGHT;
 
-
 public class FreightListPresenter extends BasePresenter<IFreightListView> {
     private static final String TAG = "FreightListPresenter";
+
+    private Disposable disposable;
 
     public FreightListPresenter(IFreightListView view, Context context) {
         super(view, context);
@@ -38,7 +40,7 @@ public class FreightListPresenter extends BasePresenter<IFreightListView> {
     @SuppressLint("CheckResult")
     public void getList(){
 
-        RxRetrofitClient.builder()
+        disposable = RxRetrofitClient.builder()
                 .url(URL_FREIGHT)
                 .build()
                 .get()
@@ -60,4 +62,11 @@ public class FreightListPresenter extends BasePresenter<IFreightListView> {
                 });
     }
 
+    @Override
+    public void destroy() {
+        if(disposable != null && !disposable.isDisposed()){
+            disposable.dispose();
+        }
+        super.destroy();
+    }
 }

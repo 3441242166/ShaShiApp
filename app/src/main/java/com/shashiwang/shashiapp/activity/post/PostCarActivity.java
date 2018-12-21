@@ -1,11 +1,8 @@
 package com.shashiwang.shashiapp.activity.post;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -13,46 +10,42 @@ import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.shashiwang.shashiapp.activity.LocationActivity;
+import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
-import com.shashiwang.shashiapp.constant.Constant;
+import com.shashiwang.shashiapp.customizeview.PostChooseLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
-import com.shashiwang.shashiapp.customizeview.PostLocationLayout;
+import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
 import com.shashiwang.shashiapp.presenter.PostPresenter;
-import com.shashiwang.shashiapp.view.PostDataView;
-import com.shashiwang.shashiapp.R;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class PostStoneFactoryActivity extends BaseTopBarActivity{
-    private static final String TAG = "StoneFactoryActivity";
+public class PostCarActivity extends BaseTopBarActivity {
+    private static final String TAG = "PostCarActivity";
 
-    @BindView(R.id.ed_title)
-    PostEditLayout title;
+    @BindView(R.id.ed_brand)
+    PostEditLayout edBrand;
+    @BindView(R.id.ed_mileage)
+    PostEditLayout edMileage;
     @BindView(R.id.ed_price)
-    PostEditPlusLayout price;
-    @BindView(R.id.ed_location)
-    PostLocationLayout location;
+    PostEditLayout edPrice;
     @BindView(R.id.ed_people)
-    PostEditLayout people;
+    PostEditLayout edPeople;
     @BindView(R.id.ed_phone)
-    PostEditLayout phone;
+    PostEditLayout edPhone;
     @BindView(R.id.ed_message)
-    PostEditPlusLayout message;
+    PostEditPlusLayout edMessage;
+    @BindView(R.id.ch_type)
+    PostChooseLayout chType;
+    @BindView(R.id.ch_create_year)
+    PostChooseLayout chCreateYear;
     @BindView(R.id.bt_send)
     Button btSend;
-
-    private String startLat;
-    private String startLng;
 
     @Override
     protected PostPresenter setPresenter() {
@@ -61,7 +54,7 @@ public class PostStoneFactoryActivity extends BaseTopBarActivity{
 
     @Override
     protected int getFrameContentView() {
-        return R.layout.activity_post_stone_factory;
+        return R.layout.activity_post_car_message;
     }
 
     @Override
@@ -71,16 +64,19 @@ public class PostStoneFactoryActivity extends BaseTopBarActivity{
     }
 
     private void initEvent() {
-        location.setOnClickListener(view -> {
-            startActivityForResult(new Intent(PostStoneFactoryActivity.this, LocationActivity.class),1);
+        chType.setOnClickListener(view -> {
+            ChooseBottomDialog dialog = new ChooseBottomDialog(PostCarActivity.this,"选择车辆",R.array.car_type);
+            dialog.setOnChooseListener(str -> chType.setContantText(str));
+            dialog.show();
         });
 
-        btSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                postData();
-            }
+        chCreateYear.setOnClickListener(view -> {
+            ChooseBottomDialog dialog = new ChooseBottomDialog(PostCarActivity.this,"选择年份",R.array.create_year);
+            dialog.setOnChooseListener(str -> chCreateYear.setContantText(str));
+            dialog.show();
         });
+
+        btSend.setOnClickListener(view -> postData());
     }
 
     @SuppressLint("CheckResult")
@@ -89,14 +85,15 @@ public class PostStoneFactoryActivity extends BaseTopBarActivity{
         if(checkData()){
             RxRetrofitClient.builder()
                     .header(new TokenInterceptor())
-                    .url("api/recruit/driver")
-                    .params("name","")
-                    .params("category_price","")
+                    .url("api/car/trade/")
+                    .params("brand",edBrand.getContantText())
+                    .params("category","")
+                    .params("factory_year","")
+                    .params("mileage",edMileage.getContantText())
+                    .params("price",edPrice.getContantText())
                     .params("linkman","")
-                    .params("phone","")
-                    .params("location_lat","")
-                    .params("location_lng","")
-                    .params("remark","")
+                    .params("phone",edPhone.getContantText())
+                    .params("remark",edMessage.getContantText())
                     .build()
                     .post()
                     .subscribeOn(Schedulers.newThread())
@@ -106,15 +103,15 @@ public class PostStoneFactoryActivity extends BaseTopBarActivity{
                         HttpResult<MessageResult<FreightMessage>> result = new Gson().fromJson(s,new TypeToken<HttpResult<MessageResult<FreightMessage>>>(){}.getType());
 
                         if(result.isSuccess()){
-                            Toast.makeText(PostStoneFactoryActivity.this,"发布成功",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PostCarActivity.this,"发布成功",Toast.LENGTH_SHORT).show();
                             finish();
                         }else {
-                            Toast.makeText(PostStoneFactoryActivity.this,result.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PostCarActivity.this,result.getMessage(),Toast.LENGTH_SHORT).show();
                         }
 
                     }, throwable -> {
                         Log.i(TAG, "getList: error = " + throwable);
-                        Toast.makeText(PostStoneFactoryActivity.this,throwable.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PostCarActivity.this,throwable.getMessage(),Toast.LENGTH_SHORT).show();
                     });
         }
 
@@ -126,13 +123,4 @@ public class PostStoneFactoryActivity extends BaseTopBarActivity{
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode == Constant.RESULT_SUCCESS && data!=null){
-            location.setContantText(data.getStringExtra(Constant.LOCATION_NAME));
-            startLat = data.getStringExtra(Constant.LAT);
-            startLng = data.getStringExtra(Constant.LNG);
-        }
-    }
 }

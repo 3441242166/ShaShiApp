@@ -19,6 +19,7 @@ import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
+import com.shashiwang.shashiapp.constant.ApiConstant;
 import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.customizeview.PostChooseLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
@@ -103,7 +104,7 @@ public class PostFreightActivity extends BaseTopBarActivity{
         if(checkData()){
             Disposable disposable = RxRetrofitClient.builder()
                     .header(new TokenInterceptor())
-                    .url("api/freight/")
+                    .url(ApiConstant.URL_FREIGHT)
                     .params("start_location_lat",startLat)
                     .params("start_location_lng",startLng)
                     .params("end_location_lat",endLat)

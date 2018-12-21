@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/post_title"
-        style="@style/post_title_text"
+        style="@style/text_post_title"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -17,7 +17,7 @@
 
     <ImageView
         android:id="@+id/post_loction"
-        style="@style/post_location_img"
+        style="@style/img_location"
         app:layout_constraintBottom_toBottomOf="@+id/post_title"
         app:layout_constraintStart_toEndOf="@+id/post_title"
         app:layout_constraintTop_toTopOf="@+id/post_title"
@@ -36,7 +36,7 @@
 
     <ImageView
         android:id="@+id/post_next"
-        style="@style/post_next_img"
+        style="@style/img_post_next"
         app:layout_constraintBottom_toBottomOf="@+id/post_content"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/post_content"

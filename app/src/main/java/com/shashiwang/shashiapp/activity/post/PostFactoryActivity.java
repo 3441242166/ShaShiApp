@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -12,7 +13,6 @@ import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.LocationActivity;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.FreightMessage;
@@ -23,17 +23,14 @@ import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
 import com.shashiwang.shashiapp.customizeview.PostLocationLayout;
 import com.shashiwang.shashiapp.presenter.PostPresenter;
-import com.shashiwang.shashiapp.view.PostDataView;
-
-import java.util.HashMap;
-import java.util.Map;
+import com.shashiwang.shashiapp.R;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class PostMaxFactoryActivity extends BaseTopBarActivity{
-    private static final String TAG = "PostMaxFactoryActivity";
+public class PostFactoryActivity extends BaseTopBarActivity{
+    private static final String TAG = "StoneFactoryActivity";
 
     @BindView(R.id.ed_title)
     PostEditLayout title;
@@ -60,21 +57,26 @@ public class PostMaxFactoryActivity extends BaseTopBarActivity{
 
     @Override
     protected int getFrameContentView() {
-        return R.layout.activity_post_max_factory;
+        return R.layout.activity_post_stone_factory;
     }
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
-        setTitle("搅拌厂");
+        setTitle("石料厂");
         initEvent();
     }
 
     private void initEvent() {
         location.setOnClickListener(view -> {
-            startActivityForResult(new Intent(PostMaxFactoryActivity.this, LocationActivity.class),1);
+            startActivityForResult(new Intent(PostFactoryActivity.this, LocationActivity.class),1);
         });
 
-        btSend.setOnClickListener(view -> postData());
+        btSend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                postData();
+            }
+        });
     }
 
     @SuppressLint("CheckResult")
@@ -100,15 +102,15 @@ public class PostMaxFactoryActivity extends BaseTopBarActivity{
                         HttpResult<MessageResult<FreightMessage>> result = new Gson().fromJson(s,new TypeToken<HttpResult<MessageResult<FreightMessage>>>(){}.getType());
 
                         if(result.isSuccess()){
-                            Toast.makeText(PostMaxFactoryActivity.this,"发布成功",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PostFactoryActivity.this,"发布成功",Toast.LENGTH_SHORT).show();
                             finish();
                         }else {
-                            Toast.makeText(PostMaxFactoryActivity.this,result.getMessage(),Toast.LENGTH_SHORT).show();
+                            Toast.makeText(PostFactoryActivity.this,result.getMessage(),Toast.LENGTH_SHORT).show();
                         }
 
                     }, throwable -> {
                         Log.i(TAG, "getList: error = " + throwable);
-                        Toast.makeText(PostMaxFactoryActivity.this,throwable.getMessage(),Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PostFactoryActivity.this,throwable.getMessage(),Toast.LENGTH_SHORT).show();
                     });
         }
 
@@ -119,6 +121,7 @@ public class PostMaxFactoryActivity extends BaseTopBarActivity{
         return true;
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -128,5 +131,4 @@ public class PostMaxFactoryActivity extends BaseTopBarActivity{
             startLng = data.getStringExtra(Constant.LNG);
         }
     }
-
 }

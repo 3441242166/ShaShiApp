@@ -7,11 +7,11 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.adapter.message.FreightAdapter;
+import com.shashiwang.shashiapp.adapter.message.CarAdapter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
-import com.shashiwang.shashiapp.bean.FreightMessage;
-import com.shashiwang.shashiapp.presenter.msg.FreightListPresenter;
-import com.shashiwang.shashiapp.view.IFreightListView;
+import com.shashiwang.shashiapp.bean.CarMessage;
+import com.shashiwang.shashiapp.presenter.msg.CarListPresenter;
+import com.shashiwang.shashiapp.view.ICarView;
 
 import java.util.List;
 
@@ -19,17 +19,17 @@ import butterknife.BindView;
 
 import static com.shashiwang.shashiapp.constant.Constant.ID;
 
-public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter> implements IFreightListView {
+public class CarListActivity extends BaseTopBarActivity<CarListPresenter> implements ICarView {
 
     @BindView(R.id.rv_list)
     RecyclerView recyclerView;
 
-    private FreightAdapter adapter;
-    private List<FreightMessage> list;
+    private CarAdapter adapter;
+    private List<CarMessage> list;
 
     @Override
-    protected FreightListPresenter setPresenter() {
-        return new FreightListPresenter(this,this);
+    protected CarListPresenter setPresenter() {
+        return new CarListPresenter(this,this);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
     private void initView() {
         setTitle("运费信息");
 
-        adapter = new FreightAdapter(null);
+        adapter = new CarAdapter(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
@@ -58,7 +58,7 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
         },recyclerView);
 
         adapter.setOnItemClickListener((adapter, view, position) -> {
-            Intent intent = new Intent(FreightListActivity.this,FreightMessageActivity.class);
+            Intent intent = new Intent(CarListActivity.this,CarMessageActivity.class);
             intent.putExtra(ID,list.get(position).getId());
             startActivity(intent);
 
@@ -85,7 +85,7 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
     }
 
     @Override
-    public void loadDataSuccess(List<FreightMessage> data) {
+    public void loadDataSuccess(List<CarMessage> data) {
         list = data;
         adapter.setNewData(data);
         adapter.loadMoreEnd();
@@ -95,4 +95,5 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
     public void errorMessage(String throwable) {
 
     }
+
 }

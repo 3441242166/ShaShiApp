@@ -8,14 +8,14 @@
 
     <TextView
         android:id="@+id/post_title"
-        style="@style/post_title_text"
+        style="@style/text_post_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/post_input"
-        style="@style/post_edit_normal"
+        style="@style/edit_post_normal"
         app:layout_constraintBottom_toBottomOf="@+id/post_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/post_title"

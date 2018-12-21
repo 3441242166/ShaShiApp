@@ -7,11 +7,15 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.adapter.message.FreightAdapter;
+import com.shashiwang.shashiapp.adapter.message.CarAdapter;
+import com.shashiwang.shashiapp.adapter.message.FactoryAdapter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
-import com.shashiwang.shashiapp.bean.FreightMessage;
-import com.shashiwang.shashiapp.presenter.msg.FreightListPresenter;
-import com.shashiwang.shashiapp.view.IFreightListView;
+import com.shashiwang.shashiapp.bean.CarMessage;
+import com.shashiwang.shashiapp.bean.FactoryMessage;
+import com.shashiwang.shashiapp.presenter.msg.CarListPresenter;
+import com.shashiwang.shashiapp.presenter.msg.FactoryListPresenter;
+import com.shashiwang.shashiapp.view.ICarView;
+import com.shashiwang.shashiapp.view.IFactoryView;
 
 import java.util.List;
 
@@ -19,17 +23,17 @@ import butterknife.BindView;
 
 import static com.shashiwang.shashiapp.constant.Constant.ID;
 
-public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter> implements IFreightListView {
+public class FactoryListActivity extends BaseTopBarActivity<FactoryListPresenter> implements IFactoryView {
 
     @BindView(R.id.rv_list)
     RecyclerView recyclerView;
 
-    private FreightAdapter adapter;
-    private List<FreightMessage> list;
+    private FactoryAdapter adapter;
+    private List<FactoryMessage> list;
 
     @Override
-    protected FreightListPresenter setPresenter() {
-        return new FreightListPresenter(this,this);
+    protected FactoryListPresenter setPresenter() {
+        return new FactoryListPresenter(this,this);
     }
 
     @Override
@@ -47,7 +51,7 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
     private void initView() {
         setTitle("运费信息");
 
-        adapter = new FreightAdapter(null);
+        adapter = new FactoryAdapter(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
     }
@@ -58,7 +62,7 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
         },recyclerView);
 
         adapter.setOnItemClickListener((adapter, view, position) -> {
-            Intent intent = new Intent(FreightListActivity.this,FreightMessageActivity.class);
+            Intent intent = new Intent(FactoryListActivity.this,FactoryMessageActivity.class);
             intent.putExtra(ID,list.get(position).getId());
             startActivity(intent);
 
@@ -85,7 +89,7 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
     }
 
     @Override
-    public void loadDataSuccess(List<FreightMessage> data) {
+    public void loadDataSuccess(List<FactoryMessage> data) {
         list = data;
         adapter.setNewData(data);
         adapter.loadMoreEnd();
@@ -95,4 +99,5 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
     public void errorMessage(String throwable) {
 
     }
+
 }

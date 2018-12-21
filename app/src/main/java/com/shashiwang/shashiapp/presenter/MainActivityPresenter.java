@@ -12,11 +12,11 @@ import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.activity.post.PostCarMessageActivity;
+import com.shashiwang.shashiapp.activity.post.PostCarActivity;
 import com.shashiwang.shashiapp.activity.post.PostFreightActivity;
 import com.shashiwang.shashiapp.activity.post.PostDriverActivity;
-import com.shashiwang.shashiapp.activity.post.PostMaxFactoryActivity;
-import com.shashiwang.shashiapp.activity.post.PostStoneFactoryActivity;
+import com.shashiwang.shashiapp.activity.post.PostStationActivity;
+import com.shashiwang.shashiapp.activity.post.PostFactoryActivity;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.constant.IssueType;
 import com.shashiwang.shashiapp.view.IMainActivityView;
@@ -59,10 +59,10 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
         ivBack.setOnClickListener(view -> popupWindow.dismiss());
 
         sale.setOnClickListener(v -> {
-            openActivity(PostCarMessageActivity.class,IssueType.A);
+            openActivity(PostCarActivity.class,IssueType.A);
         });
         stoneFactory.setOnClickListener(v -> {
-            openActivity(PostStoneFactoryActivity.class,IssueType.A);
+            openActivity(PostFactoryActivity.class,IssueType.A);
             //openActivity(LocationActivity.class,IssueType.A);
         });
 
@@ -73,7 +73,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
             openActivity(PostFreightActivity.class,IssueType.A);
         });
         mixStation.setOnClickListener(v -> {
-            openActivity(PostMaxFactoryActivity.class,IssueType.A);
+            openActivity(PostStationActivity.class,IssueType.A);
         });
     }
 

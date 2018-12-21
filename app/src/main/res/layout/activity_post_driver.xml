@@ -67,7 +67,7 @@
 
         <Button
             android:id="@+id/bt_send"
-            style="@style/button_yellow_send"
+            style="@style/bt_yellow_send"
             android:layout_width="300dp"
             android:layout_height="40dp"
             android:layout_margin="20dp"
