@@ -29,21 +29,23 @@ import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_FACTORY;
+
 public class PostFactoryActivity extends BaseTopBarActivity{
     private static final String TAG = "StoneFactoryActivity";
 
     @BindView(R.id.ed_title)
-    PostEditLayout title;
+    PostEditLayout edTitle;
     @BindView(R.id.ed_price)
-    PostEditPlusLayout price;
+    PostEditPlusLayout edPrice;
     @BindView(R.id.ed_location)
-    PostLocationLayout location;
+    PostLocationLayout edLocation;
     @BindView(R.id.ed_people)
-    PostEditLayout people;
+    PostEditLayout edPeople;
     @BindView(R.id.ed_phone)
-    PostEditLayout phone;
+    PostEditLayout edPhone;
     @BindView(R.id.ed_message)
-    PostEditPlusLayout message;
+    PostEditPlusLayout edMessage;
     @BindView(R.id.bt_send)
     Button btSend;
 
@@ -67,16 +69,11 @@ public class PostFactoryActivity extends BaseTopBarActivity{
     }
 
     private void initEvent() {
-        location.setOnClickListener(view -> {
+        edLocation.setOnClickListener(view -> {
             startActivityForResult(new Intent(PostFactoryActivity.this, LocationActivity.class),1);
         });
 
-        btSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                postData();
-            }
-        });
+        btSend.setOnClickListener(view -> postData());
     }
 
     @SuppressLint("CheckResult")
@@ -85,14 +82,14 @@ public class PostFactoryActivity extends BaseTopBarActivity{
         if(checkData()){
             RxRetrofitClient.builder()
                     .header(new TokenInterceptor())
-                    .url("api/recruit/driver")
-                    .params("name","")
-                    .params("category_price","")
-                    .params("linkman","")
-                    .params("phone","")
-                    .params("location_lat","")
-                    .params("location_lng","")
-                    .params("remark","")
+                    .url(URL_FACTORY)
+                    .params("name",edTitle.getContantText())
+                    .params("category_price",edPrice.getContantText())
+                    .params("linkman",edPeople.getContantText())
+                    .params("phone",edPhone.getContantText())
+                    .params("location_lat",startLat)
+                    .params("location_lng",startLng)
+                    .params("remark",edMessage.getContantText())
                     .build()
                     .post()
                     .subscribeOn(Schedulers.newThread())
@@ -126,7 +123,7 @@ public class PostFactoryActivity extends BaseTopBarActivity{
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == Constant.RESULT_SUCCESS && data!=null){
-            location.setContantText(data.getStringExtra(Constant.LOCATION_NAME));
+            edLocation.setContantText(data.getStringExtra(Constant.LOCATION_NAME));
             startLat = data.getStringExtra(Constant.LAT);
             startLng = data.getStringExtra(Constant.LNG);
         }

@@ -12,7 +12,7 @@ public class BitmapUtil {
      * @return
      */
     public static Bitmap getByBase64(String data){
-        String imgData  = data.replace("DATA:image/png;base64,", "");
+        String imgData  = data.replace("data:image/png;base64,", "");
         byte[] decodedString = Base64.decode(imgData, Base64.DEFAULT);
         return BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
     }

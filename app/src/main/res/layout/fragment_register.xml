@@ -109,12 +109,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        app:hint_content="@string/hint_login_code"
+        app:hint_content="@string/hint_login_image_code"
         app:layout_constraintBottom_toTopOf="@+id/ly_code"
         app:layout_constraintEnd_toEndOf="@+id/ev_password"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/ev_password"
-        app:left_icon="@drawable/ic_code">
+        app:left_icon="@drawable/ic_image_code">
 
     </com.shashiwang.shashiapp.customizeview.LoginEditText>
 

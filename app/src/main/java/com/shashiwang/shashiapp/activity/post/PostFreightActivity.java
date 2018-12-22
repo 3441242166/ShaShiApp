@@ -102,6 +102,7 @@ public class PostFreightActivity extends BaseTopBarActivity{
     private void postData() {
 
         if(checkData()){
+            Log.i(TAG, "postData: ok");
             Disposable disposable = RxRetrofitClient.builder()
                     .header(new TokenInterceptor())
                     .url(ApiConstant.URL_FREIGHT)

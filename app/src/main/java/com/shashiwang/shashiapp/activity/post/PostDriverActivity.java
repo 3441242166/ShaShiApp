@@ -10,6 +10,7 @@ import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
+import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.customizeview.PostChooseLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
@@ -19,7 +20,9 @@ import com.shashiwang.shashiapp.presenter.PostPresenter;
 import com.shashiwang.shashiapp.view.PostDataView;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -32,11 +35,15 @@ import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_DRIVER;
+import static com.shashiwang.shashiapp.constant.Constant.REQUEST_END_LOCATION;
+import static com.shashiwang.shashiapp.constant.Constant.REQUEST_START_LOCATION;
+
 public class PostDriverActivity extends BaseTopBarActivity{
     private static final String TAG = "PostDriverActivity";
 
     @BindView(R.id.ed_salary)
-    PostEditLayout edMileage;
+    PostEditLayout edSalary;
     @BindView(R.id.ed_location)
     PostEditLayout edLocation;
     @BindView(R.id.ed_people)
@@ -65,7 +72,7 @@ public class PostDriverActivity extends BaseTopBarActivity{
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
-        setTitle("发布车辆买卖信息");
+        setTitle("司机招聘");
         initEvent();
     }
 
@@ -85,13 +92,13 @@ public class PostDriverActivity extends BaseTopBarActivity{
         if(checkData()){
             RxRetrofitClient.builder()
                     .header(new TokenInterceptor())
-                    .url("api/recruit/driver")
-                    .params("salary","")
-                    .params("job_desc","")
-                    .params("work_year","")
-                    .params("work_address","")
-                    .params("linkman","")
-                    .params("phone","")
+                    .url(URL_DRIVER)
+                    .params("salary",edSalary.getContantText())
+                    .params("job_desc",edMessage.getContantText())
+                    .params("work_year",chYear.getContantText())
+                    .params("work_address",edLocation.getContantText())
+                    .params("linkman",edPeople.getContantText())
+                    .params("phone",edPhone.getContantText())
                     .build()
                     .post()
                     .subscribeOn(Schedulers.newThread())
@@ -118,6 +125,15 @@ public class PostDriverActivity extends BaseTopBarActivity{
     private boolean checkData() {
 
         return true;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        // 获取地图返回坐标和地名
+        if(resultCode == Constant.RESULT_SUCCESS && data!=null){
+                edLocation.setContantText(data.getStringExtra(Constant.LOCATION_NAME));
+        }
     }
 
 }

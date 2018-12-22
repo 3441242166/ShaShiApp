@@ -25,6 +25,8 @@ import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CAR;
+
 public class PostCarActivity extends BaseTopBarActivity {
     private static final String TAG = "PostCarActivity";
 
@@ -38,12 +40,12 @@ public class PostCarActivity extends BaseTopBarActivity {
     PostEditLayout edPeople;
     @BindView(R.id.ed_phone)
     PostEditLayout edPhone;
-    @BindView(R.id.ed_message)
-    PostEditPlusLayout edMessage;
     @BindView(R.id.ch_type)
     PostChooseLayout chType;
     @BindView(R.id.ch_create_year)
     PostChooseLayout chCreateYear;
+    @BindView(R.id.ed_message)
+    PostEditPlusLayout edMessage;
     @BindView(R.id.bt_send)
     Button btSend;
 
@@ -59,7 +61,7 @@ public class PostCarActivity extends BaseTopBarActivity {
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
-        setTitle("石料厂");
+        setTitle("出售车辆");
         initEvent();
     }
 
@@ -85,13 +87,13 @@ public class PostCarActivity extends BaseTopBarActivity {
         if(checkData()){
             RxRetrofitClient.builder()
                     .header(new TokenInterceptor())
-                    .url("api/car/trade/")
+                    .url(URL_CAR)
                     .params("brand",edBrand.getContantText())
-                    .params("category","")
-                    .params("factory_year","")
+                    .params("category",chType.getContantText())
+                    .params("factory_year",chCreateYear.getContantText())
                     .params("mileage",edMileage.getContantText())
                     .params("price",edPrice.getContantText())
-                    .params("linkman","")
+                    .params("linkman",edPeople.getContantText())
                     .params("phone",edPhone.getContantText())
                     .params("remark",edMessage.getContantText())
                     .build()

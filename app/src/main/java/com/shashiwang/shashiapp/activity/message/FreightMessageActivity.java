@@ -95,15 +95,12 @@ public class FreightMessageActivity extends BaseTopBarActivity {
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
+        setTitle("详情");
         id = getIntent().getIntExtra(ID,-1);
-        initView();
         initEvent();
         getMessage();
     }
 
-    public void initView(){
-        setTitle("详情");
-    }
 
     public void initEvent(){
         btStart.setOnClickListener(view -> {
@@ -182,11 +179,6 @@ public class FreightMessageActivity extends BaseTopBarActivity {
         tvCar.setContantText(message.getCar_category());
         tvPhone.setContantText(message.getPhone());
 
-        CloudRgcInfo info = new CloudRgcInfo();
-        info.location = String.valueOf(message.getStart_location_lat()) +"," + String.valueOf(message.getStart_location_lng());
-        CloudManager.getInstance().rgcSearch(info);
-        info.location = String.valueOf(message.getEnd_location_lat()) +"," + String.valueOf(message.getEnd_location_lng());
-        CloudManager.getInstance().rgcSearch(info);
     }
 
     private void openBaiduMap(String lat,String lng){
