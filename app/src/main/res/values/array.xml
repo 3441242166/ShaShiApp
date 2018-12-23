@@ -10,11 +10,11 @@
     </string-array>
 
     <string-array name="create_year">
-        <item>2018年</item>
-        <item>2017年</item>
-        <item>2016年</item>
-        <item>2015年</item>
-        <item>2014年</item>
+        <item>2018</item>
+        <item>2017</item>
+        <item>2016</item>
+        <item>2015</item>
+        <item>2014</item>
     </string-array>
 
     <string-array name="car_type">

@@ -10,6 +10,7 @@ public class StationMessage {
     private String phone;
     private String location_lat;
     private String location_lng;
+    private String location;
     private String remark;
     private String created_at;
     private String updated_at;
@@ -100,5 +101,13 @@ public class StationMessage {
 
     public void setUpdated_at(String updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 }

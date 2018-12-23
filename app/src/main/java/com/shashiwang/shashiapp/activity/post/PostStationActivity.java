@@ -88,6 +88,7 @@ public class PostStationActivity extends BaseTopBarActivity{
                     .params("phone",edPhone.getContantText())
                     .params("location_lat",startLat)
                     .params("location_lng",startLng)
+                    .params("location",edLocation.getContantText())
                     .params("remark",edMessage.getContantText())
                     .build()
                     .post()

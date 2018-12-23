@@ -60,6 +60,8 @@ public class PostDriverActivity extends BaseTopBarActivity{
     @BindView(R.id.bt_send)
     Button btSend;
 
+
+
     @Override
     protected PostPresenter setPresenter() {
         return null;
@@ -79,7 +81,10 @@ public class PostDriverActivity extends BaseTopBarActivity{
     private void initEvent() {
         chYear.setOnClickListener(view -> {
             ChooseBottomDialog dialog = new ChooseBottomDialog(PostDriverActivity.this,"选择车辆类型",R.array.work_year);
-            dialog.setOnChooseListener(str -> chYear.setContantText(str));
+            dialog.setOnChooseListener((str,i) -> {
+                chYear.setContantText(str);
+
+            });
             dialog.show();
         });
 

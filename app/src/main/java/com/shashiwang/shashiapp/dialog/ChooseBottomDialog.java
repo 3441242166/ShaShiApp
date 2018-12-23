@@ -65,7 +65,7 @@ public class ChooseBottomDialog extends BaseScreenDialog {
 
         rvView.setOnItemClickListener((adapterView, view, i, l) -> {
             if(onChooseListener != null){
-                onChooseListener.onChoose(data[i]);
+                onChooseListener.onChoose(data[i],i);
                 ChooseBottomDialog.this.cancel();
             }
         });
@@ -100,7 +100,7 @@ public class ChooseBottomDialog extends BaseScreenDialog {
     }
 
     public interface OnChooseListener{
-        void onChoose(String str);
+        void onChoose(String str,int pos);
     }
 
 }

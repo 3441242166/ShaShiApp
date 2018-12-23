@@ -23,6 +23,7 @@
             android:id="@+id/ed_mileage"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:input_type="2"
             app:hint_content="请输入行驶里程"
             app:title="行驶里程" />
 
@@ -32,6 +33,7 @@
             android:id="@+id/ed_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:input_type="2"
             app:hint_content="请输入价格"
             app:title="价格" />
 
@@ -50,6 +52,7 @@
             android:id="@+id/ed_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:input_type="2"
             app:hint_content="请输入联系电话"
             app:title="联系电话" />
 

@@ -68,13 +68,13 @@ public class PostCarActivity extends BaseTopBarActivity {
     private void initEvent() {
         chType.setOnClickListener(view -> {
             ChooseBottomDialog dialog = new ChooseBottomDialog(PostCarActivity.this,"选择车辆",R.array.car_type);
-            dialog.setOnChooseListener(str -> chType.setContantText(str));
+            dialog.setOnChooseListener((str,i) -> chType.setContantText(str));
             dialog.show();
         });
 
         chCreateYear.setOnClickListener(view -> {
             ChooseBottomDialog dialog = new ChooseBottomDialog(PostCarActivity.this,"选择年份",R.array.create_year);
-            dialog.setOnChooseListener(str -> chCreateYear.setContantText(str));
+            dialog.setOnChooseListener((str,i) -> chCreateYear.setContantText(str));
             dialog.show();
         });
 

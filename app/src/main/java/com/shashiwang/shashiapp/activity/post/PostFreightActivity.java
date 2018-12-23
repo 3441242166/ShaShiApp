@@ -92,7 +92,7 @@ public class PostFreightActivity extends BaseTopBarActivity{
 
         chCar.setOnClickListener(view -> {
             ChooseBottomDialog dialog = new ChooseBottomDialog(PostFreightActivity.this,"选择车辆类型",R.array.car_type);
-            dialog.setOnChooseListener(str -> chCar.setContantText(str));
+            dialog.setOnChooseListener((str,i) -> chCar.setContantText(str));
             dialog.show();
         });
         btSend.setOnClickListener(view -> postData());

@@ -29,7 +29,7 @@ public class FactoryAdapter extends BaseQuickAdapter<FactoryMessage,BaseViewHold
         helper.setText(R.id.tv_type,"type");
         helper.setText(R.id.tv_price,""+item.getCategory_price());
 
-        helper.setText(R.id.tv_address,item.getLocation_lat());
+        helper.setText(R.id.tv_address,item.getLocation());
 
         helper.setText(R.id.tv_content,item.getRemark());
     }
