@@ -26,7 +26,6 @@ public class StationAdapter extends BaseQuickAdapter<StationMessage,BaseViewHold
         helper.setText(R.id.tv_title,StringUtil.getFirstChinese(item.getLinkman())+"先生");
         helper.setText(R.id.tv_label,DateUtil.getDifferentString(item.getCreated_at()));
 
-        helper.setText(R.id.tv_name,item.getName());
         helper.setText(R.id.tv_price,""+item.getCategory_price());
 
         helper.setText(R.id.tv_address,item.getLocation());

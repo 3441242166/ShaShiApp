@@ -67,10 +67,11 @@
 
         <View style="@style/view_line" />
 
-        <com.shashiwang.shashiapp.customizeview.PostChooseLayout
-            android:id="@+id/ch_create_year"
+        <com.shashiwang.shashiapp.customizeview.PostEditLayout
+            android:id="@+id/ed_create_year"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:input_type="2"
             app:hint_content="请选择"
             app:title="出厂年限" />
 

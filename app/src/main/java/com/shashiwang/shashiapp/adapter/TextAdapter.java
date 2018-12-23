@@ -1,6 +1,5 @@
 package com.shashiwang.shashiapp.adapter;
 
-import android.content.Context;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,7 +15,7 @@ public class TextAdapter extends BaseQuickAdapter<TextAdapter.TextBean,BaseViewH
 
 
     public TextAdapter(@Nullable List<TextBean> data) {
-        super(R.layout.item_text, data);
+        super(R.layout.item_image_text, data);
 
     }
 

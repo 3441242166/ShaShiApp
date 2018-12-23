@@ -23,7 +23,7 @@
     <string name="hint_login_password">请输入密码</string>
     <string name="hint_post_remark">添加备注信息</string>
     <!-- Hint -->
-    <string name="name_factory">沙事料厂</string>
+    <string name="name_factory">砂事料厂</string>
     <string name="name_station">搅拌站</string>
     <string name="name_freight">运费信息</string>
     <string name="name_driver">司机招聘</string>

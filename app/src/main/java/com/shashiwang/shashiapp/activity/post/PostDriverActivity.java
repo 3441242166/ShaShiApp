@@ -17,6 +17,7 @@ import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
 import com.shashiwang.shashiapp.customizeview.PostLocationLayout;
 import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
 import com.shashiwang.shashiapp.presenter.PostPresenter;
+import com.shashiwang.shashiapp.util.FileUtil;
 import com.shashiwang.shashiapp.view.PostDataView;
 
 import android.annotation.SuppressLint;
@@ -28,7 +29,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -60,7 +65,7 @@ public class PostDriverActivity extends BaseTopBarActivity{
     @BindView(R.id.bt_send)
     Button btSend;
 
-
+    private Map<String,Integer> data;
 
     @Override
     protected PostPresenter setPresenter() {
@@ -75,12 +80,18 @@ public class PostDriverActivity extends BaseTopBarActivity{
     @Override
     protected void initFrame(Bundle savedInstanceState) {
         setTitle("司机招聘");
+        data = FileUtil.getJsonFormAssets(this,"workYear.json");
         initEvent();
     }
 
     private void initEvent() {
+        List<String> list = new ArrayList<>();
+        for( String key :data.keySet()){
+            list.add(key);
+        }
+
         chYear.setOnClickListener(view -> {
-            ChooseBottomDialog dialog = new ChooseBottomDialog(PostDriverActivity.this,"选择车辆类型",R.array.work_year);
+            ChooseBottomDialog dialog = new ChooseBottomDialog(PostDriverActivity.this,"选择车辆类型",list);
             dialog.setOnChooseListener((str,i) -> {
                 chYear.setContantText(str);
 
@@ -94,14 +105,15 @@ public class PostDriverActivity extends BaseTopBarActivity{
     @SuppressLint("CheckResult")
     private void postData() {
 
+        int workYear = data.get(chYear.getContantText());
+
         if(checkData()){
             RxRetrofitClient.builder()
                     .header(new TokenInterceptor())
                     .url(URL_DRIVER)
                     .params("salary",edSalary.getContantText())
                     .params("job_desc",edMessage.getContantText())
-//                    .params("work_year",chYear.getContantText())
-                    .params("work_year",1)
+                    .params("work_year",workYear)
                     .params("work_address",edLocation.getContantText())
                     .params("linkman",edPeople.getContantText())
                     .params("phone",edPhone.getContantText())

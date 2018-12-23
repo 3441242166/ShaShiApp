@@ -27,6 +27,11 @@ import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
 import com.shashiwang.shashiapp.customizeview.PostLocationLayout;
 import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
 import com.shashiwang.shashiapp.presenter.PostPresenter;
+import com.shashiwang.shashiapp.util.FileUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
@@ -69,6 +74,8 @@ public class PostFreightActivity extends BaseTopBarActivity{
     private String endLat;
     private String endLng;
 
+    private Map<String,Integer> data;
+
     @Override
     protected PostPresenter setPresenter() {
         return null;
@@ -82,16 +89,23 @@ public class PostFreightActivity extends BaseTopBarActivity{
     @Override
     protected void initFrame(Bundle savedInstanceState) {
         setTitle("发布运费信息");
+        data = FileUtil.getJsonFormAssets(this,"carType.json");
         initEvent();
     }
 
     private void initEvent() {
+        List<String> list = new ArrayList<>();
+        for( String key :data.keySet()){
+            Log.i(TAG, "initEvent: key = "+key);
+            list.add(key);
+        }
+
         edStart.setOnClickListener(view -> startActivityForResult(new Intent(PostFreightActivity.this, LocationActivity.class),REQUEST_START_LOCATION));
 
         edEnd.setOnClickListener(view -> startActivityForResult(new Intent(PostFreightActivity.this, LocationActivity.class),REQUEST_END_LOCATION));
 
         chCar.setOnClickListener(view -> {
-            ChooseBottomDialog dialog = new ChooseBottomDialog(PostFreightActivity.this,"选择车辆类型",R.array.car_type);
+            ChooseBottomDialog dialog = new ChooseBottomDialog(PostFreightActivity.this,"选择车辆类型",list);
             dialog.setOnChooseListener((str,i) -> chCar.setContantText(str));
             dialog.show();
         });

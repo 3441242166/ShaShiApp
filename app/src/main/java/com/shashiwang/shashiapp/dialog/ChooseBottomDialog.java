@@ -3,6 +3,7 @@ package com.shashiwang.shashiapp.dialog;
 
 import android.content.Context;
 import android.support.annotation.CheckResult;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,12 +17,18 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.BaseViewHolder;
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.adapter.GridAdapter;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
 import com.shashiwang.shashiapp.base.BaseScreenDialog;
+import com.shashiwang.shashiapp.util.DividerItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,17 +43,17 @@ public class ChooseBottomDialog extends BaseScreenDialog {
     @BindView(R.id.tx_dialog_title)
     TextView tvTitle;
     @BindView(R.id.rv_dialog_post)
-    ListView rvView;
+    RecyclerView rvView;
 
     private String title;
-    private String[] data;
+    List<String> data;
 
     private OnChooseListener onChooseListener;
 
-    public ChooseBottomDialog(Context context,String title,int dataID) {
+    public ChooseBottomDialog(Context context,String title,List<String> data) {
         super(context);
         this.title = title;
-        data  =  context.getResources().getStringArray(dataID);
+        this.data = data;
     }
 
     @Override
@@ -63,13 +70,6 @@ public class ChooseBottomDialog extends BaseScreenDialog {
 
     private void initEvent() {
 
-        rvView.setOnItemClickListener((adapterView, view, i, l) -> {
-            if(onChooseListener != null){
-                onChooseListener.onChoose(data[i],i);
-                ChooseBottomDialog.this.cancel();
-            }
-        });
-
         ivBack.setOnClickListener(view -> ChooseBottomDialog.this.cancel());
     }
 
@@ -85,14 +85,18 @@ public class ChooseBottomDialog extends BaseScreenDialog {
         params.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(params);
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(),
-                android.R.layout.simple_list_item_1 ,
-                android.R.id.text1,
-                data);
-
+        TextAdapter adapter = new TextAdapter(data);
         rvView.setAdapter(adapter);
+        rvView.addItemDecoration(new DividerItemDecoration());
+        rvView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-
+        adapter.setOnItemClickListener((adapter1, view, position) -> {
+            Log.i(TAG, "click: ");
+            if(onChooseListener != null){
+                onChooseListener.onChoose(data.get(position),position);
+            }
+            ChooseBottomDialog.this.cancel();
+        });
     }
 
     public void setOnChooseListener(OnChooseListener onChooseListener){
@@ -102,5 +106,20 @@ public class ChooseBottomDialog extends BaseScreenDialog {
     public interface OnChooseListener{
         void onChoose(String str,int pos);
     }
+
+     static class  TextAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
+
+
+        TextAdapter(@Nullable List<String> data) {
+            super(R.layout.item_text, data);
+        }
+
+        @Override
+        protected void convert(BaseViewHolder helper, String item) {
+            Log.i(TAG, "convert: item = "+item);
+            helper.setText(R.id.tv,item);
+        }
+    }
+
 
 }

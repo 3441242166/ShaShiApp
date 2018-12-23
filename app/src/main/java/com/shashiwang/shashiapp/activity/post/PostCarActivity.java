@@ -1,9 +1,12 @@
 package com.shashiwang.shashiapp.activity.post;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.net.interceptors.TokenInterceptor;
@@ -11,6 +14,7 @@ import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
@@ -20,6 +24,11 @@ import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
 import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
 import com.shashiwang.shashiapp.presenter.PostPresenter;
+import com.shashiwang.shashiapp.util.FileUtil;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -42,12 +51,14 @@ public class PostCarActivity extends BaseTopBarActivity {
     PostEditLayout edPhone;
     @BindView(R.id.ch_type)
     PostChooseLayout chType;
-    @BindView(R.id.ch_create_year)
-    PostChooseLayout chCreateYear;
+    @BindView(R.id.ed_create_year)
+    PostChooseLayout edCreateYear;
     @BindView(R.id.ed_message)
     PostEditPlusLayout edMessage;
     @BindView(R.id.bt_send)
     Button btSend;
+
+    private Map<String,Integer> data;
 
     @Override
     protected PostPresenter setPresenter() {
@@ -62,19 +73,19 @@ public class PostCarActivity extends BaseTopBarActivity {
     @Override
     protected void initFrame(Bundle savedInstanceState) {
         setTitle("出售车辆");
+        data = FileUtil.getJsonFormAssets(this,"carType.json");
         initEvent();
     }
 
     private void initEvent() {
-        chType.setOnClickListener(view -> {
-            ChooseBottomDialog dialog = new ChooseBottomDialog(PostCarActivity.this,"选择车辆",R.array.car_type);
-            dialog.setOnChooseListener((str,i) -> chType.setContantText(str));
-            dialog.show();
-        });
+        List<String> list = new ArrayList<>();
+        for( String key :data.keySet()){
+            list.add(key);
+        }
 
-        chCreateYear.setOnClickListener(view -> {
-            ChooseBottomDialog dialog = new ChooseBottomDialog(PostCarActivity.this,"选择年份",R.array.create_year);
-            dialog.setOnChooseListener((str,i) -> chCreateYear.setContantText(str));
+        chType.setOnClickListener(view -> {
+            ChooseBottomDialog dialog = new ChooseBottomDialog(PostCarActivity.this,"选择车辆",list);
+            dialog.setOnChooseListener((str,i) -> chType.setContantText(str));
             dialog.show();
         });
 
@@ -84,15 +95,15 @@ public class PostCarActivity extends BaseTopBarActivity {
     @SuppressLint("CheckResult")
     private void postData() {
 
+        int carType = data.get(chType.getContantText());
+
         if(checkData()){
             RxRetrofitClient.builder()
                     .header(new TokenInterceptor())
                     .url(URL_CAR)
                     .params("brand",edBrand.getContantText())
-                    //.params("category",chType.getContantText())
-                    .params("category",3)
-                    .params("factory_year",chCreateYear.getContantText())
-                    .params("factory_year",5)
+                    .params("category",carType)
+                    .params("factory_year",edCreateYear.getContantText())
                     .params("mileage",edMileage.getContantText())
                     .params("price",edPrice.getContantText())
                     .params("linkman",edPeople.getContantText())

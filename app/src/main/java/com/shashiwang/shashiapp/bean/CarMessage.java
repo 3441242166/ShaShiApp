@@ -5,7 +5,7 @@ public class CarMessage {
     private int id;
     private String brand;
     private int category;
-    private int factory_year;
+    private String factory_year;
     private int mileage;
     private int price;
     private String image;
@@ -39,11 +39,11 @@ public class CarMessage {
         this.category = category;
     }
 
-    public int getFactory_year() {
+    public String getFactory_year() {
         return factory_year;
     }
 
-    public void setFactory_year(int factory_year) {
+    public void setFactory_year(String factory_year) {
         this.factory_year = factory_year;
     }
 
