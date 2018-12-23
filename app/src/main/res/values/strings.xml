@@ -13,7 +13,7 @@
     <!--ErrorMessage-->
 
     <!--Message-->
-    <string name="login_success">登陆成功</string>
+    <string name="login_success">登录成功</string>
     <string name="register_success">注册成功</string>
     <!--Message-->
     <!-- Hint -->
@@ -29,8 +29,8 @@
     <string name="name_driver">司机招聘</string>
     <string name="name_car">车辆买卖</string>
 
-    <string name="name_login">登陆</string>
-    <string name="name_exit_login">退出登陆</string>
+    <string name="name_login">登录</string>
+    <string name="name_exit_login">退出登录</string>
     <string name="name_register">注册</string>
     <string name="name_login_forget">忘记密码</string>
     <string name="name_login_code">获取验证码</string>
