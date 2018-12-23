@@ -51,8 +51,6 @@ public class FactoryMessageActivity extends BaseTopBarActivity {
     @BindView(R.id.tv_content)
     TextView tvContent;
 
-    @BindView(R.id.tv_type)
-    MessageLayout tvType;
     @BindView(R.id.tv_price)
     MessageLayout tvPrice;
     @BindView(R.id.tv_phone)
@@ -198,7 +196,6 @@ public class FactoryMessageActivity extends BaseTopBarActivity {
         tvTime.setText(DateUtil.getDifferentString(message.getUpdated_at()));
         tvContent.setText(message.getRemark());
 
-        tvType.setContantText("null");
         tvPrice.setContantText(String.valueOf(message.getCategory_price()));
         tvPhone.setContantText(message.getPhone());
         tvAddress.setContantText(message.getLocation());

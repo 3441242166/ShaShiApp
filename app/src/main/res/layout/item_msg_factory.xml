@@ -65,7 +65,7 @@
             android:id="@+id/textView11"
             style="@style/text_message_item"
             android:layout_marginStart="156dp"
-            android:text="价格:"
+            android:text="品类价格:"
             app:layout_constraintBottom_toBottomOf="@+id/tv_type"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/tv_type" />
