@@ -15,7 +15,9 @@ import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
+import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
+import com.baidu.mapapi.search.poi.PoiSearch;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.adapter.LocationAdapter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
@@ -144,19 +146,18 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
 
             @Override
             public void afterTextChanged(Editable editable) {
-                String str = editable.toString();
+                String str = editable.toString().trim();
                 Log.i(TAG, "afterTextChanged: " + str);
                 if(TextUtils.isEmpty(str)){
                     return;
                 }
+                PoiCitySearchOption citySearchOption  = new PoiCitySearchOption();
+                citySearchOption.city("北京");
+                citySearchOption.keyword(str);
+                citySearchOption.pageNum(0);
+                citySearchOption.pageCapacity(20);
 
-                PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption()
-                        .keyword(str)//检索关键字
-                        .pageNum(0)//分页编号，默认是0页
-                        .pageCapacity(20)//设置每页容量，默认10条
-                        .radius(50000);//附近检索半径
-
-                presenter.searchNear(nearbySearchOption);
+                presenter.searchCity(citySearchOption);
             }
         });
 

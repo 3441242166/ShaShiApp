@@ -2,10 +2,12 @@ package com.shashiwang.shashiapp.fragment;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.example.util.SharedPreferencesHelper;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
 import com.shashiwang.shashiapp.activity.message.CarListActivity;
@@ -36,6 +38,7 @@ import qiu.niorgai.StatusBarCompat;
 
 import static com.shashiwang.shashiapp.constant.Constant.CLASS;
 import static com.shashiwang.shashiapp.constant.Constant.TITLE;
+import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 import static com.shashiwang.shashiapp.constant.Constant.TYPE;
 import static com.shashiwang.shashiapp.constant.Constant.URL;
 import static com.shashiwang.shashiapp.constant.MessageType.*;

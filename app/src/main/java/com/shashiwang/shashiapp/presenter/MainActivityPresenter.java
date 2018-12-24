@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.RelativeLayout;
 
+import com.example.util.SharedPreferencesHelper;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.post.PostCarActivity;
 import com.shashiwang.shashiapp.activity.post.PostFreightActivity;
@@ -20,6 +22,8 @@ import com.shashiwang.shashiapp.activity.post.PostFactoryActivity;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.constant.IssueType;
 import com.shashiwang.shashiapp.view.IMainActivityView;
+
+import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 
 public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
     private static final String TAG = "MainActivityPresenter";
@@ -59,22 +63,42 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
         ivBack.setOnClickListener(view -> popupWindow.dismiss());
 
         sale.setOnClickListener(v -> {
-            openActivity(PostCarActivity.class,IssueType.A);
+            if(isLogin()) {
+                openActivity(PostCarActivity.class, IssueType.A);
+            }
         });
         stoneFactory.setOnClickListener(v -> {
-            openActivity(PostFactoryActivity.class,IssueType.A);
-            //openActivity(LocationActivity.class,IssueType.A);
+            if(isLogin()) {
+                openActivity(PostFactoryActivity.class, IssueType.A);
+                //openActivity(LocationActivity.class,IssueType.A);
+            }
         });
 
         dirver.setOnClickListener(v -> {
-            openActivity(PostDriverActivity.class,IssueType.A);
+            if(isLogin()) {
+                openActivity(PostDriverActivity.class, IssueType.A);
+            }
         });
         freight.setOnClickListener(v -> {
-            openActivity(PostFreightActivity.class,IssueType.A);
+            if(isLogin()) {
+                openActivity(PostFreightActivity.class, IssueType.A);
+            }
         });
         mixStation.setOnClickListener(v -> {
-            openActivity(PostStationActivity.class,IssueType.A);
+            if(isLogin()) {
+                openActivity(PostStationActivity.class, IssueType.A);
+            }
         });
+    }
+
+    private boolean isLogin(){
+        String token = (String) SharedPreferencesHelper.getSharedPreference(TOKEN,"");
+
+        if(TextUtils.isEmpty(token)){
+            mView.errorMessage("请先登陆");
+            return false;
+        }
+        return true;
     }
 
     private void openActivity(Class<?> pClass, IssueType type) {

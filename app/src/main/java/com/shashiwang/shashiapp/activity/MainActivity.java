@@ -163,7 +163,7 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
 
     @Override
     public void errorMessage(String throwable) {
-
+        Toasty.normal(this,throwable).show();
     }
 
     @Override
@@ -206,4 +206,5 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
                     .show();
         }
     }
+
 }

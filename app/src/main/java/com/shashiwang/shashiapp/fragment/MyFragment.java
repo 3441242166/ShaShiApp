@@ -102,66 +102,12 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
         });
 
         ivHead.setOnClickListener(view -> {
-//            if(!TextUtils.isEmpty((String)SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
-//                startActivityForResult(new Intent(getContext(), UserMessageActivity.class), REQUEST_USER_MESSAGE);
-//            }else {
-//                Toasty.info(getContext(),"请先登陆");
-//            }
-            test("你好啊 你叫什么名字?");
-        });
-    }
-
-    private void test(String str){
-
-        SpeechSynthesizer mSpeechSynthesizer = SpeechSynthesizer.getInstance();
-        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_AUDIO_ENCODE, SpeechSynthesizer.AUDIO_ENCODE_PCM);
-        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_AUDIO_RATE, SpeechSynthesizer.AUDIO_BITRATE_PCM);
-        mSpeechSynthesizer.setContext(getContext());
-        mSpeechSynthesizer.setSpeechSynthesizerListener(new SpeechSynthesizerListener() {
-            @Override
-            public void onSynthesizeStart(String s) {
-                Log.i(TAG, "onSynthesizeStart: ");
-            }
-
-            @Override
-            public void onSynthesizeDataArrived(String s, byte[] bytes, int i) {
-                Log.i(TAG, "onSynthesizeDataArrived: ");
-            }
-
-            @Override
-            public void onSynthesizeFinish(String s) {
-                Log.i(TAG, "onSynthesizeFinish: ");
-            }
-
-            @Override
-            public void onSpeechStart(String s) {
-                Log.i(TAG, "onSpeechStart: ");
-            }
-
-            @Override
-            public void onSpeechProgressChanged(String s, int i) {
-                Log.i(TAG, "onSpeechProgressChanged: ");
-            }
-
-            @Override
-            public void onSpeechFinish(String s) {
-                Log.i(TAG, "onSpeechFinish: ");
-            }
-
-            @Override
-            public void onError(String s, SpeechError speechError) {
-                Log.i(TAG, "onError: "+ s +"\n"+speechError);
+            if(!TextUtils.isEmpty((String)SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
+                startActivityForResult(new Intent(getContext(), UserMessageActivity.class), REQUEST_USER_MESSAGE);
+            }else {
+                Toasty.info(getContext(),"请先登陆");
             }
         });
-
-        //mSpeechSynthesizer.setAppId("15221121");
-        mSpeechSynthesizer.setApiKey("vTLeIRab50P12ZP71vlK6GZp",
-                "dPnoKK8jM7lgR1I3wf7K6ljrqn503guI");
-
-        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_SPEAKER ,"3");
-        mSpeechSynthesizer.initTts(TtsMode.ONLINE);
-
-        mSpeechSynthesizer.speak(str);
     }
 
     private void initView() {

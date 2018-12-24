@@ -12,6 +12,7 @@ import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
+import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiDetailSearchResult;
 import com.baidu.mapapi.search.poi.PoiIndoorResult;
@@ -97,6 +98,10 @@ public class LocationPresenter extends BasePresenter<ILocationView> {
         Log.i(TAG, "searchNear: ");
         option.location(latLng);
         mPoiSearch.searchNearby(option);
+    }
+
+    public void searchCity(PoiCitySearchOption option){
+        mPoiSearch.searchInCity(option);
     }
 
     public void setLatLng(LatLng latLng) {
