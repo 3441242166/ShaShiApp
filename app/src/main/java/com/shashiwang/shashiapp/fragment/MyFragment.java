@@ -114,6 +114,8 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
     private void test(String str){
 
         SpeechSynthesizer mSpeechSynthesizer = SpeechSynthesizer.getInstance();
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_AUDIO_ENCODE, SpeechSynthesizer.AUDIO_ENCODE_PCM);
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_AUDIO_RATE, SpeechSynthesizer.AUDIO_BITRATE_PCM);
         mSpeechSynthesizer.setContext(getContext());
         mSpeechSynthesizer.setSpeechSynthesizerListener(new SpeechSynthesizerListener() {
             @Override
@@ -156,7 +158,7 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
         mSpeechSynthesizer.setApiKey("vTLeIRab50P12ZP71vlK6GZp",
                 "dPnoKK8jM7lgR1I3wf7K6ljrqn503guI");
 
-        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_SPEAKER,"0");
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_SPEAKER ,"3");
         mSpeechSynthesizer.initTts(TtsMode.ONLINE);
 
         mSpeechSynthesizer.speak(str);

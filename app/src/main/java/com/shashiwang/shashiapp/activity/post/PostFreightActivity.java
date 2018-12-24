@@ -152,7 +152,6 @@ public class PostFreightActivity extends BaseTopBarActivity{
                         Log.i(TAG, "getList: error = " + throwable);
                         Toast.makeText(PostFreightActivity.this,throwable.getMessage(),Toast.LENGTH_SHORT).show();
                     });
-            disposable.dispose();
         }else {
             Toasty.info(this,R.string.incomplete_message).show();
         }

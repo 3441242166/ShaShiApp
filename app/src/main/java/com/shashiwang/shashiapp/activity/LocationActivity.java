@@ -134,16 +134,18 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
         tvSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.i(TAG, "beforeTextChanged: ");
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.i(TAG, "onTextChanged: ");
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
                 String str = editable.toString();
-
+                Log.i(TAG, "afterTextChanged: " + str);
                 if(TextUtils.isEmpty(str)){
                     return;
                 }

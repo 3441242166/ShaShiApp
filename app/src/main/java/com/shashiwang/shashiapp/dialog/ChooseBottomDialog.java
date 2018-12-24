@@ -8,11 +8,14 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,6 +30,7 @@ import com.shashiwang.shashiapp.base.BaseScreenDialog;
 import com.shashiwang.shashiapp.util.DividerItemDecoration;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -43,10 +47,11 @@ public class ChooseBottomDialog extends BaseScreenDialog {
     @BindView(R.id.tx_dialog_title)
     TextView tvTitle;
     @BindView(R.id.rv_dialog_post)
-    RecyclerView rvView;
+    ListView rvView;
 
+    private TextAdapter adapter;
     private String title;
-    List<String> data;
+    private List<String> data;
 
     private OnChooseListener onChooseListener;
 
@@ -70,6 +75,14 @@ public class ChooseBottomDialog extends BaseScreenDialog {
 
     private void initEvent() {
 
+        rvView.setOnItemClickListener((adapterView, view, i, l) -> {
+            Log.i(TAG, "click: ");
+            if(onChooseListener != null){
+                onChooseListener.onChoose(data.get(i),i);
+            }
+            ChooseBottomDialog.this.cancel();
+        });
+
         ivBack.setOnClickListener(view -> ChooseBottomDialog.this.cancel());
     }
 
@@ -82,24 +95,16 @@ public class ChooseBottomDialog extends BaseScreenDialog {
         window.setGravity(Gravity.BOTTOM);
         WindowManager.LayoutParams params = window.getAttributes();
         params.width = WindowManager.LayoutParams.MATCH_PARENT;
-        params.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        params.height = WindowManager.LayoutParams.MATCH_PARENT;
         window.setAttributes(params);
 
-        TextAdapter adapter = new TextAdapter(data);
+        adapter = new TextAdapter();
         rvView.setAdapter(adapter);
-        rvView.addItemDecoration(new DividerItemDecoration());
-        rvView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        adapter.setOnItemClickListener((adapter1, view, position) -> {
-            Log.i(TAG, "click: ");
-            if(onChooseListener != null){
-                onChooseListener.onChoose(data.get(position),position);
-            }
-            ChooseBottomDialog.this.cancel();
-        });
     }
 
     public void setOnChooseListener(OnChooseListener onChooseListener){
+        Log.i(TAG, "setOnChooseListener: ");
         this.onChooseListener = onChooseListener;
     }
 
@@ -107,19 +112,35 @@ public class ChooseBottomDialog extends BaseScreenDialog {
         void onChoose(String str,int pos);
     }
 
-     static class  TextAdapter extends BaseQuickAdapter<String,BaseViewHolder>{
+    class  TextAdapter extends BaseAdapter {
+         private static final String TAG = "TextAdapter";
 
+         @Override
+         public int getCount() {
+             return data.size();
+         }
 
-        TextAdapter(@Nullable List<String> data) {
-            super(R.layout.item_text, data);
-        }
+         @Override
+         public Object getItem(int i) {
+             return data.get(i);
+         }
 
-        @Override
-        protected void convert(BaseViewHolder helper, String item) {
-            Log.i(TAG, "convert: item = "+item);
-            helper.setText(R.id.tv,item);
-        }
-    }
+         @Override
+         public long getItemId(int i) {
+             return i;
+         }
+
+         @Override
+         public View getView(int i, View view, ViewGroup viewGroup) {
+             LayoutInflater inflater = LayoutInflater.from(getContext());
+             view = inflater.inflate(R.layout.item_text, null, true);
+
+             TextView textView = view.findViewById(R.id.tv);
+             textView.setText(data.get(i));
+
+             return view;
+         }
+     }
 
 
 }

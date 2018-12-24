@@ -52,7 +52,7 @@ public class PostCarActivity extends BaseTopBarActivity {
     @BindView(R.id.ch_type)
     PostChooseLayout chType;
     @BindView(R.id.ed_create_year)
-    PostChooseLayout edCreateYear;
+    PostEditLayout edCreateYear;
     @BindView(R.id.ed_message)
     PostEditPlusLayout edMessage;
     @BindView(R.id.bt_send)

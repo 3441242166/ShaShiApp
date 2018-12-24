@@ -14,6 +14,8 @@ import com.baidu.tts.client.SpeechError;
 import com.baidu.tts.client.SpeechSynthesizer;
 import com.baidu.tts.client.SpeechSynthesizerListener;
 import com.baidu.tts.client.TtsMode;
+import com.example.config.Config;
+import com.shashiwang.shashiapp.base.BaseApplication;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -28,34 +30,18 @@ public class JPushBroadcastReceiver extends BroadcastReceiver {
         Bundle bundle = intent.getExtras();
         Log.d(TAG, "[MyReceiver] onReceive - " + intent.getAction() + ", extras: " + printBundle(bundle));
 
-        String title = bundle.getString(JPushInterface.EXTRA_TITLE);
-        String message = bundle.getString(JPushInterface.EXTRA_MESSAGE);
-        String extras = bundle.getString(JPushInterface.EXTRA_EXTRA);
-        String file = bundle.getString(JPushInterface.EXTRA_MSG_ID);
+        String content = bundle.getString(JPushInterface.EXTRA_ALERT);
+        Log.i(TAG, "onReceive: content = "+content);
 
-        Log.i(TAG, "onReceive: title = "+title);
-        Log.i(TAG, "onReceive: message = "+message);
-        Log.i(TAG, "onReceive: extras = "+extras);
-        Log.i(TAG, "onReceive: file = "+file);
-
-        //语音播放Value
-
-//        Intent service = new Intent(context,TestService.class);
-//        context.startService(service);
-
-        test(context,"");
+        test(content);
     }
 
-    private void test(Context context, String str){
-        LoggerProxy.printable(true);
+    private void test(String str){
+
         SpeechSynthesizer mSpeechSynthesizer = SpeechSynthesizer.getInstance();
-        mSpeechSynthesizer.setContext(context);
-        mSpeechSynthesizer.setAppId("15221121");
-        mSpeechSynthesizer.setApiKey("vTLeIRab50P12ZP71vlK6GZp","dPnoKK8jM7lgR1I3wf7K6ljrqn503guI");
-
-        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_SPEAKER, "0");
-        mSpeechSynthesizer.initTts(TtsMode.ONLINE);
-
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_AUDIO_ENCODE, SpeechSynthesizer.AUDIO_ENCODE_PCM);
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_AUDIO_RATE, SpeechSynthesizer.AUDIO_BITRATE_PCM);
+        mSpeechSynthesizer.setContext(Config.getApplication());
         mSpeechSynthesizer.setSpeechSynthesizerListener(new SpeechSynthesizerListener() {
             @Override
             public void onSynthesizeStart(String s) {
@@ -92,6 +78,13 @@ public class JPushBroadcastReceiver extends BroadcastReceiver {
                 Log.i(TAG, "onError: "+ s +"\n"+speechError);
             }
         });
+
+        //mSpeechSynthesizer.setAppId("15221121");
+        mSpeechSynthesizer.setApiKey("vTLeIRab50P12ZP71vlK6GZp",
+                "dPnoKK8jM7lgR1I3wf7K6ljrqn503guI");
+
+        mSpeechSynthesizer.setParam(SpeechSynthesizer.PARAM_SPEAKER ,"3");
+        mSpeechSynthesizer.initTts(TtsMode.ONLINE);
 
         mSpeechSynthesizer.speak(str);
     }
