@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.adapter.message.FreightAdapter;
@@ -20,6 +21,7 @@ import butterknife.BindView;
 import static com.shashiwang.shashiapp.constant.Constant.ID;
 
 public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter> implements IFreightListView {
+    private static final String TAG = "FreightListActivity";
 
     @BindView(R.id.rv_list)
     RecyclerView recyclerView;
@@ -54,6 +56,7 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
 
     private void initEvent() {
         adapter.setOnLoadMoreListener(() -> {
+            Log.i(TAG, "initEvent: ");
             recyclerView.postDelayed(() -> presenter.getList(), 500);
         },recyclerView);
 

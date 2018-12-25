@@ -92,12 +92,12 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
     }
 
     private boolean isLogin(){
-        String token = (String) SharedPreferencesHelper.getSharedPreference(TOKEN,"");
-
-        if(TextUtils.isEmpty(token)){
-            mView.errorMessage("请先登录");
-            return false;
-        }
+//        String token = (String) SharedPreferencesHelper.getSharedPreference(TOKEN,"");
+//
+//        if(TextUtils.isEmpty(token)){
+//            mView.errorMessage("请先登录");
+//            return false;
+//        }
         return true;
     }
 

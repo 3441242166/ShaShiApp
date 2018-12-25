@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.adapter.message.CarAdapter;

@@ -138,6 +138,8 @@
         <activity android:name=".activity.message.DriverListActivity" />
         <activity android:name=".activity.message.StationListActivity" />
         <activity android:name=".activity.message.FactoryListActivity" />
+        <activity android:name=".activity.SettingNoticeActivity" />
+        <activity android:name=".activity.SettingBroadcastActivity"></activity>
     </application>
 
 </manifest>
