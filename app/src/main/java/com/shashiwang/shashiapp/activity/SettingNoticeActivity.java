@@ -22,7 +22,7 @@ public class SettingNoticeActivity extends BaseTopBarActivity {
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
-        setTitle("通知消息设置");
+        setTitle("语音播报设置");
     }
 
 }

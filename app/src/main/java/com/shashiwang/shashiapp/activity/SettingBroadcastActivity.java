@@ -22,7 +22,7 @@ public class SettingBroadcastActivity extends BaseTopBarActivity {
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
-        setTitle("语音播报设置");
+        setTitle("消息推送设置");
     }
 
 
