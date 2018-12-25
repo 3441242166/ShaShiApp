@@ -33,6 +33,9 @@ public class JPushBroadcastReceiver extends BroadcastReceiver {
         String content = bundle.getString(JPushInterface.EXTRA_ALERT);
         Log.i(TAG, "onReceive: content = "+content);
 
+        String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
+        Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
+
         test(content);
     }
 
@@ -102,21 +105,6 @@ public class JPushBroadcastReceiver extends BroadcastReceiver {
             }
         }
         return sb.toString();
-    }
-
-    public static boolean isServiceRunning(Context context, String ServiceName) {
-        if (TextUtils.isEmpty(ServiceName))
-            return false;
-        ActivityManager myManager = (ActivityManager) context
-                .getSystemService(Context.ACTIVITY_SERVICE);
-        ArrayList<ActivityManager.RunningServiceInfo> runningService = (ArrayList<ActivityManager.RunningServiceInfo>) myManager.getRunningServices(Integer.MAX_VALUE);
-        for (int i = 0; i < runningService.size(); i++) {
-            Log.d(TAG, "[MyReceiver] 用户点击打开了通知 ==" + runningService.get(i).service.getClassName().toString());
-            if (runningService.get(i).service.getClassName().toString().equals(ServiceName)) {
-                return true;
-            }
-        }
-        return false;
     }
 
 }

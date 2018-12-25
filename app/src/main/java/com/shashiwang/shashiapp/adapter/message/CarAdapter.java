@@ -28,8 +28,8 @@ public class CarAdapter extends BaseQuickAdapter<CarMessage,BaseViewHolder> {
         helper.setText(R.id.tv_name,item.getBrand());
         helper.setText(R.id.tv_price,""+item.getPrice());
 
-        helper.setText(R.id.tv_type,"type");
-
+        helper.setText(R.id.tv_type,item.getFactory_year());
+        helper.setText(R.id.tv_kilometre,""+item.getMileage()+"公里");
         helper.setText(R.id.tv_content,item.getRemark());
     }
 
