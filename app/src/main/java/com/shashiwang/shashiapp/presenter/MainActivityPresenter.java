@@ -95,7 +95,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
         String token = (String) SharedPreferencesHelper.getSharedPreference(TOKEN,"");
 
         if(TextUtils.isEmpty(token)){
-            mView.errorMessage("请先登陆");
+            mView.errorMessage("请先登录");
             return false;
         }
         return true;

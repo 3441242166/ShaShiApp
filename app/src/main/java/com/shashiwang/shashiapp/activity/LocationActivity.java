@@ -118,8 +118,8 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
             @Override
             public void onMapClick(LatLng latLng) {
                 Log.i(TAG, "onMapClick");
-                Log.i(TAG, "onMapClick latitude" + latLng.latitude);
-                Log.i(TAG, "onMapClick longitude" + latLng.longitude);
+                Log.i(TAG, "onMapClick latitude  " + latLng.latitude);
+                Log.i(TAG, "onMapClick longitude  " + latLng.longitude);
                 presenter.setLatLng(latLng);
                 targetPoint(latLng);
             }
@@ -132,6 +132,8 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
                 return false;
             }
         });
+
+
 
         tvSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -151,13 +153,21 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
                 if(TextUtils.isEmpty(str)){
                     return;
                 }
-                PoiCitySearchOption citySearchOption  = new PoiCitySearchOption();
-                citySearchOption.city("北京");
-                citySearchOption.keyword(str);
-                citySearchOption.pageNum(0);
-                citySearchOption.pageCapacity(20);
+//                PoiCitySearchOption citySearchOption  = new PoiCitySearchOption();
+//                citySearchOption.city("北京");
+//                citySearchOption.keyword(str);
+//                citySearchOption.pageNum(0);
+//                citySearchOption.pageCapacity(20);
+//
+//                presenter.searchCity(citySearchOption);
 
-                presenter.searchCity(citySearchOption);
+                PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption()
+                        .keyword(str)//检索关键字
+                        .pageNum(0)//分页编号，默认是0页
+                        .pageCapacity(20)//设置每页容量，默认10条
+                        .radius(50000);//附近检索半径
+
+                presenter.searchNear(nearbySearchOption);
             }
         });
 
