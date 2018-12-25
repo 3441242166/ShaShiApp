@@ -1,7 +1,9 @@
 package com.shashiwang.shashiapp.presenter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -10,8 +12,10 @@ import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
 import com.baidu.mapapi.map.MyLocationData;
 import com.baidu.mapapi.model.LatLng;
+import com.baidu.mapapi.search.core.CityInfo;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.poi.OnGetPoiSearchResultListener;
+import com.baidu.mapapi.search.poi.PoiAddrInfo;
 import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiDetailResult;
 import com.baidu.mapapi.search.poi.PoiDetailSearchResult;
@@ -19,6 +23,8 @@ import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.baidu.mapapi.search.sug.SuggestionSearch;
+import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.view.ILocationView;
 
@@ -74,11 +80,35 @@ public class LocationPresenter extends BasePresenter<ILocationView> {
                     Log.i(TAG, "onGetPoiResult: DATA  is null" );
                 }
 
+                List<PoiAddrInfo> poiAddrInfos =  poiResult.getAllAddr();
+                if(poiAddrInfos !=null) {
+                    for (PoiAddrInfo info : poiAddrInfos) {
+                        Log.i(TAG, "onGetPoiResult: name = " + info.name);
+                    }
+                }else {
+                    Log.i(TAG, "onGetPoiResult: poiAddrInfos is NULL");
+                }
+
+
+                List<CityInfo> cityInfos = poiResult.getSuggestCityList();
+                if(cityInfos !=null) {
+                    for (CityInfo info : cityInfos) {
+                        Log.i(TAG, "onGetPoiResult: city = " + info.city);
+                    }
+                }else {
+                    Log.i(TAG, "onGetPoiResult: cityInfos is NULL");
+                }
+
             }
 
             @Override
             public void onGetPoiDetailResult(PoiDetailResult poiDetailResult) {
-
+                Log.i("aab", "CURRENTLAT = " + poiDetailResult.getLocation().latitude + "");
+                Log.i("aab", "CURRENTLNG = " + poiDetailResult.getLocation().longitude + "");
+                Log.i("aab", "address = " + poiDetailResult.getAddress());
+                Log.i("aab", "tag = " + poiDetailResult.getTag());
+                Log.i("aab", "uid = " + poiDetailResult.getUid());
+                Log.i("aab", "url = " + poiDetailResult.getDetailUrl());
             }
 
             @Override
@@ -117,6 +147,7 @@ public class LocationPresenter extends BasePresenter<ILocationView> {
             Log.i(TAG, "onReceiveLocation");
             latLng = new LatLng(location.getLatitude(),location.getLongitude());
             mView.setMapLocation(location);
+
         }
 
     }

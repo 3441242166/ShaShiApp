@@ -38,6 +38,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.microedition.khronos.opengles.GL10;
+
 import butterknife.BindView;
 
 import static com.shashiwang.shashiapp.constant.Constant.*;
@@ -133,7 +135,19 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
             }
         });
 
+        map.setOnMapDrawFrameCallback(new BaiduMap.OnMapDrawFrameCallback() {
 
+            @Override
+            public void onMapDrawFrame(GL10 gl10, MapStatus mapStatus) {
+                Log.i(TAG, "draw lag = " +mapStatus.target.latitude + " lug = "+mapStatus.target.longitude);
+                //currentPt = mapStatus.target;
+            }
+
+            @Override
+            public void onMapDrawFrame(MapStatus mapStatus) {
+                Log.i("aab", "draw");
+            }
+        });
 
         tvSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -153,21 +167,21 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
                 if(TextUtils.isEmpty(str)){
                     return;
                 }
-//                PoiCitySearchOption citySearchOption  = new PoiCitySearchOption();
-//                citySearchOption.city("北京");
-//                citySearchOption.keyword(str);
-//                citySearchOption.pageNum(0);
-//                citySearchOption.pageCapacity(20);
+                PoiCitySearchOption citySearchOption  = new PoiCitySearchOption()
+                        .city("西安")
+                        .keyword(str)
+                        .pageNum(0)
+                        .pageCapacity(20);
+
+                presenter.searchCity(citySearchOption);
+
+//                PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption()
+//                        .keyword(str)//检索关键字
+//                        .pageNum(0)//分页编号，默认是0页
+//                        .pageCapacity(20)//设置每页容量，默认10条
+//                        .radius(2147482888);//附近检索半径
 //
-//                presenter.searchCity(citySearchOption);
-
-                PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption()
-                        .keyword(str)//检索关键字
-                        .pageNum(0)//分页编号，默认是0页
-                        .pageCapacity(20)//设置每页容量，默认10条
-                        .radius(50000);//附近检索半径
-
-                presenter.searchNear(nearbySearchOption);
+//                presenter.searchNear(nearbySearchOption);
             }
         });
 
