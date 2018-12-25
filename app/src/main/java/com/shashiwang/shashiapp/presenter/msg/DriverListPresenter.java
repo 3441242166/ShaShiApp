@@ -8,7 +8,6 @@ import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.base.BasePresenter;
-import com.shashiwang.shashiapp.bean.CarMessage;
 import com.shashiwang.shashiapp.bean.DriverMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
@@ -19,7 +18,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_DRIVER;
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_FREIGHT;
 
 public class DriverListPresenter extends BasePresenter<IDriverView> {
     private static final String TAG = "DriverListPresenter";
@@ -35,7 +33,7 @@ public class DriverListPresenter extends BasePresenter<IDriverView> {
 
     }
 
-    public void getList(){
+    public void getList(boolean b){
 
         disposable = RxRetrofitClient.builder()
                 .url(URL_DRIVER)

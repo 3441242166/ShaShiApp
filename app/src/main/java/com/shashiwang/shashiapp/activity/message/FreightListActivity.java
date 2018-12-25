@@ -3,10 +3,12 @@ package com.shashiwang.shashiapp.activity.message;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.adapter.message.FreightAdapter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
@@ -17,6 +19,7 @@ import com.shashiwang.shashiapp.view.IFreightListView;
 import java.util.List;
 
 import butterknife.BindView;
+import es.dmoral.toasty.Toasty;
 
 import static com.shashiwang.shashiapp.constant.Constant.ID;
 
@@ -25,9 +28,13 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
 
     @BindView(R.id.rv_list)
     RecyclerView recyclerView;
+    @BindView(R.id.sw_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private FreightAdapter adapter;
     private List<FreightMessage> list;
+
+    private boolean isLoadMore = false;
 
     @Override
     protected FreightListPresenter setPresenter() {
@@ -43,7 +50,7 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
     protected void initFrame(Bundle savedInstanceState) {
         initView();
         initEvent();
-        presenter.getList();
+        presenter.getList(true);
     }
 
     private void initView() {
@@ -52,12 +59,20 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
         adapter = new FreightAdapter(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     private void initEvent() {
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            adapter.setEnableLoadMore(false);
+            presenter.getList(true);
+        });
+
         adapter.setOnLoadMoreListener(() -> {
-            Log.i(TAG, "initEvent: ");
-            recyclerView.postDelayed(() -> presenter.getList(), 500);
+            Log.i(TAG, "LoadMore: ");
+            isLoadMore = true;
+            recyclerView.postDelayed(() -> presenter.getList(false), 500);
         },recyclerView);
 
         adapter.setOnItemClickListener((adapter, view, position) -> {
@@ -89,9 +104,21 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
 
     @Override
     public void loadDataSuccess(List<FreightMessage> data) {
-        list = data;
-        adapter.setNewData(data);
-        adapter.loadMoreEnd();
+        if(isLoadMore){
+            if(data.size() == 0){
+                Log.i(TAG, "loadDataSuccess: no more data");
+                Toasty.normal(this,"没有更多数据了").show();
+                adapter.loadMoreEnd();
+            }
+            adapter.addData(data);
+            adapter.loadMoreComplete();
+            isLoadMore = false;
+        }else {
+            list = data;
+            adapter.setNewData(data);
+            swipeRefreshLayout.setRefreshing(false);
+            adapter.setEnableLoadMore(true);
+        }
     }
 
     @Override

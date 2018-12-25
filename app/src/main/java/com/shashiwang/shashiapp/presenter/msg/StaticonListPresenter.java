@@ -8,7 +8,6 @@ import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.base.BasePresenter;
-import com.shashiwang.shashiapp.bean.CarMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.bean.StationMessage;
@@ -18,7 +17,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_FREIGHT;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_STATION;
 
 public class StaticonListPresenter extends BasePresenter<IStationView> {
@@ -35,7 +33,7 @@ public class StaticonListPresenter extends BasePresenter<IStationView> {
 
     }
 
-    public void getList(){
+    public void getList(boolean b){
 
         disposable = RxRetrofitClient.builder()
                 .url(URL_STATION)

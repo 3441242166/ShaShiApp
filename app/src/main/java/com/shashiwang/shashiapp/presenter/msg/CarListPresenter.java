@@ -34,7 +34,7 @@ public class CarListPresenter extends BasePresenter<ICarView> {
 
     }
 
-    public void getList(){
+    public void getList(boolean b){
 
         disposable = RxRetrofitClient.builder()
                 .url(URL_CAR)

@@ -3,10 +3,11 @@ package com.shashiwang.shashiapp.activity.message;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.adapter.message.CarAdapter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
@@ -17,6 +18,7 @@ import com.shashiwang.shashiapp.view.ICarView;
 import java.util.List;
 
 import butterknife.BindView;
+import es.dmoral.toasty.Toasty;
 
 import static com.shashiwang.shashiapp.constant.Constant.ID;
 
@@ -24,9 +26,13 @@ public class CarListActivity extends BaseTopBarActivity<CarListPresenter> implem
 
     @BindView(R.id.rv_list)
     RecyclerView recyclerView;
+    @BindView(R.id.sw_layout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     private CarAdapter adapter;
     private List<CarMessage> list;
+
+    private boolean isLoadMore = false;
 
     @Override
     protected CarListPresenter setPresenter() {
@@ -42,7 +48,7 @@ public class CarListActivity extends BaseTopBarActivity<CarListPresenter> implem
     protected void initFrame(Bundle savedInstanceState) {
         initView();
         initEvent();
-        presenter.getList();
+        presenter.getList(true);
     }
 
     private void initView() {
@@ -51,11 +57,19 @@ public class CarListActivity extends BaseTopBarActivity<CarListPresenter> implem
         adapter = new CarAdapter(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
+        adapter.openLoadAnimation(BaseQuickAdapter.SCALEIN);
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     private void initEvent() {
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            adapter.setEnableLoadMore(false);
+            presenter.getList(true);
+        });
+
         adapter.setOnLoadMoreListener(() -> {
-            recyclerView.postDelayed(() -> presenter.getList(), 500);
+            isLoadMore = true;
+            recyclerView.postDelayed(() -> presenter.getList(false), 500);
         },recyclerView);
 
         adapter.setOnItemClickListener((adapter, view, position) -> {
@@ -87,9 +101,20 @@ public class CarListActivity extends BaseTopBarActivity<CarListPresenter> implem
 
     @Override
     public void loadDataSuccess(List<CarMessage> data) {
-        list = data;
-        adapter.setNewData(data);
-        adapter.loadMoreEnd();
+        if(isLoadMore){
+            if(data.size() == 0){
+                Toasty.normal(this,"没有更多数据了").show();
+                adapter.loadMoreEnd();
+            }
+            adapter.addData(data);
+            adapter.loadMoreComplete();
+            isLoadMore = false;
+        }else {
+            list = data;
+            adapter.setNewData(data);
+            swipeRefreshLayout.setRefreshing(false);
+            adapter.setEnableLoadMore(true);
+        }
     }
 
     @Override

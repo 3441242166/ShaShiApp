@@ -28,6 +28,8 @@ public class FreightListPresenter extends BasePresenter<IFreightListView> {
 
     private Disposable disposable;
 
+    private int page = 0;
+
     public FreightListPresenter(IFreightListView view, Context context) {
         super(view, context);
     }
@@ -38,7 +40,7 @@ public class FreightListPresenter extends BasePresenter<IFreightListView> {
     }
 
     @SuppressLint("CheckResult")
-    public void getList(){
+    public void getList(boolean isFirst){
 
         disposable = RxRetrofitClient.builder()
                 .url(URL_FREIGHT)
