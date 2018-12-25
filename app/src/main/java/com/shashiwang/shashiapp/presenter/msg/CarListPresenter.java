@@ -24,6 +24,7 @@ public class CarListPresenter extends BasePresenter<ICarView> {
 
     private Disposable disposable;
 
+    private int page = 1;
 
     public CarListPresenter(ICarView view, Context context) {
         super(view, context);
@@ -35,9 +36,14 @@ public class CarListPresenter extends BasePresenter<ICarView> {
     }
 
     public void getList(boolean b){
-
+        if(b) {
+            page = 1;
+        }else {
+            page++;
+        }
         disposable = RxRetrofitClient.builder()
                 .url(URL_CAR)
+                .params("page",page)
                 .build()
                 .get()
                 .subscribeOn(Schedulers.newThread())

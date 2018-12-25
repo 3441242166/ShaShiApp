@@ -35,6 +35,8 @@ public class JPushBroadcastReceiver extends BroadcastReceiver {
 
         String regId = bundle.getString(JPushInterface.EXTRA_REGISTRATION_ID);
         Log.d(TAG, "[MyReceiver] 接收Registration Id : " + regId);
+        String xxx = JPushInterface.getRegistrationID(context);
+        Log.d(TAG, "[MyReceiver] 接收Registration Id : " + xxx);
 
         test(content);
     }

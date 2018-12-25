@@ -105,7 +105,7 @@ public class StationListActivity extends BaseTopBarActivity<StaticonListPresente
         if(isLoadMore){
             if(data.size() == 0){
                 Toasty.normal(this,"没有更多数据了").show();
-                adapter.loadMoreEnd();
+                adapter.loadMoreEnd(true);
             }
             adapter.addData(data);
             adapter.loadMoreComplete();

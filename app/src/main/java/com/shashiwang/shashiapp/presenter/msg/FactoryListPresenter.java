@@ -23,6 +23,7 @@ public class FactoryListPresenter extends BasePresenter<IFactoryView> {
     private static final String TAG = "FactoryListPresenter";
 
     private Disposable disposable;
+    private int page = 1;
 
     public FactoryListPresenter(IFactoryView view, Context context) {
         super(view, context);
@@ -35,9 +36,14 @@ public class FactoryListPresenter extends BasePresenter<IFactoryView> {
 
 
     public void getList(boolean b){
-
+        if(b) {
+            page = 1;
+        }else {
+            page++;
+        }
         disposable = RxRetrofitClient.builder()
                 .url(URL_FACTORY)
+                .params("page",page)
                 .build()
                 .get()
                 .subscribeOn(Schedulers.newThread())

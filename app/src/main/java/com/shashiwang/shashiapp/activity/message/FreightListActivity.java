@@ -108,7 +108,7 @@ public class FreightListActivity extends BaseTopBarActivity<FreightListPresenter
             if(data.size() == 0){
                 Log.i(TAG, "loadDataSuccess: no more data");
                 Toasty.normal(this,"没有更多数据了").show();
-                adapter.loadMoreEnd();
+                adapter.loadMoreEnd(true);
             }
             adapter.addData(data);
             adapter.loadMoreComplete();

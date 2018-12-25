@@ -23,7 +23,7 @@
             android:id="@+id/ed_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:hint_content="如:XXXXXXX"
+            app:hint_content="如：1-2石子100元/吨，0-5石子90元/吨，水洗沙120元/吨"
             app:title="品类价格" />
 
         <View style="@style/view_line" />
@@ -50,6 +50,7 @@
             android:id="@+id/ed_phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:input_type="2"
             app:hint_content="请输入联系电话"
             app:title="联系电话" />
 

@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.net.interceptors.LoggingInterceptor;
 import com.example.net.rx.RxRetrofitClient;
 import com.example.util.SharedPreferencesHelper;
 import com.google.gson.Gson;
@@ -72,6 +73,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                         String registrationId = JPushInterface.getRegistrationID(mContext);
                         Log.i(TAG, "login: registrationId = "+registrationId);
                         SharedPreferencesHelper.put(REGISTRATION_ID,registrationId);
+                        putRegistrationId(registrationId);
 
                         mView.loadDataSuccess("登录成功");
                     }else {
@@ -83,6 +85,26 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                     Log.i(TAG, "login: error = " + throwable);
                     mView.errorMessage(throwable.toString());
                     Toast.makeText(mContext,throwable.toString(),Toast.LENGTH_LONG).show();
+                });
+
+    }
+
+    @SuppressLint("CheckResult")
+    private void putRegistrationId(String id){
+
+        RxRetrofitClient.builder()
+                .header(new LoggingInterceptor())
+                .url("/api/user/add/jpushid")
+                .params("category",id)
+                .build()
+                .post()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                    Log.i(TAG, "login: success " + s);
+
+                }, throwable -> {
+                    Log.i(TAG, "login: error = " + throwable);
                 });
 
     }

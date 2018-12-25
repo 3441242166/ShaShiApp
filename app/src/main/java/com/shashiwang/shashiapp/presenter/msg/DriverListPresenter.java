@@ -23,6 +23,7 @@ public class DriverListPresenter extends BasePresenter<IDriverView> {
     private static final String TAG = "DriverListPresenter";
 
     private Disposable disposable;
+    private int page = 1;
 
     public DriverListPresenter(IDriverView view, Context context) {
         super(view, context);
@@ -34,9 +35,14 @@ public class DriverListPresenter extends BasePresenter<IDriverView> {
     }
 
     public void getList(boolean b){
-
+        if(b) {
+            page = 1;
+        }else {
+            page++;
+        }
         disposable = RxRetrofitClient.builder()
                 .url(URL_DRIVER)
+                .params("page",page)
                 .build()
                 .get()
                 .subscribeOn(Schedulers.newThread())

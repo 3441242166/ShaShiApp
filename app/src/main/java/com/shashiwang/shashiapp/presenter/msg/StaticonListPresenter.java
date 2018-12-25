@@ -23,6 +23,7 @@ public class StaticonListPresenter extends BasePresenter<IStationView> {
     private static final String TAG = "StaticonListPresenter";
 
     private Disposable disposable;
+    private int page = 1;
 
     public StaticonListPresenter(IStationView view, Context context) {
         super(view, context);
@@ -34,9 +35,14 @@ public class StaticonListPresenter extends BasePresenter<IStationView> {
     }
 
     public void getList(boolean b){
-
+        if(b) {
+            page = 1;
+        }else {
+            page++;
+        }
         disposable = RxRetrofitClient.builder()
                 .url(URL_STATION)
+                .params("page",page)
                 .build()
                 .get()
                 .subscribeOn(Schedulers.newThread())

@@ -1,6 +1,7 @@
 package com.shashiwang.shashiapp.base;
 
 import android.app.Application;
+import android.util.Log;
 
 import com.baidu.mapapi.SDKInitializer;
 import com.baidu.mapapi.cloud.CloudManager;
@@ -30,6 +31,8 @@ public class BaseApplication extends Application {
         SDKInitializer.initialize(this);
         CloudManager.getInstance().init();
         CloudManager.getInstance().registerListener(new LatLngListener());
+        String registrationId = JPushInterface.getRegistrationID(this);
+        Log.i(TAG, "login: registrationId = "+registrationId);
 
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);

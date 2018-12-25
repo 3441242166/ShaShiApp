@@ -28,7 +28,7 @@ public class FreightListPresenter extends BasePresenter<IFreightListView> {
 
     private Disposable disposable;
 
-    private int page = 0;
+    private int page = 1;
 
     public FreightListPresenter(IFreightListView view, Context context) {
         super(view, context);
@@ -41,20 +41,27 @@ public class FreightListPresenter extends BasePresenter<IFreightListView> {
 
     @SuppressLint("CheckResult")
     public void getList(boolean isFirst){
+        if(isFirst) {
+            page = 1;
+        }else {
+            page++;
+        }
 
         disposable = RxRetrofitClient.builder()
                 .url(URL_FREIGHT)
+                .params("page",page)
                 .build()
                 .get()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
                     Log.i(TAG, "getList: success " + s);
-                    HttpResult<MessageResult<FreightMessage>> result = new Gson().fromJson(s,new TypeToken<HttpResult<MessageResult<FreightMessage>>>(){}.getType());
+                    HttpResult<MessageResult<FreightMessage>> result = new Gson().fromJson(s, new TypeToken<HttpResult<MessageResult<FreightMessage>>>() {
+                    }.getType());
 
-                    if(result.isSuccess()){
+                    if (result.isSuccess()) {
                         mView.loadDataSuccess(result.getData().getData());
-                    }else {
+                    } else {
                         mView.errorMessage(result.getMessage());
                     }
 
@@ -62,6 +69,7 @@ public class FreightListPresenter extends BasePresenter<IFreightListView> {
                     Log.i(TAG, "getList: error = " + throwable);
                     mView.errorMessage(throwable.toString());
                 });
+
     }
 
     @Override

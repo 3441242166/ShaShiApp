@@ -85,6 +85,6 @@ public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements I
 
     @Override
     public void errorMessage(String throwable) {
-
+        Toasty.normal(getContext(),throwable).show();
     }
 }
