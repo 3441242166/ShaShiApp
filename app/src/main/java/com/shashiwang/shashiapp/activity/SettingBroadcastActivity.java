@@ -6,8 +6,9 @@ import android.os.Bundle;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BaseMvpActivity;
 import com.shashiwang.shashiapp.base.BasePresenter;
+import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 
-public class SettingBroadcastActivity extends BaseMvpActivity {
+public class SettingBroadcastActivity extends BaseTopBarActivity {
 
     @Override
     protected BasePresenter setPresenter() {
@@ -15,13 +16,14 @@ public class SettingBroadcastActivity extends BaseMvpActivity {
     }
 
     @Override
-    protected void init(Bundle savedInstanceState) {
-        setTitle("语音播报设置");
+    protected int getFrameContentView() {
+        return R.layout.activity_setting_broadcast;
     }
 
     @Override
-    protected int getContentView() {
-        return R.layout.activity_setting_broadcast;
+    protected void initFrame(Bundle savedInstanceState) {
+        setTitle("语音播报设置");
     }
+
 
 }
