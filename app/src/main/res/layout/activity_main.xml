@@ -7,41 +7,58 @@
     android:orientation="vertical"
     tools:context=".activity.MainActivity">
 
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/bottom_main"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/constraintLayout2"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/bottom_height"
-        app:itemBackground="@null"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/menu_main_bootom">
+        app:layout_constraintTop_toTopOf="parent"
+        tools:context=".activity.MainActivity">
 
-    </android.support.design.widget.BottomNavigationView>
+        <android.support.design.widget.BottomNavigationView
+            android:id="@+id/bottom_main"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/bottom_height"
+            app:itemBackground="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/menu_main_bootom">
 
-    <com.shashiwang.shashiapp.customizeview.NoScrollViewPager
-        android:id="@+id/vp_main"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/bottom_main"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        </android.support.design.widget.BottomNavigationView>
 
-    </com.shashiwang.shashiapp.customizeview.NoScrollViewPager>
+        <com.shashiwang.shashiapp.customizeview.NoScrollViewPager
+            android:id="@+id/vp_main"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_main"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </com.shashiwang.shashiapp.customizeview.NoScrollViewPager>
+
+    </android.support.constraint.ConstraintLayout>
+
 
     <ImageView
-
-        android:id="@+id/iv_bottom_more"
         android:layout_width="@dimen/ic_more_radius"
         android:layout_height="@dimen/ic_more_radius"
-        android:padding = "10dp"
-        app:layout_constraintBottom_toBottomOf="@+id/vp_main"
+        android:layout_marginBottom="17dp"
+        android:clickable="true"
+        android:id="@+id/iv_bottom_more"
+        app:srcCompat="@mipmap/ic_add"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/bottom_main"
-        app:layout_constraintTop_toBottomOf="@+id/vp_main"
-        app:srcCompat="@mipmap/ic_add" />
+        app:layout_constraintStart_toStartOf="parent">
+
+    </ImageView>
 
 
 </android.support.constraint.ConstraintLayout>

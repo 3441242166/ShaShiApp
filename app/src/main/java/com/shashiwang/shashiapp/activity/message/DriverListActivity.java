@@ -50,7 +50,7 @@ public class DriverListActivity extends BaseTopBarActivity<DriverListPresenter> 
     }
 
     private void initView() {
-        setTitle("运费信息");
+        setTitle("司机信息");
 
         adapter = new DriverAdapter(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

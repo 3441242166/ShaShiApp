@@ -11,6 +11,7 @@ import com.shashiwang.shashiapp.view.IMyFragmentView;
 
 import static com.example.util.SharedPreferencesHelper.*;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
+import static com.shashiwang.shashiapp.constant.Constant.USER_NAME;
 
 public class MyFragmentPresenter extends BasePresenter<IMyFragmentView> {
     private static final String TAG = "MyFragmentPresenter";
@@ -29,10 +30,13 @@ public class MyFragmentPresenter extends BasePresenter<IMyFragmentView> {
         String token = (String) getSharedPreference(TOKEN,null);
         if(TextUtils.isEmpty(token)){
             Log.i(TAG, "UnLogin");
-            mView.unLogin(true);
+            mView.unLogin(true,"先生");
             return;
         }
-        mView.unLogin(false);
+
+        String count = (String) getSharedPreference(USER_NAME,null);
+
+        mView.unLogin(false,count);
     }
 
     public void getUserMessage(){

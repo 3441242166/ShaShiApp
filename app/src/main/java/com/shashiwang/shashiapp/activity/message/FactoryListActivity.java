@@ -49,7 +49,7 @@ public class FactoryListActivity extends BaseTopBarActivity<FactoryListPresenter
     }
 
     private void initView() {
-        setTitle("运费信息");
+        setTitle("砂石料厂信息");
 
         adapter = new FactoryAdapter(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

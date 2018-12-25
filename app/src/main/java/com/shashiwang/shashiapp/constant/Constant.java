@@ -4,6 +4,8 @@ public class Constant {
 
 
     public static final String TOKEN = "token";
+    public static final String USER_NAME = "user_name";
+    public static final String REGISTRATION_ID = "registration_id";
 
     public static final String TYPE = "type";
     public static final String TITLE = "title";

@@ -1,6 +1,5 @@
 package com.shashiwang.shashiapp.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,12 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.baidu.tts.auth.AuthInfo;
-import com.baidu.tts.chainofresponsibility.logger.LoggerProxy;
-import com.baidu.tts.client.SpeechError;
-import com.baidu.tts.client.SpeechSynthesizer;
-import com.baidu.tts.client.SpeechSynthesizerListener;
-import com.baidu.tts.client.TtsMode;
 import com.example.util.SharedPreferencesHelper;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.FeedbackActivity;
@@ -143,7 +136,7 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
     }
 
     @Override
-    public void unLogin(boolean is) {
+    public void unLogin(boolean is, String user) {
         if(is){
             btLogin.setVisibility(View.VISIBLE);
             tvName.setVisibility(View.GONE);
@@ -151,6 +144,7 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
         }else {
             btLogin.setVisibility(View.GONE);
             tvName.setVisibility(View.VISIBLE);
+            tvName.setText(user);
             presenter.getUserMessage();
         }
     }

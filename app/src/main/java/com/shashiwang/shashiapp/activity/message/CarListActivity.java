@@ -45,7 +45,7 @@ public class CarListActivity extends BaseTopBarActivity<CarListPresenter> implem
     }
 
     private void initView() {
-        setTitle("运费信息");
+        setTitle("车辆信息");
 
         adapter = new CarAdapter(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

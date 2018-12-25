@@ -50,7 +50,7 @@ public class StationListActivity extends BaseTopBarActivity<StaticonListPresente
     }
 
     private void initView() {
-        setTitle("运费信息");
+        setTitle("搅拌站信息");
 
         adapter = new StationAdapter(null);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));

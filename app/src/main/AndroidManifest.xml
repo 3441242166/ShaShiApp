@@ -137,7 +137,7 @@
         <activity android:name=".activity.message.CarListActivity" />
         <activity android:name=".activity.message.DriverListActivity" />
         <activity android:name=".activity.message.StationListActivity" />
-        <activity android:name=".activity.message.FactoryListActivity"></activity>
+        <activity android:name=".activity.message.FactoryListActivity" />
     </application>
 
 </manifest>

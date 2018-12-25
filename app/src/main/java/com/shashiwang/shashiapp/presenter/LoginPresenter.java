@@ -7,23 +7,22 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.config.Config;
-import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
 import com.example.util.SharedPreferencesHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.bean.HttpResult;
-import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.view.ILoginView;
 
+import cn.jpush.android.api.JPushInterface;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.shashiwang.shashiapp.constant.Constant.REGISTRATION_ID;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
+import static com.shashiwang.shashiapp.constant.Constant.USER_NAME;
 
 public class LoginPresenter extends BasePresenter<ILoginView> {
     private static final String TAG = "LoginPresenter";
@@ -66,7 +65,14 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
                     if(result.isSuccess()){
                         Log.i(TAG, "login: 登陆成功");
+
                         SharedPreferencesHelper.put(TOKEN,result.getData().token);
+                        SharedPreferencesHelper.put(USER_NAME,count);
+
+                        String registrationId = JPushInterface.getRegistrationID(mContext);
+                        Log.i(TAG, "login: registrationId = "+registrationId);
+                        SharedPreferencesHelper.put(REGISTRATION_ID,registrationId);
+
                         mView.loadDataSuccess("登陆成功");
                     }else {
                         Log.i(TAG, "login: 登陆失败 "+result.getMessage());
