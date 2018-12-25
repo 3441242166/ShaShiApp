@@ -3,7 +3,6 @@ package com.shashiwang.shashiapp.activity.message;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -16,9 +15,7 @@ import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.CarMessage;
-import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
-import com.shashiwang.shashiapp.customizeview.ImageButton;
 import com.shashiwang.shashiapp.customizeview.MessageLayout;
 import com.shashiwang.shashiapp.util.DateUtil;
 import com.shashiwang.shashiapp.util.StringUtil;
@@ -38,7 +35,7 @@ public class CarMessageActivity extends BaseTopBarActivity {
     @BindView(R.id.tv_time)
     TextView tvTime;
     @BindView(R.id.tv_content)
-    TextView tvContent;
+    TextView tvRemark;
 
     @BindView(R.id.tv_brand)
     MessageLayout tvBrand;
@@ -121,8 +118,9 @@ public class CarMessageActivity extends BaseTopBarActivity {
         tvPrice.setContantText(""+message.getPrice());
         tvPhone.setContantText(message.getPhone());
         tvType.setContantText("null");
-        tvYears.setContantText(message.getRemark());
+        tvYears.setContantText(message.getFactory_year());
 
+        tvRemark.setText(message.getRemark());
     }
 
 }

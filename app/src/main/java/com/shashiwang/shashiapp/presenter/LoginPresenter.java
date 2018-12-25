@@ -73,9 +73,9 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                         Log.i(TAG, "login: registrationId = "+registrationId);
                         SharedPreferencesHelper.put(REGISTRATION_ID,registrationId);
 
-                        mView.loadDataSuccess("登陆成功");
+                        mView.loadDataSuccess("登录成功");
                     }else {
-                        Log.i(TAG, "login: 登陆失败 "+result.getMessage());
+                        Log.i(TAG, "login: 登录失败 "+result.getMessage());
                         mView.errorMessage(result.getMessage());
                     }
 
