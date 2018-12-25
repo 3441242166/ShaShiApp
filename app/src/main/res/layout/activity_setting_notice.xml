@@ -4,6 +4,40 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".activity.SettingNoticeActivity">
+
+    <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="全部播报" />
+
+    <View
+        style="@style/view_line"
+        />
+
+    <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="播报石料厂" />
+
+    <View
+        style="@style/view_line"
+        />
+
+    <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="播报搅拌站" />
+
+    <View
+        style="@style/view_line"
+        />
+
+    <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="播报运费" />
+
 
 </LinearLayout>

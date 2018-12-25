@@ -15,6 +15,8 @@ import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.FeedbackActivity;
 import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.activity.SettingActivity;
+import com.shashiwang.shashiapp.activity.SettingBroadcastActivity;
+import com.shashiwang.shashiapp.activity.SettingNoticeActivity;
 import com.shashiwang.shashiapp.activity.UserMessageActivity;
 import com.shashiwang.shashiapp.activity.post.PostListActivity;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
@@ -60,7 +62,7 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
     private static final int[] IMG = {R.drawable.ic_my_1,R.drawable.ic_my_2,
             R.drawable.ic_my_3, R.drawable.ic_my_4,
             R.drawable.ic_my_5, R.drawable.ic_my_6};
-    private static final Class[] CLASSES = {PostListActivity.class,MainActivity.class,FeedbackActivity.class, MainActivity.class};
+    private static final Class[] CLASSES = {PostListActivity.class,FeedbackActivity.class,FeedbackActivity.class, FeedbackActivity.class,SettingNoticeActivity.class, SettingBroadcastActivity.class};
 
     @Override
     protected MyFragmentPresenter setPresenter() {

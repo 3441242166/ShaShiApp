@@ -1,9 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.SettingBroadcastActivity">
+    android:orientation="vertical"
+    tools:context=".activity.SettingNoticeActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="全部播报" />
+
+    <View
+        style="@style/view_line"
+        />
+
+    <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="播报石料厂" />
+
+    <View
+        style="@style/view_line"
+        />
+
+    <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="播报搅拌站" />
+
+    <View
+        style="@style/view_line"
+        />
+
+    <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title="播报运费" />
+
+
+</LinearLayout>

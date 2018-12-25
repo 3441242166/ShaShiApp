@@ -7,6 +7,7 @@
     <attr name="item_icon" format="integer" />
     <attr name="left_icon" format="integer" />
     <attr name="right_icon" format="integer" />
+    <attr name="right_type" format="integer" />
     <attr name="input_type" format="integer" />
 
     <attr name="icon_show" format="boolean" />
@@ -47,6 +48,12 @@
 
     <declare-styleable name="SettingSwitchLayout">
         <attr name="title"/>
+        <attr name="right_type"/>
+    </declare-styleable>
+
+    <declare-styleable name="SettingChooseLayout">
+        <attr name="title"/>
+        <attr name="right_type"/>
     </declare-styleable>
 
     <declare-styleable name="MessageLayout">
