@@ -139,7 +139,8 @@
         <activity android:name=".activity.message.StationListActivity" />
         <activity android:name=".activity.message.FactoryListActivity" />
         <activity android:name=".activity.SettingNoticeActivity" />
-        <activity android:name=".activity.SettingBroadcastActivity"></activity>
+        <activity android:name=".activity.SettingBroadcastActivity" />
+        <activity android:name=".activity.CustomerActivity"></activity>
     </application>
 
 </manifest>

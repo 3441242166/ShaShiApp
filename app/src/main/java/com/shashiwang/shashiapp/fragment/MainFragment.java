@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.example.util.SharedPreferencesHelper;
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.activity.CustomerActivity;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
 import com.shashiwang.shashiapp.activity.message.CarListActivity;
 import com.shashiwang.shashiapp.activity.message.CarMessageActivity;
@@ -58,6 +59,8 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
     ImageView btDriver;
     @BindView(R.id.bt_car)
     ImageView btCar;
+    @BindView(R.id.ac_base_right)
+    Button btRight;
 
     @Override
     protected MainFragmentPresenter setPresenter() {
@@ -104,6 +107,11 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
 
         btCar.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(),CarListActivity.class);
+            startActivity(intent);
+        });
+
+        btRight.setOnClickListener(view -> {
+            Intent intent = new Intent(getContext(),CustomerActivity.class);
             startActivity(intent);
         });
     }

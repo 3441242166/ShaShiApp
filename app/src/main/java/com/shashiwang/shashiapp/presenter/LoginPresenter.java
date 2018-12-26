@@ -8,6 +8,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.net.interceptors.LoggingInterceptor;
+import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
 import com.example.util.SharedPreferencesHelper;
 import com.google.gson.Gson;
@@ -95,9 +96,9 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
     private void putRegistrationId(String id){
         Log.i(TAG, "putRegistrationId:  = "+id);
         RxRetrofitClient.builder()
-                .header(new LoggingInterceptor())
+                .header(new TokenInterceptor())
                 .url(URL_JPUSHID)
-                .params("category",id)
+                .params("jpush_reg_id",id)
                 .build()
                 .post()
                 .subscribeOn(Schedulers.newThread())
