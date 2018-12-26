@@ -1,43 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".activity.SettingNoticeActivity">
+    android:orientation="vertical">
 
-    <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="全部播报" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <View
-        style="@style/view_line"
-        />
+        <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="全部播报" />
 
-    <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="播报石料厂" />
+        <View
+            style="@style/view_line"
+            />
 
-    <View
-        style="@style/view_line"
-        />
+        <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="播报石料厂" />
 
-    <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="播报搅拌站" />
+        <View
+            style="@style/view_line"
+            />
 
-    <View
-        style="@style/view_line"
-        />
+        <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="石料厂语音播报" />
 
-    <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="播报运费" />
+        <View
+            style="@style/view_line"
+            />
 
+        <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="播报搅拌站" />
 
-</LinearLayout>
+        <View
+            style="@style/view_line"
+            />
+
+        <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="搅拌站语音播报" />
+
+        <View
+            style="@style/view_line"
+            />
+
+        <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="播报运费" />
+
+        <View
+            style="@style/view_line"
+            />
+
+        <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="运费语音播报" />
+
+        <View
+            style="@style/view_line"
+            />
+
+        <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="播报司机招聘" />
+
+        <View
+            style="@style/view_line"
+            />
+
+        <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="司机招聘语音播报" />
+
+        <View
+            style="@style/view_line"
+            />
+
+        <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="播报车辆出售" />
+
+        <View
+            style="@style/view_line"
+            />
+
+        <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="车辆出售语音播报" />
+
+        <View
+            style="@style/view_line"
+            />
+
+    </LinearLayout>
+
+</android.support.v4.widget.NestedScrollView>

@@ -16,7 +16,6 @@ import com.shashiwang.shashiapp.activity.FeedbackActivity;
 import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.activity.SettingActivity;
 import com.shashiwang.shashiapp.activity.SettingBroadcastActivity;
-import com.shashiwang.shashiapp.activity.SettingNoticeActivity;
 import com.shashiwang.shashiapp.activity.UserMessageActivity;
 import com.shashiwang.shashiapp.activity.post.PostListActivity;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
