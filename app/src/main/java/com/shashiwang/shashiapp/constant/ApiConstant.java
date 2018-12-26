@@ -14,4 +14,5 @@ public class ApiConstant {
     public static final String URL_LOGIN = "api/user/login/";
     public static final String URL_REGISTER = "api/user/captcha/";
     public static final String URL_JPUSHID = "api/user/add/jpushid/";
+    public static final String URL_CONFIG = "api/user/push/config/";
 }

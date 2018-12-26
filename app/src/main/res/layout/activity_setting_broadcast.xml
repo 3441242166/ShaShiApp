@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
+            android:id="@+id/sw_all"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="全部播报" />
@@ -23,40 +24,25 @@
         <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/sc_factory"
             app:title="播报石料厂" />
 
         <View
             style="@style/view_line"
             />
 
-        <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="石料厂语音播报" />
-
-        <View
-            style="@style/view_line"
-            />
-
         <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/sc_station"
             app:title="播报搅拌站" />
 
         <View
             style="@style/view_line"
             />
 
-        <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="搅拌站语音播报" />
-
-        <View
-            style="@style/view_line"
-            />
-
         <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+            android:id="@+id/sc_fright"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="播报运费" />
@@ -65,16 +51,9 @@
             style="@style/view_line"
             />
 
-        <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="运费语音播报" />
-
-        <View
-            style="@style/view_line"
-            />
 
         <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+            android:id="@+id/sc_driver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="播报司机招聘" />
@@ -83,16 +62,8 @@
             style="@style/view_line"
             />
 
-        <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="司机招聘语音播报" />
-
-        <View
-            style="@style/view_line"
-            />
-
         <com.shashiwang.shashiapp.customizeview.SettingChooseLayout
+            android:id="@+id/sc_car"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="播报车辆出售" />
@@ -101,10 +72,16 @@
             style="@style/view_line"
             />
 
+        <View
+            android:layout_marginTop="50dp"
+            style="@style/view_line"
+            />
+
         <com.shashiwang.shashiapp.customizeview.SettingSwitchLayout
+            android:id="@+id/sw_speak"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="车辆出售语音播报" />
+            app:title="语音播报" />
 
         <View
             style="@style/view_line"
