@@ -21,6 +21,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_JPUSHID;
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_LOGIN;
 import static com.shashiwang.shashiapp.constant.Constant.REGISTRATION_ID;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 import static com.shashiwang.shashiapp.constant.Constant.USER_NAME;
@@ -53,7 +55,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
         }
 
         loginDisposable = RxRetrofitClient.builder()
-                .url("/api/user/login")
+                .url(URL_LOGIN)
                 .params("phone",count)
                 .params("password",password)
                 .build()
@@ -91,10 +93,10 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
 
     @SuppressLint("CheckResult")
     private void putRegistrationId(String id){
-
+        Log.i(TAG, "putRegistrationId:  = "+id);
         RxRetrofitClient.builder()
                 .header(new LoggingInterceptor())
-                .url("/api/user/add/jpushid")
+                .url(URL_JPUSHID)
                 .params("category",id)
                 .build()
                 .post()
@@ -102,7 +104,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
                     Log.i(TAG, "login: success " + s);
-
                 }, throwable -> {
                     Log.i(TAG, "login: error = " + throwable);
                 });

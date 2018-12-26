@@ -167,21 +167,21 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
                 if(TextUtils.isEmpty(str)){
                     return;
                 }
-                PoiCitySearchOption citySearchOption  = new PoiCitySearchOption()
-                        .city("西安")
-                        .keyword(str)
-                        .pageNum(0)
-                        .pageCapacity(20);
-
-                presenter.searchCity(citySearchOption);
-
-//                PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption()
-//                        .keyword(str)//检索关键字
-//                        .pageNum(0)//分页编号，默认是0页
-//                        .pageCapacity(20)//设置每页容量，默认10条
-//                        .radius(2147482888);//附近检索半径
+//                PoiCitySearchOption citySearchOption  = new PoiCitySearchOption()
+//                        .city("西安")
+//                        .keyword(str)
+//                        .pageNum(0)
+//                        .pageCapacity(20);
 //
-//                presenter.searchNear(nearbySearchOption);
+//                presenter.searchCity(citySearchOption);
+
+                PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption()
+                        .keyword(str)//检索关键字
+                        .pageNum(0)//分页编号，默认是0页
+                        .pageCapacity(20)//设置每页容量，默认10条
+                        .radius(2147482888);//附近检索半径
+
+                presenter.searchNear(nearbySearchOption);
             }
         });
 

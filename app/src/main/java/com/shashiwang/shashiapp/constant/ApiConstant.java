@@ -10,4 +10,8 @@ public class ApiConstant {
     public static final String URL_FACTORY = "api/stone/factory/";
     public static final String URL_DRIVER = "api/recruit/driver/";
 
+    public static final String URL_FEEDBACK = "api/feedback/";
+    public static final String URL_LOGIN = "api/user/login/";
+    public static final String URL_REGISTER = "api/user/captcha/";
+    public static final String URL_JPUSHID = "api/user/add/jpushid/";
 }

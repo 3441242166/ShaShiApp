@@ -17,32 +17,31 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:lines="4"
-        android:inputType="textMultiLine"
-        android:id="@+id/editText"
+        android:id="@+id/ed_input"
         android:layout_width="0dp"
         android:layout_height="155dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
-        android:background="@null"
+        android:background="@drawable/shape_edit"
         android:ems="10"
-        android:padding="10dp"
         android:gravity="start"
         android:hint="感谢您使用沙石料厂，请写下您的宝贵意见，我们会及时与您取得联系！"
+        android:inputType="textMultiLine"
+        android:lines="4"
+        android:padding="10dp"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/textView19"
         app:layout_constraintTop_toBottomOf="@+id/textView19" />
 
     <Button
-        android:id="@+id/button7"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:id="@+id/bt_send"
+        style="@style/bt_yellow_send"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="100dp"
         android:layout_marginEnd="8dp"
-        android:text="Button"
-        app:layout_constraintEnd_toEndOf="@+id/editText"
-        app:layout_constraintStart_toStartOf="@+id/editText"
-        app:layout_constraintTop_toBottomOf="@+id/editText" />
+        android:layout_marginBottom="8dp"
+        android:text="完成"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>

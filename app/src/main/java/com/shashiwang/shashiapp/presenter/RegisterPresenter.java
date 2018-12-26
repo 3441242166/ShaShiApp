@@ -24,6 +24,8 @@ import com.shashiwang.shashiapp.view.IRegisterView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_REGISTER;
+
 
 public class RegisterPresenter extends BasePresenter<IRegisterView> {
     private static final String TAG = "RegisterPresenter";
@@ -55,7 +57,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
     public void getImageCode(){
 
         RxRetrofitClient.builder()
-                .url("api/user/captcha")
+                .url(URL_REGISTER)
                 .build()
                 .get()
                 .subscribeOn(Schedulers.newThread())

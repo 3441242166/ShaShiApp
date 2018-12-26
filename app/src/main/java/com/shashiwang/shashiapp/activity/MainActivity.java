@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.NotificationManagerCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -66,8 +67,6 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
             android.Manifest.permission.INTERNET,
             android.Manifest.permission.CHANGE_WIFI_STATE};
-//            android.Manifest.permission.WRITE_SETTINGS,
-//            android.Manifest.permission.MOUNT_UNMOUNT_FILESYSTEMS};
 
     protected void init(Bundle savedInstanceState) {
         ButterKnife.bind(this);
@@ -78,6 +77,10 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         if (!EasyPermissions.hasPermissions(this, DATA)) {
             EasyPermissions.requestPermissions(this, "为了您的体验,请允许申请权限",
                     1, DATA);
+        }
+        boolean is = NotificationManagerCompat.from(this).areNotificationsEnabled();
+        if(!is){
+            Toasty.normal(this,"为了您的使用,请打开通知权限").show();
         }
     }
 
@@ -109,7 +112,7 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
     }
 
     private void initEvent(){
-        imageView.setOnClickListener(view -> presenter.openMorePopupWindow());
+        imageView.setOnClickListener(view -> openMorePopupWindow());
 
         navigation.setOnNavigationItemSelectedListener(item -> {
             invalidateOptionsMenu();
@@ -139,6 +142,10 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    public void openMorePopupWindow(){
+        presenter.openMorePopupWindow();
     }
 
     @Override
