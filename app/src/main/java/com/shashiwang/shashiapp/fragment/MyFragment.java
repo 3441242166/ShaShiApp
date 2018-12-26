@@ -37,8 +37,6 @@ import static com.shashiwang.shashiapp.constant.Constant.REQUEST_LOGIN;
 import static com.shashiwang.shashiapp.constant.Constant.REQUEST_SETTING;
 import static com.shashiwang.shashiapp.constant.Constant.REQUEST_USER_MESSAGE;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
-import static com.shashiwang.shashiapp.constant.MessageType.POST;
-import static com.shashiwang.shashiapp.constant.MessageType.POST_TITLE;
 
 public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements IMyFragmentView{
     private static final String TAG = "MyFragment";
@@ -88,12 +86,6 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
             }
 
             final Intent intent = new Intent(getContext(),CLASSES[position]);
-
-            if(position == 0){
-                intent.putExtra(Constant.TYPE,POST);
-                intent.putExtra(Constant.TITLE,POST_TITLE);
-                intent.putExtra(Constant.CLASS,PostListActivity.class);
-            }
 
             startActivity(intent);
         });

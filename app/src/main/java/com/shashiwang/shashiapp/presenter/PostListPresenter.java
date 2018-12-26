@@ -35,7 +35,6 @@ import static com.shashiwang.shashiapp.constant.MessageType.CAR;
 import static com.shashiwang.shashiapp.constant.MessageType.DRIVER;
 import static com.shashiwang.shashiapp.constant.MessageType.FACTORY;
 import static com.shashiwang.shashiapp.constant.MessageType.FREIGHT;
-import static com.shashiwang.shashiapp.constant.MessageType.POST;
 import static com.shashiwang.shashiapp.constant.MessageType.STATION;
 
 public class PostListPresenter extends BasePresenter<PostListView> {
@@ -82,8 +81,6 @@ public class PostListPresenter extends BasePresenter<PostListView> {
     private Type getType(int type){
 
         switch (type){
-            case POST:
-                return new TypeToken<HttpResult<MessageResult>>(){}.getType();
             case CAR:
                 return new TypeToken<HttpResult<MessageResult>>(){}.getType();
             case FREIGHT:

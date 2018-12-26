@@ -108,9 +108,6 @@ public class MessageListActivity extends BaseTopBarActivity<PostListPresenter> i
 
         for(int x=0;x<data.size();x++){
             switch (type){
-                case POST:
-                    list.add(new MessageBean<>(type,data.get(x)));
-                    break;
                 case CAR:
                     list.add(new MessageBean<>(type,data.get(x)));
                     break;

@@ -2,7 +2,6 @@ package com.shashiwang.shashiapp.constant;
 
 public class Constant {
 
-
     public static final String TOKEN = "token";
     public static final String USER_NAME = "user_name";
     public static final String REGISTRATION_ID = "registration_id";
