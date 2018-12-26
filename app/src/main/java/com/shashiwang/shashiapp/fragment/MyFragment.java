@@ -58,11 +58,11 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
     private TextAdapter adapter;
 
     private static final String[] TITLE = {"我的发布", "推荐有奖",
-            "发布信息","语音播报设置","消息推送设置"};
+            "发布信息","消息推送设置"};
     private static final int[] IMG = {R.drawable.ic_my_1,R.drawable.ic_my_2,
-            R.drawable.ic_my_4, R.drawable.ic_my_5, R.drawable.ic_my_6};
+            R.drawable.ic_my_4, R.drawable.ic_my_6};
     private static final Class[] CLASSES = {PostListActivity.class,FeedbackActivity.class,
-            FeedbackActivity.class,SettingNoticeActivity.class, SettingBroadcastActivity.class};
+            FeedbackActivity.class, SettingBroadcastActivity.class};
 
     @Override
     protected MyFragmentPresenter setPresenter() {
