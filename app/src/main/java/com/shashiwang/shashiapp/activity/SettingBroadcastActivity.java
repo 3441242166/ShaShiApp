@@ -160,6 +160,7 @@ public class SettingBroadcastActivity extends BaseTopBarActivity {
 
                     if(result.isSuccess()){
                         ConfigUtil.configJPush(category.toString(),isVoice);
+                        finish();
                     }else {
 
                     }
