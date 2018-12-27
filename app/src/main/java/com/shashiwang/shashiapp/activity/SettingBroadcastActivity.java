@@ -3,10 +3,12 @@ package com.shashiwang.shashiapp.activity;
 import android.annotation.SuppressLint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
+import com.example.util.SharedPreferencesHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
@@ -18,6 +20,7 @@ import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.customizeview.SettingChooseLayout;
 import com.shashiwang.shashiapp.customizeview.SettingSwitchLayout;
+import com.shashiwang.shashiapp.util.ConfigUtil;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -62,25 +65,50 @@ public class SettingBroadcastActivity extends BaseTopBarActivity {
         initView();
 
         swAll.setOnSwitchListener(is -> {
-            if(is){
-                scCar.setChecked(true);
-                scDriver.setChecked(true);
-                scFright.setChecked(true);
-                scFactory.setChecked(true);
-                scStation.setChecked(true);
-            }
-            scCar.setCheckable(!is);
-            scDriver.setCheckable(!is);
-            scFright.setCheckable(!is);
-            scFactory.setCheckable(!is);
-            scStation.setCheckable(!is);
+            changeAll(is);
         });
-
         setTopRightButton(R.drawable.icon_certain, this::saveConfig);
     }
 
     private void initView() {
+        boolean isCar = (boolean) SharedPreferencesHelper.getSharedPreference(KEY_CAR,false);
+        boolean isFactory = (boolean) SharedPreferencesHelper.getSharedPreference(KEY_FACTORY,false);
+        boolean isFreight = (boolean) SharedPreferencesHelper.getSharedPreference(KEY_FREIGHT,false);
+        boolean isDriver = (boolean) SharedPreferencesHelper.getSharedPreference(KEY_DRIVER,false);
+        boolean isStation = (boolean) SharedPreferencesHelper.getSharedPreference(KEY_STATION,false);
 
+        if(isCar && isFactory && isFreight && isDriver && isStation){
+            swAll.setChecked(true);
+            changeAll(true);
+        }else {
+            scCar.setChecked(isCar);
+            scFactory.setChecked(isFactory);
+            scFright.setChecked(isFreight);
+            scDriver.setChecked(isDriver);
+            scStation.setChecked(isStation);
+        }
+
+    }
+
+    private void changeAll(boolean is){
+        if(is){
+            scCar.setChecked(true);
+            scDriver.setChecked(true);
+            scFright.setChecked(true);
+            scFactory.setChecked(true);
+            scStation.setChecked(true);
+        }else {
+            scCar.setChecked(false);
+            scDriver.setChecked(false);
+            scFright.setChecked(false);
+            scFactory.setChecked(false);
+            scStation.setChecked(false);
+        }
+        scCar.setCheckable(!is);
+        scDriver.setCheckable(!is);
+        scFright.setCheckable(!is);
+        scFactory.setCheckable(!is);
+        scStation.setCheckable(!is);
     }
 
     @SuppressLint("CheckResult")
@@ -112,7 +140,10 @@ public class SettingBroadcastActivity extends BaseTopBarActivity {
 
         Log.i(TAG, "saveConfig: " + category.toString());
 
-        int isVoice = swSpeak.isChecked()?1:0;
+        int isVoice = swSpeak.isChecked()? 1 : 0;
+        if(TextUtils.isEmpty(category.toString())){
+            category.append(0);
+        }
 
         RxRetrofitClient.builder()
                 .url(URL_CONFIG)
@@ -128,7 +159,7 @@ public class SettingBroadcastActivity extends BaseTopBarActivity {
                     HttpResult<MessageResult<CarMessage>> result = new Gson().fromJson(s,new TypeToken<HttpResult<MessageResult<CarMessage>>>(){}.getType());
 
                     if(result.isSuccess()){
-
+                        ConfigUtil.configJPush(category.toString(),isVoice);
                     }else {
 
                     }

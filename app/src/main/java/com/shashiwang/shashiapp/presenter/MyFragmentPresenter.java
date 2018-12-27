@@ -15,6 +15,8 @@ import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.bean.CarMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
+import com.shashiwang.shashiapp.bean.User;
+import com.shashiwang.shashiapp.util.ConfigUtil;
 import com.shashiwang.shashiapp.view.IMyFragmentView;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -63,12 +65,12 @@ public class MyFragmentPresenter extends BasePresenter<IMyFragmentView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
                     Log.i(TAG, "getList: success " + s);
-                    HttpResult<String> result = new Gson().fromJson(s,new TypeToken<HttpResult<String>>(){}.getType());
+                    HttpResult<User> result = new Gson().fromJson(s,new TypeToken<HttpResult<User>>(){}.getType());
 
                     if(result.isSuccess()){
-
+                        ConfigUtil.configJPush(result.getData().getPush_category(),result.getData().getIs_voice());
                     }else {
-
+                        mView.errorMessage(result.getMessage());
                     }
 
                 }, throwable -> {

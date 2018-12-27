@@ -64,9 +64,9 @@ public class SettingChooseLayout extends ConstraintLayout {
         choose = is;
         if(is){
             if(checkable){
-                iv.setImageResource(R.drawable.ic_choose_unuse);
-            }else {
                 iv.setImageResource(R.drawable.ic_choose_open);
+            }else {
+                iv.setImageResource(R.drawable.ic_choose_unuse);
             }
         }else {
             iv.setImageResource(R.drawable.ic_choose_close);
