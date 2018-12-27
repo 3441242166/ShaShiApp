@@ -23,6 +23,7 @@ import com.shashiwang.shashiapp.customizeview.SettingSwitchLayout;
 import com.shashiwang.shashiapp.util.ConfigUtil;
 
 import butterknife.BindView;
+import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
@@ -76,6 +77,7 @@ public class SettingBroadcastActivity extends BaseTopBarActivity {
         boolean isFreight = (boolean) SharedPreferencesHelper.getSharedPreference(KEY_FREIGHT,false);
         boolean isDriver = (boolean) SharedPreferencesHelper.getSharedPreference(KEY_DRIVER,false);
         boolean isStation = (boolean) SharedPreferencesHelper.getSharedPreference(KEY_STATION,false);
+        boolean isVoice = (boolean) SharedPreferencesHelper.getSharedPreference(KEY_VOICE,false);
 
         if(isCar && isFactory && isFreight && isDriver && isStation){
             swAll.setChecked(true);
@@ -88,6 +90,7 @@ public class SettingBroadcastActivity extends BaseTopBarActivity {
             scStation.setChecked(isStation);
         }
 
+        swSpeak.setChecked(isVoice);
     }
 
     private void changeAll(boolean is){
@@ -159,6 +162,7 @@ public class SettingBroadcastActivity extends BaseTopBarActivity {
                     HttpResult<MessageResult<CarMessage>> result = new Gson().fromJson(s,new TypeToken<HttpResult<MessageResult<CarMessage>>>(){}.getType());
 
                     if(result.isSuccess()){
+                        Toasty.normal(this,"设置成功").show();
                         ConfigUtil.configJPush(category.toString(),isVoice);
                         finish();
                     }else {

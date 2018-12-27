@@ -15,6 +15,7 @@ import com.baidu.tts.client.SpeechSynthesizer;
 import com.baidu.tts.client.SpeechSynthesizerListener;
 import com.baidu.tts.client.TtsMode;
 import com.example.config.Config;
+import com.example.util.SharedPreferencesHelper;
 import com.shashiwang.shashiapp.base.BaseApplication;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,6 +23,8 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 
 import cn.jpush.android.api.JPushInterface;
+
+import static com.shashiwang.shashiapp.constant.MessageType.KEY_VOICE;
 
 public class JPushBroadcastReceiver extends BroadcastReceiver {
     private static final String TAG = "JPushBroadcastReceiver";
@@ -38,7 +41,10 @@ public class JPushBroadcastReceiver extends BroadcastReceiver {
         String xxx = JPushInterface.getRegistrationID(context);
         Log.d(TAG, "[MyReceiver] 接收Registration Id : " + xxx);
 
-        test(content);
+        boolean isVoice = (boolean) SharedPreferencesHelper.getSharedPreference(KEY_VOICE,false);
+        if(isVoice){
+            test(content);
+        }
     }
 
     private void test(String str){
