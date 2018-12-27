@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.LocationActivity;
+import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
@@ -22,7 +23,6 @@ import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
 import com.shashiwang.shashiapp.customizeview.PostLocationLayout;
-import com.shashiwang.shashiapp.presenter.PostPresenter;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -52,7 +52,7 @@ public class PostStationActivity extends BaseTopBarActivity{
     private String startLng;
 
     @Override
-    protected PostPresenter setPresenter() {
+    protected BasePresenter setPresenter() {
         return null;
     }
 

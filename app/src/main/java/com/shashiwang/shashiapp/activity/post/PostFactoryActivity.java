@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -14,6 +13,7 @@ import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.activity.LocationActivity;
+import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
@@ -22,7 +22,6 @@ import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
 import com.shashiwang.shashiapp.customizeview.PostLocationLayout;
-import com.shashiwang.shashiapp.presenter.PostPresenter;
 import com.shashiwang.shashiapp.R;
 
 import butterknife.BindView;
@@ -53,7 +52,7 @@ public class PostFactoryActivity extends BaseTopBarActivity{
     private String startLng;
 
     @Override
-    protected PostPresenter setPresenter() {
+    protected BasePresenter setPresenter() {
         return null;
     }
 

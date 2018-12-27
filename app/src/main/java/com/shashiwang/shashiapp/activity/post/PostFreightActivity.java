@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.LocationActivity;
+import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
@@ -26,7 +27,6 @@ import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
 import com.shashiwang.shashiapp.customizeview.PostLocationLayout;
 import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
-import com.shashiwang.shashiapp.presenter.PostPresenter;
 import com.shashiwang.shashiapp.util.FileUtil;
 
 import java.util.ArrayList;
@@ -77,7 +77,7 @@ public class PostFreightActivity extends BaseTopBarActivity{
     private Map<String,Integer> data;
 
     @Override
-    protected PostPresenter setPresenter() {
+    protected BasePresenter setPresenter() {
         return null;
     }
 

@@ -6,5 +6,5 @@ import com.shashiwang.shashiapp.bean.MessageBean;
 
 import java.util.List;
 
-public interface PostListView extends IBaseView<List<MessageBean>> {
+public interface IPostListView extends IBaseView<List<MessageBean>> {
 }

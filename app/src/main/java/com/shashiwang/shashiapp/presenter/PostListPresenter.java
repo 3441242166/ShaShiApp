@@ -4,44 +4,33 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.example.config.Config;
-import com.example.net.interceptors.BaseInterceptor;
 import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
-import com.example.util.SharedPreferencesHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
-import com.shashiwang.shashiapp.base.IBaseView;
 import com.shashiwang.shashiapp.bean.CarMessage;
 import com.shashiwang.shashiapp.bean.DriverMessage;
 import com.shashiwang.shashiapp.bean.FactoryMessage;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageBean;
-import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.bean.StationMessage;
 import com.shashiwang.shashiapp.constant.MessageType;
-import com.shashiwang.shashiapp.fragment.MessageListFragment;
-import com.shashiwang.shashiapp.view.PostListView;
+import com.shashiwang.shashiapp.view.IPostListView;
 
-import java.io.IOException;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
-import okhttp3.Response;
 
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_PUBLISH;
-public class PostListPresenter extends BasePresenter<PostListView> {
+public class PostListPresenter extends BasePresenter<IPostListView> {
     private static final String TAG = "PostListPresenter";
 
-    public PostListPresenter(PostListView view, Context context) {
+    public PostListPresenter(IPostListView view, Context context) {
         super(view, context);
     }
 

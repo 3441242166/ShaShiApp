@@ -3,46 +3,27 @@ package com.shashiwang.shashiapp.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.example.util.SharedPreferencesHelper;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.CustomerActivity;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
-import com.shashiwang.shashiapp.activity.message.CarListActivity;
-import com.shashiwang.shashiapp.activity.message.CarMessageActivity;
-import com.shashiwang.shashiapp.activity.message.DriverListActivity;
-import com.shashiwang.shashiapp.activity.message.DriverMessageActivity;
-import com.shashiwang.shashiapp.activity.message.FactoryListActivity;
-import com.shashiwang.shashiapp.activity.message.FactoryMessageActivity;
-import com.shashiwang.shashiapp.activity.message.FreightListActivity;
-import com.shashiwang.shashiapp.activity.message.FreightMessageActivity;
-import com.shashiwang.shashiapp.activity.message.StationListActivity;
-import com.shashiwang.shashiapp.activity.message.StationMessageActivity;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
-import com.shashiwang.shashiapp.bean.BannerBean;
 import com.shashiwang.shashiapp.presenter.MainFragmentPresenter;
 import com.shashiwang.shashiapp.util.ImageLoader;
 import com.shashiwang.shashiapp.view.IMainFragmentView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
-import java.sql.Driver;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
 import qiu.niorgai.StatusBarCompat;
 
-import static com.shashiwang.shashiapp.constant.Constant.CLASS;
 import static com.shashiwang.shashiapp.constant.Constant.TITLE;
-import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 import static com.shashiwang.shashiapp.constant.Constant.TYPE;
-import static com.shashiwang.shashiapp.constant.Constant.URL;
 import static com.shashiwang.shashiapp.constant.MessageType.*;
 
 public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implements IMainFragmentView {

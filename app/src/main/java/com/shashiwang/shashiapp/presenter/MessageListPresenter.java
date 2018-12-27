@@ -1,4 +1,4 @@
-package com.shashiwang.shashiapp.presenter.msg;
+package com.shashiwang.shashiapp.presenter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

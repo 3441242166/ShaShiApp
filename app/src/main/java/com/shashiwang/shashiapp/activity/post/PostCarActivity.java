@@ -1,12 +1,9 @@
 package com.shashiwang.shashiapp.activity.post;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.net.interceptors.TokenInterceptor;
@@ -14,7 +11,7 @@ import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.activity.MainActivity;
+import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
@@ -23,7 +20,6 @@ import com.shashiwang.shashiapp.customizeview.PostChooseLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
 import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
-import com.shashiwang.shashiapp.presenter.PostPresenter;
 import com.shashiwang.shashiapp.util.FileUtil;
 
 import java.util.ArrayList;
@@ -61,7 +57,7 @@ public class PostCarActivity extends BaseTopBarActivity {
     private Map<String,Integer> data;
 
     @Override
-    protected PostPresenter setPresenter() {
+    protected BasePresenter setPresenter() {
         return null;
     }
 

@@ -6,49 +6,30 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.activity.message.CarListActivity;
 import com.shashiwang.shashiapp.activity.message.CarMessageActivity;
 import com.shashiwang.shashiapp.activity.message.DriverMessageActivity;
 import com.shashiwang.shashiapp.activity.message.FactoryMessageActivity;
 import com.shashiwang.shashiapp.activity.message.FreightMessageActivity;
 import com.shashiwang.shashiapp.activity.message.StationMessageActivity;
 import com.shashiwang.shashiapp.adapter.MessageAdapter;
-import com.shashiwang.shashiapp.adapter.message.CarAdapter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
-import com.shashiwang.shashiapp.bean.BaseMessage;
-import com.shashiwang.shashiapp.bean.CarMessage;
-import com.shashiwang.shashiapp.bean.DriverMessage;
-import com.shashiwang.shashiapp.bean.FactoryMessage;
-import com.shashiwang.shashiapp.bean.FreightMessage;
-import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageBean;
-import com.shashiwang.shashiapp.bean.StationMessage;
 import com.shashiwang.shashiapp.constant.MessageType;
-import com.shashiwang.shashiapp.presenter.PostListPresenter;
-import com.shashiwang.shashiapp.presenter.msg.MessageListPresenter;
+import com.shashiwang.shashiapp.presenter.MessageListPresenter;
 import com.shashiwang.shashiapp.util.DividerItemDecoration;
 import com.shashiwang.shashiapp.view.IMessageListView;
-import com.shashiwang.shashiapp.view.PostListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
 
-import static com.shashiwang.shashiapp.constant.Constant.CLASS;
 import static com.shashiwang.shashiapp.constant.Constant.ID;
 import static com.shashiwang.shashiapp.constant.Constant.TITLE;
 import static com.shashiwang.shashiapp.constant.Constant.TYPE;
-import static com.shashiwang.shashiapp.constant.Constant.URL;
-import static com.shashiwang.shashiapp.constant.MessageType.FACTORY;
-import static com.shashiwang.shashiapp.constant.MessageType.*;
 
 public class MessageListActivity extends BaseTopBarActivity<MessageListPresenter> implements IMessageListView {
 

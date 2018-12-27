@@ -125,7 +125,6 @@
         <activity android:name=".activity.message.CarMessageActivity" />
         <activity android:name=".activity.message.DriverMessageActivity" />
         <activity android:name=".activity.message.FreightMessageActivity" />
-        <activity android:name=".activity.message.FreightListActivity" />
         <activity android:name=".activity.post.PostListActivity" />
         <activity android:name=".activity.UserMessageActivity" />
 
@@ -133,10 +132,6 @@
             android:name=".service.TtsService"
             android:exported="false" />
 
-        <activity android:name=".activity.message.CarListActivity" />
-        <activity android:name=".activity.message.DriverListActivity" />
-        <activity android:name=".activity.message.StationListActivity" />
-        <activity android:name=".activity.message.FactoryListActivity" />
         <activity android:name=".activity.SettingBroadcastActivity" />
         <activity android:name=".activity.CustomerActivity"></activity>
     </application>

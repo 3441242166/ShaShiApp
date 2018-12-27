@@ -14,25 +14,18 @@ import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.customizeview.PostChooseLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
-import com.shashiwang.shashiapp.customizeview.PostLocationLayout;
 import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
-import com.shashiwang.shashiapp.presenter.PostPresenter;
 import com.shashiwang.shashiapp.util.FileUtil;
-import com.shashiwang.shashiapp.view.PostDataView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -41,8 +34,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_DRIVER;
-import static com.shashiwang.shashiapp.constant.Constant.REQUEST_END_LOCATION;
-import static com.shashiwang.shashiapp.constant.Constant.REQUEST_START_LOCATION;
 
 public class PostDriverActivity extends BaseTopBarActivity{
     private static final String TAG = "PostDriverActivity";
@@ -68,7 +59,7 @@ public class PostDriverActivity extends BaseTopBarActivity{
     private Map<String,Integer> data;
 
     @Override
-    protected PostPresenter setPresenter() {
+    protected BasePresenter setPresenter() {
         return null;
     }
 
