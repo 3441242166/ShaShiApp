@@ -1,6 +1,7 @@
 package com.shashiwang.shashiapp.fragment;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -73,7 +74,7 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initView();
         initEvent();
     }

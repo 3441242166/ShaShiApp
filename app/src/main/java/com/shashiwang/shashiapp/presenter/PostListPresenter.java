@@ -16,27 +16,28 @@ import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.IBaseView;
+import com.shashiwang.shashiapp.bean.CarMessage;
+import com.shashiwang.shashiapp.bean.DriverMessage;
+import com.shashiwang.shashiapp.bean.FactoryMessage;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageBean;
 import com.shashiwang.shashiapp.bean.MessageResult;
+import com.shashiwang.shashiapp.bean.StationMessage;
+import com.shashiwang.shashiapp.constant.MessageType;
+import com.shashiwang.shashiapp.fragment.MessageListFragment;
 import com.shashiwang.shashiapp.view.PostListView;
 
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.Response;
 
-import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
-import static com.shashiwang.shashiapp.constant.MessageType.CAR;
-import static com.shashiwang.shashiapp.constant.MessageType.DRIVER;
-import static com.shashiwang.shashiapp.constant.MessageType.FACTORY;
-import static com.shashiwang.shashiapp.constant.MessageType.FREIGHT;
-import static com.shashiwang.shashiapp.constant.MessageType.STATION;
-
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_PUBLISH;
 public class PostListPresenter extends BasePresenter<PostListView> {
     private static final String TAG = "PostListPresenter";
 
@@ -50,8 +51,9 @@ public class PostListPresenter extends BasePresenter<PostListView> {
     }
 
     @SuppressLint("CheckResult")
-    public void getList(String url,int type){
-        Log.i(TAG, "getList: url = "+url + " type = "+type);
+    public void getList(int type){
+        String url = URL_PUBLISH + type;
+        Log.i(TAG, "getList:  url = " + url);
 
         RxRetrofitClient.builder()
                 .header(new TokenInterceptor())
@@ -62,37 +64,87 @@ public class PostListPresenter extends BasePresenter<PostListView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
                     Log.i(TAG, "getList: success " + s);
-                    HttpResult<MessageResult> result = new Gson().fromJson(s,getType(type));
-                    //Log.i(TAG, "getList: test " + ((FreightMessage)result.getData().getData().get(0)).getCargo_name());
-
-                    if(result.isSuccess()){
-                        List data = result.getData().getData();
-                        mView.loadDataSuccess(data);
+                    ResultMessage result = handleMessage(s,type);
+                    if(result.isSuccess){
+                        mView.loadDataSuccess(result.data);
                     }else {
-                         mView.errorMessage(result.getMessage());
+
                     }
 
                 }, throwable -> {
                     Log.i(TAG, "getList: error = " + throwable);
-                    mView.errorMessage(throwable.toString());
+
                 });
     }
 
-    private Type getType(int type){
+    private ResultMessage handleMessage(String str,int type){
+        List<MessageBean> data = new ArrayList<>();
+        ResultMessage resultMessage = new ResultMessage();
+        resultMessage.data = data;
 
         switch (type){
-            case CAR:
-                return new TypeToken<HttpResult<MessageResult>>(){}.getType();
-            case FREIGHT:
-                return new TypeToken<HttpResult<MessageResult<FreightMessage>>>(){}.getType();
-            case DRIVER:
-                return new TypeToken<HttpResult<MessageResult>>(){}.getType();
-            case FACTORY:
-                return new TypeToken<HttpResult<MessageResult>>(){}.getType();
-            case STATION:
-                return new TypeToken<HttpResult<MessageResult>>(){}.getType();
+            case MessageType.FACTORY:
+                HttpResult<List<FactoryMessage>> factoryResult = new Gson().fromJson(str ,new TypeToken<HttpResult<List<FactoryMessage>>>(){}.getType());
+                if(!factoryResult.isSuccess()){
+                    resultMessage.isSuccess = false;
+                    return resultMessage;
+                }
+                Log.i(TAG, "handleMessage: size = " + factoryResult.getData().size());
+                for(FactoryMessage message :factoryResult.getData()){
+                    data.add(new MessageBean(type,message));
+                }
+                break;
+            case MessageType.STATION:
+                HttpResult<List<StationMessage>> stationResult = new Gson().fromJson(str ,new TypeToken<HttpResult<List<StationMessage>>>(){}.getType());
+                if(!stationResult.isSuccess()){
+                    resultMessage.isSuccess = false;
+                    return resultMessage;
+                }
+                for(StationMessage message :stationResult.getData()){
+                    data.add(new MessageBean(type,message));
+                }
+                break;
+            case MessageType.CAR:
+                HttpResult<List<CarMessage>> carResult = new Gson().fromJson(str ,new TypeToken<HttpResult<List<CarMessage>>>(){}.getType());
+                if(!carResult.isSuccess()){
+                    resultMessage.isSuccess = false;
+                    return resultMessage;
+                }
+                for(CarMessage message :carResult.getData()){
+                    data.add(new MessageBean(type,message));
+                }
+                break;
+            case MessageType.FREIGHT:
+                HttpResult<List<FreightMessage>> freightResult = new Gson().fromJson(str ,new TypeToken<HttpResult<List<FreightMessage>>>(){}.getType());
+                if(!freightResult.isSuccess()){
+                    resultMessage.isSuccess = false;
+                    return resultMessage;
+                }
+                for(FreightMessage message :freightResult.getData()){
+                    data.add(new MessageBean(type,message));
+                }
+                break;
+            case MessageType.DRIVER:
+                HttpResult<List<DriverMessage>> driverResult = new Gson().fromJson(str ,new TypeToken<HttpResult<List<DriverMessage>>>(){}.getType());
+                if(!driverResult.isSuccess()){
+                    resultMessage.isSuccess = false;
+                    return resultMessage;
+                }
+                for(DriverMessage message :driverResult.getData()){
+                    data.add(new MessageBean(type,message));
+                }
+                break;
         }
-        return null;
+
+        return resultMessage;
     }
 
+
+    static class ResultMessage{
+        List<MessageBean> data;
+        boolean isSuccess;
+        ResultMessage(){
+            isSuccess = true;
+        }
+    }
 }

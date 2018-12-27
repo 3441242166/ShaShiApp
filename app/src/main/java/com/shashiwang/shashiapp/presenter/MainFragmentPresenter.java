@@ -51,16 +51,10 @@ public class MainFragmentPresenter extends BasePresenter<IMainFragmentView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
                     Log.i(TAG, "getList: success " + s);
-                    HttpResult<String[]> result = new Gson().fromJson(s,new TypeToken<HttpResult<String[]>>(){}.getType());
+                    HttpResult<List<String>> result = new Gson().fromJson(s,new TypeToken<HttpResult<List<String>>>(){}.getType());
 
                     if(result.isSuccess()){
-                        List<String> list = new ArrayList<>();
-
-                        for(String str:result.getData()){
-                            list.add(str);
-                        }
-
-                        mView.loadDataSuccess(list);
+                        mView.loadDataSuccess(result.getData());
                     }else {
 
                     }

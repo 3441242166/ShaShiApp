@@ -20,8 +20,17 @@ public class CarAdapter extends BaseQuickAdapter<CarMessage,BaseViewHolder> {
 
     @Override
     protected void convert(BaseViewHolder helper, CarMessage item) {
+        helper.addOnClickListener(R.id.iv_phone);
 
+        helper.setText(R.id.tv_title,StringUtil.getFirstChinese(item.getLinkman())+"先生");
+        helper.setText(R.id.tv_label,DateUtil.getDifferentString(item.getCreated_at()));
 
+        helper.setText(R.id.tv_name,item.getBrand());
+        helper.setText(R.id.tv_price,""+item.getPrice());
+
+        helper.setText(R.id.tv_type,item.getFactory_year());
+        helper.setText(R.id.tv_kilometre,""+item.getMileage()+"公里");
+        helper.setText(R.id.tv_content,item.getRemark());
     }
 
 }

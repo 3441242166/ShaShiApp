@@ -31,11 +31,30 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean,BaseVi
         addItemType(DRIVER, R.layout.item_msg_driver);
         addItemType(STATION, R.layout.item_msg_station);
 
+        Log.i(TAG, "MessageAdapter");
     }
 
     @Override
     protected void convert(BaseViewHolder helper, MessageBean item) {
         helper.addOnClickListener(R.id.iv_phone);
+        Log.i(TAG, "convert: type = " + item.getItemType());
+        Log.i(TAG, "convert: item = "+item);
+
+        if(item.getBean() instanceof  FactoryMessage){
+            Log.i(TAG, "convert: FactoryMessage");
+        }
+        if(item.getBean() instanceof  StationMessage){
+            Log.i(TAG, "convert: StationMessage");
+        }
+        if(item.getBean() instanceof  CarMessage){
+            Log.i(TAG, "convert: CarMessage");
+        }
+        if(item.getBean() instanceof  FreightMessage){
+            Log.i(TAG, "convert: FreightMessage");
+        }
+        if(item.getBean() instanceof  DriverMessage){
+            Log.i(TAG, "convert: DriverMessage");
+        }
 
         switch (item.getItemType()){
             case CAR:

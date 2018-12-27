@@ -1,8 +1,7 @@
 package com.shashiwang.shashiapp.bean;
 
-public class FreightMessage {
+public class FreightMessage extends BaseMessage{
 
-    private int id;
     private int user_id;
     private String start_location_lat;
     private String start_location_lng;
@@ -18,15 +17,6 @@ public class FreightMessage {
     private String created_at;
     private String updated_at;
     private String linkman;
-    private String phone;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getUser_id() {
         return user_id;
@@ -148,11 +138,4 @@ public class FreightMessage {
         this.linkman = linkman;
     }
 
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
 }

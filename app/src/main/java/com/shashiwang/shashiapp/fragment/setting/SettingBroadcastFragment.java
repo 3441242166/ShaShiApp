@@ -1,6 +1,8 @@
 package com.shashiwang.shashiapp.fragment.setting;
 
 
+import android.os.Bundle;
+
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
@@ -32,7 +34,7 @@ public class SettingBroadcastFragment  extends LazyLoadFragment {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
 
         slAll.setOnSwitchListener(this::allSwitch);
 

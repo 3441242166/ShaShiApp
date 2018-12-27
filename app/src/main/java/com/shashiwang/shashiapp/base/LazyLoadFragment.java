@@ -25,14 +25,14 @@ public abstract class LazyLoadFragment<T extends BasePresenter> extends Fragment
 
     protected abstract int setContentView();
 
-    protected abstract void init();
+    protected abstract void init(Bundle savedInstanceState);
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(setContentView(), container, false);
         mUnbinder = ButterKnife.bind(this, view);
-        init();
+        init(savedInstanceState);
         if(presenter!= null){
             presenter.init(savedInstanceState);
         }

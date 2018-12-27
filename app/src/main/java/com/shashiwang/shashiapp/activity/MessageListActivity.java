@@ -53,7 +53,7 @@ public class MessageListActivity extends BaseTopBarActivity<PostListPresenter> i
         initData();
         initView();
         initEvent();
-        presenter.getList(url,type);
+        //presenter.getList(url,type);
     }
 
     private void initData() {
@@ -95,7 +95,7 @@ public class MessageListActivity extends BaseTopBarActivity<PostListPresenter> i
 
     @Override
     public void loadDataSuccess(List data) {
-        adapter.setNewData(getAdapterData(data));
+
     }
 
     @Override
@@ -103,30 +103,4 @@ public class MessageListActivity extends BaseTopBarActivity<PostListPresenter> i
 
     }
 
-    private List<MessageBean> getAdapterData(List data){
-        List<MessageBean> list = new ArrayList<>(data.size());
-
-        for(int x=0;x<data.size();x++){
-            switch (type){
-                case CAR:
-                    list.add(new MessageBean<>(type,data.get(x)));
-                    break;
-                case FREIGHT:
-                    list.add(new MessageBean<>(type, (FreightMessage) data.get(x)));
-                    break;
-                case DRIVER:
-                    list.add(new MessageBean<>(type,data.get(x)));
-                    break;
-                case FACTORY:
-                    list.add(new MessageBean<>(type,data.get(x)));
-                    break;
-                case STATION:
-                    list.add(new MessageBean<>(type,data.get(x)));
-                    break;
-            }
-            Log.i("666666", "getAdapterData: " +((FreightMessage) list.get(x).getBean()).getCargo_name());
-        }
-
-        return list;
-    }
 }

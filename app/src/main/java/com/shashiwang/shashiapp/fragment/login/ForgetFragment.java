@@ -1,5 +1,7 @@
 package com.shashiwang.shashiapp.fragment.login;
 
+import android.os.Bundle;
+
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
@@ -16,7 +18,7 @@ public class ForgetFragment extends LazyLoadFragment {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
 
     }
 }

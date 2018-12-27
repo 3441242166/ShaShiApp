@@ -1,8 +1,7 @@
 package com.shashiwang.shashiapp.bean;
 
-public class CarMessage {
+public class CarMessage extends BaseMessage{
 
-    private int id;
     private String brand;
     private int category;
     private String factory_year;
@@ -10,18 +9,10 @@ public class CarMessage {
     private int price;
     private String image;
     private String linkman;
-    private String phone;
     private String remark;
     private String created_at;
     private String updated_at;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getBrand() {
         return brand;
@@ -77,14 +68,6 @@ public class CarMessage {
 
     public void setLinkman(String linkman) {
         this.linkman = linkman;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getRemark() {

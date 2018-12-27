@@ -11,12 +11,15 @@ import com.shashiwang.shashiapp.activity.LoginActivity;
 import com.shashiwang.shashiapp.adapter.PagerAdapter;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
+import com.shashiwang.shashiapp.constant.MessageType;
 import com.shashiwang.shashiapp.fragment.MessageListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
+
+import static com.shashiwang.shashiapp.constant.ApiConstant.*;
 
 public class PostListActivity extends BaseTopBarActivity {
     private static final String TAG = "PostListActivity";
@@ -43,16 +46,16 @@ public class PostListActivity extends BaseTopBarActivity {
         setTitle("我的发布");
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(MessageListFragment.newInstance(""));
-        fragmentList.add(MessageListFragment.newInstance(""));
-        fragmentList.add(MessageListFragment.newInstance(""));
-        fragmentList.add(MessageListFragment.newInstance(""));
-        fragmentList.add(MessageListFragment.newInstance(""));
+        fragmentList.add(MessageListFragment.newInstance(MessageType.FACTORY));
+        fragmentList.add(MessageListFragment.newInstance(MessageType.STATION));
+        fragmentList.add(MessageListFragment.newInstance(MessageType.DRIVER));
+        fragmentList.add(MessageListFragment.newInstance(MessageType.FREIGHT));
+        fragmentList.add(MessageListFragment.newInstance(MessageType.CAR));
 
         String []ar ={"石料厂","搅拌站","司机","运费","车辆"};
         viewPager.setAdapter(new PagerAdapter<>(getSupportFragmentManager(), fragmentList, ar));
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setOverScrollMode(viewPager.OVER_SCROLL_NEVER);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(5);
     }
 }

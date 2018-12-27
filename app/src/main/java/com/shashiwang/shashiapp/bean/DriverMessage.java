@@ -1,25 +1,15 @@
 package com.shashiwang.shashiapp.bean;
 
-public class DriverMessage {
+public class DriverMessage extends BaseMessage{
 
-    private int id;
     private int user_id;
     private int salary;
     private String job_desc;
     private int work_year;
     private String work_address;
     private String linkman;
-    private String phone;
     private String created_at;
     private String updated_at;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getUser_id() {
         return user_id;
@@ -67,14 +57,6 @@ public class DriverMessage {
 
     public void setLinkman(String linkman) {
         this.linkman = linkman;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getCreated_at() {

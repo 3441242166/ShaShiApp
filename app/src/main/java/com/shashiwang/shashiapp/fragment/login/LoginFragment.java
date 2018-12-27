@@ -1,5 +1,6 @@
 package com.shashiwang.shashiapp.fragment.login;
 
+import android.os.Bundle;
 import android.text.InputType;
 import android.widget.Button;
 import android.widget.TextView;
@@ -42,7 +43,7 @@ public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements I
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
 
         tvRegister.setOnClickListener(view -> {
             Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);

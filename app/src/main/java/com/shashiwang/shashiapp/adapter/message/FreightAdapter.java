@@ -25,7 +25,19 @@ public class FreightAdapter extends BaseQuickAdapter<FreightMessage,BaseViewHold
     protected void convert(BaseViewHolder helper, FreightMessage item) {
         helper.addOnClickListener(R.id.iv_phone);
 
+        helper.setText(R.id.tv_title,StringUtil.getFirstChinese(item.getLinkman())+"先生");
+        helper.setText(R.id.tv_label,DateUtil.getDifferentString(item.getCreated_at()));
 
+        helper.setText(R.id.tv_name,item.getCargo_name());
+        helper.setText(R.id.tv_price,""+item.getPrice());
+
+        helper.setText(R.id.tv_start,item.getStart_location());
+        helper.setText(R.id.tv_end,item.getEnd_location());
+
+        helper.setText(R.id.tv_car,item.getCar_category());
+        helper.setText(R.id.tv_distance,""+item.getDistance());
+
+        helper.setText(R.id.tv_content,item.getRemark());
     }
 
 }

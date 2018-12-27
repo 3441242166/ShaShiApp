@@ -11,6 +11,7 @@ public class MessageBean<T> implements MultiItemEntity {
 
     public MessageBean(int type, T bean){
         this.type = type;
+        this.bean = bean;
     }
 
     @Override

@@ -1,6 +1,7 @@
 package com.shashiwang.shashiapp.fragment.setting;
 
 
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +38,7 @@ public class SettingFragment extends LazyLoadFragment {
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
 
         broadcast.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_settingBroadcastFragment));
         about.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_aboutFragment));

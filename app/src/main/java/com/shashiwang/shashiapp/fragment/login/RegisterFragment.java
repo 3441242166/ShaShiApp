@@ -1,6 +1,7 @@
 package com.shashiwang.shashiapp.fragment.login;
 
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.text.InputType;
 import android.util.Log;
 import android.widget.Button;
@@ -45,7 +46,7 @@ public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implem
     }
 
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         initEvent();
     }
 
