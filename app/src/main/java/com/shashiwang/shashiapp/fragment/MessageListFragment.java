@@ -9,9 +9,16 @@ import android.support.v7.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.activity.message.CarMessageActivity;
+import com.shashiwang.shashiapp.activity.message.DriverMessageActivity;
+import com.shashiwang.shashiapp.activity.message.FactoryMessageActivity;
+import com.shashiwang.shashiapp.activity.message.FreightMessageActivity;
+import com.shashiwang.shashiapp.activity.message.StationMessageActivity;
 import com.shashiwang.shashiapp.adapter.MessageAdapter;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
 import com.shashiwang.shashiapp.bean.BaseMessage;
+import com.shashiwang.shashiapp.bean.MessageBean;
+import com.shashiwang.shashiapp.constant.MessageType;
 import com.shashiwang.shashiapp.presenter.PostListPresenter;
 import com.shashiwang.shashiapp.view.IPostListView;
 
@@ -20,8 +27,10 @@ import java.util.List;
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
 
-public class MessageListFragmentI extends LazyLoadFragment<PostListPresenter> implements IPostListView {
-    private static final String TAG = "MessageListFragmentI";
+import static com.shashiwang.shashiapp.constant.Constant.ID;
+
+public class MessageListFragment extends LazyLoadFragment<PostListPresenter> implements IPostListView {
+    private static final String TAG = "MessageListFragment";
 
     @BindView(R.id.rv_list)
     RecyclerView recyclerView;
@@ -29,14 +38,14 @@ public class MessageListFragmentI extends LazyLoadFragment<PostListPresenter> im
     SwipeRefreshLayout swipeRefreshLayout;
 
     private MessageAdapter adapter;
-    private List<BaseMessage> list;
+    private List<MessageBean> list;
 
     private int type;
 
-    public static MessageListFragmentI newInstance(int type) {
+    public static MessageListFragment newInstance(int type) {
         Bundle args = new Bundle();
         args.putInt("type", type);
-        MessageListFragmentI fragment = new MessageListFragmentI();
+        MessageListFragment fragment = new MessageListFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -77,20 +86,44 @@ public class MessageListFragmentI extends LazyLoadFragment<PostListPresenter> im
         });
 
         adapter.setOnItemClickListener((adapter, view, position) -> {
-            //Intent intent = new Intent(CarListActivity.this,CarMessageActivity.class);
-            //intent.putExtra(ID,list.get(position).getId());
-            //startActivity(intent);
+            startActivity(position);
         });
 
         adapter.setOnItemChildClickListener((adapter, view, position) -> {
             if(view.getId() == R.id.iv_phone){
                 Intent intent = new Intent(Intent.ACTION_DIAL);
-                Uri data = Uri.parse("tel:" + list.get(position).getPhone());
+                Uri data = Uri.parse("tel:" + list.get(position).getBean().getPhone());
                 intent.setData(data);
                 startActivity(intent);
             }
         });
     }
+
+    private void startActivity(int position){
+        Intent intent = new Intent();
+
+        switch (type){
+            case MessageType.FACTORY:
+                intent = new Intent(getContext(),FactoryMessageActivity.class);
+                break;
+            case MessageType.STATION:
+                intent = new Intent(getContext(),StationMessageActivity.class);
+                break;
+            case MessageType.CAR:
+                intent = new Intent(getContext(),CarMessageActivity.class);
+                break;
+            case MessageType.FREIGHT:
+                intent = new Intent(getContext(),FreightMessageActivity.class);
+                break;
+            case MessageType.DRIVER:
+                intent = new Intent(getContext(),DriverMessageActivity.class);
+                break;
+        }
+
+        intent.putExtra(ID,list.get(position).getBean().getId());
+        startActivity(intent);
+    }
+
 
     @Override
     public void showProgress() {

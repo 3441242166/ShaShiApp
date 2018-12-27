@@ -10,7 +10,7 @@ import com.shashiwang.shashiapp.adapter.PagerAdapter;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.constant.MessageType;
-import com.shashiwang.shashiapp.fragment.MessageListFragmentI;
+import com.shashiwang.shashiapp.fragment.MessageListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,11 +42,11 @@ public class PostListActivity extends BaseTopBarActivity {
         setTitle("我的发布");
 
         fragmentList = new ArrayList<>();
-        fragmentList.add(MessageListFragmentI.newInstance(MessageType.FACTORY));
-        fragmentList.add(MessageListFragmentI.newInstance(MessageType.STATION));
-        fragmentList.add(MessageListFragmentI.newInstance(MessageType.DRIVER));
-        fragmentList.add(MessageListFragmentI.newInstance(MessageType.FREIGHT));
-        fragmentList.add(MessageListFragmentI.newInstance(MessageType.CAR));
+        fragmentList.add(MessageListFragment.newInstance(MessageType.FACTORY));
+        fragmentList.add(MessageListFragment.newInstance(MessageType.STATION));
+        fragmentList.add(MessageListFragment.newInstance(MessageType.DRIVER));
+        fragmentList.add(MessageListFragment.newInstance(MessageType.FREIGHT));
+        fragmentList.add(MessageListFragment.newInstance(MessageType.CAR));
 
         String []ar ={"石料厂","搅拌站","司机","运费","车辆"};
         viewPager.setAdapter(new PagerAdapter<>(getSupportFragmentManager(), fragmentList, ar));
