@@ -24,7 +24,9 @@ import com.shashiwang.shashiapp.view.IRegisterView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_IMAGECODE;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_REGISTER;
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_SMSCODE;
 
 
 public class RegisterPresenter extends BasePresenter<IRegisterView> {
@@ -57,7 +59,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
     public void getImageCode(){
 
         RxRetrofitClient.builder()
-                .url(URL_REGISTER)
+                .url(URL_IMAGECODE)
                 .build()
                 .get()
                 .subscribeOn(Schedulers.newThread())
@@ -91,7 +93,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
         }
 
         RxRetrofitClient.builder()
-                .url("/api/user/register")
+                .url(URL_REGISTER)
                 .params("phone",phone)
                 .params("password",password)
                 .params("c_password",password)
@@ -133,7 +135,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
 
 
         RxRetrofitClient.builder()
-                .url("/api/user/send/sms")
+                .url(URL_SMSCODE)
                 .params("phone",phone)
                 .params("captcha",imgCode)
                 .params("ckey",imageCode.key)

@@ -128,14 +128,8 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
 
 
     @Override
-    public void loadDataSuccess(List<BannerBean> data) {
-        List<Integer> imgUrls = new ArrayList<>(data.size());
-        for(BannerBean bean :data){
-            bean.setImgUrl(R.drawable.banner_one);
-            imgUrls.add(bean.getImgId());
-        }
-
-        banner.setImages(imgUrls);
+    public void loadDataSuccess(List<String> data) {
+        banner.setImages(data);
 
         banner.start();
     }

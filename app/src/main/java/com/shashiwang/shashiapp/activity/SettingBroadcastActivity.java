@@ -25,6 +25,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CAR;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CONFIG;
+import static com.shashiwang.shashiapp.constant.MessageType.*;
 
 public class SettingBroadcastActivity extends BaseTopBarActivity {
     private static final String TAG = "BroadcastActivity";
@@ -58,7 +59,16 @@ public class SettingBroadcastActivity extends BaseTopBarActivity {
     protected void initFrame(Bundle savedInstanceState) {
         setTitle("消息推送设置");
 
+        initView();
+
         swAll.setOnSwitchListener(is -> {
+            if(is){
+                scCar.setChecked(true);
+                scDriver.setChecked(true);
+                scFright.setChecked(true);
+                scFactory.setChecked(true);
+                scStation.setChecked(true);
+            }
             scCar.setCheckable(!is);
             scDriver.setCheckable(!is);
             scFright.setCheckable(!is);
@@ -69,17 +79,46 @@ public class SettingBroadcastActivity extends BaseTopBarActivity {
         setTopRightButton(R.drawable.icon_certain, this::saveConfig);
     }
 
+    private void initView() {
+
+    }
+
     @SuppressLint("CheckResult")
     private void saveConfig(){
+        StringBuilder category = new StringBuilder();
+        if(scCar.isChoose()){
+            category.append(",");
+            category.append(CAR);
+        }
+        if(scDriver.isChoose()){
+            category.append(",");
+            category.append(DRIVER);
+        }
+        if(scFright.isChoose()){
+            category.append(",");
+            category.append(FREIGHT);
+        }
+        if(scFactory.isChoose()){
+            category.append(",");
+            category.append(FACTORY);
+        }
+        if(scStation.isChoose()){
+            category.append(",");
+            category.append(STATION);
+        }
+        if(category.indexOf(",") == 0){
+            category.replace(0,1,"");
+        }
 
-        String category = "";
-        String isVoice = "";
+        Log.i(TAG, "saveConfig: " + category.toString());
+
+        int isVoice = swSpeak.isChecked()?1:0;
 
         RxRetrofitClient.builder()
                 .url(URL_CONFIG)
                 .header(new TokenInterceptor())
-                .params("category","1,2,3")
-                .params("is_voice",1)
+                .params("category",category.toString())
+                .params("is_voice",isVoice)
                 .build()
                 .post()
                 .subscribeOn(Schedulers.newThread())

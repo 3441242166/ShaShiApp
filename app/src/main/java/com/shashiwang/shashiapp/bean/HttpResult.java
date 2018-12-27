@@ -10,8 +10,6 @@ public class HttpResult<T> {
 
     private String message;
 
-    private int code;
-
     private T data;
 
     public boolean isSuccess() {

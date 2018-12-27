@@ -6,7 +6,7 @@ import com.shashiwang.shashiapp.bean.BannerBean;
 
 import java.util.List;
 
-public interface IMainFragmentView extends IBaseView<List<BannerBean>> {
+public interface IMainFragmentView extends IBaseView<List<String>> {
 
 
 }

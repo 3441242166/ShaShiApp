@@ -55,12 +55,12 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
 
     private TextAdapter adapter;
 
-    private static final String[] TITLE = {"我的发布", "推荐有奖",
-            "发布信息","消息推送设置"};
+    private static final String[] TITLE = {"发布信息", "我的发布",
+            "推送设置","反馈意见"};
     private static final int[] IMG = {R.drawable.ic_my_1,R.drawable.ic_my_2,
             R.drawable.ic_my_4, R.drawable.ic_my_6};
-    private static final Class[] CLASSES = {PostListActivity.class,FeedbackActivity.class,
-            FeedbackActivity.class, SettingBroadcastActivity.class};
+    private static final Class[] CLASSES = {null,PostListActivity.class,
+            SettingBroadcastActivity.class, FeedbackActivity.class};
 
     @Override
     protected MyFragmentPresenter setPresenter() {
@@ -80,7 +80,7 @@ public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements
 
     private void initEvent() {
         adapter.setOnItemClickListener((adapter, view, position) -> {
-            if(position == 2){
+            if(position == 0){
                 ((MainActivity)getActivity()).openMorePopupWindow();
                 return;
             }
