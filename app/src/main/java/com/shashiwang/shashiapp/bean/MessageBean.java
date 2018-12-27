@@ -4,12 +4,12 @@ import com.chad.library.adapter.base.entity.MultiItemEntity;
 
 import java.util.Map;
 
-public class MessageBean<T> implements MultiItemEntity {
+public class MessageBean implements MultiItemEntity {
 
     private int type;
-    private T bean;
+    private BaseMessage bean;
 
-    public MessageBean(int type, T bean){
+    public MessageBean(int type, BaseMessage bean){
         this.type = type;
         this.bean = bean;
     }
@@ -19,11 +19,11 @@ public class MessageBean<T> implements MultiItemEntity {
         return type;
     }
 
-    public T getBean() {
+    public BaseMessage getBean() {
         return bean;
     }
 
-    public void setBean(T bean) {
+    public void setBean(BaseMessage bean) {
         this.bean = bean;
     }
 }

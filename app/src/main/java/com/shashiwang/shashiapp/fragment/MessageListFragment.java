@@ -77,7 +77,7 @@ public class MessageListFragment extends LazyLoadFragment<PostListPresenter> imp
 
     @Override
     protected int setContentView() {
-        return R.layout.activity_message_list;
+        return R.layout.activity_list;
     }
 
     @Override

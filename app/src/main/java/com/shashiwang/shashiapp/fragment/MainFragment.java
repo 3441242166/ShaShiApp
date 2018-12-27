@@ -87,27 +87,37 @@ public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implem
 
     private void initEvent() {
         btFactory.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),FactoryListActivity.class);
+            Intent intent = new Intent(getContext(),MessageListActivity.class);
+            intent.putExtra(TYPE,FACTORY);
+            intent.putExtra(TITLE,getContext().getString(R.string.name_factory));
             startActivity(intent);
         });
 
         btStation.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),StationListActivity.class);
+            Intent intent = new Intent(getContext(),MessageListActivity.class);
+            intent.putExtra(TYPE,STATION);
+            intent.putExtra(TITLE,getContext().getString(R.string.name_station));
             startActivity(intent);
         });
 
         btFreight.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),FreightListActivity.class);
+            Intent intent = new Intent(getContext(),MessageListActivity.class);
+            intent.putExtra(TYPE,FREIGHT);
+            intent.putExtra(TITLE,getContext().getString(R.string.name_freight));
             startActivity(intent);
         });
 
         btDriver.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),DriverListActivity.class);
+            Intent intent = new Intent(getContext(),MessageListActivity.class);
+            intent.putExtra(TYPE,DRIVER);
+            intent.putExtra(TITLE,getContext().getString(R.string.name_driver));
             startActivity(intent);
         });
 
         btCar.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),CarListActivity.class);
+            Intent intent = new Intent(getContext(),MessageListActivity.class);
+            intent.putExtra(TYPE,CAR);
+            intent.putExtra(TITLE,getContext().getString(R.string.name_car));
             startActivity(intent);
         });
 

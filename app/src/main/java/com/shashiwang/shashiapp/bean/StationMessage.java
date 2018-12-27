@@ -1,27 +1,17 @@
 package com.shashiwang.shashiapp.bean;
 
-public class StationMessage {
+public class StationMessage extends BaseMessage{
 
-    private int id;
     private int user_id;
     private String name;
     private String category_price;
     private String linkman;
-    private String phone;
     private String location_lat;
     private String location_lng;
     private String location;
     private String remark;
     private String created_at;
     private String updated_at;
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public int getUser_id() {
         return user_id;
@@ -53,14 +43,6 @@ public class StationMessage {
 
     public void setLinkman(String linkman) {
         this.linkman = linkman;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
     }
 
     public String getLocation_lat() {
