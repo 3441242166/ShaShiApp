@@ -18,11 +18,10 @@ import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.activity.SettingActivity;
 import com.shashiwang.shashiapp.activity.SettingBroadcastActivity;
 import com.shashiwang.shashiapp.activity.UserMessageActivity;
-import com.shashiwang.shashiapp.activity.post.PostListActivity;
+import com.shashiwang.shashiapp.activity.PostListActivity;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
 import com.shashiwang.shashiapp.activity.LoginActivity;
-import com.shashiwang.shashiapp.base.LazyLoadFragment;
-import com.shashiwang.shashiapp.constant.Constant;
+import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.presenter.MyFragmentPresenter;
 import com.shashiwang.shashiapp.util.DividerItemDecoration;
 import com.shashiwang.shashiapp.view.IMyFragmentView;
@@ -39,7 +38,7 @@ import static com.shashiwang.shashiapp.constant.Constant.REQUEST_SETTING;
 import static com.shashiwang.shashiapp.constant.Constant.REQUEST_USER_MESSAGE;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 
-public class MyFragment extends LazyLoadFragment<MyFragmentPresenter> implements IMyFragmentView{
+public class MyFragment extends BaseFragment<MyFragmentPresenter> implements IMyFragmentView{
     private static final String TAG = "MyFragment";
 
 

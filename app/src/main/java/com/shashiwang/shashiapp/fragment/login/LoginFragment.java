@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.base.LazyLoadFragment;
+import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.customizeview.LoginEditText;
 import com.shashiwang.shashiapp.presenter.LoginPresenter;
 import com.shashiwang.shashiapp.view.ILoginView;
@@ -17,7 +17,7 @@ import es.dmoral.toasty.Toasty;
 
 import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
 
-public class LoginFragment extends LazyLoadFragment<LoginPresenter> implements ILoginView {
+public class LoginFragment extends BaseFragment<LoginPresenter> implements ILoginView {
 
     @BindView(R.id.bt_login)
     Button btLogin;

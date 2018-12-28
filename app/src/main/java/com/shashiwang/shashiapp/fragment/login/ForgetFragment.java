@@ -3,10 +3,10 @@ package com.shashiwang.shashiapp.fragment.login;
 import android.os.Bundle;
 
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.base.BasePresenter;
-import com.shashiwang.shashiapp.base.LazyLoadFragment;
 
-public class ForgetFragment extends LazyLoadFragment {
+public class ForgetFragment extends BaseFragment {
     @Override
     protected BasePresenter setPresenter() {
         return null;

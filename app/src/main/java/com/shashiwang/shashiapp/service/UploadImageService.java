@@ -125,10 +125,16 @@ public class UploadImageService extends IntentService {
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
+    /**
+     * 1.图片压缩
+     * 2.图片上传
+     * 3.表单上传
+     * @param param1
+     * @param photos
+     */
     private void handleActionPhotos(String param1, List<String> photos) {
 
         //通知栏显示图片上传进度
-
 
         Luban.with(this)
                 .load(photos)

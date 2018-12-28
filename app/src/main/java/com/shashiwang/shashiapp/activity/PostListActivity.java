@@ -1,4 +1,4 @@
-package com.shashiwang.shashiapp.activity.post;
+package com.shashiwang.shashiapp.activity;
 
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;

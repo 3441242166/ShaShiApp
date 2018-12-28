@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.Toast;
 
 import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
@@ -16,8 +15,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
-import com.shashiwang.shashiapp.base.LazyLoadFragment;
-import com.shashiwang.shashiapp.bean.FreightMessage;
+import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.customizeview.SettingNormalLayout;
@@ -28,12 +26,11 @@ import cn.jpush.android.api.JPushInterface;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CAR;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_LOGOUT;
 import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 
-public class SettingFragment extends LazyLoadFragment {
+public class SettingFragment extends BaseFragment {
     private static final String TAG = "SettingFragment";
 
     @BindView(R.id.item_broadcast)

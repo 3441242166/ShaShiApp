@@ -5,12 +5,12 @@ import android.os.Bundle;
 
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
-import com.shashiwang.shashiapp.base.LazyLoadFragment;
+import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.customizeview.SettingSwitchLayout;
 
 import butterknife.BindView;
 
-public class SettingBroadcastFragment  extends LazyLoadFragment {
+public class SettingBroadcastFragment  extends BaseFragment {
     private static final String TAG = "SettingBroadcastFragment";
 
     @BindView(R.id.sl_all)

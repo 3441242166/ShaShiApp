@@ -10,6 +10,7 @@ import com.example.config.Config;
 import com.example.net.interceptors.LoggingInterceptor;
 import com.example.util.SharedPreferencesHelper;
 import com.facebook.stetho.Stetho;
+import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.util.LatLngListener;
 
 import cn.jpush.android.api.JPushInterface;

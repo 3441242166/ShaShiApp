@@ -125,7 +125,7 @@
         <activity android:name=".activity.message.CarMessageActivity" />
         <activity android:name=".activity.message.DriverMessageActivity" />
         <activity android:name=".activity.message.FreightMessageActivity" />
-        <activity android:name=".activity.post.PostListActivity" />
+        <activity android:name=".activity.PostListActivity" />
         <activity android:name=".activity.UserMessageActivity" />
         <activity android:name=".activity.SettingBroadcastActivity" />
         <activity android:name=".activity.CustomerActivity" />

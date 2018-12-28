@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.base.LazyLoadFragment;
+import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.customizeview.LoginEditText;
 import com.shashiwang.shashiapp.presenter.RegisterPresenter;
 import com.shashiwang.shashiapp.view.IRegisterView;
@@ -18,7 +18,7 @@ import es.dmoral.toasty.Toasty;
 
 import static androidx.navigation.Navigation.findNavController;
 
-public class RegisterFragment extends LazyLoadFragment<RegisterPresenter> implements IRegisterView {
+public class RegisterFragment extends BaseFragment<RegisterPresenter> implements IRegisterView {
 
     @BindView(R.id.ev_phone)
     LoginEditText evPhone;

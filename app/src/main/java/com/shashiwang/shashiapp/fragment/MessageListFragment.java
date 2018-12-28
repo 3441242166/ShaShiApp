@@ -15,8 +15,7 @@ import com.shashiwang.shashiapp.activity.message.FactoryMessageActivity;
 import com.shashiwang.shashiapp.activity.message.FreightMessageActivity;
 import com.shashiwang.shashiapp.activity.message.StationMessageActivity;
 import com.shashiwang.shashiapp.adapter.MessageAdapter;
-import com.shashiwang.shashiapp.base.LazyLoadFragment;
-import com.shashiwang.shashiapp.bean.BaseMessage;
+import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.bean.MessageBean;
 import com.shashiwang.shashiapp.constant.MessageType;
 import com.shashiwang.shashiapp.presenter.PostListPresenter;
@@ -29,7 +28,7 @@ import es.dmoral.toasty.Toasty;
 
 import static com.shashiwang.shashiapp.constant.Constant.ID;
 
-public class MessageListFragment extends LazyLoadFragment<PostListPresenter> implements IPostListView {
+public class MessageListFragment extends BaseFragment<PostListPresenter> implements IPostListView {
     private static final String TAG = "MessageListFragment";
 
     @BindView(R.id.rv_list)

@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.CustomerActivity;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
-import com.shashiwang.shashiapp.base.LazyLoadFragment;
+import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.presenter.MainFragmentPresenter;
 import com.shashiwang.shashiapp.util.ImageLoader;
 import com.shashiwang.shashiapp.view.IMainFragmentView;
@@ -26,7 +26,7 @@ import static com.shashiwang.shashiapp.constant.Constant.TITLE;
 import static com.shashiwang.shashiapp.constant.Constant.TYPE;
 import static com.shashiwang.shashiapp.constant.MessageType.*;
 
-public class MainFragment extends LazyLoadFragment<MainFragmentPresenter> implements IMainFragmentView {
+public class MainFragment extends BaseFragment<MainFragmentPresenter> implements IMainFragmentView {
     private static final String TAG = "MainFragment";
 
     @BindView(R.id.fg_main_banner)
