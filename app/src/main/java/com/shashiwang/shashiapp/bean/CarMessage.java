@@ -1,5 +1,7 @@
 package com.shashiwang.shashiapp.bean;
 
+import java.util.List;
+
 public class CarMessage extends BaseMessage{
 
     private String brand;
@@ -7,7 +9,7 @@ public class CarMessage extends BaseMessage{
     private String factory_year;
     private int mileage;
     private int price;
-    private String image;
+    private List<String> image;
     private String linkman;
     private String remark;
     private String created_at;
@@ -54,11 +56,11 @@ public class CarMessage extends BaseMessage{
         this.price = price;
     }
 
-    public String getImage() {
+    public List<String> getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(List<String> image) {
         this.image = image;
     }
 

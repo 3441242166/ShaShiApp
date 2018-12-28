@@ -103,6 +103,8 @@ dependencies {
     implementation 'com.gelitenight.waveview:waveview:1.0.0'
     // EditText
     implementation 'com.rengwuxian.materialedittext:library:2.1.4'
+    //图片压缩
+    implementation 'top.zibin:Luban:1.1.8'
     // 圆形imageview
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation files('libs/com.baidu.tts_2.3.2.20180713_6101c2a.jar')

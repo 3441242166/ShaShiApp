@@ -1,38 +1,57 @@
 package com.shashiwang.shashiapp.activity.post;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.adapter.PhotoAdapter;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageResult;
+import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.customizeview.PostChooseLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
 import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
+import com.shashiwang.shashiapp.presenter.PostCarPresenter;
 import com.shashiwang.shashiapp.util.FileUtil;
+import com.shashiwang.shashiapp.view.IPostCarView;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import es.dmoral.toasty.Toasty;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CAR;
+import static com.shashiwang.shashiapp.util.FileUtil.getRealPathFromURI;
+import static com.shashiwang.shashiapp.util.FileUtil.getRealPathFromUri;
 
-public class PostCarActivity extends BaseTopBarActivity {
+public class PostCarActivity extends BaseTopBarActivity<PostCarPresenter> implements IPostCarView {
     private static final String TAG = "PostCarActivity";
 
     @BindView(R.id.ed_brand)
@@ -51,14 +70,18 @@ public class PostCarActivity extends BaseTopBarActivity {
     PostEditLayout edCreateYear;
     @BindView(R.id.ed_message)
     PostEditPlusLayout edMessage;
+    @BindView(R.id.rv_photos)
+    RecyclerView rvPhotos;
     @BindView(R.id.bt_send)
     Button btSend;
 
     private Map<String,Integer> data;
+    private PhotoAdapter adapter;
+    private LinkedList<PhotoAdapter.PhotoBean> photoList;
 
     @Override
-    protected BasePresenter setPresenter() {
-        return null;
+    protected PostCarPresenter setPresenter() {
+        return new PostCarPresenter(this,this);
     }
 
     @Override
@@ -70,7 +93,18 @@ public class PostCarActivity extends BaseTopBarActivity {
     protected void initFrame(Bundle savedInstanceState) {
         setTitle("出售车辆");
         data = FileUtil.getJsonFormAssets(this,"carType.json");
+        initView();
         initEvent();
+    }
+
+    private void initView() {
+        adapter = new PhotoAdapter(null,true);
+        rvPhotos.setLayoutManager(new GridLayoutManager(this,3));
+        rvPhotos.setAdapter(adapter);
+        photoList = new LinkedList<>();
+        photoList.add(new PhotoAdapter.PhotoBean("",PhotoAdapter.PhotoBean.ADD_PHOTO));
+        adapter.setNewData(photoList);
+
     }
 
     private void initEvent() {
@@ -85,53 +119,76 @@ public class PostCarActivity extends BaseTopBarActivity {
             dialog.show();
         });
 
+        adapter.setOnItemChildClickListener((adapter, view, position) -> {
+            switch (view.getId()){
+                case R.id.iv_delete:
+                    if(photoList.getLast().getItemType() != PhotoAdapter.PhotoBean.ADD_PHOTO){
+                        photoList.addLast(new PhotoAdapter.PhotoBean("",PhotoAdapter.PhotoBean.ADD_PHOTO));
+                    }
+                    photoList.remove(position);
+                    adapter.notifyDataSetChanged();
+                    break;
+                case R.id.iv_add:
+                    Intent albumIntent = new Intent(Intent.ACTION_PICK);
+                    albumIntent.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(albumIntent, Constant.REQUEST_GALLERY);
+                    break;
+            }
+        });
+
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+
+        });
+
         btSend.setOnClickListener(view -> postData());
     }
 
-    @SuppressLint("CheckResult")
     private void postData() {
-
         int carType = data.get(chType.getContantText());
+        presenter.psotData(edBrand.getContantText(),carType,edCreateYear.getContantText(),edMileage.getContantText(),edPrice.getContantText()
+                ,edPeople.getContantText(),edPhone.getContantText(),edMessage.getContantText(),photoList);
+    }
 
-        if(checkData()){
-            RxRetrofitClient.builder()
-                    .header(new TokenInterceptor())
-                    .url(URL_CAR)
-                    .params("brand",edBrand.getContantText())
-                    .params("category",carType)
-                    .params("factory_year",edCreateYear.getContantText())
-                    .params("mileage",edMileage.getContantText())
-                    .params("price",edPrice.getContantText())
-                    .params("linkman",edPeople.getContantText())
-                    .params("phone",edPhone.getContantText())
-                    .params("remark",edMessage.getContantText())
-                    .build()
-                    .post()
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(s -> {
-                        Log.i(TAG, "getList: success " + s);
-                        HttpResult<MessageResult<FreightMessage>> result = new Gson().fromJson(s,new TypeToken<HttpResult<MessageResult<FreightMessage>>>(){}.getType());
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == Constant.REQUEST_GALLERY){
+            if (data == null) {
+                return;
+            } else {
+                //获取到用户所选图片的Uri
+                Uri uri = data.getData();
+                String path = getRealPathFromURI(this,uri);
+                Log.i(TAG, "onActivityResult: path = " + path);
+                photoList.addFirst(new PhotoAdapter.PhotoBean(path));
 
-                        if(result.isSuccess()){
-                            Toast.makeText(PostCarActivity.this,"发布成功",Toast.LENGTH_SHORT).show();
-                            finish();
-                        }else {
-                            Toast.makeText(PostCarActivity.this,result.getMessage(),Toast.LENGTH_SHORT).show();
-                        }
+                if(photoList.size() == 7){
+                    photoList.removeLast();
+                }
 
-                    }, throwable -> {
-                        Log.i(TAG, "getList: error = " + throwable);
-                        Toast.makeText(PostCarActivity.this,throwable.getMessage(),Toast.LENGTH_SHORT).show();
-                    });
+                adapter.notifyDataSetChanged();
+                presenter.onSelectImage(uri);
+            }
         }
+    }
+
+    @Override
+    public void showProgress() {
 
     }
 
-    private boolean checkData() {
+    @Override
+    public void dismissProgress() {
 
-        return true;
     }
 
+    @Override
+    public void loadDataSuccess(Object data) {
 
+    }
+
+    @Override
+    public void errorMessage(String throwable) {
+
+    }
 }

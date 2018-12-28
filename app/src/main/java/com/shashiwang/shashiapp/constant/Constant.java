@@ -23,6 +23,7 @@ public class Constant {
     public static final int REQUEST_LOCATION = 2;
     public static final int REQUEST_START_LOCATION = 2;
     public static final int REQUEST_END_LOCATION = 3;
+    public static final int REQUEST_GALLERY = 4;
 
     public static final int REQUEST_USER_MESSAGE= 4;
     public static final int REQUEST_PERMISSION= 5;

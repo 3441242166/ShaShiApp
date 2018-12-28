@@ -22,16 +22,19 @@ public class RxRetrofitClient {
     private final ArrayList<Interceptor> INTERCEPTORS;
     private final RequestBody BODY;
     private final File FILE;
+    MultipartBody.Part PART;
 
     RxRetrofitClient(String url, Map<String, Object> params,
                      ArrayList<Interceptor> interceptors,
                      RequestBody body,
-                     File file) {
+                     File file,
+                     MultipartBody.Part part) {
         URL = url;
         INTERCEPTORS = interceptors;
         PARAMS = params;
         BODY = body;
         FILE = file;
+        PART = part;
     }
 
     public static RxRetrofitClientBuilder builder(){
@@ -63,9 +66,13 @@ public class RxRetrofitClient {
                 observable = service.delete(URL,PARAMS);
                 break;
             case UPLOAD:
-               final RequestBody requestBody = RequestBody.create(MediaType.parse(MultipartBody.FORM.toString()),FILE);
-               final MultipartBody.Part body = MultipartBody.Part.createFormData("file",FILE.getName(),requestBody);
-                observable = new RetrofitCreator().getRxRetrofitService().upload(URL, body);
+                if(PART == null){
+                    final RequestBody requestBody = RequestBody.create(MediaType.parse(MultipartBody.FORM.toString()),FILE);
+                    final MultipartBody.Part body = MultipartBody.Part.createFormData("file",FILE.getName(),requestBody);
+                    observable =  service.upload(URL, body);
+                }else {
+                    observable =  service.upload(URL, PART);
+                }
                break;
         }
 

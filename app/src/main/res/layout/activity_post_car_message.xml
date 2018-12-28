@@ -77,6 +77,22 @@
 
         <View style="@style/view_line" />
 
+        <TextView
+            style="@style/text_post_title"
+            android:text = "图片选择"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/rv_photos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <View style="@style/view_line" />
+
         <com.shashiwang.shashiapp.customizeview.PostEditPlusLayout
             android:id="@+id/ed_message"
             android:layout_width="match_parent"

@@ -127,13 +127,12 @@
         <activity android:name=".activity.message.FreightMessageActivity" />
         <activity android:name=".activity.post.PostListActivity" />
         <activity android:name=".activity.UserMessageActivity" />
+        <activity android:name=".activity.SettingBroadcastActivity" />
+        <activity android:name=".activity.CustomerActivity" />
 
         <service
-            android:name=".service.TtsService"
-            android:exported="false" />
-
-        <activity android:name=".activity.SettingBroadcastActivity" />
-        <activity android:name=".activity.CustomerActivity"></activity>
+            android:name=".service.UploadImageService"
+            android:exported="false"></service>
     </application>
 
 </manifest>

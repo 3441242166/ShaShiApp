@@ -4,6 +4,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
@@ -12,6 +14,7 @@ import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.adapter.PhotoAdapter;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
 import com.shashiwang.shashiapp.bean.CarMessage;
@@ -19,6 +22,10 @@ import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.customizeview.MessageLayout;
 import com.shashiwang.shashiapp.util.DateUtil;
 import com.shashiwang.shashiapp.util.StringUtil;
+
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 import butterknife.BindView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -49,10 +56,14 @@ public class CarMessageActivity extends BaseTopBarActivity {
     MessageLayout tvType;
     @BindView(R.id.tv_years)
     MessageLayout tvYears;
+    @BindView(R.id.rv_car)
+    RecyclerView rvCars;
 
     @BindView(R.id.bt_phone)
     Button btPhone;
 
+    private PhotoAdapter adapter;
+    private LinkedList<PhotoAdapter.PhotoBean> photoList;
 
     private int id = -1;
     private CarMessage message;
@@ -69,10 +80,17 @@ public class CarMessageActivity extends BaseTopBarActivity {
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
-        setTitle("详情");
         id = getIntent().getIntExtra(ID,-1);
+        initView();
         initEvent();
         getMessage();
+    }
+
+    private void initView() {
+        setTitle("详情");
+        adapter = new PhotoAdapter(null,false);
+        rvCars.setLayoutManager(new GridLayoutManager(this,3));
+        rvCars.setAdapter(adapter);
     }
 
     private void initEvent() {
@@ -121,6 +139,13 @@ public class CarMessageActivity extends BaseTopBarActivity {
         tvYears.setContantText(message.getFactory_year());
 
         tvRemark.setText(message.getRemark());
+
+        List<PhotoAdapter.PhotoBean> list = new ArrayList<>(message.getImage().size());
+
+        for(String str:message.getImage()){
+            list.add(new PhotoAdapter.PhotoBean(str));
+        }
+        adapter.setNewData(list);
     }
 
 }

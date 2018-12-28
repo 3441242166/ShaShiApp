@@ -66,5 +66,4 @@ public class RetrofitCreator {
         return createRetrofit().create(RxRetrofitService.class);
     }
 
-
 }

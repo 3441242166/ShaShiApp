@@ -78,6 +78,10 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
                         SharedPreferencesHelper.put(REGISTRATION_ID,registrationId);
                         putRegistrationId(registrationId);
 
+                        if(JPushInterface.isPushStopped(mContext)){
+                            JPushInterface.resumePush(mContext);
+                        }
+
                         mView.loadDataSuccess("登录成功");
                     }else {
                         Log.i(TAG, "login: 登录失败 "+result.getMessage());

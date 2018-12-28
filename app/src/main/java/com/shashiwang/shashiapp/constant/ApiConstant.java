@@ -11,6 +11,7 @@ public class ApiConstant {
     public static final String URL_DRIVER = "api/recruit/driver/";
 
     public static final String URL_LOGIN = "api/user/login/";
+    public static final String URL_LOGOUT = "api/user/logout/";
     public static final String URL_IMAGECODE = "api/user/captcha/";
     public static final String URL_REGISTER = "api/user/register/";
     public static final String URL_SMSCODE = "api/user/send/sms/";

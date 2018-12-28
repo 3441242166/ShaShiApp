@@ -1,24 +1,40 @@
 package com.shashiwang.shashiapp.fragment.setting;
 
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.example.net.interceptors.TokenInterceptor;
+import com.example.net.rx.RxRetrofitClient;
 import com.example.util.SharedPreferencesHelper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.LazyLoadFragment;
+import com.shashiwang.shashiapp.bean.FreightMessage;
+import com.shashiwang.shashiapp.bean.HttpResult;
+import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.customizeview.SettingNormalLayout;
 
 import androidx.navigation.Navigation;
 import butterknife.BindView;
+import cn.jpush.android.api.JPushInterface;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CAR;
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_LOGOUT;
 import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 
 public class SettingFragment extends LazyLoadFragment {
+    private static final String TAG = "SettingFragment";
 
     @BindView(R.id.item_broadcast)
     SettingNormalLayout broadcast;
@@ -46,11 +62,48 @@ public class SettingFragment extends LazyLoadFragment {
         if(!TextUtils.isEmpty((String) SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
             btExit.setVisibility(View.VISIBLE);
             btExit.setOnClickListener(view -> {
-                SharedPreferencesHelper.remove(TOKEN);
-                getActivity().setResult(RESULT_SUCCESS);
-                getActivity().finish();
+
+                logout();
             });
         }
+
+    }
+
+    @SuppressLint("CheckResult")
+    private void logout() {
+        RxRetrofitClient.builder()
+                .header(new TokenInterceptor())
+                .url(URL_LOGOUT)
+                .build()
+                .post()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                    Log.i(TAG, "getList: success " + s);
+                    HttpResult<MessageResult> result = new Gson().fromJson(s,new TypeToken<HttpResult<MessageResult>>(){}.getType());
+                    if(!JPushInterface.isPushStopped(getContext())){
+                        JPushInterface.stopPush(getContext());
+                    }
+                    SharedPreferencesHelper.remove(TOKEN);
+                    getActivity().setResult(RESULT_SUCCESS);
+                    getActivity().finish();
+                    if(result.isSuccess()){
+
+                    }else {
+
+                    }
+
+                }, throwable -> {
+                    Log.i(TAG, "getList: error = " + throwable);
+                    SharedPreferencesHelper.remove(TOKEN);
+                    if(!JPushInterface.isPushStopped(getContext())){
+                        JPushInterface.stopPush(getContext());
+                    }
+                    getActivity().setResult(RESULT_SUCCESS);
+                    getActivity().finish();
+                });
+
+
 
     }
 

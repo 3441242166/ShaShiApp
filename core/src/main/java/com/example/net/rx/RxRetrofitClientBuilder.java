@@ -11,16 +11,18 @@ import java.util.Map;
 
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 
 public class RxRetrofitClientBuilder {
     private static final String TAG = "RxRetrofitClientBuilder";
 
-    private  String mUrl;
-    private  Map<String,Object> mParams;
+    private String mUrl;
+    private Map<String,Object> mParams;
     private ArrayList<Interceptor> interceptors;
-    private  RequestBody mRequestBody;
-    private  File file;
+    private RequestBody mRequestBody;
+    private File file;
+    private MultipartBody.Part body;
 
     public final RxRetrofitClientBuilder url(String mUrl){
         this.mUrl = mUrl;
@@ -34,6 +36,11 @@ public class RxRetrofitClientBuilder {
 
     public final RxRetrofitClientBuilder file(File file){
         this.file = file;
+        return this;
+    }
+
+    public final RxRetrofitClientBuilder body(MultipartBody.Part body){
+        this.body = body;
         return this;
     }
 
@@ -89,6 +96,7 @@ public class RxRetrofitClientBuilder {
                 mParams,
                 interceptors,
                 mRequestBody,
-                file);
+                file,
+                body);
     }
 }
