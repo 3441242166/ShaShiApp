@@ -1,5 +1,6 @@
 package com.shashiwang.shashiapp.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -78,8 +79,8 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
             EasyPermissions.requestPermissions(this, "为了您的体验,请允许申请权限",
                     1, DATA);
         }
-        boolean is = NotificationManagerCompat.from(this).areNotificationsEnabled();
-        if(!is){
+
+        if(!NotificationManagerCompat.from(this).areNotificationsEnabled()){
             Toasty.normal(this,"为了您的使用,请打开通知权限").show();
         }
     }

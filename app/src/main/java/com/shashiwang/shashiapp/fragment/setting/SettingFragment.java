@@ -33,8 +33,6 @@ import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 public class SettingFragment extends BaseFragment {
     private static final String TAG = "SettingFragment";
 
-    @BindView(R.id.item_broadcast)
-    SettingNormalLayout broadcast;
     @BindView(R.id.item_about)
     SettingNormalLayout about;
     @BindView(R.id.bt_exit)
@@ -53,7 +51,6 @@ public class SettingFragment extends BaseFragment {
     @Override
     protected void init(Bundle savedInstanceState) {
 
-        broadcast.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_settingBroadcastFragment));
         about.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_aboutFragment));
 
         if(!TextUtils.isEmpty((String) SharedPreferencesHelper.getSharedPreference(TOKEN,""))){

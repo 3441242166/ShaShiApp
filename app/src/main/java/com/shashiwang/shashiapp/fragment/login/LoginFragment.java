@@ -50,7 +50,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements ILogi
         });
 
         tvForget.setOnClickListener(view -> {
-            //Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_forgetFragment);
+            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_forgetFragment);
         });
 
         btLogin.setOnClickListener(view -> presenter.login(evCount.getContentText(),evPassword.getContentText()));

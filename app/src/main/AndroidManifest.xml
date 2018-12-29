@@ -132,7 +132,12 @@
 
         <service
             android:name=".service.UploadImageService"
-            android:exported="false"></service>
+            android:exported="false" />
+        <service
+            android:name=".service.DownLoadService"
+            android:exported="false" />
+
+        <activity android:name=".activity.SplashActivity"></activity>
     </application>
 
 </manifest>

@@ -3,58 +3,187 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="300dp"
-    android:layout_height="340dp"
+    android:layout_height="350dp"
     tools:layout_editor_absoluteY="25dp">
 
 
     <Button
         android:id="@+id/bt_login"
         style="@style/bt_yellow_send"
-        android:layout_width="236dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="40dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="32dp"
         android:text="确定"
-        android:textColor="#ffffff"
-        android:transitionName="loginBtn"
+        android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <LinearLayout
+
+    <com.shashiwang.shashiapp.customizeview.LoginEditText
+        android:id="@+id/ev_phone"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="32dp"
-        android:orientation="vertical"
+        android:layout_marginBottom="4dp"
+        app:hint_content="@string/hint_login_count"
+        app:input_type="2"
+        app:layout_constraintBottom_toTopOf="@+id/ev_img_code"
+        app:layout_constraintEnd_toEndOf="@+id/ly_code"
+        app:layout_constraintStart_toStartOf="@+id/ly_code"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:left_icon="@drawable/ic_count">
+
+    </com.shashiwang.shashiapp.customizeview.LoginEditText>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/ly_code"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/ev_password"
+        app:layout_constraintEnd_toEndOf="@+id/ev_img_code"
+        app:layout_constraintStart_toStartOf="@+id/ev_password">
+
+        <ImageView
+            android:id="@+id/iv_left"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/ic_code"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/ev_code"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="@string/hint_login_code"
+            android:inputType="number"
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_left"
+            app:layout_constraintEnd_toStartOf="@+id/bt_code"
+            app:layout_constraintStart_toEndOf="@+id/iv_left"
+            app:layout_constraintTop_toTopOf="@+id/iv_left"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_left" />
+
+        <Button
+            android:id="@+id/bt_code"
+            android:layout_width="58dp"
+            android:layout_height="21dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="4dp"
+            android:background="@drawable/shape_login_button"
+            android:text="@string/name_login_code"
+            android:textSize="8sp"
+            app:layout_constraintBottom_toTopOf="@+id/view3"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@mipmap/ic_bottom_my" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/ev_img_code"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_constraintBottom_toTopOf="@+id/ly_code"
+        app:layout_constraintEnd_toEndOf="@+id/ev_password"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/ev_password">
+
+        <ImageView
+            android:id="@+id/iv_code_left"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_image_code" />
+
+        <View
+            android:id="@+id/view13"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_code_left" />
+
+        <ImageView
+            android:id="@+id/iv_image_code"
+            android:layout_width="62dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/view13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/ev_image_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
+            android:ems="10"
+            android:textSize="12sp"
+            android:hint="@string/hint_login_image_code"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_code_left"
+            app:layout_constraintEnd_toStartOf="@+id/iv_image_code"
+            app:layout_constraintStart_toEndOf="@+id/iv_code_left"
+            app:layout_constraintTop_toTopOf="@+id/iv_code_left"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <com.shashiwang.shashiapp.customizeview.LoginEditText
+        app:left_icon="@drawable/ic_password"
+        android:id="@+id/ev_password"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:right_icon="@drawable/ic_close_eye"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="16dp"
+        app:hint_content="@string/hint_login_password"
+        app:input_type="4"
         app:layout_constraintBottom_toTopOf="@+id/bt_login"
-        app:layout_constraintEnd_toEndOf="@+id/bt_login"
-        app:layout_constraintStart_toStartOf="@+id/bt_login"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
-        <com.shashiwang.shashiapp.customizeview.LoginEditText
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <com.shashiwang.shashiapp.customizeview.LoginEditText
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <com.shashiwang.shashiapp.customizeview.LoginEditText
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-        <com.shashiwang.shashiapp.customizeview.LoginEditText
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-
-    </LinearLayout>
+    </com.shashiwang.shashiapp.customizeview.LoginEditText>
 
 
 </android.support.constraint.ConstraintLayout>

@@ -53,8 +53,8 @@ public class PhotoAdapter extends BaseMultiItemQuickAdapter<PhotoAdapter.PhotoBe
         public static final int PHOTO = 0;
         public static final int ADD_PHOTO = 1;
 
-        String url;
-        int type;
+        public String url;
+        public int type;
 
         public PhotoBean(String url){
             this.url = url;

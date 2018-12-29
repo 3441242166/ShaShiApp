@@ -1,8 +1,6 @@
 package com.shashiwang.shashiapp.activity.post;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -10,24 +8,13 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.example.net.interceptors.TokenInterceptor;
-import com.example.net.rx.RxRetrofitClient;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.adapter.PhotoAdapter;
-import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
-import com.shashiwang.shashiapp.bean.FreightMessage;
-import com.shashiwang.shashiapp.bean.HttpResult;
-import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.constant.Constant;
 import com.shashiwang.shashiapp.customizeview.PostChooseLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditLayout;
@@ -43,13 +30,8 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import es.dmoral.toasty.Toasty;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CAR;
 import static com.shashiwang.shashiapp.util.FileUtil.getRealPathFromURI;
-import static com.shashiwang.shashiapp.util.FileUtil.getRealPathFromUri;
 
 public class PostCarActivity extends BaseTopBarActivity<PostCarPresenter> implements IPostCarView {
     private static final String TAG = "PostCarActivity";
@@ -78,6 +60,7 @@ public class PostCarActivity extends BaseTopBarActivity<PostCarPresenter> implem
     private Map<String,Integer> data;
     private PhotoAdapter adapter;
     private LinkedList<PhotoAdapter.PhotoBean> photoList;
+    private MaterialDialog dialog;
 
     @Override
     protected PostCarPresenter setPresenter() {
@@ -105,6 +88,12 @@ public class PostCarActivity extends BaseTopBarActivity<PostCarPresenter> implem
         photoList.add(new PhotoAdapter.PhotoBean("",PhotoAdapter.PhotoBean.ADD_PHOTO));
         adapter.setNewData(photoList);
 
+        dialog = new MaterialDialog.Builder(this)
+                .title("Zzz...")
+                .content("上传中...")
+                .cancelable(false)
+                .progress(true,100,false)
+                .build();
     }
 
     private void initEvent() {
@@ -145,8 +134,12 @@ public class PostCarActivity extends BaseTopBarActivity<PostCarPresenter> implem
 
     private void postData() {
         int carType = data.get(chType.getContantText());
-        presenter.psotData(edBrand.getContantText(),carType,edCreateYear.getContantText(),edMileage.getContantText(),edPrice.getContantText()
-                ,edPeople.getContantText(),edPhone.getContantText(),edMessage.getContantText(),photoList);
+        List<String> list = new ArrayList<>(photoList.size()-1);
+        for(int x=0;x<photoList.size()-1;x++){
+            list.add(photoList.get(x).url);
+        }
+        presenter.postData(edBrand.getContantText(),carType,edCreateYear.getContantText(),edMileage.getContantText(),edPrice.getContantText()
+                ,edPeople.getContantText(),edPhone.getContantText(),edMessage.getContantText(),list);
     }
 
     @Override
@@ -167,24 +160,24 @@ public class PostCarActivity extends BaseTopBarActivity<PostCarPresenter> implem
                 }
 
                 adapter.notifyDataSetChanged();
-                presenter.onSelectImage(uri);
             }
         }
     }
 
     @Override
     public void showProgress() {
-
+        dialog.show();
     }
 
     @Override
     public void dismissProgress() {
-
+        dialog.dismiss();
     }
 
     @Override
     public void loadDataSuccess(Object data) {
-
+        Toast.makeText(this,"发布成功",Toast.LENGTH_SHORT).show();
+        finish();
     }
 
     @Override

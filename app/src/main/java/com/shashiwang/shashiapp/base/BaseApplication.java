@@ -18,7 +18,6 @@ import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 
 public class BaseApplication extends Application {
     private static final String TAG = "BaseApplication";
-    
 
     @Override
     public void onCreate() {

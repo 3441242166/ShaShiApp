@@ -63,7 +63,7 @@ public class CarMessageActivity extends BaseTopBarActivity {
     Button btPhone;
 
     private PhotoAdapter adapter;
-    private LinkedList<PhotoAdapter.PhotoBean> photoList;
+    private ArrayList<PhotoAdapter.PhotoBean> photoList = new ArrayList<>();
 
     private int id = -1;
     private CarMessage message;
@@ -81,6 +81,7 @@ public class CarMessageActivity extends BaseTopBarActivity {
     @Override
     protected void initFrame(Bundle savedInstanceState) {
         id = getIntent().getIntExtra(ID,-1);
+
         initView();
         initEvent();
         getMessage();
@@ -104,6 +105,7 @@ public class CarMessageActivity extends BaseTopBarActivity {
 
     @SuppressLint("CheckResult")
     private void getMessage(){
+
         RxRetrofitClient.builder()
                 .url(URL_CAR + id)
                 .build()
@@ -140,12 +142,11 @@ public class CarMessageActivity extends BaseTopBarActivity {
 
         tvRemark.setText(message.getRemark());
 
-        List<PhotoAdapter.PhotoBean> list = new ArrayList<>(message.getImage().size());
-
         for(String str:message.getImage()){
-            list.add(new PhotoAdapter.PhotoBean(str));
+            photoList.add(new PhotoAdapter.PhotoBean(str));
         }
-        adapter.setNewData(list);
+
+        adapter.setNewData(photoList);
     }
 
 }

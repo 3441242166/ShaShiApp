@@ -48,14 +48,6 @@
 
         <View style="@style/view_line" />
 
-        <com.shashiwang.shashiapp.customizeview.SettingNormalLayout
-            android:id="@+id/item_broadcast"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/post_item_height"
-            app:title="设置播报内容" />
-
-        <View style="@style/view_line" />
-
         <Button
             android:background="@drawable/shape_yellow_button"
             android:id="@+id/bt_exit"

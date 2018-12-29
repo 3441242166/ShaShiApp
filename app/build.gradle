@@ -97,6 +97,7 @@ dependencies {
     implementation 'com.youth.banner:banner:1.4.10'
     // 对话框
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
     // 选择器
     implementation 'com.contrarywind:Android-PickerView:4.1.6'
     // 波浪效果

@@ -74,7 +74,9 @@ public class MessageListPresenter extends BasePresenter<IMessageListView> {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
                     Log.i(TAG, "getList: success " + s);
+
                     ResultMessage result = handleMessage(s,type);
+
                     if(result.isSuccess){
                         mView.loadDataSuccess(result.data);
                     }else {

@@ -22,6 +22,6 @@ public class CustomerActivity extends BaseTopBarActivity {
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
-
+        setTitle("联系我们");
     }
 }

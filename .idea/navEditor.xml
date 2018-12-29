@@ -80,18 +80,6 @@
                       </LayoutPositions>
                     </value>
                   </entry>
-                  <entry key="settingBroadcastFragment">
-                    <value>
-                      <LayoutPositions>
-                        <option name="myPosition">
-                          <Point>
-                            <option name="x" value="-797" />
-                            <option name="y" value="-857" />
-                          </Point>
-                        </option>
-                      </LayoutPositions>
-                    </value>
-                  </entry>
                   <entry key="settingFragment">
                     <value>
                       <LayoutPositions>
@@ -104,11 +92,6 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_settingFragment_to_aboutFragment">
-                              <value>
-                                <LayoutPositions />
-                              </value>
-                            </entry>
-                            <entry key="action_settingFragment_to_settingBroadcastFragment">
                               <value>
                                 <LayoutPositions />
                               </value>
