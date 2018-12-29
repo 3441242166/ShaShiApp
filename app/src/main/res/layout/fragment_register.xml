@@ -66,11 +66,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="8dp"
-            android:layout_marginBottom="1dp"
             android:background="@null"
             android:ems="10"
-            android:inputType="number"
             android:hint="@string/hint_login_code"
+            android:inputType="number"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@+id/iv_left"
             app:layout_constraintEnd_toStartOf="@+id/bt_code"
@@ -104,19 +103,70 @@
 
     </android.support.constraint.ConstraintLayout>
 
-    <com.shashiwang.shashiapp.customizeview.LoginEditText
+    <android.support.constraint.ConstraintLayout
         android:id="@+id/ev_img_code"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="4dp"
-        app:hint_content="@string/hint_login_image_code"
+        android:clickable="true"
+        android:focusable="true"
         app:layout_constraintBottom_toTopOf="@+id/ly_code"
         app:layout_constraintEnd_toEndOf="@+id/ev_password"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/ev_password"
-        app:left_icon="@drawable/ic_image_code">
+        app:layout_constraintStart_toStartOf="@+id/ev_password">
 
-    </com.shashiwang.shashiapp.customizeview.LoginEditText>
+        <ImageView
+            android:id="@+id/iv_code_left"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/ic_image_code" />
+
+        <View
+            android:id="@+id/view13"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_code_left" />
+
+        <ImageView
+            android:id="@+id/iv_image_code"
+            android:layout_width="62dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="4dp"
+            app:layout_constraintBottom_toTopOf="@+id/view13"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/ev_image_input"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
+            android:ems="10"
+            android:textSize="12sp"
+            android:hint="@string/hint_login_image_code"
+            app:layout_constraintBottom_toBottomOf="@+id/iv_code_left"
+            app:layout_constraintEnd_toStartOf="@+id/iv_image_code"
+            app:layout_constraintStart_toEndOf="@+id/iv_code_left"
+            app:layout_constraintTop_toTopOf="@+id/iv_code_left"
+            app:layout_constraintVertical_bias="1.0" />
+
+    </android.support.constraint.ConstraintLayout>
+
 
     <com.shashiwang.shashiapp.customizeview.LoginEditText
         app:left_icon="@drawable/ic_password"
