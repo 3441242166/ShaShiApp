@@ -20,6 +20,7 @@ import com.shashiwang.shashiapp.constant.Constant;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -31,6 +32,9 @@ public class FileUtil {
 
     private static final String FILE_IMAGE_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) +
             "/shashichang/" + SharedPreferencesHelper.getSharedPreference(Constant.USER_NAME,"");
+
+    private static final String FILE_DOCUMENT_PATH = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "/";
+
 
     public static Map<String,Integer> getJsonFormAssets(Context context, String name){
         StringBuilder builder = new StringBuilder();
@@ -135,8 +139,31 @@ public class FileUtil {
         return filePath;
     }
 
+    /**
+     * 判断文件是否存在 不存在创建目录
+     * @param strFolder
+     * @return
+     */
+    public static boolean isFolderExists(String strFolder) {
+        File file = new File(strFolder);
+        if (!file.exists()) {
+            if (file.mkdirs()) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        return true;
+
+    }
+
 
     public static String getImagePath(){
         return FILE_IMAGE_PATH;
+    }
+
+    public static String getApkDocumentPath(){
+        String path = FILE_DOCUMENT_PATH + "shashiliaochang" + "/" + "apk"+ "/";
+        return path;
     }
 }

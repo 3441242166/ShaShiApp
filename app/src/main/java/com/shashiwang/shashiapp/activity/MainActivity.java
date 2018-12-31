@@ -35,7 +35,7 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import static com.shashiwang.shashiapp.constant.Constant.REQUEST_PERMISSION;
 
-public class MainActivity extends BaseMvpActivity<MainActivityPresenter> implements IMainActivityView,EasyPermissions.PermissionCallbacks {
+public class MainActivity extends BaseMvpActivity<MainActivityPresenter> implements IMainActivityView {
     private static final String TAG = "MainActivity";
 
     @BindView(R.id.bottom_main)
@@ -60,14 +60,7 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         return R.layout.activity_main;
     }
 
-    public static String[] DATA = new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.ACCESS_COARSE_LOCATION,
-            android.Manifest.permission.READ_PHONE_STATE,
-            android.Manifest.permission.ACCESS_WIFI_STATE,
-            android.Manifest.permission.ACCESS_NETWORK_STATE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            android.Manifest.permission.INTERNET,
-            android.Manifest.permission.CHANGE_WIFI_STATE};
+
 
     protected void init(Bundle savedInstanceState) {
         ButterKnife.bind(this);
@@ -75,14 +68,6 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         initData();
         initEvent();
 
-        if (!EasyPermissions.hasPermissions(this, DATA)) {
-            EasyPermissions.requestPermissions(this, "为了您的体验,请允许申请权限",
-                    1, DATA);
-        }
-
-        if(!NotificationManagerCompat.from(this).areNotificationsEnabled()){
-            Toasty.normal(this,"为了您的使用,请打开通知权限").show();
-        }
     }
 
     private void initView() {
@@ -179,12 +164,6 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         super.onActivityResult(requestCode, resultCode, data);
         Log.i(TAG, "onActivityResult: requestCode = "+requestCode + "  resultCode = "+resultCode);
 
-        if(requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE){
-            if (!EasyPermissions.hasPermissions(this, DATA)) {
-                Toasty.info(this,"为了您的体验,请允许申请权限").show();
-            }
-        }
-
         for(Fragment fragment:fragmentList){
             fragment.onActivityResult(requestCode, resultCode, data);
         }
@@ -198,21 +177,6 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
-    @Override
-    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
 
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            new AppSettingsDialog
-                    .Builder(this)
-                    .setTitle("为了您的体验,请允许申请权限")
-                    .setThemeResId(R.style.AppTheme)
-                    .build()
-                    .show();
-        }
-    }
 
 }

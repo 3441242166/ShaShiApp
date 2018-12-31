@@ -7,12 +7,13 @@
     tools:context=".activity.SplashActivity">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/bck"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:scaleType="centerCrop"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@mipmap/gv_empty" />
+        app:srcCompat="@drawable/bg_lunch" />
 </android.support.constraint.ConstraintLayout>

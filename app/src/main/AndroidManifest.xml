@@ -39,6 +39,7 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
 
     <application
         android:name=".base.BaseApplication"
@@ -103,10 +104,9 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -129,15 +129,12 @@
         <activity android:name=".activity.UserMessageActivity" />
         <activity android:name=".activity.SettingBroadcastActivity" />
         <activity android:name=".activity.CustomerActivity" />
+        <activity android:name=".activity.MainActivity" />
 
-        <service
-            android:name=".service.UploadImageService"
-            android:exported="false" />
         <service
             android:name=".service.DownLoadService"
             android:exported="false" />
 
-        <activity android:name=".activity.SplashActivity"></activity>
     </application>
 
 </manifest>
