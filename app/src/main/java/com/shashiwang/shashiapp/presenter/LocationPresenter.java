@@ -1,9 +1,7 @@
 package com.shashiwang.shashiapp.presenter;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 
 import com.baidu.location.BDAbstractLocationListener;
@@ -23,6 +21,8 @@ import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
+import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 import com.shashiwang.shashiapp.base.BasePresenter;
@@ -33,9 +33,10 @@ import java.util.List;
 public class LocationPresenter extends BasePresenter<ILocationView> {
     private static final String TAG = "LocationPresenter";
 
-    private LocationClient mLocationClient;
+    private LocationClient mLocClient;
 
     private PoiSearch mPoiSearch;
+    private SuggestionSearch mSuggestionSearch;
     private PoiNearbySearchOption option = new PoiNearbySearchOption();
     private BDLocation curLocation;
     private MyLocationData locData;
@@ -45,30 +46,52 @@ public class LocationPresenter extends BasePresenter<ILocationView> {
         super(view, context);
     }
 
-    private void initLocation(){
-        LocationClientOption option = new LocationClientOption();
+    @Override
+    public void init(Bundle savedInstanceState) {
+        mLocClient = new LocationClient(mContext);
+        initLocation();
+        initPoi();
+        mLocClient.start();
+    }
 
-        option.setLocationMode(LocationClientOption.LocationMode.Hight_Accuracy);
+    private void initLocation(){
+        mLocClient.registerLocationListener(new MyLocationListener());
+
+        LocationClientOption option = new LocationClientOption();
         option.setCoorType("bd09ll");
         option.setOpenGps(true);
-        option.setIsNeedAddress(true);
-        option.setIsNeedLocationDescribe(true);
-        option.setIsNeedLocationPoiList(true);
 
-        mLocationClient.setLocOption(option);
+        mLocClient.setLocOption(option);
 
-        mLocationClient.registerLocationListener(new MyLocationListener());
     }
 
     private void initPoi(){
         mPoiSearch = PoiSearch.newInstance();
+        mSuggestionSearch = SuggestionSearch.newInstance();
+
+        mSuggestionSearch.setOnGetSuggestionResultListener(suggestionResult -> {
+            List<SuggestionResult.SuggestionInfo> data = suggestionResult.getAllSuggestions();
+            mView.getSuggestionCity(data);
+
+            if(data!=null){
+                for(SuggestionResult.SuggestionInfo info : data){
+                    Log.i(TAG, "onGetSuggestionResult: " + info.city);
+
+                }
+            }else {
+                Log.i(TAG, "onGetSuggestionResult: data is null");
+            }
+
+        });
 
         mPoiSearch.setOnGetPoiSearchResultListener(new OnGetPoiSearchResultListener() {
             @Override
             public void onGetPoiResult(PoiResult poiResult) {
+                mView.dismissProgress();
                 Log.i(TAG, "onGetPoiResult");
 
                 List<PoiInfo> data = poiResult.getAllPoi();
+
                 if(data != null) {
                     for (PoiInfo info : data) {
                         Log.i(TAG, "onGetPoiResult: poi.address = " + info.address);
@@ -113,7 +136,6 @@ public class LocationPresenter extends BasePresenter<ILocationView> {
 
             @Override
             public void onGetPoiDetailResult(PoiDetailSearchResult poiDetailSearchResult) {
-
             }
 
             @Override
@@ -124,8 +146,12 @@ public class LocationPresenter extends BasePresenter<ILocationView> {
 
     }
 
+    public void suggestionSearch(SuggestionSearchOption option){
+        mSuggestionSearch.requestSuggestion(option);
+    }
+
     public void searchNear(PoiNearbySearchOption option){
-        Log.i(TAG, "searchNear: ");
+        Log.i(TAG, "suggestionSearch: ");
         option.location(latLng);
         mPoiSearch.searchNearby(option);
     }
@@ -139,7 +165,6 @@ public class LocationPresenter extends BasePresenter<ILocationView> {
         this.latLng = latLng;
     }
 
-
     public  class MyLocationListener extends BDAbstractLocationListener {
 
         @Override
@@ -152,20 +177,10 @@ public class LocationPresenter extends BasePresenter<ILocationView> {
 
     }
 
-
-    @Override
-    public void init(Bundle savedInstanceState) {
-        mLocationClient = new LocationClient(mContext);
-        initLocation();
-        initPoi();
-        mLocationClient.start();
-        mLocationClient.requestLocation();
-    }
-
     @Override
     public void destroy() {
         mPoiSearch.destroy();
-        mLocationClient.stop();
+        mLocClient.stop();
         super.destroy();
     }
 }

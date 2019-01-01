@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import javax.annotation.Nullable;
 
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
@@ -28,7 +27,6 @@ public class ProgressRequestBody extends RequestBody {
         mListener = listener;
     }
 
-    @Nullable
     @Override
     public MediaType contentType() {
         return MediaType.parse(mMediaType);

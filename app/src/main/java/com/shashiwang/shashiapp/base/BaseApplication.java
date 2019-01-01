@@ -9,7 +9,6 @@ import com.baidu.mapapi.cloud.CloudManager;
 import com.example.config.Config;
 import com.example.net.interceptors.LoggingInterceptor;
 import com.example.util.SharedPreferencesHelper;
-import com.facebook.stetho.Stetho;
 
 import cn.jpush.android.api.JPushInterface;
 

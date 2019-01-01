@@ -13,11 +13,15 @@ import com.baidu.mapapi.map.MapStatusUpdateFactory;
 import com.baidu.mapapi.map.MapView;
 import com.baidu.mapapi.map.MarkerOptions;
 import com.baidu.mapapi.map.MyLocationData;
+import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.poi.PoiCitySearchOption;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiSearch;
+import com.baidu.mapapi.search.sug.SuggestionResult;
+import com.baidu.mapapi.search.sug.SuggestionSearch;
+import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.adapter.LocationAdapter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
@@ -89,10 +93,11 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
     private void initConfig() {
         map = mapView.getMap();
         map.setMapType(BaiduMap.MAP_TYPE_NORMAL);
+        // 开启定位图层
         map.setMyLocationEnabled(true);
-
-        mapView.showZoomControls(false);// 不显示默认的缩放控件
-        mapView.showScaleControl(false);// 不显示默认比例尺控件
+        UiSettings mUiSettings = map.getUiSettings();
+        mUiSettings. setOverlookingGesturesEnabled(false);
+        mUiSettings.setRotateGesturesEnabled(false);
 
         Log.i(TAG, "initConfig: getMapStatus  "+map.getMapStatus());
         Log.i(TAG, "initConfig: getMapType  "+map.getMapType());
@@ -167,21 +172,20 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
                 if(TextUtils.isEmpty(str)){
                     return;
                 }
-//                PoiCitySearchOption citySearchOption  = new PoiCitySearchOption()
-//                        .city("西安")
-//                        .keyword(str)
-//                        .pageNum(0)
-//                        .pageCapacity(20);
+
+                SuggestionSearchOption suggestionSearch = new SuggestionSearchOption()
+                        .city("北京")
+                        .keyword(str);
+
+                presenter.suggestionSearch(suggestionSearch);
+
+//                PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption()
+//                        .keyword(str)//检索关键字
+//                        .pageNum(0)//分页编号，默认是0页
+//                        .pageCapacity(20)//设置每页容量，默认10条
+//                        .radius(2147482888);//附近检索半径
 //
-//                presenter.searchCity(citySearchOption);
-
-                PoiNearbySearchOption nearbySearchOption = new PoiNearbySearchOption()
-                        .keyword(str)//检索关键字
-                        .pageNum(0)//分页编号，默认是0页
-                        .pageCapacity(20)//设置每页容量，默认10条
-                        .radius(2147482888);//附近检索半径
-
-                presenter.searchNear(nearbySearchOption);
+//                presenter.searchNear(nearbySearchOption);
             }
         });
 
@@ -218,12 +222,10 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
 
     @Override
     public void showProgress() {
-
     }
 
     @Override
     public void dismissProgress() {
-
     }
 
     @Override
@@ -235,6 +237,7 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
             Log.i(TAG, "loadDataSuccess: info "+ info.name);
             list.add(new LocationAdapter.PoiBean(info));
         }
+
         this.data = list;
         adapter.setNewData(list);
     }
@@ -259,6 +262,19 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
                 .build();
         map.setMyLocationData(locData);
 
+    }
+
+    @Override
+    public void getSuggestionCity(List<SuggestionResult.SuggestionInfo> data) {
+        if(data.size()>0) {
+            PoiCitySearchOption citySearchOption = new PoiCitySearchOption()
+                    .city(data.get(0).getCity())
+                    .keyword(tvSearch.getText().toString().trim())
+                    .pageNum(0)
+                    .pageCapacity(20);
+
+            presenter.searchCity(citySearchOption);
+        }
     }
 
     @Override
