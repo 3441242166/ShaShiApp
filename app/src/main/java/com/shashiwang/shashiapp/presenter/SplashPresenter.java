@@ -42,6 +42,7 @@ import okhttp3.MultipartBody;
 
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CAR_UPLOAD;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_LOGIN;
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_VERSION;
 import static com.shashiwang.shashiapp.constant.Constant.REGISTRATION_ID;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 import static com.shashiwang.shashiapp.constant.Constant.USER_NAME;
@@ -50,6 +51,7 @@ import static com.shashiwang.shashiapp.util.FileUtil.isFolderExists;
 public class SplashPresenter extends BasePresenter<ISplashView> {
     private static final String TAG = "SplashPresenter";
 
+    private VersionBean bean;
 
     public SplashPresenter(ISplashView view, Context context) {
         super(view, context);
@@ -64,21 +66,23 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
     public void checkVersion() {
 
         RxRetrofitClient.builder()
-                .url(URL_LOGIN)
+                .url(URL_VERSION)
                 .build()
                 .get()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
                     Log.i(TAG, "login: success " + s);
-                    HttpResult<String> result = new Gson().fromJson(s,new TypeToken<HttpResult<String>>(){}.getType());
+                    HttpResult<VersionBean> result = new Gson().fromJson(s,new TypeToken<HttpResult<VersionBean>>(){}.getType());
 
                     String nowVersion = (String) SharedPreferencesHelper.getSharedPreference("version","");
 
                     if(result.isSuccess()){
-                        if(!result.getData().equals(nowVersion)){
-
-                        }
+//                        if(!result.getData().equals(nowVersion)){
+//
+//                        }
+                        bean = result.getData();
+                        mView.showVersionDialog();
                     }
 
                 }, throwable -> {
@@ -97,8 +101,8 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
             return;
         }
 
-        FileDownloader.getImpl().create("url")
-                .setPath(path)
+        FileDownloader.getImpl().create(bean.downloadUurl)
+                .setPath(path+"app.apk")
                 .setListener(new FileDownloadListener() {
                     @Override
                     protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
@@ -109,13 +113,15 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
                     @Override
                     protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
                         Log.i(TAG, "progress: soFarByt = "+soFarBytes + " totalBytes = "+totalBytes + " taskID = "+task.getId());
-                        mView.downloadProgress("");
+                        mView.downloadProgress(soFarBytes*100/totalBytes);
                     }
 
                     @Override
                     protected void completed(BaseDownloadTask task) {
                         Log.i(TAG, "completed: ");
-                        installApk(path);
+                        mView.dismissProgress();
+                        //installApk(path+"app.apk");
+                        install(path+"app.apk");
                     }
 
                     @Override
@@ -139,11 +145,14 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
     }
 
     private void installApk(String path) {
+        Log.i(TAG, "installApk: path = " + path);
         File apkfile = new File(path);
 
         if (!apkfile.exists()) {
             return;
         }
+
+        Log.i(TAG, "installApk: is exists");
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_VIEW);
         intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
@@ -167,6 +176,31 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
         if (mContext.getPackageManager().queryIntentActivities(intent, 0).size() > 0) {
             mContext.startActivity(intent);
         }
+    }
+    //TODO
+    private void install(String filePath) {
+        Log.i(TAG, "开始执行安装: " + filePath);
+        File apkFile = new File(filePath);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            Log.w(TAG, "版本大于 N ，开始使用 fileProvider 进行安装");
+            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            Uri contentUri = FileProvider.getUriForFile(
+                    mContext
+                    , "com.shashiwang.shashiapp.fileprovider"
+                    , apkFile);
+            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
+        } else {
+            Log.w(TAG, "正常进行安装");
+            intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
+        }
+        mContext.startActivity(intent);
+    }
+
+    static class VersionBean{
+        String version;
+        String downloadUurl;
     }
 
 }

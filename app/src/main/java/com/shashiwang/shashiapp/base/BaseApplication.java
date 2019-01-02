@@ -9,6 +9,7 @@ import com.baidu.mapapi.cloud.CloudManager;
 import com.example.config.Config;
 import com.example.net.interceptors.LoggingInterceptor;
 import com.example.util.SharedPreferencesHelper;
+import com.liulishuo.filedownloader.FileDownloader;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -30,6 +31,8 @@ public class BaseApplication extends Application {
         SDKInitializer.initialize(this);
 
         initJPush();
+
+        FileDownloader.setup(this);
     }
 
     private void initJPush(){

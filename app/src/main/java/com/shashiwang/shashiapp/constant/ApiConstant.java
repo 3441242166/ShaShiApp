@@ -23,4 +23,6 @@ public class ApiConstant {
     public static final String URL_CONFIG = "api/user/push/config/";
     public static final String URL_BANNER = "api/common/banner/";
     public static final String URL_PUBLISH = "api/user/publish/";
+    public static final String URL_VERSION = "api/common/check/version/";
+    public static final String URL_UPLOAD_LOCATION = "api/user/location/";
 }
