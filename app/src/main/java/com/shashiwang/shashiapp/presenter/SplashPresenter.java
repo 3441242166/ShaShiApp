@@ -57,11 +57,7 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        boolean is = NotificationManagerCompat.from(mContext).areNotificationsEnabled();
-        Log.i(TAG, "init:  isOpen Notification " + is);
-        if(!is){
-            Toasty.normal(mContext,"为了您的使用,请打开通知权限").show();
-        }
+
     }
 
     @SuppressLint("CheckResult")
@@ -87,8 +83,6 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
 
                 }, throwable -> {
                     Log.i(TAG, "login: error = " + throwable);
-                    mView.errorMessage(throwable.toString());
-                    Toast.makeText(mContext,throwable.toString(),Toast.LENGTH_LONG).show();
                 });
 
     }
