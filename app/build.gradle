@@ -68,6 +68,7 @@ dependencies {
     // BaseAdapter
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.37'
     //  权限管理
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
     implementation 'pub.devrel:easypermissions:2.0.0'
     // 推送
     implementation 'cn.jiguang.sdk:jpush:3.1.6'
@@ -93,7 +94,7 @@ dependencies {
     implementation 'com.liulishuo.filedownloader:library:1.7.5'
     //
     implementation 'org.greenrobot:eventbus:3.1.1'
-
+    //
     /* *************************************视图类*********************************************** */
     // 底部导航栏
     //banner

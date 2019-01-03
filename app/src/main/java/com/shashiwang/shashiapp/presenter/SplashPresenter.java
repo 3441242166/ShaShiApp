@@ -24,6 +24,7 @@ import com.liulishuo.filedownloader.BaseDownloadTask;
 import com.liulishuo.filedownloader.FileDownloadListener;
 import com.liulishuo.filedownloader.FileDownloader;
 import com.shashiwang.shashiapp.BuildConfig;
+import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.base.IBaseView;
 import com.shashiwang.shashiapp.bean.HttpResult;
@@ -46,6 +47,7 @@ import static com.shashiwang.shashiapp.constant.ApiConstant.URL_VERSION;
 import static com.shashiwang.shashiapp.constant.Constant.REGISTRATION_ID;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 import static com.shashiwang.shashiapp.constant.Constant.USER_NAME;
+import static com.shashiwang.shashiapp.util.FileUtil.getApkDocumentPath;
 import static com.shashiwang.shashiapp.util.FileUtil.isFolderExists;
 
 public class SplashPresenter extends BasePresenter<ISplashView> {
@@ -75,14 +77,13 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
                     Log.i(TAG, "login: success " + s);
                     HttpResult<VersionBean> result = new Gson().fromJson(s,new TypeToken<HttpResult<VersionBean>>(){}.getType());
 
-                    String nowVersion = (String) SharedPreferencesHelper.getSharedPreference("version","");
+                    String nowVersion = mContext.getString(R.string.version);
 
                     if(result.isSuccess()){
-//                        if(!result.getData().equals(nowVersion)){
-//
-//                        }
                         bean = result.getData();
-                        mView.showVersionDialog();
+                        if(!bean.version.equals(nowVersion)){
+                            mView.showVersionDialog();
+                        }
                     }
 
                 }, throwable -> {
@@ -93,7 +94,7 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
 
     public void downloadApk(){
 
-        String path = FileUtil.getApkDocumentPath();
+        String path = getApkDocumentPath();
         Log.i(TAG, "startDownload: path = "+path);
 
         if(!isFolderExists(path)){
@@ -121,7 +122,7 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
                         Log.i(TAG, "completed: ");
                         mView.dismissProgress();
                         //installApk(path+"app.apk");
-                        install(path+"app.apk");
+                        install(getApkDocumentPath()+"app.apk");
                     }
 
                     @Override
@@ -144,56 +145,26 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
 
     }
 
-    private void installApk(String path) {
-        Log.i(TAG, "installApk: path = " + path);
-        File apkfile = new File(path);
-
-        if (!apkfile.exists()) {
-            return;
-        }
-
-        Log.i(TAG, "installApk: is exists");
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
-        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Uri contentUri = FileProvider.getUriForFile(mContext, BuildConfig.APPLICATION_ID + ".fileprovider", apkfile);
-            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
-            //兼容8.0
-            if (android.os.Build.VERSION.SDK_INT >= 26) {
-                boolean hasInstallPermission = mContext.getPackageManager().canRequestPackageInstalls();
-                if (!hasInstallPermission) {
-                    //请求安装未知应用来源的权限
-                    ActivityCompat.requestPermissions( (Activity) mContext, new String[]{Manifest.permission.REQUEST_INSTALL_PACKAGES}, 6666);
-                }
-            }
-        } else {
-            // 通过Intent安装APK文件
-            intent.setDataAndType(Uri.parse("file://" + apkfile.toString()),
-                    "application/vnd.android.package-archive");
-        }
-        if (mContext.getPackageManager().queryIntentActivities(intent, 0).size() > 0) {
-            mContext.startActivity(intent);
-        }
-    }
     //TODO
     private void install(String filePath) {
         Log.i(TAG, "开始执行安装: " + filePath);
         File apkFile = new File(filePath);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        Uri apkUri = FileProvider.getUriForFile(mContext, "com.shashiwang.shashiapp", apkFile);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
             Log.w(TAG, "版本大于 N ，开始使用 fileProvider 进行安装");
             intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             Uri contentUri = FileProvider.getUriForFile(
                     mContext
-                    , "com.shashiwang.shashiapp.fileprovider"
+                    , "com.shashiwang.shashiapp"
                     , apkFile);
             intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
         } else {
             Log.w(TAG, "正常进行安装");
-            intent.setDataAndType(Uri.fromFile(apkFile), "application/vnd.android.package-archive");
+            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
         }
         mContext.startActivity(intent);
     }

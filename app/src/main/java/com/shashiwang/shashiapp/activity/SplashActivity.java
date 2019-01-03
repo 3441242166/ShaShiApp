@@ -1,5 +1,7 @@
 package com.shashiwang.shashiapp.activity;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.media.Image;
 import android.os.Build;
@@ -20,6 +22,7 @@ import com.shashiwang.shashiapp.base.BaseMvpActivity;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.presenter.SplashPresenter;
 import com.shashiwang.shashiapp.view.ISplashView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.List;
 
@@ -45,6 +48,9 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
 
     private MaterialDialog dialog;
     private MaterialDialog updateDialog;
+    private MaterialDialog processDialog;
+
+    private RxPermissions rxPermissions ;
 
     @Override
     protected SplashPresenter setPresenter() {
@@ -53,11 +59,15 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        initView();
+        checkPermissions();
 
-        if (!EasyPermissions.hasPermissions(this, DATA)) {
-            EasyPermissions.requestPermissions(this, "为了您的体验,请允许申请权限",
-                    1, DATA);
-        }
+        presenter.checkVersion();
+
+        findViewById(R.id.bck).setOnClickListener(view -> loadDataSuccess(null));
+    }
+
+    private void initView(){
 
         dialog = new MaterialDialog.Builder(this)
                 .title("警告")
@@ -81,6 +91,7 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
                 .negativeText("退出")
                 .onPositive((dialog, which) -> {
                     presenter.downloadApk();
+                    showProgress();
                 })
                 .onNegative((dialog, which) -> {
                     finish();
@@ -88,14 +99,42 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
                 .cancelable(false)
                 .build();
 
+        processDialog = new MaterialDialog.Builder(this)
+                .title("Zzz...")
+                .content("加载中...")
+                .cancelable(false)
+                .progress(false,100,true)
+                .build();
+    }
+
+    @SuppressLint("CheckResult")
+    private void checkPermissions(){
+        if (!EasyPermissions.hasPermissions(this, DATA)) {
+            EasyPermissions.requestPermissions(this, "为了您的体验,请允许申请权限",
+                    1, DATA);
+        }
+
         boolean is = NotificationManagerCompat.from(this).areNotificationsEnabled();
         Log.i(TAG, "init:  isOpen Notification " + is);
         if(!is){
             dialog.show();
         }
-        presenter.checkVersion();
 
-        findViewById(R.id.bck).setOnClickListener(view -> loadDataSuccess(null));
+        rxPermissions = new RxPermissions(this);
+
+//        rxPermissions
+//                .request(DATA)
+//                .subscribe(granted -> {
+//                    if (granted) {
+//                        // Always true pre-M
+//                        // I can control the camera now
+//
+//                    } else {
+//
+//                        // Oups permission denied
+//                    }
+//                });
+
     }
 
     public void openSetting(){
@@ -127,12 +166,12 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
 
     @Override
     public void showProgress() {
-
+        processDialog.show();
     }
 
     @Override
     public void dismissProgress() {
-
+        processDialog.dismiss();
     }
 
     @Override
@@ -175,7 +214,14 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
     }
 
     @Override
-    public void downloadProgress(String str) {
-
+    public void downloadProgress(int str) {
+        processDialog.setProgress(str);
     }
+
+    @Override
+    public void showVersionDialog() {
+        updateDialog.show();
+    }
+
+
 }

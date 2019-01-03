@@ -22,6 +22,7 @@ import com.shashiwang.shashiapp.customizeview.NoScrollViewPager;
 import com.shashiwang.shashiapp.fragment.MainFragment;
 import com.shashiwang.shashiapp.fragment.MyFragment;
 import com.shashiwang.shashiapp.presenter.MainActivityPresenter;
+import com.shashiwang.shashiapp.service.LocationService;
 import com.shashiwang.shashiapp.view.IMainActivityView;
 
 import java.util.ArrayList;
@@ -67,7 +68,7 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         initView();
         initData();
         initEvent();
-
+        startService(new Intent(this,LocationService.class));
     }
 
     private void initView() {
