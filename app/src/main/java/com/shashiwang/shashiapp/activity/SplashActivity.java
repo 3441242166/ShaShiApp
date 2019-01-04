@@ -46,7 +46,6 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
             android.Manifest.permission.REQUEST_INSTALL_PACKAGES,
             android.Manifest.permission.CHANGE_WIFI_STATE};
 
-    private MaterialDialog dialog;
     private MaterialDialog updateDialog;
     private MaterialDialog processDialog;
 
@@ -68,20 +67,6 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
     }
 
     private void initView(){
-
-        dialog = new MaterialDialog.Builder(this)
-                .title("警告")
-                .content("为了您的使用体验,请打开通知权限")
-                .cancelable(false)
-                .positiveText("开启")
-                .negativeText("忽略")
-                .onPositive((dialog, which) -> {
-                    openSetting();
-                })
-                .onNegative((dialog, which) -> {
-                    dialog.cancel();
-                })
-                .build();
 
         updateDialog = new MaterialDialog.Builder(this)
                 .title("更新")
@@ -114,50 +99,10 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
                     1, DATA);
         }
 
-        boolean is = NotificationManagerCompat.from(this).areNotificationsEnabled();
-        Log.i(TAG, "init:  isOpen Notification " + is);
-        if(!is){
-            dialog.show();
-        }
-
         rxPermissions = new RxPermissions(this);
-
-//        rxPermissions
-//                .request(DATA)
-//                .subscribe(granted -> {
-//                    if (granted) {
-//                        // Always true pre-M
-//                        // I can control the camera now
-//
-//                    } else {
-//
-//                        // Oups permission denied
-//                    }
-//                });
-
     }
 
-    public void openSetting(){
-        // 根据isOpened结果，判断是否需要提醒用户跳转AppInfo页面，去打开App通知权限
-        Intent intent = new Intent();
-        intent.setAction(Settings.ACTION_APP_NOTIFICATION_SETTINGS);
-        //这种方案适用于 API 26, 即8.0（含8.0）以上可以用
-        intent.putExtra(EXTRA_APP_PACKAGE, getPackageName());
-        intent.putExtra(EXTRA_CHANNEL_ID, getApplicationInfo().uid);
 
-        //这种方案适用于 API21——25，即 5.0——7.1 之间的版本可以使用
-        intent.putExtra("app_package", getPackageName());
-        intent.putExtra("app_uid", getApplicationInfo().uid);
-
-        // 小米6 -MIUI9.6-8.0.0系统，是个特例，通知设置界面只能控制"允许使用通知圆点"——然而这个玩意并没有卵用，我想对雷布斯说：I'm not ok!!!
-        //  if ("MI 6".equals(Build.MODEL)) {
-        //      intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-        //      Uri uri = Uri.fromParts("package", getPackageName(), null);
-        //      intent.setData(uri);
-        //      // intent.setAction("com.android.settings/.SubSettings");
-        //  }
-        startActivity(intent);
-    }
 
     @Override
     protected int getContentView() {
