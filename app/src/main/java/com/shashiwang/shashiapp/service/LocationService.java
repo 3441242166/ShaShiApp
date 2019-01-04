@@ -22,6 +22,8 @@ import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.presenter.LocationPresenter;
 import com.shashiwang.shashiapp.presenter.LoginPresenter;
 
+import org.greenrobot.eventbus.EventBus;
+
 import cn.jpush.android.api.JPushInterface;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -54,6 +56,8 @@ public class LocationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        getLocation();
+
         if(!mLocClient.isStarted()) {
 
             LocationClientOption option = new LocationClientOption();
@@ -69,6 +73,23 @@ public class LocationService extends Service {
         return super.onStartCommand(intent, flags, startId);
     }
 
+    private void getLocation(){
+        LocationClient mLocClient = new LocationClient(this);
+        LocationClientOption option = new LocationClientOption();
+        option.setCoorType("bd09ll");
+        option.setOpenGps(true);
+        mLocClient.setLocOption(option);
+        mLocClient.registerLocationListener(new BDAbstractLocationListener() {
+            @Override
+            public void onReceiveLocation(BDLocation bdLocation) {
+                Log.i(TAG, "onReceiveLocation: bdLocation = " + bdLocation.getLongitude()+"  "+bdLocation.getLatitude());
+                EventBus.getDefault().post(bdLocation);
+                mLocClient.stop();
+            }
+        });
+        mLocClient.start();
+    }
+
     public class MyLocationListener extends BDAbstractLocationListener {
 
         @SuppressLint("CheckResult")
@@ -76,6 +97,8 @@ public class LocationService extends Service {
         public void onReceiveLocation(BDLocation location){
             Log.i(TAG, "onReceiveLocation");
             Log.i(TAG, "onReceiveLocation: lat = " + location.getLatitude() + "  lng = " + location.getLongitude());
+
+            EventBus.getDefault().post(location);
 
             String token = (String) SharedPreferencesHelper.getSharedPreference(TOKEN,"");
 
@@ -105,7 +128,14 @@ public class LocationService extends Service {
                     }, throwable -> {
                         Log.i(TAG, "login: error = " + throwable);
                     });
+
+
         }
 
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
 }

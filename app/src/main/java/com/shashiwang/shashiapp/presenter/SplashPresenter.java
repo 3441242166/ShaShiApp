@@ -81,12 +81,14 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
 
                     if(result.isSuccess()){
                         bean = result.getData();
+                        Log.i(TAG, "checkVersion: bean version = " + bean.version + " nowVersion = " +nowVersion);
                         if(!bean.version.equals(nowVersion)){
                             mView.showVersionDialog();
                         }
                     }
-
+                    mView.loadDataSuccess(null);
                 }, throwable -> {
+                    mView.loadDataSuccess(null);
                     Log.i(TAG, "login: error = " + throwable);
                 });
 

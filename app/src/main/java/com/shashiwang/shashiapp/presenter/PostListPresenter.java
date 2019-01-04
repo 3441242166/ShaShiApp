@@ -2,9 +2,11 @@ package com.shashiwang.shashiapp.presenter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.baidu.location.BDLocation;
 import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
@@ -18,7 +20,12 @@ import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.bean.MessageBean;
 import com.shashiwang.shashiapp.bean.StationMessage;
 import com.shashiwang.shashiapp.constant.MessageType;
+import com.shashiwang.shashiapp.service.LocationService;
 import com.shashiwang.shashiapp.view.IPostListView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,22 +37,47 @@ import static com.shashiwang.shashiapp.constant.ApiConstant.URL_PUBLISH;
 public class PostListPresenter extends BasePresenter<IPostListView> {
     private static final String TAG = "PostListPresenter";
 
+    private BDLocation location;
+
+    private boolean isWrite = false;
+
+    private int type;
+
     public PostListPresenter(IPostListView view, Context context) {
         super(view, context);
     }
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        mContext.startService(new Intent(mContext,LocationService.class));
+        EventBus.getDefault().register(this);
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getLocationData(BDLocation bdLocation) {
+        location = bdLocation;
+        if(isWrite){
+            getList(type);
+            isWrite = false;
+        }
     }
 
     @SuppressLint("CheckResult")
     public void getList(int type){
+        this.type = type;
+
+        if(location == null){
+            isWrite = true;
+            return;
+        }
+
         String url = URL_PUBLISH + type;
         Log.i(TAG, "getList:  url = " + url);
 
         RxRetrofitClient.builder()
                 .header(new TokenInterceptor())
+                .params("location_lat",location.getLatitude())
+                .params("location_lng",location.getLongitude())
                 .url(url)
                 .build()
                 .get()
@@ -128,6 +160,11 @@ public class PostListPresenter extends BasePresenter<IPostListView> {
         return resultMessage;
     }
 
+    @Override
+    public void destroy() {
+        EventBus.getDefault().unregister(this);
+        super.destroy();
+    }
 
     static class ResultMessage{
         List<MessageBean> data;

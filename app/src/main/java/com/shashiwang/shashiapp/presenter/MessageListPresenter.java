@@ -6,15 +6,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.baidu.location.BDLocation;
 import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.shashiwang.shashiapp.activity.message.CarMessageActivity;
-import com.shashiwang.shashiapp.activity.message.DriverMessageActivity;
-import com.shashiwang.shashiapp.activity.message.FactoryMessageActivity;
-import com.shashiwang.shashiapp.activity.message.FreightMessageActivity;
-import com.shashiwang.shashiapp.activity.message.StationMessageActivity;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.bean.CarMessage;
 import com.shashiwang.shashiapp.bean.DriverMessage;
@@ -25,8 +21,12 @@ import com.shashiwang.shashiapp.bean.MessageBean;
 import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.bean.StationMessage;
 import com.shashiwang.shashiapp.constant.MessageType;
-import com.shashiwang.shashiapp.presenter.PostListPresenter;
+import com.shashiwang.shashiapp.service.LocationService;
 import com.shashiwang.shashiapp.view.IMessageListView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,13 +38,20 @@ import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CAR;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_DRIVER;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_FACTORY;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_FREIGHT;
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_PUBLISH;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_STATION;
 
 public class MessageListPresenter extends BasePresenter<IMessageListView> {
     private static final String TAG = "MessageListPresenter";
 
+    private BDLocation location;
+
     private int page = 1;
+
+    private boolean isWrite = false;
+
+    private int type;
+
+    private boolean isFirst;
 
     public MessageListPresenter(IMessageListView view, Context context) {
         super(view, context);
@@ -52,22 +59,46 @@ public class MessageListPresenter extends BasePresenter<IMessageListView> {
 
     @Override
     protected void init(Bundle savedInstanceState) {
+        mContext.startService(new Intent(mContext,LocationService.class));
+        EventBus.getDefault().register(this);
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void getLocationData(BDLocation bdLocation) {
+        Log.i(TAG, "onReceiveLocation: bdLocation = " + bdLocation.getLongitude()+"  "+bdLocation.getLatitude());
+        location = bdLocation;
+        if(isWrite){
+            isWrite = false;
+            getList(type,isFirst);
+        }
     }
 
     @SuppressLint("CheckResult")
     public void getList(int type,boolean isFirst){
+        this.type = type;
+        this.isFirst = isFirst;
+
         String url = getUrl(type);
+
         Log.i(TAG, "getList:  url = " + url);
+
         if(isFirst) {
             page = 1;
         }else {
             page++;
         }
+
+        if(location == null){
+            isWrite = true;
+            return;
+        }
+
         RxRetrofitClient.builder()
                 .header(new TokenInterceptor())
                 .url(url)
                 .params("page",page)
+                .params("location_lat",location.getLatitude())
+                .params("location_lng",location.getLongitude())
                 .build()
                 .get()
                 .subscribeOn(Schedulers.newThread())
@@ -85,8 +116,8 @@ public class MessageListPresenter extends BasePresenter<IMessageListView> {
 
                 }, throwable -> {
                     Log.i(TAG, "getList: error = " + throwable);
-
                 });
+
     }
 
     private ResultMessage handleMessage(String str, int type){
@@ -164,6 +195,12 @@ public class MessageListPresenter extends BasePresenter<IMessageListView> {
                 return URL_DRIVER;
         }
         return null;
+    }
+
+    @Override
+    public void destroy() {
+        EventBus.getDefault().unregister(this);
+        super.destroy();
     }
 
     static class ResultMessage{

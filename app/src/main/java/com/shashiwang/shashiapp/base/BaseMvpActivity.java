@@ -1,5 +1,6 @@
 package com.shashiwang.shashiapp.base;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +24,7 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getContentView());
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ActivityCollector.addActivity(this);
         presenter = setPresenter();
         init(savedInstanceState);
