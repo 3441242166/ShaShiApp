@@ -60,6 +60,7 @@ public class MessageListActivity extends BaseTopBarActivity<MessageListPresenter
         initData();
         initView();
         initEvent();
+        swipeRefreshLayout.setRefreshing(true);
         presenter.getList(type,true);
     }
 
