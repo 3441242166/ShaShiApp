@@ -28,11 +28,12 @@ public class BaseApplication extends Application {
                 .withInterceptor(new LoggingInterceptor())
                 .configure();
 
-        SDKInitializer.initialize(this);
+        new Thread(() -> {
+            SDKInitializer.initialize(BaseApplication.this);
+            initJPush();
+            FileDownloader.setup(BaseApplication.this);
+        }).start();
 
-        initJPush();
-
-        FileDownloader.setup(this);
     }
 
     private void initJPush(){

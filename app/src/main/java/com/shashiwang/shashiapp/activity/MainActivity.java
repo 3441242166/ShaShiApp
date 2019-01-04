@@ -1,10 +1,12 @@
 package com.shashiwang.shashiapp.activity;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -26,6 +28,7 @@ import com.shashiwang.shashiapp.fragment.MyFragment;
 import com.shashiwang.shashiapp.presenter.MainActivityPresenter;
 import com.shashiwang.shashiapp.service.LocationService;
 import com.shashiwang.shashiapp.view.IMainActivityView;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +43,7 @@ import static android.provider.Settings.EXTRA_APP_PACKAGE;
 import static android.provider.Settings.EXTRA_CHANNEL_ID;
 import static com.shashiwang.shashiapp.constant.Constant.REQUEST_PERMISSION;
 
-public class MainActivity extends BaseMvpActivity<MainActivityPresenter> implements IMainActivityView {
+public class MainActivity extends BaseMvpActivity<MainActivityPresenter> implements IMainActivityView,EasyPermissions.PermissionCallbacks {
     private static final String TAG = "MainActivity";
 
     @BindView(R.id.bottom_main)
@@ -57,6 +60,11 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
 
     private MaterialDialog dialog;
 
+    public static String[] DATA = new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION,
+            android.Manifest.permission.READ_PHONE_STATE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
     @Override
     protected MainActivityPresenter setPresenter() {
         return new MainActivityPresenter(this,this);
@@ -66,8 +74,6 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
     protected int getContentView() {
         return R.layout.activity_main;
     }
-
-
 
     protected void init(Bundle savedInstanceState) {
         ButterKnife.bind(this);
@@ -81,6 +87,8 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         if(!is){
             dialog.show();
         }
+        checkPermissions();
+
     }
 
     private void initView() {
@@ -99,6 +107,15 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
                     dialog.cancel();
                 })
                 .build();
+    }
+
+    @SuppressLint("CheckResult")
+    private void checkPermissions(){
+        if (!EasyPermissions.hasPermissions(this, DATA)) {
+            EasyPermissions.requestPermissions(this, "为了您的体验,请允许申请权限",
+                    1, DATA);
+        }
+
     }
 
     private void initData() {
@@ -217,6 +234,11 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
             fragment.onActivityResult(requestCode, resultCode, data);
         }
 
+        if(requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE){
+            if (!EasyPermissions.hasPermissions(this, DATA)) {
+                Toasty.info(this,"为了您的体验,请允许申请权限").show();
+            }
+        }
     }
 
     @Override
@@ -226,6 +248,21 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
     }
 
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
 
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
+            new AppSettingsDialog
+                    .Builder(this)
+                    .setTitle("为了您的体验,请允许申请权限")
+                    .setThemeResId(R.style.Theme_AppCompat_Dialog)
+                    .build()
+                    .show();
+        }
+    }
 
 }

@@ -33,23 +33,12 @@ import pub.devrel.easypermissions.EasyPermissions;
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
 import static android.provider.Settings.EXTRA_CHANNEL_ID;
 
-public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements ISplashView,EasyPermissions.PermissionCallbacks {
+public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements ISplashView {
     private static final String TAG = "SplashActivity";
 
-    public static String[] DATA = new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.ACCESS_COARSE_LOCATION,
-            android.Manifest.permission.READ_PHONE_STATE,
-            android.Manifest.permission.ACCESS_WIFI_STATE,
-            android.Manifest.permission.ACCESS_NETWORK_STATE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            android.Manifest.permission.INTERNET,
-            android.Manifest.permission.REQUEST_INSTALL_PACKAGES,
-            android.Manifest.permission.CHANGE_WIFI_STATE};
 
     private MaterialDialog updateDialog;
     private MaterialDialog processDialog;
-
-    private RxPermissions rxPermissions ;
 
     @Override
     protected SplashPresenter setPresenter() {
@@ -59,7 +48,6 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
     @Override
     protected void init(Bundle savedInstanceState) {
         initView();
-        checkPermissions();
 
         presenter.checkVersion();
 
@@ -68,39 +56,9 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
 
     private void initView(){
 
-        updateDialog = new MaterialDialog.Builder(this)
-                .title("更新")
-                .content("有新版本了")
-                .cancelable(false)
-                .positiveText("更新")
-                .negativeText("退出")
-                .onPositive((dialog, which) -> {
-                    presenter.downloadApk();
-                    showProgress();
-                })
-                .onNegative((dialog, which) -> {
-                    finish();
-                })
-                .cancelable(false)
-                .build();
-
-        processDialog = new MaterialDialog.Builder(this)
-                .title("Zzz...")
-                .content("加载中...")
-                .cancelable(false)
-                .progress(false,100,true)
-                .build();
     }
 
-    @SuppressLint("CheckResult")
-    private void checkPermissions(){
-        if (!EasyPermissions.hasPermissions(this, DATA)) {
-            EasyPermissions.requestPermissions(this, "为了您的体验,请允许申请权限",
-                    1, DATA);
-        }
 
-        rxPermissions = new RxPermissions(this);
-    }
 
 
 
@@ -131,40 +89,35 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if(requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE){
-            if (!EasyPermissions.hasPermissions(this, DATA)) {
-                Toasty.info(this,"为了您的体验,请允许申请权限").show();
-            }
-        }
-    }
-
-    @Override
-    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
-
-    }
-
-    @Override
-    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
-        if (EasyPermissions.somePermissionPermanentlyDenied(this, perms)) {
-            new AppSettingsDialog
-                    .Builder(this)
-                    .setTitle("为了您的体验,请允许申请权限")
-                    .setThemeResId(R.style.AppTheme)
-                    .build()
-                    .show();
-        }
-    }
-
-    @Override
     public void downloadProgress(int str) {
         processDialog.setProgress(str);
     }
 
     @Override
     public void showVersionDialog() {
+        updateDialog = new MaterialDialog.Builder(this)
+                .title("更新")
+                .content("有新版本了")
+                .cancelable(false)
+                .positiveText("更新")
+                .negativeText("退出")
+                .onPositive((dialog, which) -> {
+                    presenter.downloadApk();
+                    showProgress();
+                })
+                .onNegative((dialog, which) -> {
+                    finish();
+                })
+                .cancelable(false)
+                .build();
+
+        processDialog = new MaterialDialog.Builder(this)
+                .title("Zzz...")
+                .content("加载中...")
+                .cancelable(false)
+                .progress(false,100,true)
+                .build();
+
         updateDialog.show();
     }
 
