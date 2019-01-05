@@ -32,6 +32,8 @@ import java.util.Map;
 import butterknife.BindView;
 
 import static com.shashiwang.shashiapp.util.FileUtil.getRealPathFromURI;
+import static com.shashiwang.shashiapp.util.TypeUtil.getCarInt;
+import static com.shashiwang.shashiapp.util.TypeUtil.getCarList;
 
 public class PostCarActivity extends BaseTopBarActivity<PostCarPresenter> implements IPostCarView {
     private static final String TAG = "PostCarActivity";
@@ -57,7 +59,6 @@ public class PostCarActivity extends BaseTopBarActivity<PostCarPresenter> implem
     @BindView(R.id.bt_send)
     Button btSend;
 
-    private Map<String,Integer> data;
     private PhotoAdapter adapter;
     private LinkedList<PhotoAdapter.PhotoBean> photoList;
     private MaterialDialog dialog;
@@ -75,7 +76,6 @@ public class PostCarActivity extends BaseTopBarActivity<PostCarPresenter> implem
     @Override
     protected void initFrame(Bundle savedInstanceState) {
         setTitle("出售车辆");
-        data = FileUtil.getJsonFormAssets(this,"carType.json");
         initView();
         initEvent();
     }
@@ -97,13 +97,9 @@ public class PostCarActivity extends BaseTopBarActivity<PostCarPresenter> implem
     }
 
     private void initEvent() {
-        List<String> list = new ArrayList<>();
-        for( String key :data.keySet()){
-            list.add(key);
-        }
 
         chType.setOnClickListener(view -> {
-            ChooseBottomDialog dialog = new ChooseBottomDialog(PostCarActivity.this,"选择车辆",list);
+            ChooseBottomDialog dialog = new ChooseBottomDialog(PostCarActivity.this,"选择车辆",getCarList());
             dialog.setOnChooseListener((str,i) -> chType.setContantText(str));
             dialog.show();
         });
@@ -133,7 +129,7 @@ public class PostCarActivity extends BaseTopBarActivity<PostCarPresenter> implem
     }
 
     private void postData() {
-        int carType = data.get(chType.getContantText());
+        int carType = getCarInt(chType.getContantText());
         List<String> list = new ArrayList<>(photoList.size()-1);
         for(int x=0;x<photoList.size()-1;x++){
             list.add(photoList.get(x).url);

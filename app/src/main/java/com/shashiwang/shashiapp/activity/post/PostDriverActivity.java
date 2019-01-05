@@ -34,6 +34,8 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_DRIVER;
+import static com.shashiwang.shashiapp.util.TypeUtil.getYearInt;
+import static com.shashiwang.shashiapp.util.TypeUtil.getYearList;
 
 public class PostDriverActivity extends BaseTopBarActivity{
     private static final String TAG = "PostDriverActivity";
@@ -56,8 +58,6 @@ public class PostDriverActivity extends BaseTopBarActivity{
     @BindView(R.id.bt_send)
     Button btSend;
 
-    private Map<String,Integer> data;
-
     @Override
     protected BasePresenter setPresenter() {
         return null;
@@ -71,18 +71,13 @@ public class PostDriverActivity extends BaseTopBarActivity{
     @Override
     protected void initFrame(Bundle savedInstanceState) {
         setTitle("司机招聘");
-        data = FileUtil.getJsonFormAssets(this,"workYear.json");
         initEvent();
     }
 
     private void initEvent() {
-        List<String> list = new ArrayList<>();
-        for( String key :data.keySet()){
-            list.add(key);
-        }
 
         chYear.setOnClickListener(view -> {
-            ChooseBottomDialog dialog = new ChooseBottomDialog(PostDriverActivity.this,"选择车辆类型",list);
+            ChooseBottomDialog dialog = new ChooseBottomDialog(PostDriverActivity.this,"选择车辆类型",getYearList());
             dialog.setOnChooseListener((str,i) -> {
                 chYear.setContantText(str);
 
@@ -96,7 +91,7 @@ public class PostDriverActivity extends BaseTopBarActivity{
     @SuppressLint("CheckResult")
     private void postData() {
 
-        int workYear = data.get(chYear.getContantText());
+        int workYear = getYearInt(chYear.getContantText());
 
         if(checkData()){
             RxRetrofitClient.builder()

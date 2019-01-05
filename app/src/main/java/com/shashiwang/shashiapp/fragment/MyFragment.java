@@ -95,11 +95,11 @@ public class MyFragment extends BaseFragment<MyFragmentPresenter> implements IMy
         });
 
         ivHead.setOnClickListener(view -> {
-            if(!TextUtils.isEmpty((String)SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
-                startActivityForResult(new Intent(getContext(), UserMessageActivity.class), REQUEST_USER_MESSAGE);
-            }else {
-                Toasty.info(getContext(),"请先登陆");
-            }
+//            if(!TextUtils.isEmpty((String)SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
+//                startActivityForResult(new Intent(getContext(), UserMessageActivity.class), REQUEST_USER_MESSAGE);
+//            }else {
+//                Toasty.info(getContext(),"请先登陆");
+//            }
         });
     }
 

@@ -46,7 +46,7 @@ public class StationMessageActivity extends BaseTopBarActivity {
     TextView tvTitle;
     @BindView(R.id.tv_time)
     TextView tvTime;
-    @BindView(R.id.tv_content)
+    @BindView(R.id.tv_remark)
     TextView tvContent;
 
     @BindView(R.id.tv_price)

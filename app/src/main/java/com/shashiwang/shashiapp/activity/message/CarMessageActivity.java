@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -33,6 +35,8 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CAR;
 import static com.shashiwang.shashiapp.constant.Constant.ID;
+import static com.shashiwang.shashiapp.util.TypeUtil.getCarString;
+import static com.shashiwang.shashiapp.util.TypeUtil.getYearString;
 
 public class CarMessageActivity extends BaseTopBarActivity {
     private static final String TAG = "CarMessageActivity";
@@ -41,7 +45,7 @@ public class CarMessageActivity extends BaseTopBarActivity {
     TextView tvTitle;
     @BindView(R.id.tv_time)
     TextView tvTime;
-    @BindView(R.id.tv_content)
+    @BindView(R.id.tv_remark)
     TextView tvRemark;
 
     @BindView(R.id.tv_brand)
@@ -101,6 +105,10 @@ public class CarMessageActivity extends BaseTopBarActivity {
             intent.setData(data);
             startActivity(intent);
         });
+
+        adapter.setOnItemClickListener((adapter, view, position) -> {
+
+        });
     }
 
     @SuppressLint("CheckResult")
@@ -129,6 +137,8 @@ public class CarMessageActivity extends BaseTopBarActivity {
     }
 
     private void loadDataSuccess(CarMessage message) {
+        Log.i(TAG, "loadDataSuccess: getRemark = " + message.getRemark());
+        Log.i(TAG, "loadDataSuccess: getBrand = " + message.getBrand());
 
         tvTitle.setText(StringUtil.getFirstChinese(message.getLinkman())+"先生");
         tvTime.setText(DateUtil.getDifferentString(message.getCreated_at()));
@@ -137,8 +147,8 @@ public class CarMessageActivity extends BaseTopBarActivity {
         tvMileage.setContantText(""+message.getMileage()+"公里");
         tvPrice.setContantText(""+message.getPrice());
         tvPhone.setContantText(message.getPhone());
-        tvType.setContantText("null");
-        tvYears.setContantText(message.getFactory_year());
+        tvType.setContantText(getCarString(message.getCategory()));
+        tvYears.setContantText(""+message.getFactory_year());
 
         tvRemark.setText(message.getRemark());
 

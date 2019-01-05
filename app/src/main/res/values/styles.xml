@@ -10,6 +10,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="SplashTheme" parent="AppTheme">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@drawable/bg_lunch</item>
+    </style>
+
     <!-- TextView  -->
 
     <style name="text_post_pop">

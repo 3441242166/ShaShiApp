@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -25,6 +26,8 @@ import com.shashiwang.shashiapp.view.ISplashView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import es.dmoral.toasty.Toasty;
 import pub.devrel.easypermissions.AppSettingsDialog;
@@ -48,23 +51,16 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
     @Override
     protected void init(Bundle savedInstanceState) {
         initView();
-
         presenter.checkVersion();
-
-        findViewById(R.id.bck).setOnClickListener(view -> loadDataSuccess(null));
     }
 
     private void initView(){
 
     }
 
-
-
-
-
     @Override
     protected int getContentView() {
-        return R.layout.activity_splash;
+        return -1;
     }
 
     @Override
@@ -121,5 +117,12 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
         updateDialog.show();
     }
 
-
+    //防止退出
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

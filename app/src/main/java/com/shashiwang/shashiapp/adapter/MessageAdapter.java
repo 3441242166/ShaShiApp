@@ -18,6 +18,7 @@ import com.shashiwang.shashiapp.util.StringUtil;
 import java.util.List;
 
 import static com.shashiwang.shashiapp.constant.MessageType.*;
+import static com.shashiwang.shashiapp.util.TypeUtil.getYearString;
 
 public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean,BaseViewHolder> {
     private static final String TAG = "MessageAdapter";
@@ -65,7 +66,7 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean,BaseVi
                 helper.setText(R.id.tv_name,carMessage.getBrand());
                 helper.setText(R.id.tv_price,""+carMessage.getPrice());
 
-                helper.setText(R.id.tv_type,carMessage.getFactory_year());
+                helper.setText(R.id.tv_type,""+carMessage.getFactory_year());
                 helper.setText(R.id.tv_kilometre,""+carMessage.getMileage()+"公里");
                 helper.setText(R.id.tv_content,carMessage.getRemark());
                 break;
@@ -90,7 +91,7 @@ public class MessageAdapter extends BaseMultiItemQuickAdapter<MessageBean,BaseVi
                 helper.setText(R.id.tv_title,StringUtil.getFirstChinese(driverMessage.getLinkman())+"先生");
                 helper.setText(R.id.tv_label,DateUtil.getDifferentString(driverMessage.getCreated_at()));
 
-                helper.setText(R.id.tv_years,""+driverMessage.getWork_year()+"年");
+                helper.setText(R.id.tv_years,getYearString(driverMessage.getWork_year()));
                 helper.setText(R.id.tv_salary,""+driverMessage.getSalary());
 
                 helper.setText(R.id.tv_address,driverMessage.getWork_address());

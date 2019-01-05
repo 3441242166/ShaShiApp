@@ -29,6 +29,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_DRIVER;
 import static com.shashiwang.shashiapp.constant.Constant.ID;
+import static com.shashiwang.shashiapp.util.TypeUtil.getYearString;
 
 public class DriverMessageActivity extends BaseTopBarActivity {
     private static final String TAG = "DriverMessageActivity";
@@ -37,7 +38,7 @@ public class DriverMessageActivity extends BaseTopBarActivity {
     TextView tvTitle;
     @BindView(R.id.tv_time)
     TextView tvTime;
-    @BindView(R.id.tv_content)
+    @BindView(R.id.tv_remark)
     TextView tvContent;
 
     @BindView(R.id.tv_salary)
@@ -112,7 +113,7 @@ public class DriverMessageActivity extends BaseTopBarActivity {
         tvContent.setText(message.getJob_desc());
 
         tvSalary.setContantText(""+message.getSalary());
-        tvYears.setContantText(String.valueOf(""+message.getWork_year()));
+        tvYears.setContantText(getYearString(message.getWork_year()));
         tvLocation.setContantText(message.getWork_address());
         tvPhone.setContantText(message.getPhone());
     }

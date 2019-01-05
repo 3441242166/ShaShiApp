@@ -41,6 +41,7 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.shashiwang.shashiapp.constant.Constant.REQUEST_END_LOCATION;
 import static com.shashiwang.shashiapp.constant.Constant.REQUEST_START_LOCATION;
+import static com.shashiwang.shashiapp.util.TypeUtil.getCarList;
 
 public class PostFreightActivity extends BaseTopBarActivity{
     private static final String TAG = "PostFreightActivity";
@@ -74,7 +75,6 @@ public class PostFreightActivity extends BaseTopBarActivity{
     private String endLat;
     private String endLng;
 
-    private Map<String,Integer> data;
 
     @Override
     protected BasePresenter setPresenter() {
@@ -89,23 +89,17 @@ public class PostFreightActivity extends BaseTopBarActivity{
     @Override
     protected void initFrame(Bundle savedInstanceState) {
         setTitle("发布运费信息");
-        data = FileUtil.getJsonFormAssets(this,"carType.json");
         initEvent();
     }
 
     private void initEvent() {
-        List<String> list = new ArrayList<>();
-        for( String key :data.keySet()){
-            Log.i(TAG, "initEvent: key = "+key);
-            list.add(key);
-        }
 
         edStart.setOnClickListener(view -> startActivityForResult(new Intent(PostFreightActivity.this, LocationActivity.class),REQUEST_START_LOCATION));
 
         edEnd.setOnClickListener(view -> startActivityForResult(new Intent(PostFreightActivity.this, LocationActivity.class),REQUEST_END_LOCATION));
 
         chCar.setOnClickListener(view -> {
-            ChooseBottomDialog dialog = new ChooseBottomDialog(PostFreightActivity.this,"选择车辆类型",list);
+            ChooseBottomDialog dialog = new ChooseBottomDialog(PostFreightActivity.this,"选择车辆类型",getCarList());
             dialog.setOnChooseListener((str,i) -> chCar.setContantText(str));
             dialog.show();
         });
@@ -117,7 +111,7 @@ public class PostFreightActivity extends BaseTopBarActivity{
 
         if(checkData()){
             Log.i(TAG, "postData: ok");
-            Disposable disposable = RxRetrofitClient.builder()
+            RxRetrofitClient.builder()
                     .header(new TokenInterceptor())
                     .url(ApiConstant.URL_FREIGHT)
                     .params("start_location_lat",startLat)

@@ -6,7 +6,7 @@ public class CarMessage extends BaseMessage{
 
     private String brand;
     private int category;
-    private String factory_year;
+    private int factory_year;
     private int mileage;
     private int price;
     private List<String> image;
@@ -32,11 +32,11 @@ public class CarMessage extends BaseMessage{
         this.category = category;
     }
 
-    public String getFactory_year() {
+    public int getFactory_year() {
         return factory_year;
     }
 
-    public void setFactory_year(String factory_year) {
+    public void setFactory_year(int factory_year) {
         this.factory_year = factory_year;
     }
 

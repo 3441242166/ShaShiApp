@@ -118,8 +118,43 @@ public class PostCarPresenter extends BasePresenter<IPostCarView> {
             }
         };
 
-        uploadImage(photos,photoStrings);
+        if(photos.size()>0){
+            uploadImage(photos,photoStrings);
+        }else {
+            if(checkData()) {
+                RxRetrofitClient.builder()
+                        .header(new TokenInterceptor())
+                        .url(URL_CAR)
+                        .params("brand", brand)
+                        .params("category", carType)
+                        .params("factory_year", factoryYear)
+                        .params("mileage", mileage)
+                        .params("price", price)
+                        .params("linkman", linkman)
+                        .params("phone", phone)
+                        .params("remark", remark)
+                        .build()
+                        .post()
+                        .subscribeOn(Schedulers.newThread())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(s -> {
+                            Log.i(TAG, "getList: success " + s);
+                            HttpResult<MessageResult<FreightMessage>> result = new Gson().fromJson(s, new TypeToken<HttpResult<MessageResult<FreightMessage>>>() {
+                            }.getType());
 
+                            if (result.isSuccess()) {
+                                mView.loadDataSuccess(null);
+                            } else {
+                                Toast.makeText(mContext, result.getMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                            mView.dismissProgress();
+                        }, throwable -> {
+                            Log.i(TAG, "getList: error = " + throwable);
+                            Toast.makeText(mContext, throwable.getMessage(), Toast.LENGTH_SHORT).show();
+                            mView.dismissProgress();
+                        });
+            }
+        }
 
     }
 
