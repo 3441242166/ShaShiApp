@@ -10,6 +10,7 @@ import com.example.config.Config;
 import com.example.net.interceptors.LoggingInterceptor;
 import com.example.util.SharedPreferencesHelper;
 import com.liulishuo.filedownloader.FileDownloader;
+import com.squareup.leakcanary.LeakCanary;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -29,6 +30,13 @@ public class BaseApplication extends Application {
                 .configure();
 
         new Thread(() -> {
+//            if (LeakCanary.isInAnalyzerProcess(this)) {
+//                // This process is dedicated to LeakCanary for heap analysis.
+//                // You should not init your app in this process.
+//                return;
+//            }
+//            LeakCanary.install(this);
+
             SDKInitializer.initialize(BaseApplication.this);
             initJPush();
             FileDownloader.setup(BaseApplication.this);

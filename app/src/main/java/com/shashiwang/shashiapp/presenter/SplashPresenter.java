@@ -67,6 +67,13 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
     @SuppressLint("CheckResult")
     public void checkVersion() {
 
+        boolean update = (boolean) SharedPreferencesHelper.getSharedPreference("isUpdate",false);
+
+        if(update){
+            mView.showVersionDialog();
+            return;
+        }
+
         RxRetrofitClient.builder()
                 .url(URL_VERSION)
                 .build()
@@ -83,6 +90,7 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
                         bean = result.getData();
                         Log.i(TAG, "checkVersion: bean version = " + bean.version + " nowVersion = " +nowVersion);
                         if(!bean.version.equals(nowVersion)){
+                            SharedPreferencesHelper.put("isUpdate",true);
                             mView.showVersionDialog();
                         }
                     }

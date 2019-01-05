@@ -22,12 +22,15 @@
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
     </fragment>
+
     <fragment
         android:id="@+id/registerFragment"
         android:name="com.shashiwang.shashiapp.fragment.login.RegisterFragment"
         android:label="RegisterFragment" />
+
     <fragment
         android:id="@+id/forgetFragment"
         android:name="com.shashiwang.shashiapp.fragment.login.ForgetFragment"
         android:label="ForgetFragment" />
+
 </navigation>

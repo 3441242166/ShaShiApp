@@ -15,6 +15,7 @@ import androidx.navigation.Navigation;
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
 
+import static androidx.navigation.fragment.NavHostFragment.findNavController;
 import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
 
 public class LoginFragment extends BaseFragment<LoginPresenter> implements ILoginView {
@@ -45,13 +46,9 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements ILogi
     @Override
     protected void init(Bundle savedInstanceState) {
 
-        tvRegister.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_registerFragment);
-        });
+        tvRegister.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_registerFragment));
 
-        tvForget.setOnClickListener(view -> {
-            Navigation.findNavController(view).navigate(R.id.action_loginFragment_to_forgetFragment);
-        });
+        tvForget.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_forgetFragment));
 
         btLogin.setOnClickListener(view -> presenter.login(evCount.getContentText(),evPassword.getContentText()));
 
