@@ -55,7 +55,7 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
 
     @Override
     protected int getContentView() {
-        return -1;
+        return R.layout.activity_splash;
     }
 
     @Override
