@@ -24,8 +24,10 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         int contentView = getContentView();
-        if(contentView!=-1){
-            setContentView(getContentView());
+        if(contentView != -1){
+            setContentView(contentView);
+        }else {
+            Log.e(TAG, "onCreate: no contentView");
         }
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         ActivityCollector.addActivity(this);

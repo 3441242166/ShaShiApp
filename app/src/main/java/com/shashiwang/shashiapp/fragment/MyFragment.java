@@ -84,10 +84,14 @@ public class MyFragment extends BaseFragment<MyFragmentPresenter> implements IMy
                 ((MainActivity)getActivity()).openMorePopupWindow();
                 return;
             }
+            String token = (String) SharedPreferencesHelper.getSharedPreference(TOKEN,"");
 
-            final Intent intent = new Intent(getContext(),CLASSES[position]);
-
-            startActivity(intent);
+            if(!TextUtils.isEmpty(token)){
+                final Intent intent = new Intent(getContext(),CLASSES[position]);
+                startActivity(intent);
+            }else {
+                Toasty.warning(getContext(),"请先登录").show();
+            }
         });
 
         ivSetting.setOnClickListener(view -> {
