@@ -10,7 +10,6 @@ import com.example.config.Config;
 import com.example.net.interceptors.LoggingInterceptor;
 import com.example.util.SharedPreferencesHelper;
 import com.liulishuo.filedownloader.FileDownloader;
-import com.squareup.leakcanary.LeakCanary;
 
 import cn.jpush.android.api.JPushInterface;
 
