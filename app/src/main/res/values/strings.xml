@@ -51,4 +51,5 @@
 
     <string name="name_post">发布</string>
     <string name="name_remark">备注信息</string>
+    <string name="hint_forget_password">请输入新的密码</string>
 </resources>

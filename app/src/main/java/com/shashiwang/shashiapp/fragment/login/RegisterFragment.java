@@ -12,7 +12,9 @@ import android.widget.ImageView;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.customizeview.LoginEditText;
+import com.shashiwang.shashiapp.presenter.ForgetPresenter;
 import com.shashiwang.shashiapp.presenter.RegisterPresenter;
+import com.shashiwang.shashiapp.view.IForgetView;
 import com.shashiwang.shashiapp.view.IRegisterView;
 
 import butterknife.BindView;
@@ -56,8 +58,7 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
 
     private void initEvent() {
         btRegister.setOnClickListener(view -> {
-            presenter.register(evPhone.getContentText(),evPassword.getContentText()
-            ,evCode.getText().toString());
+            presenter.register(evPhone.getContentText(),evPassword.getContentText(),evCode.getText().toString());
         });
 
         btCode.setOnClickListener(view -> presenter.getCode(evImageCode.getText().toString(), evPhone.getContentText()));

@@ -3,13 +3,10 @@ package com.shashiwang.shashiapp.presenter;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.TextUtils;
-import android.util.Base64;
 import android.util.Log;
-import android.view.TextureView;
 
 import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
@@ -19,7 +16,7 @@ import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.util.BitmapUtil;
 import com.shashiwang.shashiapp.util.CheckUtil;
-import com.shashiwang.shashiapp.view.IRegisterView;
+import com.shashiwang.shashiapp.view.IForgetView;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
@@ -28,11 +25,11 @@ import static com.shashiwang.shashiapp.constant.ApiConstant.URL_IMAGECODE;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_REGISTER;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_SMSCODE;
 
+public class ForgetPresenter extends BasePresenter<IForgetView> {
 
-public class RegisterPresenter extends BasePresenter<IRegisterView> {
     private static final String TAG = "RegisterPresenter";
 
-    private ImageCode imageCode;
+    private RegisterPresenter.ImageCode imageCode;
 
     private CountDownTimer timer = new CountDownTimer(60000, 1000) {
         @Override
@@ -46,35 +43,13 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
         }
     };
 
-    public RegisterPresenter(IRegisterView view, Context context) {
+    public ForgetPresenter(IForgetView view, Context context) {
         super(view, context);
     }
 
     @Override
     protected void init(Bundle savedInstanceState) {
         getImageCode();
-    }
-
-    @SuppressLint("CheckResult")
-    public void getImageCode(){
-
-        RxRetrofitClient.builder()
-                .url(URL_IMAGECODE)
-                .build()
-                .get()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> {
-                            Log.i(TAG, "accept: "+s);
-                            HttpResult<ImageCode> result = new Gson().fromJson(s,new TypeToken<HttpResult<ImageCode>>(){}.getType());
-                            imageCode = result.getData();
-
-                            Bitmap bitmap = BitmapUtil.getByBase64(imageCode.img);
-                            mView.showImage(bitmap);
-                        }
-                        , throwable -> {
-                    Log.i(TAG, "accept: "+throwable);
-                });
     }
 
     @SuppressLint("CheckResult")
@@ -122,7 +97,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
     }
 
     @SuppressLint("CheckResult")
-    public void getCode(String imgCode,String phone) {
+    public void getCode(String imgCode, String phone) {
 
         if(!CheckUtil.isPhone(phone)){
             mView.errorMessage("请输入正确的手机号");
@@ -158,16 +133,30 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
                         });
     }
 
+    @SuppressLint("CheckResult")
+    public void getImageCode() {
+        RxRetrofitClient.builder()
+                .url(URL_IMAGECODE)
+                .build()
+                .get()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                            Log.i(TAG, "accept: "+s);
+                            HttpResult<RegisterPresenter.ImageCode> result = new Gson().fromJson(s,new TypeToken<HttpResult<RegisterPresenter.ImageCode>>(){}.getType());
+                            imageCode = result.getData();
+
+                            Bitmap bitmap = BitmapUtil.getByBase64(imageCode.img);
+                            mView.showImage(bitmap);
+                        }
+                        , throwable -> {
+                            Log.i(TAG, "accept: "+throwable);
+                        });
+    }
+
     @Override
     public void destroy() {
         super.destroy();
         timer.cancel();
     }
-
-    public static class ImageCode{
-        public boolean sensitive;
-        public String key;
-        public String img;
-    }
-
 }

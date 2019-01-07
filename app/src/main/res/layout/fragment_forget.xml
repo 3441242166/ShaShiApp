@@ -177,7 +177,7 @@
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="16dp"
-        app:hint_content="@string/hint_login_password"
+        app:hint_content="@string/hint_forget_password"
         app:input_type="4"
         app:layout_constraintBottom_toTopOf="@+id/bt_login"
         app:layout_constraintEnd_toEndOf="parent"
