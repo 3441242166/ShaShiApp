@@ -28,18 +28,9 @@ public class BaseApplication extends Application {
                 .withInterceptor(new LoggingInterceptor())
                 .configure();
 
-        new Thread(() -> {
-//            if (LeakCanary.isInAnalyzerProcess(this)) {
-//                // This process is dedicated to LeakCanary for heap analysis.
-//                // You should not init your app in this process.
-//                return;
-//            }
-//            LeakCanary.install(this);
-
-            SDKInitializer.initialize(BaseApplication.this);
-            initJPush();
-            FileDownloader.setup(BaseApplication.this);
-        }).start();
+        SDKInitializer.initialize(BaseApplication.this);
+        initJPush();
+        FileDownloader.setup(BaseApplication.this);
 
     }
 
