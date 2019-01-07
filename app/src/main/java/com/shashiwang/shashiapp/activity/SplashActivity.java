@@ -50,12 +50,7 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        initView();
         presenter.checkVersion();
-    }
-
-    private void initView(){
-
     }
 
     @Override

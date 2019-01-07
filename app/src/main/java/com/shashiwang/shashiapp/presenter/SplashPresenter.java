@@ -68,7 +68,7 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
     public void checkVersion() {
 
         boolean update = (boolean) SharedPreferencesHelper.getSharedPreference("isUpdate",false);
-
+        Log.i(TAG, "checkVersion: upadte = " + update);
         if(update){
             mView.showVersionDialog();
             return;
@@ -155,7 +155,6 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
 
     }
 
-    //TODO
     private void install(String filePath) {
         Log.i(TAG, "开始执行安装: " + filePath);
         File apkFile = new File(filePath);
