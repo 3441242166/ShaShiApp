@@ -31,6 +31,10 @@ public class Configurator {
         return CONFIGS;
     }
 
+    public Object getConfigs(String key){
+        return CONFIGS.get(key);
+    }
+
     //----------------------------------------------------------------------------------------------
 
     public final Configurator withApiHost(String host){
@@ -47,6 +51,11 @@ public class Configurator {
     public final Configurator withInterceptors( ArrayList<Interceptor> interceptors)                         {
         INTERCEPTORS.addAll(interceptors);
         CONFIGS.put(ConfigType.INTERCEPTOR,INTERCEPTORS);
+        return this;
+    }
+
+    public final Configurator withApiHost(String key,Object val){
+        CONFIGS.put(key,val);
         return this;
     }
 

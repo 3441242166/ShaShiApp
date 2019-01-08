@@ -24,6 +24,7 @@ public class BaseApplication extends Application {
         super.onCreate();
 
         Config.init(this)
+                .withApiHost("isFirst",true)
                 .withApiHost("http://120.27.21.97/")
                 .withInterceptor(new LoggingInterceptor())
                 .configure();

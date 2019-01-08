@@ -40,9 +40,6 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
     private static final String TAG = "SplashActivity";
 
 
-    private MaterialDialog updateDialog;
-    private MaterialDialog processDialog;
-
     @Override
     protected SplashPresenter setPresenter() {
         return new SplashPresenter(this,this);
@@ -50,7 +47,8 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
 
     @Override
     protected void init(Bundle savedInstanceState) {
-        presenter.checkVersion();
+        startActivity(new Intent(this,MainActivity.class));
+        finish();
     }
 
     @Override
@@ -58,18 +56,14 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
         return R.layout.activity_splash;
     }
 
-    //1.xgmm
-    //2.zhmm
-    //3.tongzhiquanxian
-
     @Override
     public void showProgress() {
-        processDialog.show();
+
     }
 
     @Override
     public void dismissProgress() {
-        processDialog.dismiss();
+
     }
 
     @Override
@@ -81,39 +75,6 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
     @Override
     public void errorMessage(String throwable) {
 
-    }
-
-    @Override
-    public void downloadProgress(int str) {
-        processDialog.setProgress(str);
-    }
-
-    @Override
-    public void showVersionDialog() {
-        updateDialog = new MaterialDialog.Builder(this)
-                .title("更新")
-                .content("有新版本了")
-                .cancelable(false)
-                .positiveText("更新")
-                .negativeText("退出")
-                .onPositive((dialog, which) -> {
-                    presenter.downloadApk();
-                    showProgress();
-                })
-                .onNegative((dialog, which) -> {
-                    finish();
-                })
-                .cancelable(false)
-                .build();
-
-        processDialog = new MaterialDialog.Builder(this)
-                .title("Zzz...")
-                .content("加载中...")
-                .cancelable(false)
-                .progress(false,100,true)
-                .build();
-
-        updateDialog.show();
     }
 
     //防止退出

@@ -53,8 +53,6 @@ import static com.shashiwang.shashiapp.util.FileUtil.isFolderExists;
 public class SplashPresenter extends BasePresenter<ISplashView> {
     private static final String TAG = "SplashPresenter";
 
-    private VersionBean bean;
-
     public SplashPresenter(ISplashView view, Context context) {
         super(view, context);
     }
@@ -62,125 +60,6 @@ public class SplashPresenter extends BasePresenter<ISplashView> {
     @Override
     protected void init(Bundle savedInstanceState) {
 
-    }
-
-    @SuppressLint("CheckResult")
-    public void checkVersion() {
-
-        boolean update = (boolean) SharedPreferencesHelper.getSharedPreference("isUpdate",false);
-        Log.i(TAG, "checkVersion: upadte = " + update);
-        if(update){
-            mView.showVersionDialog();
-            return;
-        }
-
-        RxRetrofitClient.builder()
-                .url(URL_VERSION)
-                .build()
-                .get()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> {
-                    Log.i(TAG, "login: success " + s);
-                    HttpResult<VersionBean> result = new Gson().fromJson(s,new TypeToken<HttpResult<VersionBean>>(){}.getType());
-
-                    String nowVersion = mContext.getString(R.string.version);
-
-                    if(result.isSuccess()){
-                        bean = result.getData();
-                        Log.i(TAG, "checkVersion: bean version = " + bean.version + " nowVersion = " +nowVersion);
-                        if(!bean.version.equals(nowVersion)){
-                            SharedPreferencesHelper.put("isUpdate",true);
-                            mView.showVersionDialog();
-                        }
-                    }
-                    mView.loadDataSuccess(null);
-                }, throwable -> {
-                    mView.loadDataSuccess(null);
-                    Log.i(TAG, "login: error = " + throwable);
-                });
-
-    }
-
-    public void downloadApk(){
-
-        String path = getApkDocumentPath();
-        Log.i(TAG, "startDownload: path = "+path);
-
-        if(!isFolderExists(path)){
-            Log.i(TAG, "startDownload: 创建目录失败");
-            return;
-        }
-
-        FileDownloader.getImpl().create(bean.downloadUurl)
-                .setPath(path+"app.apk")
-                .setListener(new FileDownloadListener() {
-                    @Override
-                    protected void pending(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        Log.i(TAG, "pending: ");
-
-                    }
-
-                    @Override
-                    protected void progress(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        Log.i(TAG, "progress: soFarByt = "+soFarBytes + " totalBytes = "+totalBytes + " taskID = "+task.getId());
-                        mView.downloadProgress(soFarBytes*100/totalBytes);
-                    }
-
-                    @Override
-                    protected void completed(BaseDownloadTask task) {
-                        Log.i(TAG, "completed: ");
-                        mView.dismissProgress();
-                        //installApk(path+"app.apk");
-                        install(getApkDocumentPath()+"app.apk");
-                    }
-
-                    @Override
-                    protected void paused(BaseDownloadTask task, int soFarBytes, int totalBytes) {
-                        Log.i(TAG, "paused: ");
-                    }
-
-                    @Override
-                    protected void error(BaseDownloadTask task, Throwable e) {
-                        Log.i(TAG, "error: " + e);
-
-                    }
-
-                    @Override
-                    protected void warn(BaseDownloadTask task) {
-                        Log.i(TAG, "warn: ");
-
-                    }
-                }).start();
-
-    }
-
-    private void install(String filePath) {
-        Log.i(TAG, "开始执行安装: " + filePath);
-        File apkFile = new File(filePath);
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        Uri apkUri = FileProvider.getUriForFile(mContext, "com.shashiwang.shashiapp", apkFile);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-
-            Log.w(TAG, "版本大于 N ，开始使用 fileProvider 进行安装");
-            intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            Uri contentUri = FileProvider.getUriForFile(
-                    mContext
-                    , "com.shashiwang.shashiapp"
-                    , apkFile);
-            intent.setDataAndType(contentUri, "application/vnd.android.package-archive");
-        } else {
-            Log.w(TAG, "正常进行安装");
-            intent.setDataAndType(apkUri, "application/vnd.android.package-archive");
-        }
-        mContext.startActivity(intent);
-    }
-
-    static class VersionBean{
-        String version;
-        String downloadUurl;
     }
 
 }
