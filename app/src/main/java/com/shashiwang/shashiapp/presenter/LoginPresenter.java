@@ -7,7 +7,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.net.interceptors.LoggingInterceptor;
 import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
 import com.example.util.SharedPreferencesHelper;
@@ -22,7 +21,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_JPUSHID;
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_JPUSH_ID;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_LOGIN;
 import static com.shashiwang.shashiapp.constant.Constant.REGISTRATION_ID;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
@@ -101,7 +100,7 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
         Log.i(TAG, "putRegistrationId:  = "+id);
         RxRetrofitClient.builder()
                 .header(new TokenInterceptor())
-                .url(URL_JPUSHID)
+                .url(URL_JPUSH_ID)
                 .params("jpush_reg_id",id)
                 .build()
                 .post()

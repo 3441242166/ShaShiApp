@@ -21,9 +21,10 @@ import com.shashiwang.shashiapp.view.IForgetView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_IMAGECODE;
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_REGISTER;
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_SMSCODE;
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CHANGE_PASSWORD;
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_FIND_PASSWORD;
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_IMAGE_CODE;
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_SMS_CODE;
 
 public class ForgetPresenter extends BasePresenter<IForgetView> {
 
@@ -68,12 +69,10 @@ public class ForgetPresenter extends BasePresenter<IForgetView> {
         }
 
         RxRetrofitClient.builder()
-                .url(URL_REGISTER)
+                .url(URL_FIND_PASSWORD)
                 .params("phone",phone)
                 .params("password",password)
-                .params("c_password",password)
                 .params("code",code)
-                .params("role",1)
                 .build()
                 .post()
                 .subscribeOn(Schedulers.newThread())
@@ -84,7 +83,7 @@ public class ForgetPresenter extends BasePresenter<IForgetView> {
                             HttpResult<Object> result = new Gson().fromJson(s,new TypeToken<HttpResult<Object>>(){}.getType());
 
                             if(result.isSuccess()){
-                                mView.loadDataSuccess(mContext.getString(R.string.register_success));
+                                mView.loadDataSuccess(mContext.getString(R.string.find_success));
                             }else {
                                 mView.errorMessage(result.getMessage());
                             }
@@ -110,7 +109,8 @@ public class ForgetPresenter extends BasePresenter<IForgetView> {
 
 
         RxRetrofitClient.builder()
-                .url(URL_SMSCODE)
+                .url(URL_SMS_CODE)
+                .params("type",2)
                 .params("phone",phone)
                 .params("captcha",imgCode)
                 .params("ckey",imageCode.key)
@@ -136,7 +136,7 @@ public class ForgetPresenter extends BasePresenter<IForgetView> {
     @SuppressLint("CheckResult")
     public void getImageCode() {
         RxRetrofitClient.builder()
-                .url(URL_IMAGECODE)
+                .url(URL_IMAGE_CODE)
                 .build()
                 .get()
                 .subscribeOn(Schedulers.newThread())

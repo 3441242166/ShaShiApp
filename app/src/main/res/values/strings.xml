@@ -16,6 +16,7 @@
     <!--Message-->
     <string name="login_success">登录成功</string>
     <string name="register_success">注册成功</string>
+    <string name="find_success">密码修改成功</string>
     <!--Message-->
     <!-- Hint -->
     <string name="hint_login_image_code">请输入图片验证码</string>

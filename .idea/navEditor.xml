@@ -80,6 +80,18 @@
                       </LayoutPositions>
                     </value>
                   </entry>
+                  <entry key="changePasswordFragment">
+                    <value>
+                      <LayoutPositions>
+                        <option name="myPosition">
+                          <Point>
+                            <option name="x" value="-705" />
+                            <option name="y" value="-805" />
+                          </Point>
+                        </option>
+                      </LayoutPositions>
+                    </value>
+                  </entry>
                   <entry key="settingFragment">
                     <value>
                       <LayoutPositions>
@@ -92,6 +104,11 @@
                         <option name="myPositions">
                           <map>
                             <entry key="action_settingFragment_to_aboutFragment">
+                              <value>
+                                <LayoutPositions />
+                              </value>
+                            </entry>
+                            <entry key="action_settingFragment_to_changePasswordFragment">
                               <value>
                                 <LayoutPositions />
                               </value>

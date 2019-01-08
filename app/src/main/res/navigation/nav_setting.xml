@@ -9,6 +9,7 @@
         android:id="@+id/settingFragment"
         android:name="com.shashiwang.shashiapp.fragment.setting.SettingFragment"
         android:label="SettingFragment" >
+
         <action
             app:enterAnim="@anim/slide_right_in"
             app:exitAnim="@anim/slide_left_out"
@@ -16,10 +17,25 @@
             app:popExitAnim="@anim/slide_right_out"
             android:id="@+id/action_settingFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
+
+        <action
+            app:enterAnim="@anim/slide_right_in"
+            app:exitAnim="@anim/slide_left_out"
+            app:popEnterAnim="@anim/slide_left_in"
+            app:popExitAnim="@anim/slide_right_out"
+            android:id="@+id/action_settingFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+
     </fragment>
 
     <fragment
         android:id="@+id/aboutFragment"
         android:name="com.shashiwang.shashiapp.fragment.setting.AboutFragment"
         android:label="AboutFragment" />
+
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.shashiwang.shashiapp.fragment.setting.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" />
+
 </navigation>

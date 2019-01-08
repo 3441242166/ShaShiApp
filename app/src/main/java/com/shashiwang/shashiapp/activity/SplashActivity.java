@@ -58,6 +58,10 @@ public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements 
         return R.layout.activity_splash;
     }
 
+    //1.xgmm
+    //2.zhmm
+    //3.tongzhiquanxian
+
     @Override
     public void showProgress() {
         processDialog.show();

@@ -3,6 +3,7 @@ package com.shashiwang.shashiapp.base;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,11 +45,6 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
         mUnbinder = ButterKnife.bind(this, view);
         canInit = true;
         isCanLoadData();
-//        init(savedInstanceState);
-//
-//        if(presenter!= null){
-//            presenter.init(savedInstanceState);
-//        }
         return view;
     }
 
@@ -61,6 +57,7 @@ public abstract class BaseFragment<T extends BasePresenter> extends Fragment {
     private void isCanLoadData(){
         // 可见 && 可以初始化 && 未初始化过
         if(getUserVisibleHint() && canInit && !isInit){
+            Log.i(TAG, "IIIIIIIIIIInit: ");
             isInit = true;
             init(savedInstanceState);
             if(presenter!= null){

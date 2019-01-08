@@ -35,6 +35,8 @@ public class SettingFragment extends BaseFragment {
 
     @BindView(R.id.item_about)
     SettingNormalLayout about;
+    @BindView(R.id.item_change)
+    SettingNormalLayout change;
     @BindView(R.id.bt_exit)
     Button btExit;
 
@@ -50,16 +52,6 @@ public class SettingFragment extends BaseFragment {
 
     @Override
     protected void init(Bundle savedInstanceState) {
-
-        about.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_aboutFragment));
-
-        if(!TextUtils.isEmpty((String) SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
-            btExit.setVisibility(View.VISIBLE);
-            btExit.setOnClickListener(view -> {
-
-                logout();
-            });
-        }
 
     }
 
@@ -97,9 +89,26 @@ public class SettingFragment extends BaseFragment {
                     getActivity().finish();
                 });
 
-
-
     }
 
+    @Override
+    public void onResume() {
+        Log.i(TAG, "onResume: ");
+
+        about.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_aboutFragment));
+
+
+        if(!TextUtils.isEmpty((String) SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
+            btExit.setVisibility(View.VISIBLE);
+            change.setVisibility(View.VISIBLE);
+
+            btExit.setOnClickListener(view -> {
+                logout();
+            });
+
+            change.setOnClickListener(view -> Navigation.findNavController(view).navigate(R.id.action_settingFragment_to_changePasswordFragment));
+        }
+        super.onResume();
+    }
 
 }

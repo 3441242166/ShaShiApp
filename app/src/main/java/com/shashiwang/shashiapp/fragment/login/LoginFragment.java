@@ -46,22 +46,6 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements ILogi
     @Override
     protected void init(Bundle savedInstanceState) {
 
-        tvRegister.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_registerFragment));
-
-        tvForget.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_forgetFragment));
-
-        btLogin.setOnClickListener(view -> presenter.login(evCount.getContentText(),evPassword.getContentText()));
-
-        evPassword.setOnRightClickListener(() -> {
-            if(isShowPassword){
-                evPassword.setRightImage(R.drawable.ic_open_eye);
-                evPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            }else {
-                evPassword.setRightImage(R.drawable.ic_close_eye);
-                evPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            }
-            isShowPassword = !isShowPassword;
-        });
     }
 
     @Override
@@ -84,5 +68,27 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements ILogi
     @Override
     public void errorMessage(String throwable) {
         Toasty.normal(getContext(),throwable).show();
+    }
+
+    @Override
+    public void onResume() {
+
+        tvRegister.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_registerFragment));
+
+        tvForget.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_forgetFragment));
+
+        btLogin.setOnClickListener(view -> presenter.login(evCount.getContentText(),evPassword.getContentText()));
+
+        evPassword.setOnRightClickListener(() -> {
+            if(isShowPassword){
+                evPassword.setRightImage(R.drawable.ic_open_eye);
+                evPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }else {
+                evPassword.setRightImage(R.drawable.ic_close_eye);
+                evPassword.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            }
+            isShowPassword = !isShowPassword;
+        });
+        super.onResume();
     }
 }
