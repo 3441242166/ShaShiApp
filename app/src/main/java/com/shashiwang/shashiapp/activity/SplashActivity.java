@@ -36,45 +36,16 @@ import pub.devrel.easypermissions.EasyPermissions;
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
 import static android.provider.Settings.EXTRA_CHANNEL_ID;
 
-public class SplashActivity extends BaseMvpActivity<SplashPresenter> implements ISplashView {
+public class SplashActivity extends AppCompatActivity {
     private static final String TAG = "SplashActivity";
 
 
     @Override
-    protected SplashPresenter setPresenter() {
-        return new SplashPresenter(this,this);
-    }
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-    @Override
-    protected void init(Bundle savedInstanceState) {
-        startActivity(new Intent(this,MainActivity.class));
+        startActivity(new Intent(SplashActivity.this,MainActivity.class));
         finish();
-    }
-
-    @Override
-    protected int getContentView() {
-        return R.layout.activity_splash;
-    }
-
-    @Override
-    public void showProgress() {
-
-    }
-
-    @Override
-    public void dismissProgress() {
-
-    }
-
-    @Override
-    public void loadDataSuccess(Object data) {
-        startActivity(new Intent(this,MainActivity.class));
-        finish();
-    }
-
-    @Override
-    public void errorMessage(String throwable) {
-
     }
 
     //防止退出

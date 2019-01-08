@@ -19,9 +19,12 @@ import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 public class BaseApplication extends Application {
     private static final String TAG = "BaseApplication";
 
+    public static boolean isFirst = true;
+
     @Override
     public void onCreate() {
         super.onCreate();
+
 
         Config.init(this)
                 .withApiHost("isFirst",true)

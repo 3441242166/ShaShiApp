@@ -72,11 +72,17 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
 
     @Override
     protected void onResume() {
+        Log.i(TAG, "onResume: ");
+        boolean update = (boolean) SharedPreferencesHelper.getSharedPreference("isUpdate",false);
+        if(update){
+            checkVersion();
+        }
+
         if((Boolean) Config.getConfigurator().getConfigs("isFirst")){
-            Log.i(TAG, "onResume: ------------------------------------------------------------");
             Config.getConfigurator().withApiHost("isFirst",false);
             checkVersion();
         }
+
         if(!isForeground){
             isForeground = true;
         }else {
@@ -138,12 +144,13 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
         String downloadUurl;
     }
 
-
     //-------------------------------------------------------------------------------------------------------------------------------
     @SuppressLint("CheckResult")
     private void checkVersion() {
         boolean update = (boolean) SharedPreferencesHelper.getSharedPreference("isUpdate",false);
         String downloadUrl = (String) SharedPreferencesHelper.getSharedPreference("downloadUrl","");
+        Config.getConfigurator().withApiHost("isUpdate",update);
+
         Log.i(TAG, "checkVersion: upadte = " + update);
         if(update){
             showUpdateDialog(downloadUrl);
