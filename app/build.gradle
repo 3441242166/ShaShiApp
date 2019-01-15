@@ -5,7 +5,7 @@ android {
         config {
             keyAlias 'shashi'
             keyPassword 'shashi@2019'
-            storeFile file('E:/GitHub/ShaShiAPP/shashi.jks')
+            storeFile file('../shashi.jks')
             storePassword 'shashi@2019'
         }
     }
