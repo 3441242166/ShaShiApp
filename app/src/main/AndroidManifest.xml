@@ -110,8 +110,7 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.SplashActivity"
-                  android:theme="@style/SplashTheme">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -137,7 +136,6 @@
         <activity android:name=".activity.UserMessageActivity" />
         <activity android:name=".activity.SettingBroadcastActivity" />
         <activity android:name=".activity.CustomerActivity" />
-        <activity android:name=".activity.MainActivity" />
 
         <service
             android:name=".service.DownLoadService"
