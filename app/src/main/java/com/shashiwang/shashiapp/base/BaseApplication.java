@@ -28,7 +28,7 @@ public class BaseApplication extends Application {
 
         Config.init(this)
                 .withApiHost("isFirst",true)
-                .withApiHost("http://120.27.21.97/")
+                .withApiHost("http://api.shashiwang/")
                 .withInterceptor(new LoggingInterceptor())
                 .configure();
 

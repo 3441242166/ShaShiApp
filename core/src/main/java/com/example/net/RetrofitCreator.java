@@ -1,5 +1,6 @@
 package com.example.net;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.net.factory.ScalarsConverterFactory;
@@ -9,6 +10,7 @@ import com.example.config.Config;
 import com.example.config.ConfigType;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executor;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Interceptor;
