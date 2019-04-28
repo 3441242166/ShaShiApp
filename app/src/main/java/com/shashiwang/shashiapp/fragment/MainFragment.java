@@ -7,8 +7,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.activity.ArticleActivity;
 import com.shashiwang.shashiapp.activity.CustomerActivity;
+import com.shashiwang.shashiapp.activity.DoHomeworkActivity;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
+import com.shashiwang.shashiapp.activity.VRImagectivity;
 import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.presenter.MainFragmentPresenter;
 import com.shashiwang.shashiapp.util.ImageLoader;
@@ -16,6 +19,7 @@ import com.shashiwang.shashiapp.view.IMainFragmentView;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -61,44 +65,49 @@ public class MainFragment extends BaseFragment<MainFragmentPresenter> implements
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         banner.setIndicatorGravity(BannerConfig.CENTER);
         banner.setImageLoader(new ImageLoader());
-
-        presenter.getBannerData();
+        List<Integer> data = new ArrayList<>();
+        data.add(R.drawable.a1111);
+        data.add(R.drawable.a2222);
+        data.add(R.drawable.a3333);
+        banner.setImages(data);
+        banner.start();
+        //presenter.getBannerData();
         initEvent();
     }
 
     private void initEvent() {
         btFactory.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),MessageListActivity.class);
+            Intent intent = new Intent(getContext(), VRImagectivity.class);
             intent.putExtra(TYPE,FACTORY);
-            intent.putExtra(TITLE,getContext().getString(R.string.name_factory));
+            intent.putExtra(TITLE,"体验VR");
             startActivity(intent);
         });
 
         btStation.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),MessageListActivity.class);
+            Intent intent = new Intent(getContext(),DoHomeworkActivity.class);
             intent.putExtra(TYPE,STATION);
-            intent.putExtra(TITLE,getContext().getString(R.string.name_station));
+            intent.putExtra(TITLE,"每日答题");
             startActivity(intent);
         });
 
         btFreight.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(),MessageListActivity.class);
             intent.putExtra(TYPE,FREIGHT);
-            intent.putExtra(TITLE,getContext().getString(R.string.name_freight));
+            intent.putExtra(TITLE,"视频");
             startActivity(intent);
         });
 
         btDriver.setOnClickListener(view -> {
             Intent intent = new Intent(getContext(),MessageListActivity.class);
             intent.putExtra(TYPE,DRIVER);
-            intent.putExtra(TITLE,getContext().getString(R.string.name_driver));
+            intent.putExtra(TITLE,"模型");
             startActivity(intent);
         });
 
         btCar.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),MessageListActivity.class);
+            Intent intent = new Intent(getContext(), ArticleActivity.class);
             intent.putExtra(TYPE,CAR);
-            intent.putExtra(TITLE,getContext().getString(R.string.name_car));
+            intent.putExtra(TITLE,"你问我答");
             startActivity(intent);
         });
 
@@ -121,9 +130,9 @@ public class MainFragment extends BaseFragment<MainFragmentPresenter> implements
 
     @Override
     public void loadDataSuccess(List<String> data) {
-        banner.setImages(data);
-
-        banner.start();
+//        banner.setImages(data);
+//
+//        banner.start();
     }
 
     @Override

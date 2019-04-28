@@ -145,4 +145,7 @@ dependencies {
     // 圆形imageview
     implementation 'de.hdodenhof:circleimageview:2.2.0'
     implementation files('libs/com.baidu.tts_2.3.2.20180713_6101c2a.jar')
+
+    implementation 'com.github.CN-ZPH:weibo360panorama:v1.0.1'
+
 }

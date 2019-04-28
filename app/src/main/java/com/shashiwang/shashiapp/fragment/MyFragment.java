@@ -55,7 +55,7 @@ public class MyFragment extends BaseFragment<MyFragmentPresenter> implements IMy
 
     private TextAdapter adapter;
 
-    private static final String[] TITLE = {"发布信息", "我的发布",
+    private static final String[] TITLE = {"发现", "我的收藏",
             "推送设置","反馈意见"};
     private static final int[] IMG = {R.drawable.ic_my_1,R.drawable.ic_my_2,
             R.drawable.ic_my_4, R.drawable.ic_my_6};
@@ -84,14 +84,10 @@ public class MyFragment extends BaseFragment<MyFragmentPresenter> implements IMy
                 ((MainActivity)getActivity()).openMorePopupWindow();
                 return;
             }
-            String token = (String) SharedPreferencesHelper.getSharedPreference(TOKEN,"");
 
-            if(!TextUtils.isEmpty(token)){
-                final Intent intent = new Intent(getContext(),CLASSES[position]);
-                startActivity(intent);
-            }else {
-                Toasty.warning(getContext(),"请先登录").show();
-            }
+            final Intent intent = new Intent(getContext(),CLASSES[position]);
+            startActivity(intent);
+
         });
 
         ivSetting.setOnClickListener(view -> {
@@ -99,11 +95,7 @@ public class MyFragment extends BaseFragment<MyFragmentPresenter> implements IMy
         });
 
         ivHead.setOnClickListener(view -> {
-//            if(!TextUtils.isEmpty((String)SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
-//                startActivityForResult(new Intent(getContext(), UserMessageActivity.class), REQUEST_USER_MESSAGE);
-//            }else {
-//                Toasty.info(getContext(),"请先登陆");
-//            }
+            startActivityForResult(new Intent(getContext(), UserMessageActivity.class), REQUEST_USER_MESSAGE);
         });
     }
 
@@ -141,7 +133,7 @@ public class MyFragment extends BaseFragment<MyFragmentPresenter> implements IMy
 
     @Override
     public void unLogin(boolean is, String user) {
-        if(is){
+        if(false){
             btLogin.setVisibility(View.VISIBLE);
             tvName.setVisibility(View.GONE);
             btLogin.setOnClickListener(view -> startActivityForResult(new Intent(getContext(), LoginActivity.class),REQUEST_LOGIN));

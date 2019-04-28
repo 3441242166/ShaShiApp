@@ -25,7 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/sc_factory"
-            app:title="推送石料厂" />
+            app:title="推送视频" />
 
         <View
             style="@style/view_line"
@@ -35,7 +35,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/sc_station"
-            app:title="推送搅拌站" />
+            app:title="推送文章" />
 
         <View
             style="@style/view_line"
@@ -45,7 +45,7 @@
             android:id="@+id/sc_fright"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="推送运费" />
+            app:title="推送问题" />
 
         <View
             style="@style/view_line"
@@ -56,7 +56,7 @@
             android:id="@+id/sc_driver"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="推送司机招聘" />
+            app:title="推送模型" />
 
         <View
             style="@style/view_line"
@@ -66,7 +66,7 @@
             android:id="@+id/sc_car"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="推送车辆出售" />
+            app:title="推送互动" />
 
         <View
             style="@style/view_line"
@@ -81,7 +81,7 @@
             android:id="@+id/sw_speak"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="语音播报" />
+            app:title="场景模式" />
 
         <View
             style="@style/view_line"

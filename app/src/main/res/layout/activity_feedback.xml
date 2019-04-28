@@ -25,7 +25,7 @@
         android:background="@drawable/shape_edit"
         android:ems="10"
         android:gravity="start"
-        android:hint="感谢您使用沙石料厂，请写下您的宝贵意见，我们会及时与您取得联系！"
+        android:hint="感谢您的使用，请写下您的宝贵意见，我们会及时与您取得联系！"
         android:inputType="textMultiLine"
         android:lines="4"
         android:padding="10dp"

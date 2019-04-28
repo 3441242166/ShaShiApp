@@ -35,28 +35,32 @@
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="昵称" />
+            app:item_content="无名氏"
+            app:title="昵称：" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="手机号" />
+            app:item_content="18828285757"
+            app:title="手机号：" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="联系电话" />
+            app:item_content="无"
+            app:title="联系电话：" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.PostEditLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title="称呼" />
+            app:item_content="男"
+            app:title="性别：" />
 
     </LinearLayout>
 

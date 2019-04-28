@@ -110,16 +110,18 @@
             </intent-filter>
         </receiver>
 
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".activity.ArticleActivity" />
+        <activity android:name=".activity.VRImagectivity" />
         <activity android:name=".activity.LocationActivity" />
         <activity android:name=".activity.post.PostFactoryActivity" />
-        <activity android:name=".activity.LoginActivity" />
+        <activity android:name=".activity.MainActivity" />
         <activity android:name=".activity.post.PostCarActivity" />
         <activity android:name=".activity.post.PostDriverActivity" />
         <activity android:name=".activity.post.PostFreightActivity" />
@@ -136,6 +138,7 @@
         <activity android:name=".activity.UserMessageActivity" />
         <activity android:name=".activity.SettingBroadcastActivity" />
         <activity android:name=".activity.CustomerActivity" />
+        <activity android:name=".activity.DoHomeworkActivity" />
 
         <service
             android:name=".service.DownLoadService"

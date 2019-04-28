@@ -39,7 +39,7 @@ public class PostListActivity extends BaseTopBarActivity {
 
     @Override
     protected void initFrame(Bundle savedInstanceState) {
-        setTitle("我的发布");
+        setTitle("我的收藏");
 
         fragmentList = new ArrayList<>();
         fragmentList.add(MessageListFragment.newInstance(MessageType.FACTORY));
@@ -48,7 +48,7 @@ public class PostListActivity extends BaseTopBarActivity {
         fragmentList.add(MessageListFragment.newInstance(MessageType.FREIGHT));
         fragmentList.add(MessageListFragment.newInstance(MessageType.CAR));
 
-        String []ar ={"石料厂","搅拌站","司机","运费","车辆"};
+        String []ar ={"视频","文章","模型","题目","回答"};
         viewPager.setAdapter(new PagerAdapter<>(getSupportFragmentManager(), fragmentList, ar));
         tabLayout.setupWithViewPager(viewPager);
         viewPager.setOverScrollMode(viewPager.OVER_SCROLL_NEVER);

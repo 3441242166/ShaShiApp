@@ -14,6 +14,9 @@ import android.widget.RelativeLayout;
 
 import com.example.util.SharedPreferencesHelper;
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.activity.DoHomeworkActivity;
+import com.shashiwang.shashiapp.activity.MessageListActivity;
+import com.shashiwang.shashiapp.activity.VRImagectivity;
 import com.shashiwang.shashiapp.activity.post.PostCarActivity;
 import com.shashiwang.shashiapp.activity.post.PostFreightActivity;
 import com.shashiwang.shashiapp.activity.post.PostDriverActivity;
@@ -23,7 +26,11 @@ import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.constant.IssueType;
 import com.shashiwang.shashiapp.view.IMainActivityView;
 
+import static com.shashiwang.shashiapp.constant.Constant.TITLE;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
+import static com.shashiwang.shashiapp.constant.Constant.TYPE;
+import static com.shashiwang.shashiapp.constant.MessageType.DRIVER;
+import static com.shashiwang.shashiapp.constant.MessageType.FACTORY;
 
 public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
     private static final String TAG = "MainActivityPresenter";
@@ -63,41 +70,45 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
         ivBack.setOnClickListener(view -> popupWindow.dismiss());
 
         sale.setOnClickListener(v -> {
-            if(isLogin()) {
-                openActivity(PostCarActivity.class, IssueType.A);
-            }
+            Intent intent = new Intent(mContext, MessageListActivity.class);
+            intent.putExtra(TYPE,DRIVER);
+            intent.putExtra(TITLE,"艺术欣赏");
+            mContext.startActivity(intent);
         });
         stoneFactory.setOnClickListener(v -> {
-            if(isLogin()) {
-                openActivity(PostFactoryActivity.class, IssueType.A);
-                //openActivity(LocationActivity.class,IssueType.A);
-            }
+            Intent intent = new Intent(mContext, DoHomeworkActivity.class);
+            intent.putExtra(TYPE,FACTORY);
+            intent.putExtra(TITLE,"体验VR");
+            mContext.startActivity(intent);
         });
 
         dirver.setOnClickListener(v -> {
-            if(isLogin()) {
-                openActivity(PostDriverActivity.class, IssueType.A);
-            }
+            Intent intent = new Intent(mContext, MessageListActivity.class);
+            intent.putExtra(TYPE,FACTORY);
+            intent.putExtra(TITLE,"小游戏");
+            mContext.startActivity(intent);
         });
         freight.setOnClickListener(v -> {
-            if(isLogin()) {
-                openActivity(PostFreightActivity.class, IssueType.A);
-            }
+            Intent intent = new Intent(mContext, MessageListActivity.class);
+            intent.putExtra(TYPE,DRIVER);
+            intent.putExtra(TITLE,"艺术知识");
+            mContext.startActivity(intent);
         });
         mixStation.setOnClickListener(v -> {
-            if(isLogin()) {
-                openActivity(PostStationActivity.class, IssueType.A);
-            }
+            Intent intent = new Intent(mContext, VRImagectivity.class);
+            intent.putExtra(TYPE,FACTORY);
+            intent.putExtra(TITLE,"体验VR");
+            mContext.startActivity(intent);
         });
     }
 
     private boolean isLogin(){
         String token = (String) SharedPreferencesHelper.getSharedPreference(TOKEN,"");
 
-        if(TextUtils.isEmpty(token)){
-            mView.errorMessage("请先登录");
-            return false;
-        }
+//        if(TextUtils.isEmpty(token)){
+//            mView.errorMessage("请先登录");
+//            return false;
+//        }
         return true;
     }
 

@@ -40,7 +40,7 @@
                 android:id="@+id/tv_job"
                 style="@style/text_post_pop"
                 android:layout_below="@+id/iv_job"
-                android:text="运费发布"
+                android:text="艺术知识"
                 android:textSize="12sp" />
         </RelativeLayout>
 
@@ -65,7 +65,7 @@
                 android:id="@+id/tv_recruit"
                 style="@style/text_post_pop"
                 android:layout_below="@+id/iv_recruit"
-                android:text="司机招聘"
+                android:text="小游戏"
                 android:textSize="12sp" />
         </RelativeLayout>
 
@@ -90,7 +90,7 @@
                 android:id="@+id/tv_friend"
                 style="@style/text_post_pop"
                 android:layout_below="@+id/iv_car_sale"
-                android:text="车辆出售"
+                android:text="艺术欣赏"
                 android:textSize="12sp" />
         </RelativeLayout>
     </LinearLayout>
@@ -128,7 +128,7 @@
                 android:id="@+id/tv_sign_in"
                 style="@style/text_post_pop"
                 android:layout_below="@+id/iv_sign_in"
-                android:text="我是沙石料厂"
+                android:text="每日答题"
                 android:textSize="12sp" />
         </RelativeLayout>
 
@@ -153,7 +153,7 @@
                 android:id="@+id/tv_post"
                 style="@style/text_post_pop"
                 android:layout_below="@+id/iv_post"
-                android:text="我是搅拌站/工地"
+                android:text="AR欣赏"
                 android:textSize="12sp" />
         </RelativeLayout>
 

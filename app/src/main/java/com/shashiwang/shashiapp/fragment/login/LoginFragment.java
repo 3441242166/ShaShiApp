@@ -1,11 +1,13 @@
 package com.shashiwang.shashiapp.fragment.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.customizeview.LoginEditText;
 import com.shashiwang.shashiapp.presenter.LoginPresenter;
@@ -77,7 +79,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements ILogi
 
         tvForget.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_forgetFragment));
 
-        btLogin.setOnClickListener(view -> presenter.login(evCount.getContentText(),evPassword.getContentText()));
+        btLogin.setOnClickListener(view -> startActivity(new Intent(getContext(), MainActivity.class)));
 
         evPassword.setOnRightClickListener(() -> {
             if(isShowPassword){

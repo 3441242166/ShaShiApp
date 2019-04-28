@@ -48,9 +48,6 @@
 
         <View style="@style/view_line" />
 
-        <View style="@style/view_line"
-            android:layout_marginTop="25dp"/>
-
         <com.shashiwang.shashiapp.customizeview.SettingNormalLayout
             android:id="@+id/item_change"
             app:title="修改密码"
@@ -58,8 +55,6 @@
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="@dimen/post_item_height" />
-
-        <View style="@style/view_line" />
 
         <Button
             android:background="@drawable/shape_yellow_button"
