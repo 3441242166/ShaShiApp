@@ -27,7 +27,7 @@ public class BaseApplication extends Application {
 
 
         Config.init(this)
-                .withApiHost("isFirst",true)
+                .withApiHost("isFirst", true)
                 .withApiHost("http://api.shashiwang/")
                 .withInterceptor(new LoggingInterceptor())
                 .configure();
@@ -38,10 +38,10 @@ public class BaseApplication extends Application {
 
     }
 
-    private void initJPush(){
+    private void initJPush() {
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
-        if(TextUtils.isEmpty((String) SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
+        if (TextUtils.isEmpty((String) SharedPreferencesHelper.getSharedPreference(TOKEN, ""))) {
             JPushInterface.stopPush(this);
         }
     }

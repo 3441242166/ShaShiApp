@@ -60,7 +60,7 @@
         <!-- 百度地图 -->
         <meta-data
             android:name="com.baidu.lbsapi.API_KEY"
-            android:value="IIeNefibHZryToVyrWRuIPKGZvtTE6SP" />
+            android:value="ft0K2FbiUTZ3pH4OdzXitw8CUeGHPtGS" />
 
         <!-- 屏幕适配 -->
         <meta-data

@@ -4,7 +4,6 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.example.net.factory.ScalarsConverterFactory;
-import com.example.net.retrofit.RetrofitService;
 import com.example.net.rx.RxRetrofitService;
 import com.example.config.Config;
 import com.example.config.ConfigType;
@@ -58,10 +57,6 @@ public class RetrofitCreator {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .addConverterFactory(ScalarsConverterFactory.create())
                 .build();
-    }
-
-    public final RetrofitService getRetrofitService(){
-        return createRetrofit().create(RetrofitService.class);
     }
 
     public final RxRetrofitService getRxRetrofitService(){

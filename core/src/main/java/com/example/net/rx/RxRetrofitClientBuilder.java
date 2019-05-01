@@ -2,7 +2,6 @@ package com.example.net.rx;
 
 import android.util.Log;
 
-import com.example.net.retrofit.RetrofitClientBuilder;
 
 import java.io.File;
 import java.util.ArrayList;

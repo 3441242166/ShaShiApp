@@ -1,7 +1,6 @@
 package com.example.net;
 
 import com.example.net.factory.ScalarsConverterFactory;
-import com.example.net.retrofit.RetrofitService;
 import com.example.net.rx.RxRetrofitService;
 import com.example.config.ConfigType;
 import com.example.config.Config;
@@ -46,14 +45,6 @@ public class RetrofitCreators {
                 .build();
     }
 
-    private static final class RetrofitServiceHolder{
-        private static final RetrofitService RETROFIT_SERVICE =
-                RetrofitHolder.RETROFIT.create(RetrofitService.class);
-    }
-
-    public static RetrofitService getRetrofitService(){
-        return RetrofitServiceHolder.RETROFIT_SERVICE;
-    }
 
     private static final class RxRetrofitServiceHolder{
         private static final RxRetrofitService RETROFIT_SERVICE =
