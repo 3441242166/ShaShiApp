@@ -13,16 +13,20 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
+import com.shashiwang.shashiapp.bean.Count;
 import com.shashiwang.shashiapp.bean.HttpResult;
 import com.shashiwang.shashiapp.util.BitmapUtil;
 import com.shashiwang.shashiapp.util.CheckUtil;
+import com.shashiwang.shashiapp.util.DataUtil;
 import com.shashiwang.shashiapp.view.IRegisterView;
+
+import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_FIND_PASSWORD;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_IMAGE_CODE;
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_REGISTER;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_SMS_CODE;
 
 
@@ -76,12 +80,8 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
 
     @SuppressLint("CheckResult")
     public void register(String phone, String password, String code) {
-        if(!CheckUtil.isPhone(phone)){
-            mView.errorMessage("请输入正确的手机号");
-            return;
-        }
-        if(TextUtils.isEmpty(code)){
-            mView.errorMessage("请输入验证码");
+        if(TextUtils.isEmpty(phone)){
+            mView.errorMessage("请输入账号");
             return;
         }
         if(TextUtils.isEmpty(password)){
@@ -90,12 +90,9 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
         }
 
         RxRetrofitClient.builder()
-                .url(URL_REGISTER)
-                .params("phone",phone)
+                .url("register")
+                .params("count",phone)
                 .params("password",password)
-                .params("c_password",password)
-                .params("code",code)
-                .params("role",1)
                 .build()
                 .post()
                 .subscribeOn(Schedulers.newThread())
@@ -106,7 +103,7 @@ public class RegisterPresenter extends BasePresenter<IRegisterView> {
                             HttpResult<Object> result = new Gson().fromJson(s,new TypeToken<HttpResult<Object>>(){}.getType());
 
                             if(result.isSuccess()){
-                                mView.loadDataSuccess(mContext.getString(R.string.register_success));
+                                mView.loadDataSuccess("注册成功");
                             }else {
                                 mView.errorMessage(result.getMessage());
                             }

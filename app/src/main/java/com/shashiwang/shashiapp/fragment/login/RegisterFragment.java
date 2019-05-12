@@ -1,20 +1,14 @@
 package com.shashiwang.shashiapp.fragment.login;
 
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.os.Bundle;
 import android.text.InputType;
-import android.util.Log;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.customizeview.LoginEditText;
-import com.shashiwang.shashiapp.presenter.ForgetPresenter;
 import com.shashiwang.shashiapp.presenter.RegisterPresenter;
-import com.shashiwang.shashiapp.view.IForgetView;
 import com.shashiwang.shashiapp.view.IRegisterView;
 
 import butterknife.BindView;
@@ -26,14 +20,6 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
 
     @BindView(R.id.ev_phone)
     LoginEditText evPhone;
-    @BindView(R.id.ev_code)
-    EditText evCode;
-    @BindView(R.id.bt_code)
-    Button btCode;
-    @BindView(R.id.ev_image_input)
-    EditText evImageCode;
-    @BindView(R.id.iv_image_code)
-    ImageView ivCode;
     @BindView(R.id.ev_password)
     LoginEditText evPassword;
     @BindView(R.id.bt_login)
@@ -58,12 +44,8 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
 
     private void initEvent() {
         btRegister.setOnClickListener(view -> {
-            presenter.register(evPhone.getContentText(),evPassword.getContentText(),evCode.getText().toString());
+            presenter.register(evPhone.getContentText(),evPassword.getContentText(),"");
         });
-
-        btCode.setOnClickListener(view -> presenter.getCode(evImageCode.getText().toString(), evPhone.getContentText()));
-
-        ivCode.setOnClickListener(v -> presenter.getImageCode());
 
         evPassword.setOnRightClickListener(() -> {
             if(isShowPassword){
@@ -100,18 +82,11 @@ public class RegisterFragment extends BaseFragment<RegisterPresenter> implements
 
     @Override
     public void showImage(Bitmap bitmap) {
-        ivCode.setImageBitmap(bitmap);
+
     }
 
     @Override
     public void setCodeText(String str) {
-        btCode.setText(str);
 
-        if(str.equals("获取验证码")){
-            Log.i(TAG, "setCodeText: clickable = true");
-            btCode.setClickable(true);
-        }
-
-        btCode.setClickable(false);
     }
 }

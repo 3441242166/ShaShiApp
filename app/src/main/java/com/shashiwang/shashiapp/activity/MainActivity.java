@@ -1,12 +1,10 @@
 package com.shashiwang.shashiapp.activity;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -23,12 +21,11 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BaseMvpActivity;
 import com.shashiwang.shashiapp.customizeview.NoScrollViewPager;
-import com.shashiwang.shashiapp.fragment.MainFragment;
+import com.shashiwang.shashiapp.fragment.MapFragment;
 import com.shashiwang.shashiapp.fragment.MyFragment;
 import com.shashiwang.shashiapp.presenter.MainActivityPresenter;
 import com.shashiwang.shashiapp.service.LocationService;
 import com.shashiwang.shashiapp.view.IMainActivityView;
-import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +38,6 @@ import pub.devrel.easypermissions.EasyPermissions;
 
 import static android.provider.Settings.EXTRA_APP_PACKAGE;
 import static android.provider.Settings.EXTRA_CHANNEL_ID;
-import static com.shashiwang.shashiapp.constant.Constant.REQUEST_PERMISSION;
 
 public class MainActivity extends BaseMvpActivity<MainActivityPresenter> implements IMainActivityView,EasyPermissions.PermissionCallbacks {
     private static final String TAG = "MainActivity";
@@ -53,17 +49,14 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
     @BindView(R.id.iv_bottom_more)
     ImageView imageView;
 
-    private MainFragment mainFragment;
+    private MapFragment mainFragment;
     private MyFragment myFragment;
 
     private List<Fragment> fragmentList;
 
     private MaterialDialog dialog;
 
-    public static String[] DATA = new String[] {android.Manifest.permission.ACCESS_FINE_LOCATION,
-            android.Manifest.permission.ACCESS_COARSE_LOCATION,
-            android.Manifest.permission.READ_PHONE_STATE,
-            android.Manifest.permission.WRITE_EXTERNAL_STORAGE};
+
 
     @Override
     protected MainActivityPresenter setPresenter() {
@@ -80,14 +73,13 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         initView();
         initData();
         initEvent();
-        startService(new Intent(this,LocationService.class));
+        //startService(new Intent(this,LocationService.class));
 
         boolean is = NotificationManagerCompat.from(this).areNotificationsEnabled();
         Log.i(TAG, "init:  isOpen Notification " + is);
         if(!is){
             dialog.show();
         }
-        checkPermissions();
 
     }
 
@@ -109,18 +101,11 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
                 .build();
     }
 
-    @SuppressLint("CheckResult")
-    private void checkPermissions(){
-        if (!EasyPermissions.hasPermissions(this, DATA)) {
-            EasyPermissions.requestPermissions(this, "为了您的体验,请允许申请权限",
-                    1, DATA);
-        }
 
-    }
 
     private void initData() {
         fragmentList = new ArrayList<>();
-        mainFragment = new MainFragment();
+        mainFragment = new MapFragment();
         myFragment = new MyFragment();
         fragmentList.add(mainFragment);
         fragmentList.add(myFragment);
@@ -142,7 +127,9 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
     }
 
     private void initEvent(){
-        imageView.setOnClickListener(view -> openMorePopupWindow());
+        imageView.setOnClickListener(view -> {
+            startActivity(new Intent(MainActivity.this,AddPeopleActivity.class));
+        });
 
         navigation.setOnNavigationItemSelectedListener(item -> {
             invalidateOptionsMenu();
@@ -225,21 +212,7 @@ public class MainActivity extends BaseMvpActivity<MainActivityPresenter> impleme
         Toasty.normal(this,throwable).show();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        Log.i(TAG, "onActivityResult: requestCode = "+requestCode + "  resultCode = "+resultCode);
 
-        for(Fragment fragment:fragmentList){
-            fragment.onActivityResult(requestCode, resultCode, data);
-        }
-
-        if(requestCode == AppSettingsDialog.DEFAULT_SETTINGS_REQ_CODE){
-            if (!EasyPermissions.hasPermissions(this, DATA)) {
-                Toasty.info(this,"为了您的体验,请允许申请权限").show();
-            }
-        }
-    }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {

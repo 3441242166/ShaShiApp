@@ -15,14 +15,18 @@
             android:id="@+id/item_about"
             android:layout_width="match_parent"
             android:layout_height="@dimen/post_item_height"
-            app:title="关于我们" />
+            app:icon_show="false"
+            app:second_title="1000 m"
+            app:title="报警距离" />
 
         <View style="@style/view_line" />
 
         <com.shashiwang.shashiapp.customizeview.SettingNormalLayout
-            app:title="检查更新"
+            android:id="@+id/item_area"
+            app:title="选择区域"
+            app:icon_show="false"
             app:second_title_show="true"
-            app:second_title="v 1.0"
+            app:second_title="圆形"
             android:layout_width="match_parent"
             android:layout_height="@dimen/post_item_height" />
 
@@ -38,26 +42,6 @@
 
         <View style="@style/view_line" />
 
-        <com.shashiwang.shashiapp.customizeview.SettingNormalLayout
-            app:title="技术支持"
-            app:icon_show="false"
-            app:second_title_show="true"
-            app:second_title="QQ: 3441242166"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/post_item_height" />
-
-        <View style="@style/view_line" />
-
-        <View style="@style/view_line"
-            android:layout_marginTop="25dp"/>
-
-        <com.shashiwang.shashiapp.customizeview.SettingNormalLayout
-            android:id="@+id/item_change"
-            app:title="修改密码"
-            app:icon_show="false"
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/post_item_height" />
 
         <View style="@style/view_line" />
 
@@ -67,8 +51,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:text="@string/name_exit_login"
-            android:visibility="gone" />
+            android:text="@string/name_exit_login" />
 
     </LinearLayout>
 

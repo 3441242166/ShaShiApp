@@ -1,11 +1,14 @@
 package com.shashiwang.shashiapp.fragment.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.activity.MainActivity;
 import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.customizeview.LoginEditText;
 import com.shashiwang.shashiapp.presenter.LoginPresenter;
@@ -15,23 +18,19 @@ import androidx.navigation.Navigation;
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;
 
-import static androidx.navigation.fragment.NavHostFragment.findNavController;
-import static com.shashiwang.shashiapp.constant.Constant.RESULT_SUCCESS;
-
 public class LoginFragment extends BaseFragment<LoginPresenter> implements ILoginView {
 
     @BindView(R.id.bt_login)
     Button btLogin;
     @BindView(R.id.tv_register)
     TextView tvRegister;
-    @BindView(R.id.tv_forget)
-    TextView tvForget;
     @BindView(R.id.ev_count)
     LoginEditText evCount;
     @BindView(R.id.ev_password)
     LoginEditText evPassword;
 
     boolean isShowPassword = false;
+    boolean is = false;
 
     @Override
     protected LoginPresenter setPresenter() {
@@ -60,8 +59,7 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements ILogi
 
     @Override
     public void loadDataSuccess(String data) {
-        Toasty.normal(getContext(),data).show();
-        getActivity().setResult(RESULT_SUCCESS);
+        startActivity(new Intent(getContext(), MainActivity.class));
         getActivity().finish();
     }
 
@@ -75,9 +73,9 @@ public class LoginFragment extends BaseFragment<LoginPresenter> implements ILogi
 
         tvRegister.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_registerFragment));
 
-        tvForget.setOnClickListener(Navigation.createNavigateOnClickListener(R.id.action_loginFragment_to_forgetFragment));
-
-        btLogin.setOnClickListener(view -> presenter.login(evCount.getContentText(),evPassword.getContentText()));
+        btLogin.setOnClickListener(view -> {
+            presenter.login(evCount.getContentText(),evPassword.getContentText());
+        });
 
         evPassword.setOnRightClickListener(() -> {
             if(isShowPassword){

@@ -15,14 +15,15 @@ import com.example.util.SharedPreferencesHelper;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.activity.FeedbackActivity;
 import com.shashiwang.shashiapp.activity.MainActivity;
+import com.shashiwang.shashiapp.activity.MapListActivity;
 import com.shashiwang.shashiapp.activity.SettingActivity;
 import com.shashiwang.shashiapp.activity.SettingBroadcastActivity;
-import com.shashiwang.shashiapp.activity.UserMessageActivity;
 import com.shashiwang.shashiapp.activity.PostListActivity;
 import com.shashiwang.shashiapp.adapter.TextAdapter;
 import com.shashiwang.shashiapp.activity.LoginActivity;
 import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.presenter.MyFragmentPresenter;
+import com.shashiwang.shashiapp.util.DataUtil;
 import com.shashiwang.shashiapp.util.DividerItemDecoration;
 import com.shashiwang.shashiapp.view.IMyFragmentView;
 
@@ -35,7 +36,6 @@ import es.dmoral.toasty.Toasty;
 
 import static com.shashiwang.shashiapp.constant.Constant.REQUEST_LOGIN;
 import static com.shashiwang.shashiapp.constant.Constant.REQUEST_SETTING;
-import static com.shashiwang.shashiapp.constant.Constant.REQUEST_USER_MESSAGE;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 
 public class MyFragment extends BaseFragment<MyFragmentPresenter> implements IMyFragmentView{
@@ -55,12 +55,11 @@ public class MyFragment extends BaseFragment<MyFragmentPresenter> implements IMy
 
     private TextAdapter adapter;
 
-    private static final String[] TITLE = {"发布信息", "我的发布",
-            "推送设置","反馈意见"};
+    private static final String[] TITLE = {"我的监护人", "我监护的人"};
     private static final int[] IMG = {R.drawable.ic_my_1,R.drawable.ic_my_2,
             R.drawable.ic_my_4, R.drawable.ic_my_6};
-    private static final Class[] CLASSES = {null,PostListActivity.class,
-            SettingBroadcastActivity.class, FeedbackActivity.class};
+    private static final Class[] CLASSES = {PostListActivity.class,
+            SettingBroadcastActivity.class};
 
     @Override
     protected MyFragmentPresenter setPresenter() {
@@ -80,30 +79,11 @@ public class MyFragment extends BaseFragment<MyFragmentPresenter> implements IMy
 
     private void initEvent() {
         adapter.setOnItemClickListener((adapter, view, position) -> {
-            if(position == 0){
-                ((MainActivity)getActivity()).openMorePopupWindow();
-                return;
-            }
-            String token = (String) SharedPreferencesHelper.getSharedPreference(TOKEN,"");
-
-            if(!TextUtils.isEmpty(token)){
-                final Intent intent = new Intent(getContext(),CLASSES[position]);
-                startActivity(intent);
-            }else {
-                Toasty.warning(getContext(),"请先登录").show();
-            }
+            DataUtil.type = position;
+            startActivity(new Intent(getContext(), MapListActivity.class));
         });
-
-        ivSetting.setOnClickListener(view -> {
-            startActivityForResult(new Intent(getContext(), SettingActivity.class), REQUEST_SETTING);
-        });
-
-        ivHead.setOnClickListener(view -> {
-//            if(!TextUtils.isEmpty((String)SharedPreferencesHelper.getSharedPreference(TOKEN,""))){
-//                startActivityForResult(new Intent(getContext(), UserMessageActivity.class), REQUEST_USER_MESSAGE);
-//            }else {
-//                Toasty.info(getContext(),"请先登陆");
-//            }
+        ivSetting.setOnClickListener(v -> {
+            startActivity(new Intent(getContext(), SettingActivity.class));
         });
     }
 

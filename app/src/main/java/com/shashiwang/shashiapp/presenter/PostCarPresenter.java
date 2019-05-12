@@ -2,9 +2,7 @@ package com.shashiwang.shashiapp.presenter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -12,8 +10,6 @@ import com.example.net.interceptors.TokenInterceptor;
 import com.example.net.rx.RxRetrofitClient;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.shashiwang.shashiapp.activity.post.PostCarActivity;
-import com.shashiwang.shashiapp.adapter.PhotoAdapter;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.bean.FreightMessage;
 import com.shashiwang.shashiapp.bean.HttpResult;
@@ -21,29 +17,18 @@ import com.shashiwang.shashiapp.bean.MessageResult;
 import com.shashiwang.shashiapp.util.ProgressRequestBody;
 import com.shashiwang.shashiapp.view.IPostCarView;
 
-import org.reactivestreams.Publisher;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Flowable;
-import io.reactivex.Observable;
-import io.reactivex.ObservableEmitter;
-import io.reactivex.ObservableOnSubscribe;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import okhttp3.MultipartBody;
 import top.zibin.luban.Luban;
-import top.zibin.luban.OnCompressListener;
 
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CAR;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CAR_UPLOAD;
-import static com.shashiwang.shashiapp.util.FileUtil.getImagePath;
 
 public class PostCarPresenter extends BasePresenter<IPostCarView> {
     private static final String TAG = "PostCarPresenter";

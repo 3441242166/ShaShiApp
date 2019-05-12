@@ -10,12 +10,9 @@ import android.widget.ImageView;
 
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BaseFragment;
-import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.customizeview.LoginEditText;
 import com.shashiwang.shashiapp.presenter.ForgetPresenter;
-import com.shashiwang.shashiapp.presenter.RegisterPresenter;
 import com.shashiwang.shashiapp.view.IForgetView;
-import com.shashiwang.shashiapp.view.IRegisterView;
 
 import butterknife.BindView;
 import es.dmoral.toasty.Toasty;

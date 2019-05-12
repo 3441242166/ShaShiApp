@@ -12,18 +12,21 @@ import com.example.net.rx.RxRetrofitClient;
 import com.example.util.SharedPreferencesHelper;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.base.BasePresenter;
+import com.shashiwang.shashiapp.bean.Count;
 import com.shashiwang.shashiapp.bean.HttpResult;
+import com.shashiwang.shashiapp.util.DataUtil;
 import com.shashiwang.shashiapp.view.ILoginView;
+
+import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_JPUSH_ID;
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_LOGIN;
-import static com.shashiwang.shashiapp.constant.Constant.REGISTRATION_ID;
+import static com.shashiwang.shashiapp.constant.ApiConstant.URL_FIND_PASSWORD;
 import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 import static com.shashiwang.shashiapp.constant.Constant.USER_NAME;
 
@@ -54,64 +57,31 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
             return;
         }
 
-        loginDisposable = RxRetrofitClient.builder()
-                .url(URL_LOGIN)
-                .params("phone",count)
+        RxRetrofitClient.builder()
+                .url("login")
+                .params("count",count)
                 .params("password",password)
                 .build()
-                .post()
+                .get()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
-                    Log.i(TAG, "login: success " + s);
-                    HttpResult<LoginBean> result = new Gson().fromJson(s,new TypeToken<HttpResult<LoginBean>>(){}.getType());
+                            Log.i(TAG, "accept: "+s);
 
-                    if(result.isSuccess()){
-                        Log.i(TAG, "login: 登陆成功");
+                            HttpResult<Count> result = new Gson().fromJson(s,new TypeToken<HttpResult<Count>>(){}.getType());
 
-                        SharedPreferencesHelper.put(TOKEN,result.getData().token);
-                        SharedPreferencesHelper.put(USER_NAME,count);
+                            if(result.isSuccess()){
+                                mView.loadDataSuccess("登录成功");
+                                DataUtil.nowCount = result.getData();
+                            }else {
+                                mView.errorMessage(result.getMessage());
+                            }
 
-                        String registrationId = JPushInterface.getRegistrationID(mContext);
-                        Log.i(TAG, "login: registrationId = "+registrationId);
-                        SharedPreferencesHelper.put(REGISTRATION_ID,registrationId);
-                        putRegistrationId(registrationId);
-
-                        if(JPushInterface.isPushStopped(mContext)){
-                            JPushInterface.resumePush(mContext);
                         }
-
-                        mView.loadDataSuccess("登录成功");
-                    }else {
-                        Log.i(TAG, "login: 登录失败 "+result.getMessage());
-                        mView.errorMessage(result.getMessage());
-                    }
-
-                }, throwable -> {
-                    Log.i(TAG, "login: error = " + throwable);
-                    mView.errorMessage(throwable.toString());
-                    Toast.makeText(mContext,throwable.toString(),Toast.LENGTH_LONG).show();
-                });
-
-    }
-
-    @SuppressLint("CheckResult")
-    private void putRegistrationId(String id){
-        Log.i(TAG, "putRegistrationId:  = "+id);
-        RxRetrofitClient.builder()
-                .header(new TokenInterceptor())
-                .url(URL_JPUSH_ID)
-                .params("jpush_reg_id",id)
-                .build()
-                .post()
-                .subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> {
-                    Log.i(TAG, "login: success " + s);
-                }, throwable -> {
-                    Log.i(TAG, "login: error = " + throwable);
-                });
-
+                        , throwable -> {
+                            Log.i(TAG, "accept: "+throwable);
+                            mView.errorMessage(throwable.toString());
+                        });
     }
 
     @Override
@@ -120,10 +90,6 @@ public class LoginPresenter extends BasePresenter<ILoginView> {
             loginDisposable.dispose();
         }
         super.destroy();
-    }
-
-    private static class LoginBean{
-        String token;
     }
 
 }

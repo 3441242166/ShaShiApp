@@ -17,15 +17,14 @@ import com.baidu.mapapi.map.UiSettings;
 import com.baidu.mapapi.model.LatLng;
 import com.baidu.mapapi.search.core.PoiInfo;
 import com.baidu.mapapi.search.poi.PoiCitySearchOption;
-import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
-import com.baidu.mapapi.search.poi.PoiSearch;
 import com.baidu.mapapi.search.sug.SuggestionResult;
-import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
 import com.shashiwang.shashiapp.R;
 import com.shashiwang.shashiapp.adapter.LocationAdapter;
 import com.shashiwang.shashiapp.base.BaseTopBarActivity;
+import com.shashiwang.shashiapp.bean.Count;
 import com.shashiwang.shashiapp.presenter.LocationPresenter;
+import com.shashiwang.shashiapp.util.DataUtil;
 import com.shashiwang.shashiapp.util.DividerItemDecoration;
 import com.shashiwang.shashiapp.view.ILocationView;
 
@@ -252,6 +251,7 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
         Log.i(TAG, "setMapLocation: ");
         // 构造定位数据
         LatLng latLng = new LatLng(location.getLatitude(),location.getLongitude());
+        DataUtil.setNewLocation(location);
         moveTo(latLng);
 
         MyLocationData locData = new MyLocationData.Builder()
@@ -262,6 +262,9 @@ public class LocationActivity extends BaseTopBarActivity<LocationPresenter> impl
                 .build();
         map.setMyLocationData(locData);
 
+        for(Count count:DataUtil.getTargetData()){
+            targetPoint(count.getLocation());
+        }
     }
 
     @Override

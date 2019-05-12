@@ -21,13 +21,11 @@ import com.shashiwang.shashiapp.customizeview.PostEditLayout;
 import com.shashiwang.shashiapp.customizeview.PostEditPlusLayout;
 import com.shashiwang.shashiapp.dialog.ChooseBottomDialog;
 import com.shashiwang.shashiapp.presenter.PostCarPresenter;
-import com.shashiwang.shashiapp.util.FileUtil;
 import com.shashiwang.shashiapp.view.IPostCarView;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 

@@ -71,4 +71,7 @@ public class SettingNormalLayout extends ConstraintLayout {
 
     }
 
+    public void setSecondTitle(String str){
+        tvSecond.setText(str);
+    }
 }

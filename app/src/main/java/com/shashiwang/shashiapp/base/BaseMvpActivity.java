@@ -107,7 +107,6 @@ public abstract class BaseMvpActivity<T extends BasePresenter> extends AppCompat
             presenter.destroy();
             presenter = null;
         }
-
     }
 
     /**

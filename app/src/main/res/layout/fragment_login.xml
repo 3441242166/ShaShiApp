@@ -6,20 +6,6 @@
     android:layout_height="350dp">
 
 
-    <TextView
-        android:id="@+id/tv_forget"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
-        android:paddingStart="20dp"
-        android:paddingBottom="20dp"
-        android:text="@string/name_login_forget"
-        android:textSize="10sp"
-        app:layout_constraintBottom_toTopOf="@+id/bt_login"
-        app:layout_constraintEnd_toEndOf="@+id/ev_password"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/ev_password" />
-
     <Button
         android:id="@+id/bt_login"
         style="@style/bt_yellow_send"
@@ -27,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_marginBottom="2dp"
+        android:layout_marginBottom="32dp"
         android:text="@string/name_login"
         android:textColor="@color/colorWhite"
         android:transitionName="loginBtn"
@@ -72,16 +58,16 @@
     <com.shashiwang.shashiapp.customizeview.LoginEditText
         android:id="@+id/ev_password"
         android:layout_width="0dp"
-        app:right_icon="@drawable/ic_close_eye"
-        app:input_type="4"
-        app:left_icon="@drawable/ic_password"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="32dp"
         android:textColorHint="@color/greyColor"
         app:hint_content="@string/hint_login_password"
-        app:layout_constraintBottom_toTopOf="@+id/tv_forget"
+        app:input_type="4"
+        app:layout_constraintBottom_toTopOf="@+id/bt_login"
         app:layout_constraintEnd_toEndOf="@+id/ev_count"
-        app:layout_constraintStart_toStartOf="@+id/ev_count">
+        app:layout_constraintStart_toStartOf="@+id/ev_count"
+        app:left_icon="@drawable/ic_password"
+        app:right_icon="@drawable/ic_close_eye">
 
     </com.shashiwang.shashiapp.customizeview.LoginEditText>
 

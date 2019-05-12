@@ -21,7 +21,6 @@ import com.shashiwang.shashiapp.view.IForgetView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.shashiwang.shashiapp.constant.ApiConstant.URL_CHANGE_PASSWORD;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_FIND_PASSWORD;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_IMAGE_CODE;
 import static com.shashiwang.shashiapp.constant.ApiConstant.URL_SMS_CODE;
@@ -70,7 +69,7 @@ public class ForgetPresenter extends BasePresenter<IForgetView> {
 
         RxRetrofitClient.builder()
                 .url(URL_FIND_PASSWORD)
-                .params("phone",phone)
+                .params("count",phone)
                 .params("password",password)
                 .params("code",code)
                 .build()

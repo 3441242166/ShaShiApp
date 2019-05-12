@@ -21,7 +21,6 @@ import com.baidu.mapapi.search.poi.PoiIndoorResult;
 import com.baidu.mapapi.search.poi.PoiNearbySearchOption;
 import com.baidu.mapapi.search.poi.PoiResult;
 import com.baidu.mapapi.search.poi.PoiSearch;
-import com.baidu.mapapi.search.sug.OnGetSuggestionResultListener;
 import com.baidu.mapapi.search.sug.SuggestionResult;
 import com.baidu.mapapi.search.sug.SuggestionSearch;
 import com.baidu.mapapi.search.sug.SuggestionSearchOption;
@@ -55,7 +54,14 @@ public class LocationPresenter extends BasePresenter<ILocationView> {
     }
 
     private void initLocation(){
-        mLocClient.registerLocationListener(new MyLocationListener());
+        mLocClient.registerLocationListener(new BDAbstractLocationListener() {
+            @Override
+            public void onReceiveLocation(BDLocation bdLocation) {
+                Log.i(TAG, "onReceiveLocation");
+                latLng = new LatLng(bdLocation.getLatitude(),bdLocation.getLongitude());
+                mView.setMapLocation(bdLocation);
+            }
+        });
 
         LocationClientOption option = new LocationClientOption();
         option.setCoorType("bd09ll");
@@ -163,18 +169,6 @@ public class LocationPresenter extends BasePresenter<ILocationView> {
     public void setLatLng(LatLng latLng) {
         Log.i(TAG, "setLatLng: ");
         this.latLng = latLng;
-    }
-
-    public  class MyLocationListener extends BDAbstractLocationListener {
-
-        @Override
-        public void onReceiveLocation(BDLocation location){
-            Log.i(TAG, "onReceiveLocation");
-            latLng = new LatLng(location.getLatitude(),location.getLongitude());
-            mView.setMapLocation(location);
-
-        }
-
     }
 
     @Override

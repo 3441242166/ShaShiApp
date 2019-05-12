@@ -44,7 +44,6 @@ public class LocationService extends Service {
 
     @Override
     public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
         return null;
     }
 
@@ -56,79 +55,28 @@ public class LocationService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        getLocation();
 
-        if(!mLocClient.isStarted()) {
-
-            LocationClientOption option = new LocationClientOption();
-            option.setCoorType("bd09ll");
-            option.setOpenGps(true);
-            // 1 分钟一次
-            option.setScanSpan(1*60*1000);
-
-            mLocClient.setLocOption(option);
-            mLocClient.registerLocationListener(new MyLocationListener());
-            mLocClient.start();
-        }
-        return super.onStartCommand(intent, flags, startId);
-    }
-
-    private void getLocation(){
-        LocationClient mLocClient = new LocationClient(this);
         LocationClientOption option = new LocationClientOption();
         option.setCoorType("bd09ll");
         option.setOpenGps(true);
+        // 1 分钟一次
+        option.setScanSpan(1*60*1000);
+
         mLocClient.setLocOption(option);
-        mLocClient.registerLocationListener(new BDAbstractLocationListener() {
-            @Override
-            public void onReceiveLocation(BDLocation bdLocation) {
-                Log.i(TAG, "onReceiveLocation: bdLocation = " + bdLocation.getLongitude()+"  "+bdLocation.getLatitude());
-                EventBus.getDefault().post(bdLocation);
-                mLocClient.stop();
-            }
-        });
+        mLocClient.registerLocationListener(new MyLocationListener());
         mLocClient.start();
+
+        return super.onStartCommand(intent, flags, startId);
     }
 
-    public class MyLocationListener extends BDAbstractLocationListener {
+
+    public static class MyLocationListener extends BDAbstractLocationListener {
 
         @SuppressLint("CheckResult")
         @Override
         public void onReceiveLocation(BDLocation location){
             Log.i(TAG, "onReceiveLocation");
             Log.i(TAG, "onReceiveLocation: lat = " + location.getLatitude() + "  lng = " + location.getLongitude());
-
-            EventBus.getDefault().post(location);
-
-            String token = (String) SharedPreferencesHelper.getSharedPreference(TOKEN,"");
-
-            if(TextUtils.isEmpty(token)){
-                return;
-            }
-
-            RxRetrofitClient.builder()
-                    .url(URL_UPLOAD_LOCATION)
-                    .header(new TokenInterceptor())
-                    .params("location_lat",location.getLatitude())
-                    .params("location_lng",location.getLongitude())
-                    .build()
-                    .post()
-                    .subscribeOn(Schedulers.newThread())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(s -> {
-                        Log.i(TAG, "login: success " + s);
-                        HttpResult result = new Gson().fromJson(s,new TypeToken<HttpResult>(){}.getType());
-
-                        if(result.isSuccess()){
-
-                        }else {
-
-                        }
-
-                    }, throwable -> {
-                        Log.i(TAG, "login: error = " + throwable);
-                    });
-
 
         }
 

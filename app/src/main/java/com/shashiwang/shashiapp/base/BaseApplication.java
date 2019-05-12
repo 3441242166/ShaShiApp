@@ -9,7 +9,16 @@ import com.baidu.mapapi.cloud.CloudManager;
 import com.example.config.Config;
 import com.example.net.interceptors.LoggingInterceptor;
 import com.example.util.SharedPreferencesHelper;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.liulishuo.filedownloader.FileDownloader;
+import com.shashiwang.shashiapp.bean.Count;
+import com.shashiwang.shashiapp.util.DataUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import cn.jpush.android.api.JPushInterface;
 
@@ -19,8 +28,6 @@ import static com.shashiwang.shashiapp.constant.Constant.TOKEN;
 public class BaseApplication extends Application {
     private static final String TAG = "BaseApplication";
 
-    public static boolean isFirst = true;
-
     @Override
     public void onCreate() {
         super.onCreate();
@@ -28,7 +35,7 @@ public class BaseApplication extends Application {
 
         Config.init(this)
                 .withApiHost("isFirst",true)
-                .withApiHost("http://api.shashiwang/")
+                .withApiHost("http://wanhao.ngrok.xiaomiqiu.cn/")
                 .withInterceptor(new LoggingInterceptor())
                 .configure();
 
@@ -36,6 +43,7 @@ public class BaseApplication extends Application {
         initJPush();
         FileDownloader.setup(BaseApplication.this);
 
+        DataUtil.init();
     }
 
     private void initJPush(){
@@ -45,4 +53,5 @@ public class BaseApplication extends Application {
             JPushInterface.stopPush(this);
         }
     }
+
 }
