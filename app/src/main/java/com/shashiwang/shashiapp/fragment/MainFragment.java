@@ -7,11 +7,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.shashiwang.shashiapp.R;
+import com.shashiwang.shashiapp.activity.VRImagectivity;
 import com.shashiwang.shashiapp.activity.ArticleActivity;
 import com.shashiwang.shashiapp.activity.CustomerActivity;
 import com.shashiwang.shashiapp.activity.DoHomeworkActivity;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
-import com.shashiwang.shashiapp.activity.VRImagectivity;
 import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.presenter.MainFragmentPresenter;
 import com.shashiwang.shashiapp.util.ImageLoader;
