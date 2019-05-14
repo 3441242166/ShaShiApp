@@ -13,8 +13,6 @@ import android.widget.RelativeLayout;
 
 import com.example.util.SharedPreferencesHelper;
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.activity.VRImagectivity;
-import com.shashiwang.shashiapp.activity.DoHomeworkActivity;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
 import com.shashiwang.shashiapp.base.BasePresenter;
 import com.shashiwang.shashiapp.constant.IssueType;
@@ -70,7 +68,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
             mContext.startActivity(intent);
         });
         stoneFactory.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, DoHomeworkActivity.class);
+            Intent intent = new Intent(mContext, MessageListActivity.class);
             intent.putExtra(TYPE,FACTORY);
             intent.putExtra(TITLE,"体验VR");
             mContext.startActivity(intent);
@@ -89,7 +87,7 @@ public class MainActivityPresenter extends BasePresenter<IMainActivityView> {
             mContext.startActivity(intent);
         });
         mixStation.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, VRImagectivity.class);
+            Intent intent = new Intent(mContext, MessageListActivity.class);
             intent.putExtra(TYPE,FACTORY);
             intent.putExtra(TITLE,"体验VR");
             mContext.startActivity(intent);

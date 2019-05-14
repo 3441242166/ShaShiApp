@@ -56,9 +56,10 @@ public class MyFragment extends BaseFragment<MyFragmentPresenter> implements IMy
     private TextAdapter adapter;
 
     private static final String[] TITLE = {"发现", "我的收藏",
-            "推送设置","反馈意见"};
+            "推送设置","反馈意见","优惠劵","联系我们","我的商场"};
     private static final int[] IMG = {R.drawable.ic_my_1,R.drawable.ic_my_2,
-            R.drawable.ic_my_4, R.drawable.ic_my_6};
+            R.drawable.ic_my_4, R.drawable.ic_my_6, R.drawable.ic_my_3
+            , R.drawable.ic_my_1, R.drawable.ic_my_2};
     private static final Class[] CLASSES = {null,PostListActivity.class,
             SettingBroadcastActivity.class, FeedbackActivity.class};
 
@@ -84,9 +85,10 @@ public class MyFragment extends BaseFragment<MyFragmentPresenter> implements IMy
                 ((MainActivity)getActivity()).openMorePopupWindow();
                 return;
             }
-
-            final Intent intent = new Intent(getContext(),CLASSES[position]);
-            startActivity(intent);
+            if (position < 4){
+                final Intent intent = new Intent(getContext(),CLASSES[position]);
+                startActivity(intent);
+            }
 
         });
 

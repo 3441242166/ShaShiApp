@@ -7,10 +7,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.shashiwang.shashiapp.R;
-import com.shashiwang.shashiapp.activity.VRImagectivity;
-import com.shashiwang.shashiapp.activity.ArticleActivity;
 import com.shashiwang.shashiapp.activity.CustomerActivity;
 import com.shashiwang.shashiapp.activity.DoHomeworkActivity;
+import com.shashiwang.shashiapp.activity.HomeWorkActivity;
 import com.shashiwang.shashiapp.activity.MessageListActivity;
 import com.shashiwang.shashiapp.base.BaseFragment;
 import com.shashiwang.shashiapp.presenter.MainFragmentPresenter;
@@ -77,14 +76,14 @@ public class MainFragment extends BaseFragment<MainFragmentPresenter> implements
 
     private void initEvent() {
         btFactory.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(), VRImagectivity.class);
+            Intent intent = new Intent(getContext(), MessageListActivity.class);
             intent.putExtra(TYPE,FACTORY);
             intent.putExtra(TITLE,"体验VR");
             startActivity(intent);
         });
 
         btStation.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(),DoHomeworkActivity.class);
+            Intent intent = new Intent(getContext(), DoHomeworkActivity.class);
             intent.putExtra(TYPE,STATION);
             intent.putExtra(TITLE,"每日答题");
             startActivity(intent);
@@ -105,7 +104,7 @@ public class MainFragment extends BaseFragment<MainFragmentPresenter> implements
         });
 
         btCar.setOnClickListener(view -> {
-            Intent intent = new Intent(getContext(), ArticleActivity.class);
+            Intent intent = new Intent(getContext(), HomeWorkActivity.class);
             intent.putExtra(TYPE,CAR);
             intent.putExtra(TITLE,"你问我答");
             startActivity(intent);
